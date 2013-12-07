@@ -1,0 +1,5 @@
+snapper (0.1.8-1) unstable; urgency=low
+
+  * Initial release. (Closes: #715404)
+
+ -- Nicolas Dandrimont <olasd@debian.org>  Sat, 07 Dec 2013 21:45:39 +0100

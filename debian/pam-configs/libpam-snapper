@@ -1,0 +1,7 @@
+Name: Snapshot the filesystem when the user logs in and out of the system
+Default: yes
+Priority: 0
+Session-Interactive-Only: yes
+Session-Type: Additional
+Session:
+	optional	pam_snapper.so

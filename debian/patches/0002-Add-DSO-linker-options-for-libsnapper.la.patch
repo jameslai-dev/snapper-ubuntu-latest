@@ -1,0 +1,87 @@
+From: Nicolas Dandrimont <nicolas.dandrimont@crans.org>
+Date: Wed, 4 Dec 2013 23:15:39 +0100
+Subject: Add DSO linker options for libsnapper.la
+
+---
+ client/Makefile.am           | 2 +-
+ examples/c++-lib/Makefile.am | 2 +-
+ server/Makefile.am           | 2 +-
+ testsuite-cmp/Makefile.am    | 2 +-
+ testsuite-real/Makefile.am   | 2 +-
+ testsuite/Makefile.am        | 2 +-
+ 6 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/client/Makefile.am b/client/Makefile.am
+index f43c040..8807135 100644
+--- a/client/Makefile.am
++++ b/client/Makefile.am
+@@ -15,5 +15,5 @@ snapper_SOURCES =			\
+ 	commands.cc	commands.h	\
+ 	cleanup.cc	cleanup.h
+ 
+-snapper_LDADD = ../snapper/libsnapper.la utils/libutils.la ../dbus/libdbus.la
++snapper_LDADD = ../snapper/libsnapper.la -lboost_thread -lboost_system -lxml2 -lz -lm utils/libutils.la ../dbus/libdbus.la
+ 
+diff --git a/examples/c++-lib/Makefile.am b/examples/c++-lib/Makefile.am
+index 03d1b33..7b1c1e6 100644
+--- a/examples/c++-lib/Makefile.am
++++ b/examples/c++-lib/Makefile.am
+@@ -4,7 +4,7 @@
+ 
+ INCLUDES = -I$(top_srcdir)
+ 
+-LDADD = ../../snapper/libsnapper.la
++LDADD = ../../snapper/libsnapper.la -lboost_thread -lboost_system -lxml2 -lz -lm
+ 
+ noinst_PROGRAMS = List ListAll Create CmpDirs CreateNumber CreateTimeline SnapTest
+ 
+diff --git a/server/Makefile.am b/server/Makefile.am
+index 00d1e81..172f4f7 100644
+--- a/server/Makefile.am
++++ b/server/Makefile.am
+@@ -14,5 +14,5 @@ snapperd_SOURCES =					\
+ 	Background.cc		Background.h		\
+ 	Types.cc		Types.h
+ 
+-snapperd_LDADD = ../snapper/libsnapper.la ../dbus/libdbus.la -lrt
++snapperd_LDADD = ../snapper/libsnapper.la -lboost_thread -lboost_system -lxml2 -lz -lm ../dbus/libdbus.la -lrt
+ 
+diff --git a/testsuite-cmp/Makefile.am b/testsuite-cmp/Makefile.am
+index 14df3a5..8fba22e 100644
+--- a/testsuite-cmp/Makefile.am
++++ b/testsuite-cmp/Makefile.am
+@@ -4,7 +4,7 @@
+ 
+ INCLUDES = -I$(top_srcdir)
+ 
+-LDADD = ../snapper/libsnapper.la
++LDADD = ../snapper/libsnapper.la -lboost_thread -lboost_system -lxml2 -lz -lm
+ 
+ noinst_SCRIPTS = run-all
+ 
+diff --git a/testsuite-real/Makefile.am b/testsuite-real/Makefile.am
+index b183fb7..be53f94 100644
+--- a/testsuite-real/Makefile.am
++++ b/testsuite-real/Makefile.am
+@@ -6,7 +6,7 @@ CXXFLAGS += -std=gnu++0x
+ 
+ INCLUDES = -I$(top_srcdir)
+ 
+-LDADD = ../snapper/libsnapper.la
++LDADD = ../snapper/libsnapper.la -lboost_thread -lboost_system -lxml2 -lz -lm
+ 
+ if HAVE_XATTRS
+ TMP_XATST = xattrs1 xattrs2 xattrs3
+diff --git a/testsuite/Makefile.am b/testsuite/Makefile.am
+index af16005..3d4fa75 100644
+--- a/testsuite/Makefile.am
++++ b/testsuite/Makefile.am
+@@ -6,7 +6,7 @@ CXXFLAGS += -std=gnu++0x
+ 
+ INCLUDES = -I$(top_srcdir)
+ 
+-LDADD = ../snapper/libsnapper.la
++LDADD = ../snapper/libsnapper.la -lboost_thread -lboost_system -lxml2 -lz -lm
+ 
+ noinst_SCRIPTS = run-all
+ 

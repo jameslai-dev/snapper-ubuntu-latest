@@ -1,0 +1,80 @@
+Source: snapper
+Section: utils
+Priority: optional
+Maintainer: Nicolas Dandrimont <olasd@debian.org>
+Build-Depends:
+ btrfs-tools,
+ debhelper (>= 9),
+ dh-autoreconf,
+ docbook-xsl,
+ libboost-dev,
+ libboost-thread-dev,
+ libdbus-1-dev,
+ libpam-dev,
+ libxml2-dev,
+ xsltproc,
+ zlib1g-dev,
+Standards-Version: 3.9.4
+Homepage: http://snapper.io/
+Vcs-Git: git://anonscm.debian.org/collab-maint/snapper.git
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/snapper.git;a=summary
+
+Package: snapper
+Architecture: linux-any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Linux filesystem snapshot management tool
+ Snapper is a tool for Linux filesystem snapshot management. Apart from the
+ obvious creation and deletion of snapshots, it can compare snapshots and revert
+ differences between snapshots. In simple terms, this allows root and non-root
+ users to view older versions of files and revert changes.
+ .
+ The features include:
+   * Manually create snapshots
+   * Automatically create snapshots, e.g. when using a package manager
+   * Automatically create timeline of snapshots
+   * Show and revert changes between snapshots
+   * Works with btrfs, ext4 and thin-provisioned LVM volumes
+   * Supports Access Control Lists and Extended Attributes
+   * Automatic cleanup of old snapshots
+   * Command line interface
+   * D-Bus interface
+   * PAM module to create snapshots during login and logout (libpam-snapper)
+
+Package: libsnapper2
+Section: libs
+Architecture: linux-any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Library for Linux filesystem snapshot management tool
+ Snapper is a tool for Linux filesystem snapshot management. Apart from the
+ obvious creation and deletion of snapshots, it can compare snapshots and revert
+ differences between snapshots. In simple terms, this allows root and non-root
+ users to view older versions of files and revert changes.
+ .
+ This package contains the runtime library for snapper, allowing the development
+ of third-party tools.
+
+Package: libsnapper-dev
+Section: libdevel
+Architecture: linux-any
+Depends: ${misc:Depends}
+Description: Library for Linux filesystem snapshot management tool (header files)
+ Snapper is a tool for Linux filesystem snapshot management. Apart from the
+ obvious creation and deletion of snapshots, it can compare snapshots and revert
+ differences between snapshots. In simple terms, this allows root and non-root
+ users to view older versions of files and revert changes.
+ .
+ This package contains the header files for libsnapper, allowing the development
+ of third-party tools.
+
+Package: libpam-snapper
+Section: admin
+Architecture: linux-any
+Depends: snapper, ${misc:Depends}, ${shlibs:Depends}
+Description: PAM module for Linux filesystem snapshot management tool
+ Snapper is a tool for Linux filesystem snapshot management. Apart from the
+ obvious creation and deletion of snapshots, it can compare snapshots and revert
+ differences between snapshots. In simple terms, this allows root and non-root
+ users to view older versions of files and revert changes.
+ .
+ This package contains the PAM library for snapper, which allows the
+ administrator to take snapshots when an user logs in or out of the system.

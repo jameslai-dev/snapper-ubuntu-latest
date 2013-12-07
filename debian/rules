@@ -1,0 +1,52 @@
+#!/usr/bin/make -f
+
+include /usr/share/dpkg/architecture.mk
+
+
+%:
+	dh $@ --with autoreconf
+
+override_dh_auto_configure:
+	dh_auto_configure -- --with-conf=/etc/default --disable-zypp --enable-xattrs --disable-silent-rules
+
+override_dh_auto_install:
+	dh_auto_install
+
+	# Add pam-configs for snapper
+	cp -a $(CURDIR)/debian/pam-configs $(CURDIR)/debian/tmp/usr/share
+
+	# Remove zypp-related files
+	find $(CURDIR)/debian/tmp -name *zypp* -delete
+
+	# Install the configuration file in /etc/default
+	mkdir -p $(CURDIR)/debian/tmp/etc/default
+	install -m 0644 $(CURDIR)/data/sysconfig.snapper $(CURDIR)/debian/tmp/etc/default/snapper
+
+	# Move the pam library to /lib
+	mkdir -p $(CURDIR)/debian/tmp/lib
+	mv $(CURDIR)/debian/tmp/$(DEB_BUILD_MULTIARCH) $(CURDIR)/debian/tmp/lib
+
+	# Change the cron names and config paths
+	set -e; for dir in $(CURDIR)/debian/tmp/etc/cron.*/; do \
+		sed -e 's#/etc/sysconfig#/etc/default#g' $$dir/suse.de-snapper > $$dir/snapper; \
+		chmod +x $$dir/snapper; \
+		rm $$dir/suse.de-snapper; \
+	done
+
+	# Purge the la files
+	find $(CURDIR)/debian/tmp -name *.la -delete
+
+	# Purge a redundant COPYING file
+	rm -f $(CURDIR)/debian/tmp/usr/share/doc/snapper/COPYING
+
+	# Cleanup examples
+	make -C examples clean
+
+override_dh_compress:
+	dh_compress -X.c -X.cc -X.h -X.hpp -X.am
+
+override_dh_makeshlibs:
+	dh_makeshlibs -V
+
+override_dh_install:
+	dh_install --fail-missing

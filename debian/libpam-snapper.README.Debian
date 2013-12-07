@@ -1,0 +1,25 @@
+Debian documentation for libpam-snapper
+---------------------------------------
+
+libpam-snapper uses pam-auth-config to hook itself into the system PAM
+config, and therefore should be enabled by default.  To generate
+snapshots when the user logs in/out, a snapper configuration with the
+name home_<user> needs to exist.
+
+libpam-snapper provides a few scripts to generate such a config:
+
+ - /usr/share/pam_snapper/pam_snapper_useradd.sh: useradd wrapper,
+   creating the subvolume and generating the snapshot configuration for
+   a new user;
+
+ - /usr/share/pam_snapper/pam_snapper_userdel.sh: userdel wrapper,
+   removing the snapper configuration while removing the user;
+
+ - /usr/share/pam_snapper/pam_snapper_homeconvert.sh: converts an
+   existing user's home for use by snapper. Warning: if the user home is
+   not on a submodule, it is created and the current data is moved to it.
+
+Those scripts need to be adapted for a local setup.  You especially need
+to make the DRYRUN variable 0 for the scripts to act on data.
+
+ -- Nicolas Dandrimont <olasd@debian.org>, Sat,  7 Dec 2013 21:38:43 +0100

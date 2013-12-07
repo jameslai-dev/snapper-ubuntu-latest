@@ -1,0 +1,3 @@
+/lib/*/security
+/usr/lib/pam_snapper /usr/share
+/usr/share/pam-configs
