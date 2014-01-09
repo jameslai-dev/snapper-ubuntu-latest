@@ -1,3 +1,10 @@
+snapper (0.1.8-2) unstable; urgency=medium
+
+  * Move PAM config to /usr/share/pam-configs/snapper for consistency with
+  other pam module-providing packages (Closes: #734784)
+
+ -- Nicolas Dandrimont <olasd@debian.org>  Thu, 09 Jan 2014 21:41:31 +0100
+
 snapper (0.1.8-1) unstable; urgency=low
 
   * Initial release. (Closes: #715404)
