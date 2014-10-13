@@ -1,3 +1,2 @@
 0001-Link-boost-libraries-without-the-mt-suffix.patch
 0002-Add-DSO-linker-options-for-libsnapper.la.patch
-0003-Fix-the-CHMOD-command-for-pam_snapper-scripts.patch

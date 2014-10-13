@@ -1,3 +1,13 @@
+snapper (0.2.4-1) unstable; urgency=low
+
+  * New upstream release (Closes: #763262)
+    - Update copyright info
+    - Add build-dependencies on libacl1-dev and libmount-dev
+    - Refresh patches
+  * Update Standards-Version to 3.9.6 (no changes)
+
+ -- Nicolas Dandrimont <olasd@debian.org>  Mon, 13 Oct 2014 23:14:31 +0200
+
 snapper (0.1.8-2) unstable; urgency=medium
 
   * Move PAM config to /usr/share/pam-configs/snapper for consistency with

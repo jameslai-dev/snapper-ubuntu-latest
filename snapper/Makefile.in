@@ -93,6 +93,7 @@ host_triplet = @host@
 @ENABLE_LVM_TRUE@	Lvm.cc			Lvm.h			\
 @ENABLE_LVM_TRUE@	LvmCache.cc		LvmCache.h
 
+@ENABLE_ROLLBACK_TRUE@am__append_4 = -lmount
 subdir = snapper
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(srcdir)/Version.h.in $(top_srcdir)/depcomp \
@@ -134,25 +135,26 @@ am__uninstall_files_from_dir = { \
   }
 am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(pkgincludedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
-libsnapper_la_DEPENDENCIES =
+am__DEPENDENCIES_1 =
+libsnapper_la_DEPENDENCIES = $(am__DEPENDENCIES_1)
 am__libsnapper_la_SOURCES_DIST = Factory.cc Factory.h Snapper.cc \
 	Snapper.h Snapshot.cc Snapshot.h Comparison.cc Comparison.h \
 	Filesystem.cc Filesystem.h File.cc File.h XmlFile.cc XmlFile.h \
 	Enum.cc Enum.h AppUtil.cc AppUtil.h FileUtils.cc FileUtils.h \
 	XAttributes.cc XAttributes.h Log.cc Log.h Logger.cc Logger.h \
 	Compare.cc Compare.h SystemCmd.cc SystemCmd.h AsciiFile.cc \
-	AsciiFile.h Regex.cc Regex.h Exception.h SnapperTmpl.h \
-	SnapperTypes.h SnapperDefines.h Version.h Btrfs.cc Btrfs.h \
-	BtrfsUtils.cc BtrfsUtils.h Ext4.cc Ext4.h Lvm.cc Lvm.h \
-	LvmCache.cc LvmCache.h
+	AsciiFile.h Regex.cc Regex.h Acls.cc Acls.h Exception.h \
+	SnapperTmpl.h SnapperTypes.h SnapperDefines.h Version.h \
+	Btrfs.cc Btrfs.h BtrfsUtils.cc BtrfsUtils.h Ext4.cc Ext4.h \
+	Lvm.cc Lvm.h LvmCache.cc LvmCache.h
 @ENABLE_BTRFS_TRUE@am__objects_1 = Btrfs.lo BtrfsUtils.lo
 @ENABLE_EXT4_TRUE@am__objects_2 = Ext4.lo
 @ENABLE_LVM_TRUE@am__objects_3 = Lvm.lo LvmCache.lo
 am_libsnapper_la_OBJECTS = Factory.lo Snapper.lo Snapshot.lo \
 	Comparison.lo Filesystem.lo File.lo XmlFile.lo Enum.lo \
 	AppUtil.lo FileUtils.lo XAttributes.lo Log.lo Logger.lo \
-	Compare.lo SystemCmd.lo AsciiFile.lo Regex.lo $(am__objects_1) \
-	$(am__objects_2) $(am__objects_3)
+	Compare.lo SystemCmd.lo AsciiFile.lo Regex.lo Acls.lo \
+	$(am__objects_1) $(am__objects_2) $(am__objects_3)
 libsnapper_la_OBJECTS = $(am_libsnapper_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -394,11 +396,12 @@ libsnapper_la_SOURCES = Factory.cc Factory.h Snapper.cc Snapper.h \
 	Enum.cc Enum.h AppUtil.cc AppUtil.h FileUtils.cc FileUtils.h \
 	XAttributes.cc XAttributes.h Log.cc Log.h Logger.cc Logger.h \
 	Compare.cc Compare.h SystemCmd.cc SystemCmd.h AsciiFile.cc \
-	AsciiFile.h Regex.cc Regex.h Exception.h SnapperTmpl.h \
-	SnapperTypes.h SnapperDefines.h Version.h $(TMP_XA) \
+	AsciiFile.h Regex.cc Regex.h Acls.cc Acls.h Exception.h \
+	SnapperTmpl.h SnapperTypes.h SnapperDefines.h Version.h \
 	$(am__append_1) $(am__append_2) $(am__append_3)
 libsnapper_la_LDFLAGS = -version-info @LIBVERSION_INFO@
-libsnapper_la_LIBADD = -lboost_thread-mt -lboost_system-mt -lxml2 -lz -lm
+libsnapper_la_LIBADD = -lboost_thread-mt -lboost_system-mt -lxml2 \
+	-lacl -lz -lm $(am__append_4)
 pkginclude_HEADERS = \
 	Version.h					\
 	Factory.h					\
@@ -491,6 +494,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Acls.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/AppUtil.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/AsciiFile.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Btrfs.Plo@am__quote@

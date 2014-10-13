@@ -26,12 +26,12 @@ libsnapper_la_SOURCES =					\
 	SystemCmd.cc		SystemCmd.h		\
 	AsciiFile.cc		AsciiFile.h		\
 	Regex.cc		Regex.h			\
+	Acls.cc			Acls.h			\
 	Exception.h					\
 	SnapperTmpl.h					\
 	SnapperTypes.h					\
 	SnapperDefines.h				\
-	Version.h					\
-	$(TMP_XA)
+	Version.h
 
 
 if ENABLE_BTRFS
@@ -53,7 +53,10 @@ endif
 
 
 libsnapper_la_LDFLAGS = -version-info @LIBVERSION_INFO@
-libsnapper_la_LIBADD = -lboost_thread-mt -lboost_system-mt -lxml2 -lz -lm
+libsnapper_la_LIBADD = -lboost_thread-mt -lboost_system-mt -lxml2 -lacl -lz -lm
+if ENABLE_ROLLBACK
+libsnapper_la_LIBADD += -lmount
+endif
 
 pkgincludedir = $(includedir)/snapper
 

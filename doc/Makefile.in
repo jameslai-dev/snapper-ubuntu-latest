@@ -82,6 +82,7 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 @HAVE_PAM_TRUE@am__append_1 = pam_snapper.8
+@HAVE_ZYPP_TRUE@am__append_2 = snapper-zypp-plugin.conf.5 snapper-zypp-plugin.8
 subdir = doc
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(srcdir)/snapper.xml.in $(srcdir)/snapperd.xml.in \
@@ -294,9 +295,8 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-man_MANS = snapper.8 snapperd.8 snapper-configs.5 \
-	snapper-zypp-plugin.8 snapper-zypp-plugin.conf.5 \
-	$(am__append_1)
+man_MANS = snapper.8 snapperd.8 snapper-configs.5 $(am__append_1) \
+	$(am__append_2)
 EXTRA_DIST = dbus-protocol.txt manpages.xsl html.xsl
 all: all-am
 

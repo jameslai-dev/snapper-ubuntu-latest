@@ -84,8 +84,8 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 noinst_PROGRAMS = simple1$(EXEEXT) permissions1$(EXEEXT) \
-	permissions2$(EXEEXT) owner1$(EXEEXT) owner2$(EXEEXT) \
-	owner3$(EXEEXT) directory1$(EXEEXT) \
+	permissions2$(EXEEXT) permissions3$(EXEEXT) owner1$(EXEEXT) \
+	owner2$(EXEEXT) owner3$(EXEEXT) directory1$(EXEEXT) \
 	missing-directory1$(EXEEXT) error1$(EXEEXT) error2$(EXEEXT) \
 	error4$(EXEEXT) $(am__EXEEXT_1)
 subdir = testsuite-real
@@ -100,7 +100,7 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 @HAVE_XATTRS_TRUE@am__EXEEXT_1 = xattrs1$(EXEEXT) xattrs2$(EXEEXT) \
-@HAVE_XATTRS_TRUE@	xattrs3$(EXEEXT)
+@HAVE_XATTRS_TRUE@	xattrs3$(EXEEXT) xattrs4$(EXEEXT)
 PROGRAMS = $(noinst_PROGRAMS)
 am_directory1_OBJECTS = directory1.$(OBJEXT) common.$(OBJEXT)
 directory1_OBJECTS = $(am_directory1_OBJECTS)
@@ -147,6 +147,10 @@ am_permissions2_OBJECTS = permissions2.$(OBJEXT) common.$(OBJEXT)
 permissions2_OBJECTS = $(am_permissions2_OBJECTS)
 permissions2_LDADD = $(LDADD)
 permissions2_DEPENDENCIES = ../snapper/libsnapper.la
+am_permissions3_OBJECTS = permissions3.$(OBJEXT) common.$(OBJEXT)
+permissions3_OBJECTS = $(am_permissions3_OBJECTS)
+permissions3_LDADD = $(LDADD)
+permissions3_DEPENDENCIES = ../snapper/libsnapper.la
 am_simple1_OBJECTS = simple1.$(OBJEXT) common.$(OBJEXT)
 simple1_OBJECTS = $(am_simple1_OBJECTS)
 simple1_LDADD = $(LDADD)
@@ -166,6 +170,11 @@ am_xattrs3_OBJECTS = xattrs3.$(OBJEXT) xattrs_utils.$(OBJEXT) \
 xattrs3_OBJECTS = $(am_xattrs3_OBJECTS)
 xattrs3_LDADD = $(LDADD)
 xattrs3_DEPENDENCIES = ../snapper/libsnapper.la
+am_xattrs4_OBJECTS = xattrs4.$(OBJEXT) xattrs_utils.$(OBJEXT) \
+	common.$(OBJEXT)
+xattrs4_OBJECTS = $(am_xattrs4_OBJECTS)
+xattrs4_LDADD = $(LDADD)
+xattrs4_DEPENDENCIES = ../snapper/libsnapper.la
 SCRIPTS = $(noinst_SCRIPTS)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -223,14 +232,15 @@ SOURCES = $(directory1_SOURCES) $(error1_SOURCES) $(error2_SOURCES) \
 	$(error4_SOURCES) $(missing_directory1_SOURCES) \
 	$(owner1_SOURCES) $(owner2_SOURCES) $(owner3_SOURCES) \
 	$(permissions1_SOURCES) $(permissions2_SOURCES) \
-	$(simple1_SOURCES) $(xattrs1_SOURCES) $(xattrs2_SOURCES) \
-	$(xattrs3_SOURCES)
+	$(permissions3_SOURCES) $(simple1_SOURCES) $(xattrs1_SOURCES) \
+	$(xattrs2_SOURCES) $(xattrs3_SOURCES) $(xattrs4_SOURCES)
 DIST_SOURCES = $(directory1_SOURCES) $(error1_SOURCES) \
 	$(error2_SOURCES) $(error4_SOURCES) \
 	$(missing_directory1_SOURCES) $(owner1_SOURCES) \
 	$(owner2_SOURCES) $(owner3_SOURCES) $(permissions1_SOURCES) \
-	$(permissions2_SOURCES) $(simple1_SOURCES) $(xattrs1_SOURCES) \
-	$(xattrs2_SOURCES) $(xattrs3_SOURCES)
+	$(permissions2_SOURCES) $(permissions3_SOURCES) \
+	$(simple1_SOURCES) $(xattrs1_SOURCES) $(xattrs2_SOURCES) \
+	$(xattrs3_SOURCES) $(xattrs4_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -400,11 +410,12 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 INCLUDES = -I$(top_srcdir)
 LDADD = ../snapper/libsnapper.la
-@HAVE_XATTRS_TRUE@TMP_XATST = xattrs1 xattrs2 xattrs3
+@HAVE_XATTRS_TRUE@TMP_XATST = xattrs1 xattrs2 xattrs3 xattrs4
 noinst_SCRIPTS = run-all
 simple1_SOURCES = simple1.cc common.h common.cc
 permissions1_SOURCES = permissions1.cc common.h common.cc
 permissions2_SOURCES = permissions2.cc common.h common.cc
+permissions3_SOURCES = permissions3.cc common.h common.cc
 owner1_SOURCES = owner1.cc common.h common.cc
 owner2_SOURCES = owner2.cc common.h common.cc
 owner3_SOURCES = owner3.cc common.h common.cc
@@ -416,6 +427,7 @@ error4_SOURCES = error4.cc common.h common.cc
 xattrs1_SOURCES = xattrs1.cc xattrs_utils.cc xattrs_utils.h common.h common.cc
 xattrs2_SOURCES = xattrs2.cc xattrs_utils.cc xattrs_utils.h common.h common.cc
 xattrs3_SOURCES = xattrs3.cc xattrs_utils.cc xattrs_utils.h common.h common.cc
+xattrs4_SOURCES = xattrs4.cc xattrs_utils.cc xattrs_utils.h common.h common.cc
 EXTRA_DIST = $(noinst_SCRIPTS)
 all: all-am
 
@@ -501,6 +513,10 @@ permissions2$(EXEEXT): $(permissions2_OBJECTS) $(permissions2_DEPENDENCIES) $(EX
 	@rm -f permissions2$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(permissions2_OBJECTS) $(permissions2_LDADD) $(LIBS)
 
+permissions3$(EXEEXT): $(permissions3_OBJECTS) $(permissions3_DEPENDENCIES) $(EXTRA_permissions3_DEPENDENCIES) 
+	@rm -f permissions3$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(permissions3_OBJECTS) $(permissions3_LDADD) $(LIBS)
+
 simple1$(EXEEXT): $(simple1_OBJECTS) $(simple1_DEPENDENCIES) $(EXTRA_simple1_DEPENDENCIES) 
 	@rm -f simple1$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(simple1_OBJECTS) $(simple1_LDADD) $(LIBS)
@@ -516,6 +532,10 @@ xattrs2$(EXEEXT): $(xattrs2_OBJECTS) $(xattrs2_DEPENDENCIES) $(EXTRA_xattrs2_DEP
 xattrs3$(EXEEXT): $(xattrs3_OBJECTS) $(xattrs3_DEPENDENCIES) $(EXTRA_xattrs3_DEPENDENCIES) 
 	@rm -f xattrs3$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(xattrs3_OBJECTS) $(xattrs3_LDADD) $(LIBS)
+
+xattrs4$(EXEEXT): $(xattrs4_OBJECTS) $(xattrs4_DEPENDENCIES) $(EXTRA_xattrs4_DEPENDENCIES) 
+	@rm -f xattrs4$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(xattrs4_OBJECTS) $(xattrs4_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -534,10 +554,12 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/owner3.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/permissions1.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/permissions2.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/permissions3.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/simple1.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xattrs1.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xattrs2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xattrs3.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xattrs4.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xattrs_utils.Po@am__quote@
 
 .cc.o:

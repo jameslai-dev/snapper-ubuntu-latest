@@ -40,7 +40,7 @@ namespace snapper
 
 	virtual string fstype() const { return "ext4"; }
 
-	virtual void createConfig() const;
+	virtual void createConfig(bool add_fstab) const;
 	virtual void deleteConfig() const;
 
 	virtual string snapshotDir(unsigned int num) const;
@@ -49,12 +49,15 @@ namespace snapper
 	virtual SDir openInfosDir() const;
 	virtual SDir openSnapshotDir(unsigned int num) const;
 
-	virtual void createSnapshot(unsigned int num) const;
+	virtual void createSnapshot(unsigned int num, unsigned int num_parent,
+				    bool read_only) const;
 	virtual void deleteSnapshot(unsigned int num) const;
 
 	virtual bool isSnapshotMounted(unsigned int num) const;
 	virtual void mountSnapshot(unsigned int num) const;
 	virtual void umountSnapshot(unsigned int num) const;
+
+	virtual bool isSnapshotReadOnly(unsigned int num) const;
 
 	virtual bool checkSnapshot(unsigned int num) const;
 

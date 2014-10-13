@@ -7,15 +7,15 @@ Subject: Link boost libraries without the mt suffix
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/snapper/Makefile.am b/snapper/Makefile.am
-index a4a8c60..23ac5bc 100644
+index 1969dd4..93c724a 100644
 --- a/snapper/Makefile.am
 +++ b/snapper/Makefile.am
 @@ -53,7 +53,7 @@ endif
  
  
  libsnapper_la_LDFLAGS = -version-info @LIBVERSION_INFO@
--libsnapper_la_LIBADD = -lboost_thread-mt -lboost_system-mt -lxml2 -lz -lm
-+libsnapper_la_LIBADD = -lboost_thread -lboost_system -lxml2 -lz -lm
- 
- pkgincludedir = $(includedir)/snapper
- 
+-libsnapper_la_LIBADD = -lboost_thread-mt -lboost_system-mt -lxml2 -lacl -lz -lm
++libsnapper_la_LIBADD = -lboost_thread -lboost_system -lxml2 -lacl -lz -lm
+ if ENABLE_ROLLBACK
+ libsnapper_la_LIBADD += -lmount
+ endif

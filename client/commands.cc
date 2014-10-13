@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012 Novell, Inc.
+ * Copyright (c) [2012-2014] Novell, Inc.
  *
  * All Rights Reserved.
  *
@@ -174,6 +174,50 @@ command_create_single_xsnapshot(DBus::Connection& conn, const string& config_nam
 
 
 unsigned int
+command_create_single_xsnapshot_v2(DBus::Connection& conn, const string& config_name,
+				   unsigned int parent_num, bool read_only,
+				   const string& description, const string& cleanup,
+				   const map<string, string>& userdata)
+{
+    DBus::MessageMethodCall call(SERVICE, OBJECT, INTERFACE, "CreateSingleSnapshotV2");
+
+    DBus::Hoho hoho(call);
+    hoho << config_name << parent_num << read_only << description << cleanup << userdata;
+
+    DBus::Message reply = conn.send_with_reply_and_block(call);
+
+    unsigned int number;
+
+    DBus::Hihi hihi(reply);
+    hihi >> number;
+
+    return number;
+}
+
+
+unsigned int
+command_create_single_xsnapshot_of_default(DBus::Connection& conn, const string& config_name,
+					   bool read_only, const string& description,
+					   const string& cleanup,
+					   const map<string, string>& userdata)
+{
+    DBus::MessageMethodCall call(SERVICE, OBJECT, INTERFACE, "CreateSingleSnapshotOfDefault");
+
+    DBus::Hoho hoho(call);
+    hoho << config_name << read_only << description << cleanup << userdata;
+
+    DBus::Message reply = conn.send_with_reply_and_block(call);
+
+    unsigned int number;
+
+    DBus::Hihi hihi(reply);
+    hihi >> number;
+
+    return number;
+}
+
+
+unsigned int
 command_create_pre_xsnapshot(DBus::Connection& conn, const string& config_name,
 			     const string& description, const string& cleanup,
 			     const map<string, string>& userdata)
@@ -286,6 +330,19 @@ command_create_xcomparison(DBus::Connection& conn, const string& config_name, un
 			   unsigned int number2)
 {
     DBus::MessageMethodCall call(SERVICE, OBJECT, INTERFACE, "CreateComparison");
+
+    DBus::Hoho hoho(call);
+    hoho << config_name << number1 << number2;
+
+    conn.send_with_reply_and_block(call);
+}
+
+
+void
+command_delete_xcomparison(DBus::Connection& conn, const string& config_name, unsigned int number1,
+			   unsigned int number2)
+{
+    DBus::MessageMethodCall call(SERVICE, OBJECT, INTERFACE, "DeleteComparison");
 
     DBus::Hoho hoho(call);
     hoho << config_name << number1 << number2;

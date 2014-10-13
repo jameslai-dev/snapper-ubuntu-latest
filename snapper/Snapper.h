@@ -1,5 +1,5 @@
 /*
- * Copyright (c) [2011-2013] Novell, Inc.
+ * Copyright (c) [2011-2014] Novell, Inc.
  *
  * All Rights Reserved.
  *
@@ -132,6 +132,13 @@ namespace snapper
 	Snapshots::iterator createSingleSnapshot(uid_t uid, const string& description,
 						 const string& cleanup,
 						 const map<string, string>& userdata);
+	Snapshots::iterator createSingleSnapshot(Snapshots::const_iterator parent, bool read_only,
+						 uid_t uid, const string& description,
+						 const string& cleanup,
+						 const map<string, string>& userdata);
+	Snapshots::iterator createSingleSnapshotOfDefault(bool read_only, uid_t uid, const string& description,
+							  const string& cleanup,
+							  const map<string, string>& userdata);
 	Snapshots::iterator createPreSnapshot(uid_t uid, const string& description,
 					      const string& cleanup,
 					      const map<string, string>& userdata);
@@ -150,11 +157,21 @@ namespace snapper
 	static list<ConfigInfo> getConfigs();
 	static void createConfig(const string& config_name, const string& subvolume,
 				 const string& fstype, const string& template_name);
+	static void createConfig(const string& config_name, const string& subvolume,
+				 const string& fstype, const string& template_name,
+				 bool add_fstab);
 	static void deleteConfig(const string& config_name);
 
 	static bool detectFstype(const string& subvolume, string& fstype);
 
 	const Filesystem* getFilesystem() const { return filesystem; }
+
+	void setConfigInfo(const map<string, string>& raw);
+
+	void syncAcl() const;
+
+	static const char* compileVersion();
+	static const char* compileFlags();
 
     private:
 
@@ -162,6 +179,8 @@ namespace snapper
 	void filter2(list<Snapshots::iterator>& tmp);
 
 	void loadIgnorePatterns();
+
+	void syncAcl(const vector<uid_t>& uids, const vector<gid_t>& gids) const;
 
 	ConfigInfo* config_info;
 

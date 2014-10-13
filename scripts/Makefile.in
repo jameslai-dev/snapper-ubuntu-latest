@@ -291,7 +291,7 @@ top_srcdir = @top_srcdir@
 @HAVE_PAM_TRUE@	pam_snapper_useradd.sh		\
 @HAVE_PAM_TRUE@	pam_snapper_userdel.sh
 
-EXTRA_DIST = snapper-hourly snapper-daily zypp-plugin.py grub-plugin.py $(pam_snapper_SCRIPTS)
+EXTRA_DIST = snapper-hourly snapper-daily zypp-plugin.py $(pam_snapper_SCRIPTS)
 all: all-am
 
 .SUFFIXES:
@@ -526,7 +526,6 @@ install-data-local:
 	install -D snapper-hourly $(DESTDIR)/etc/cron.hourly/suse.de-snapper
 	install -D snapper-daily $(DESTDIR)/etc/cron.daily/suse.de-snapper
 @HAVE_ZYPP_TRUE@	install -D zypp-plugin.py $(DESTDIR)/usr/lib/zypp/plugins/commit/snapper.py
-@HAVE_ZYPP_TRUE@	install -D grub-plugin.py $(DESTDIR)/usr/lib/snapper/plugins/grub.py
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

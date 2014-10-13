@@ -3,19 +3,19 @@ Upstream-Name: Snapper
 Source: http://snapper.io/
 
 Files: *
-Copyright: 2004-2012 Novell, Inc.
+Copyright: 2004-2014 Novell, Inc.
 License: GPL-2
 
-Files: snapper/LvmCache.cc snapper/LvmCache.h snapper/XAttributes.cc snapper/XAttributes.h
-Copyright: 2013 RedHat, Inc.
+Files: ./snapper/Acls.cc snapper/Acls.h snapper/LvmCache.cc snapper/LvmCache.h snapper/XAttributes.cc snapper/XAttributes.h
+Copyright: 2013-2014 RedHat, Inc.
 License: GPL-2
 
-Files: pam/* scripts/*
+Files: pam/* scripts/*.sh
 Copyright: 2013 SuSE
 License: GPL-2
 
 Files: ltmain.sh
-Copyright: 
+Copyright:
  1996, 1997, 1998, 1999, 2000, 2001, 2003, 2004, 2005, 2006,
  2007, 2008, 2009, 2010, 2011 Free Software Foundation, Inc.
 License: GPL-2+ with Libtool exception

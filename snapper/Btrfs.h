@@ -1,5 +1,5 @@
 /*
- * Copyright (c) [2011-2013] Novell, Inc.
+ * Copyright (c) [2011-2014] Novell, Inc.
  *
  * All Rights Reserved.
  *
@@ -25,6 +25,7 @@
 
 
 #include "snapper/Filesystem.h"
+#include "snapper/BtrfsUtils.h"
 
 
 namespace snapper
@@ -38,9 +39,11 @@ namespace snapper
 
 	Btrfs(const string& subvolume);
 
+	virtual void evalConfigInfo(const ConfigInfo& config_info);
+
 	virtual string fstype() const { return "btrfs"; }
 
-	virtual void createConfig() const;
+	virtual void createConfig(bool add_fstab) const;
 	virtual void deleteConfig() const;
 
 	virtual string snapshotDir(unsigned int num) const;
@@ -49,16 +52,29 @@ namespace snapper
 	virtual SDir openInfosDir() const;
 	virtual SDir openSnapshotDir(unsigned int num) const;
 
-	virtual void createSnapshot(unsigned int num) const;
+	virtual void createSnapshot(unsigned int num, unsigned int num_parent,
+				    bool read_only) const;
+	virtual void createSnapshotOfDefault(unsigned int num, bool read_only) const;
 	virtual void deleteSnapshot(unsigned int num) const;
 
 	virtual bool isSnapshotMounted(unsigned int num) const;
 	virtual void mountSnapshot(unsigned int num) const;
 	virtual void umountSnapshot(unsigned int num) const;
 
+	virtual bool isSnapshotReadOnly(unsigned int num) const;
+
 	virtual bool checkSnapshot(unsigned int num) const;
 
 	virtual void cmpDirs(const SDir& dir1, const SDir& dir2, cmpdirs_cb_t cb) const;
+
+	virtual void setDefault(unsigned int num) const;
+
+    private:
+
+	qgroup_t qgroup;
+
+	void addToFstab() const;
+	void removeFromFstab() const;
 
     };
 

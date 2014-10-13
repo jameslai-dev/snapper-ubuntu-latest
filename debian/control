@@ -7,14 +7,16 @@ Build-Depends:
  debhelper (>= 9),
  dh-autoreconf,
  docbook-xsl,
+ libacl1-dev,
  libboost-dev,
  libboost-thread-dev,
  libdbus-1-dev,
+ libmount-dev,
  libpam-dev,
  libxml2-dev,
  xsltproc,
  zlib1g-dev,
-Standards-Version: 3.9.4
+Standards-Version: 3.9.6
 Homepage: http://snapper.io/
 Vcs-Git: git://anonscm.debian.org/collab-maint/snapper.git
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/snapper.git;a=summary

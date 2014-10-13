@@ -15,14 +15,23 @@
 /* Enable Btrfs internal snapshots support */
 #undef ENABLE_BTRFS
 
+/* Enable btrfs quota support */
+#undef ENABLE_BTRFS_QUOTA
+
 /* Enable Ext4 snapshots support */
 #undef ENABLE_EXT4
 
 /* Enable LVM thin-provisioned snapshots support */
 #undef ENABLE_LVM
 
+/* Enable rollback support */
+#undef ENABLE_ROLLBACK
+
 /* Enable extended attributes support */
 #undef ENABLE_XATTRS
+
+/* Define to 1 if you have the <btrfs/version.h> header file. */
+#undef HAVE_BTRFS_VERSION_H
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) [2011-2013] Novell, Inc.
+ * Copyright (c) [2011-2014] Novell, Inc.
  *
  * All Rights Reserved.
  *
@@ -40,6 +40,7 @@
 #include "snapper/Compare.h"
 #include "snapper/Exception.h"
 #include "snapper/XAttributes.h"
+#include "snapper/Acls.h"
 
 
 namespace snapper
@@ -333,16 +334,16 @@ namespace snapper
 	    }
 	}
 
-	if (chmod(getAbsolutePath(LOC_SYSTEM).c_str(), mode) != 0)
+	if (chown(getAbsolutePath(LOC_SYSTEM).c_str(), owner, group) != 0)
 	{
-	    y2err("chmod failed path:" << getAbsolutePath(LOC_SYSTEM) << " errno:" << errno <<
+	    y2err("chown failed path:" << getAbsolutePath(LOC_SYSTEM) << " errno:" << errno <<
 		  " (" << stringerror(errno) << ")");
 	    return false;
 	}
 
-	if (chown(getAbsolutePath(LOC_SYSTEM).c_str(), owner, group) != 0)
+	if (chmod(getAbsolutePath(LOC_SYSTEM).c_str(), mode) != 0)
 	{
-	    y2err("chown failed path:" << getAbsolutePath(LOC_SYSTEM) << " errno:" << errno <<
+	    y2err("chmod failed path:" << getAbsolutePath(LOC_SYSTEM) << " errno:" << errno <<
 		  " (" << stringerror(errno) << ")");
 	    return false;
 	}
@@ -370,19 +371,19 @@ namespace snapper
 	    return false;
 	}
 
-	int r1 = fchmod(dest_fd, mode);
+	int r1 = fchown(dest_fd, owner, group);
 	if (r1 != 0)
 	{
-	    y2err("fchmod failed errno:" << errno << " (" << stringerror(errno) << ")");
+	    y2err("fchown failed errno:" << errno << " (" << stringerror(errno) << ")");
 	    close(dest_fd);
 	    close(src_fd);
 	    return false;
 	}
 
-	int r2 = fchown(dest_fd, owner, group);
+	int r2 = fchmod(dest_fd, mode);
 	if (r2 != 0)
 	{
-	    y2err("fchown failed errno:" << errno << " (" << stringerror(errno) << ")");
+	    y2err("fchmod failed errno:" << errno << " (" << stringerror(errno) << ")");
 	    close(dest_fd);
 	    close(src_fd);
 	    return false;
@@ -503,23 +504,26 @@ namespace snapper
 		}
 	    }
 
-	    if (getPreToPostStatus() & PERMISSIONS)
-	    {
-		if (chmod(getAbsolutePath(LOC_SYSTEM).c_str(), fs.st_mode) != 0)
-		{
-		    y2err("chmod failed path:" << getAbsolutePath(LOC_SYSTEM) << " errno:" <<
-			  errno << " (" << stringerror(errno) << ")");
-		    return false;
-		}
-	    }
-
-	    if (getPreToPostStatus() & (USER | GROUP))
+	    if (getPreToPostStatus() & (OWNER | GROUP))
 	    {
 		if (lchown(getAbsolutePath(LOC_SYSTEM).c_str(), fs.st_uid, fs.st_gid) != 0)
 		{
 		    y2err("lchown failed path:" << getAbsolutePath(LOC_SYSTEM) << " errno:" <<
 			  errno <<  " (" << stringerror(errno) << ")");
 		    return false;
+		}
+	    }
+
+	    if (getPreToPostStatus() & (OWNER | GROUP | PERMISSIONS))
+	    {
+		if (!S_ISLNK(fs.st_mode))
+		{
+		    if (chmod(getAbsolutePath(LOC_SYSTEM).c_str(), fs.st_mode) != 0)
+		    {
+			y2err("chmod failed path:" << getAbsolutePath(LOC_SYSTEM) << " errno:" <<
+			      errno << " (" << stringerror(errno) << ")");
+			return false;
+		    }
 		}
 	    }
 	}
@@ -540,6 +544,8 @@ namespace snapper
             XAModification xa_mod(xa_src, xa_dest);
             y2deb("xa_modmap(xa_dest) object: " << xa_mod);
 
+	    xa_mod.filterOutAcls();
+
             xaCreated = xa_mod.getXaCreateNum();
             xaDeleted = xa_mod.getXaDeleteNum();
             xaReplaced = xa_mod.getXaReplaceNum();
@@ -555,6 +561,28 @@ namespace snapper
 
         return ret_val;
     }
+
+
+    bool
+    File::modifyAcls()
+    {
+	bool ret_val;
+
+	try
+	{
+	    Acls acl(getAbsolutePath(LOC_PRE));
+	    acl.serializeTo(getAbsolutePath(LOC_SYSTEM));
+
+	    ret_val = true;
+	}
+	catch (const AclException& e)
+	{
+	    ret_val = false;
+	}
+
+	return ret_val;
+    }
+
 
     XAUndoStatistic& operator+=(XAUndoStatistic &out, const XAUndoStatistic &src)
     {
@@ -611,7 +639,7 @@ namespace snapper
 		error = true;
 	}
 
-	if (getPreToPostStatus() & (CONTENT | PERMISSIONS | USER | GROUP))
+	if (getPreToPostStatus() & (CONTENT | PERMISSIONS | OWNER | GROUP))
 	{
 	    if (!modifyAllTypes())
 		error = true;
@@ -628,6 +656,12 @@ namespace snapper
             if (!modifyXattributes())
                 error = true;
         }
+
+        if (getPreToPostStatus() & (ACL | TYPE | DELETED))
+	{
+	    if (!modifyAcls())
+		error = true;
+	}
 #endif
 
 	pre_to_system_status = (unsigned int) -1;
@@ -711,6 +745,9 @@ namespace snapper
     string
     statusToString(unsigned int status)
     {
+	// If possible keep the characters in sync with e.g. rpm or
+	// rsync. Unfortunately rpm and rsync are not consistent.
+
 	string ret;
 
 	if (status & CREATED)
@@ -725,9 +762,10 @@ namespace snapper
 	    ret += ".";
 
 	ret += status & PERMISSIONS ? "p" : ".";
-	ret += status & USER ? "u" : ".";
+	ret += status & OWNER ? "u" : ".";
 	ret += status & GROUP ? "g" : ".";
-        ret += status & XATTRS ? "x" : ".";
+	ret += status & XATTRS ? "x" : ".";
+	ret += status & ACL ? "a" : ".";
 
 	return ret;
     }
@@ -758,7 +796,7 @@ namespace snapper
 	if (str.length() >= 3)
 	{
 	    if (str[2] == 'u')
-		ret |= USER;
+		ret |= OWNER;
 	}
 
 	if (str.length() >= 4)
@@ -768,10 +806,16 @@ namespace snapper
 	}
 
 	if (str.length() >= 5)
-        {
-            if (str[4] == 'x')
-                ret |= XATTRS;
-        }
+	{
+	    if (str[4] == 'x')
+		ret |= XATTRS;
+	}
+
+	if (str.length() >= 6)
+	{
+	    if (str[5] == 'a')
+		ret |= ACL;
+	}
 
 	return ret;
     }

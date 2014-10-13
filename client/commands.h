@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012 Novell, Inc.
+ * Copyright (c) [2012-2014] Novell, Inc.
  *
  * All Rights Reserved.
  *
@@ -66,6 +66,18 @@ command_create_single_xsnapshot(DBus::Connection& conn, const string& config_nam
 				const map<string, string>& userdata);
 
 unsigned int
+command_create_single_xsnapshot_v2(DBus::Connection& conn, const string& config_name,
+				   unsigned int parent_num, bool read_only,
+				   const string& description, const string& cleanup,
+				   const map<string, string>& userdata);
+
+unsigned int
+command_create_single_xsnapshot_of_default(DBus::Connection& conn, const string& config_name,
+					   bool read_only, const string& description,
+					   const string& cleanup,
+					   const map<string, string>& userdata);
+
+unsigned int
 command_create_pre_xsnapshot(DBus::Connection& conn, const string& config_name,
 			     const string& description, const string& cleanup,
 			     const map<string, string>& userdata);
@@ -93,6 +105,10 @@ command_get_xmount_point(DBus::Connection& conn, const string& config_name,
 
 void
 command_create_xcomparison(DBus::Connection& conn, const string& config_name, unsigned int number1,
+			   unsigned int number2);
+
+void
+command_delete_xcomparison(DBus::Connection& conn, const string& config_name, unsigned int number1,
 			   unsigned int number2);
 
 list<XFile>

@@ -94,7 +94,7 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 LTLIBRARIES = $(noinst_LTLIBRARIES)
-libutils_la_LIBADD =
+libutils_la_DEPENDENCIES = ../../snapper/libsnapper.la
 am_libutils_la_OBJECTS = Table.lo text.lo console.lo GetOpts.lo
 libutils_la_OBJECTS = $(am_libutils_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -330,6 +330,7 @@ libutils_la_SOURCES = \
 	console.cc	console.h	\
 	GetOpts.cc	GetOpts.h
 
+libutils_la_LIBADD = ../../snapper/libsnapper.la
 all: all-am
 
 .SUFFIXES:

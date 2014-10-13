@@ -1,7 +1,7 @@
 #
 # spec file for package snapper
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -24,8 +24,15 @@ Source:         snapper-%{version}.tar.bz2
 Prefix:         /usr
 BuildRequires:  boost-devel
 BuildRequires:  gcc-c++
+BuildRequires:  libacl-devel
 BuildRequires:  libtool
 BuildRequires:  libxml2-devel
+%if 0%{?suse_version} > 1230
+BuildRequires:  libbtrfs-devel
+%endif
+%if 0%{?suse_version} > 1310
+BuildRequires:  libmount-devel >= 2.24
+%endif
 BuildRequires:  pkg-config
 %if ! 0%{?mandriva_version}
 BuildRequires:  dbus-1-devel
@@ -74,7 +81,10 @@ autoconf
 
 ./configure --libdir=%{_libdir} --prefix=%{prefix} --mandir=%{_mandir}		\
 	--docdir=%{prefix}/share/doc/packages/snapper				\
-	--disable-silent-rules --disable-ext4
+%if 0%{?suse_version} <= 1310
+	--disable-rollback							\
+%endif
+	--disable-silent-rules --disable-ext4 --disable-btrfs-quota
 make %{?jobs:-j%jobs}
 
 %install
@@ -115,6 +125,8 @@ Requires:       util-linux
 %if 0%{?suse_version}
 PreReq:         %fillup_prereq
 %endif
+# expands to Obsoletes: libsnapper1 libsnapper2 libsnapper3...
+Obsoletes:      %(echo `seq -s " " -f "libsnapper%.f" $((@LIBVERSION_MAJOR@ - 1))`)
 
 %description -n libsnapper@LIBVERSION_MAJOR@
 This package contains libsnapper, a library for filesystem snapshot management.
@@ -153,9 +165,16 @@ Authors:
 %package -n libsnapper-devel
 Requires:       boost-devel
 Requires:       gcc-c++
+Requires:	libacl-devel
 Requires:       libsnapper@LIBVERSION_MAJOR@ = %version
 Requires:       libstdc++-devel
 Requires:       libxml2-devel
+%if 0%{?suse_version} > 1230
+Requires:       libbtrfs-devel
+%endif
+%if 0%{?suse_version} > 1310
+Requires:       libmount-devel >= 2.24
+%endif
 Summary:        Header files and documentation for libsnapper
 Group:          Development/Languages/C and C++
 
@@ -174,6 +193,7 @@ Authors:
 %{prefix}/include/snapper
 
 %package -n snapper-zypp-plugin
+BuildArch:	noarch
 Requires:       dbus-1-python
 Requires:       libzypp(plugin:commit) = 1
 Requires:	python-xml
@@ -201,28 +221,6 @@ Authors:
 /usr/lib/zypp/plugins/commit/snapper.py*
 %doc %{_mandir}/*/snapper-zypp-plugin.8*
 %doc %{_mandir}/*/snapper-zypp-plugin.conf.5*
-
-%package -n grub-snapper-plugin
-Requires:       python
-Requires:       python-xattr
-Requires:       snapper = %version
-Supplements:    packageand(snapper-zypp-plugin:grub2)
-Summary:        A snapper plugin for adding snapshot metadata for grub2
-Group:          System/Packages
-
-%description -n grub-snapper-plugin
-This package contains a plugin for snapper that adds metadata to snapshots
-used by grub2.
-
-Authors:
---------
-    Arvin Schnell <aschnell@suse.de>
-
-%files -n grub-snapper-plugin
-%defattr(-,root,root)
-%dir /usr/lib/snapper
-%dir /usr/lib/snapper/plugins
-/usr/lib/snapper/plugins/grub.py*
 
 %package -n pam_snapper
 Requires:       pam
