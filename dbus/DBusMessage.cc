@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2012 Novell, Inc.
+ * Copyright (c) 2016 SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -65,6 +66,7 @@ namespace DBus
 
 
     const char* TypeInfo<dbus_uint32_t>::signature = "u";
+    const char* TypeInfo<dbus_uint64_t>::signature = "t";
     const char* TypeInfo<string>::signature = "s";
 
 
@@ -252,6 +254,29 @@ namespace DBus
 
 
     Hihi&
+    operator>>(Hihi& hihi, dbus_uint64_t& data)
+    {
+	if (hihi.get_type() != DBUS_TYPE_UINT64)
+	    throw MarshallingException();
+
+	dbus_message_iter_get_basic(hihi.top(), &data);
+	dbus_message_iter_next(hihi.top());
+
+	return hihi;
+    }
+
+
+    Hoho&
+    operator<<(Hoho& hoho, dbus_uint64_t data)
+    {
+	if (!dbus_message_iter_append_basic(hoho.top(), DBUS_TYPE_UINT64, &data))
+	    throw FatalException();
+
+	return hoho;
+    }
+
+
+    Hihi&
     operator>>(Hihi& hihi, time_t& data)
     {
 	if (hihi.get_type() != DBUS_TYPE_INT64)
@@ -305,17 +330,13 @@ namespace DBus
 		}
 		else if (*it == 'x')
 		{
-		    if (++it == in.end())
-			throw MarshallingException();
-
 		    string t1;
-
-		    if (!isxdigit(*it))
-			throw MarshallingException();
-		    t1 += *it;
-
-		    if ((it + 1) != in.end() && isxdigit(*(it + 1)))
-			t1 += *++it;
+		    for (int i = 0; i < 2; ++i)
+		    {
+			if (++it == in.end() || !isxdigit(*it))
+			    throw MarshallingException();
+			t1 += *it;
+		    }
 
 		    unsigned int t2;
 		    sscanf(t1.c_str(), "%x", &t2);
@@ -365,7 +386,7 @@ namespace DBus
 	    else if ((unsigned char)(*it) > 127)
 	    {
 		char s[5];
-		snprintf(s, 5, "\\x%x", (unsigned char)(*it));
+		snprintf(s, 5, "\\x%02x", (unsigned char)(*it));
 		out += string(s);
 	    }
 	    else

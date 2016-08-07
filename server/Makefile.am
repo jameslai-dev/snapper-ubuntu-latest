@@ -2,8 +2,7 @@
 # Makefile.am for snapper/server
 #
 
-INCLUDES = -I$(top_srcdir) $(DBUS_CFLAGS)
-
+AM_CPPFLAGS = -I$(top_srcdir) $(DBUS_CFLAGS)
 
 sbin_PROGRAMS = snapperd
 
@@ -15,4 +14,4 @@ snapperd_SOURCES =					\
 	Types.cc		Types.h
 
 snapperd_LDADD = ../snapper/libsnapper.la ../dbus/libdbus.la -lrt
-
+snapperd_LDFLAGS = -lboost_system -lboost_thread

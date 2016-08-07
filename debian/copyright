@@ -3,7 +3,7 @@ Upstream-Name: Snapper
 Source: http://snapper.io/
 
 Files: *
-Copyright: 2004-2014 Novell, Inc.
+Copyright: 2004-2016 Novell, Inc.
 License: GPL-2
 
 Files: ./snapper/Acls.cc snapper/Acls.h snapper/LvmCache.cc snapper/LvmCache.h snapper/XAttributes.cc snapper/XAttributes.h
@@ -21,7 +21,8 @@ Copyright:
 License: GPL-2+ with Libtool exception
 
 Files: debian/*
-Copyright: 2013 Nicolas Dandrimont <olasd@debian.org>
+Copyright: 2013-2014 Nicolas Dandrimont <olasd@debian.org>
+           2016 Hideki Yamane <henrich@debian.org>
 License: GPL-2
 
 License: GPL-2

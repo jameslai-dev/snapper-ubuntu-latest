@@ -1,5 +1,6 @@
 /*
- * Copyright (c) [2012-2014] Novell, Inc.
+ * Copyright (c) [2012-2015] Novell, Inc.
+ * Copyright (c) 2016 SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -20,7 +21,13 @@
  */
 
 
+#include <iostream>
+
 #include "commands.h"
+#include "utils/text.h"
+#include "snapper/AppUtil.h"
+
+using namespace std;
 
 
 #define SERVICE "org.opensuse.Snapper"
@@ -261,8 +268,22 @@ command_create_post_xsnapshot(DBus::Connection& conn, const string& config_name,
 
 void
 command_delete_xsnapshots(DBus::Connection& conn, const string& config_name,
-			  list<unsigned int> nums)
+			  const list<unsigned int>& nums, bool verbose)
 {
+    if (verbose)
+    {
+	cout << sformat(_("Deleting snapshot from %s:", "Deleting snapshots from %s:", nums.size()),
+			config_name.c_str()) << endl;
+
+	for (list<unsigned int>::const_iterator it = nums.begin(); it != nums.end(); ++it)
+	{
+	    if (it != nums.begin())
+		cout << ", ";
+	    cout << *it;
+	}
+	cout << endl;
+    }
+
     DBus::MessageMethodCall call(SERVICE, OBJECT, INTERFACE, "DeleteSnapshots");
 
     DBus::Hoho hoho(call);
@@ -351,6 +372,13 @@ command_delete_xcomparison(DBus::Connection& conn, const string& config_name, un
 }
 
 
+int
+operator<(const XFile& lhs, const XFile& rhs)
+{
+    return File::cmp_lt(lhs.name, rhs.name);
+}
+
+
 list<XFile>
 command_get_xfiles(DBus::Connection& conn, const string& config_name, unsigned int number1,
 		   unsigned int number2)
@@ -367,7 +395,65 @@ command_get_xfiles(DBus::Connection& conn, const string& config_name, unsigned i
     DBus::Hihi hihi(reply);
     hihi >> files;
 
+    files.sort();		// snapperd can have different locale than client
+				// so sorting is required here
+
     return files;
+}
+
+
+void
+command_setup_quota(DBus::Connection& conn, const string& config_name)
+{
+    DBus::MessageMethodCall call(SERVICE, OBJECT, INTERFACE, "SetupQuota");
+
+    DBus::Hoho hoho(call);
+    hoho << config_name;
+
+    conn.send_with_reply_and_block(call);
+}
+
+
+void
+command_prepare_quota(DBus::Connection& conn, const string& config_name)
+{
+    DBus::MessageMethodCall call(SERVICE, OBJECT, INTERFACE, "PrepareQuota");
+
+    DBus::Hoho hoho(call);
+    hoho << config_name;
+
+    conn.send_with_reply_and_block(call);
+}
+
+
+XQuotaData
+command_query_quota(DBus::Connection& conn, const string& config_name)
+{
+    DBus::MessageMethodCall call(SERVICE, OBJECT, INTERFACE, "QueryQuota");
+
+    DBus::Hoho hoho(call);
+    hoho << config_name;
+
+    DBus::Message reply = conn.send_with_reply_and_block(call);
+
+    XQuotaData quota_data;
+
+    DBus::Hihi hihi(reply);
+    hihi >> quota_data;
+
+    return quota_data;
+}
+
+
+void
+command_xsync(DBus::Connection& conn, const string& config_name)
+{
+    DBus::MessageMethodCall call(SERVICE, OBJECT, INTERFACE, "Sync");
+
+    DBus::Hoho hoho(call);
+    hoho << config_name;
+
+    conn.send_with_reply_and_block(call);
 }
 
 

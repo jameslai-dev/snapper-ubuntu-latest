@@ -34,13 +34,14 @@ namespace snapper
     {
     public:
 
-	static Filesystem* create(const string& fstype, const string& subvolume);
+	static Filesystem* create(const string& fstype, const string& subvolume,
+				  const string& root_prefix);
 
-	Ext4(const string& subvolume);
+	Ext4(const string& subvolume, const string& root_prefix);
 
 	virtual string fstype() const { return "ext4"; }
 
-	virtual void createConfig(bool add_fstab) const;
+	virtual void createConfig() const;
 	virtual void deleteConfig() const;
 
 	virtual string snapshotDir(unsigned int num) const;
@@ -50,7 +51,7 @@ namespace snapper
 	virtual SDir openSnapshotDir(unsigned int num) const;
 
 	virtual void createSnapshot(unsigned int num, unsigned int num_parent,
-				    bool read_only) const;
+				    bool read_only, bool quota) const;
 	virtual void deleteSnapshot(unsigned int num) const;
 
 	virtual bool isSnapshotMounted(unsigned int num) const;

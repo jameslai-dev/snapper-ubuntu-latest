@@ -10,16 +10,19 @@ Build-Depends:
  libacl1-dev,
  libboost-dev,
  libboost-thread-dev,
+ libboost-test-dev,
  libdbus-1-dev,
  libmount-dev,
  libpam-dev,
  libxml2-dev,
  xsltproc,
  zlib1g-dev,
-Standards-Version: 3.9.6
+ e2fslibs-dev,
+ locales-all,
+Standards-Version: 3.9.8
 Homepage: http://snapper.io/
-Vcs-Git: git://anonscm.debian.org/collab-maint/snapper.git
-Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/snapper.git;a=summary
+Vcs-Git: https://anonscm.debian.org/git/collab-maint/snapper.git
+Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/snapper.git/
 
 Package: snapper
 Architecture: linux-any
@@ -42,7 +45,7 @@ Description: Linux filesystem snapshot management tool
    * D-Bus interface
    * PAM module to create snapshots during login and logout (libpam-snapper)
 
-Package: libsnapper2
+Package: libsnapper3
 Section: libs
 Architecture: linux-any
 Depends: ${misc:Depends}, ${shlibs:Depends}

@@ -1,3 +1,28 @@
+snapper (0.3.3-0.1) experimental; urgency=medium
+
+  * Non-maintainer upload
+  * New upstream release
+  * debian/control
+    - add Build-Depends: libboost-test-dev
+    - add Build-Depends: e2fslibs-dev
+    - add Build-Depends: locales-all to deal with "FAIL: cmp-lt.test"
+    - change from libsnapper2 to 3
+    - use https for Vcs-*
+    - set Standards-Version: 3.9.8
+  * debian/patches
+    - drop 0001-Link-boost-libraries-without-the-mt-suffix.patch: merged
+    - refresh 0002-Add-DSO-linker-options-for-libsnapper.la.patch
+  * debian/snapper.install
+    - install systemd related files and {installation,systemd}-helper
+      It also changes from cron to systemd timer job (Closes: #791726)
+  * debian/rules
+    - remove cron settings
+    - enable hardening
+  * debian/snapper.{preinst,postinst,postrm}
+    - remove cron files
+
+ -- Hideki Yamane <henrich@debian.org>  Mon, 08 Aug 2016 06:42:22 +0900
+
 snapper (0.2.4-1) unstable; urgency=low
 
   * New upstream release (Closes: #763262)

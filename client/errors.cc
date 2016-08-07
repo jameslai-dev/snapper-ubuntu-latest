@@ -1,5 +1,6 @@
 /*
  * Copyright (c) [2011-2014] Novell, Inc.
+ * Copyright (c) [2016] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -60,11 +61,8 @@ error_description(const DBus::ErrorException& e)
     if (name == "error.snapshot_in_use")
 	return _("Snapshot is in use.");
 
-    if (name == "error.unknown_file")
-	return _("Unknown file.");
-
     if (name == "error.io_error")
-	return _("IO Error.");
+	return sformat(_("IO Error (%s)."), e.message());
 
     if (name == "error.create_config_failed")
 	return sformat(_("Creating config failed (%s)."), e.message());
@@ -86,6 +84,9 @@ error_description(const DBus::ErrorException& e)
 
     if (name == "error.acl_error")
 	return _("ACL error.");
+
+    if (name == "error.quota")
+	return sformat(_("Quota failure (%s)."), e.message());
 
     return sformat(_("Failure (%s)."), name.c_str());
 }

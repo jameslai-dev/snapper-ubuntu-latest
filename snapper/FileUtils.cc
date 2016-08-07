@@ -34,12 +34,18 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <assert.h>
+#ifdef ENABLE_SELINUX
+#include <selinux/selinux.h>
+#endif
 #include <algorithm>
 
 #include "snapper/FileUtils.h"
 #include "snapper/AppUtil.h"
 #include "snapper/Log.h"
 #include "snapper/Exception.h"
+#ifdef ENABLE_SELINUX
+#include "snapper/Selinux.h"
+#endif
 
 
 namespace snapper
@@ -55,18 +61,16 @@ namespace snapper
     {
 	dirfd = ::open(base_path.c_str(), O_RDONLY | O_NOATIME | O_CLOEXEC);
 	if (dirfd < 0)
-	{
-	    y2err("open failed path:" << base_path << " error:" << stringerror(errno));
-	    throw IOErrorException();
-	}
+	    SN_THROW(IOErrorException(sformat("open failed path:%s errno:%d (%s)", base_path.c_str(),
+					      errno, stringerror(errno).c_str())));
 
 	struct stat buf;
-	fstat(dirfd, &buf);
+	if (fstat(dirfd, &buf) != 0)
+	    SN_THROW(IOErrorException(sformat("fstat failed path:%s errno:%d (%s)", base_path.c_str(),
+					      errno, stringerror(errno).c_str())));
+
 	if (!S_ISDIR(buf.st_mode))
-	{
-	    y2err("not a directory path:" << base_path);
-	    throw IOErrorException();
-	}
+	    SN_THROW(IOErrorException("not a directory path:" + base_path));
 
 	setXaStatus();
     }
@@ -80,18 +84,18 @@ namespace snapper
 
 	dirfd = ::openat(dir.dirfd, name.c_str(), O_RDONLY | O_NOFOLLOW | O_NOATIME | O_CLOEXEC);
 	if (dirfd < 0)
-	{
-	    y2err("open failed path:" << dir.fullname(name) << " (" << stringerror(errno) << ")");
-	    throw IOErrorException();
-	}
+	    SN_THROW(IOErrorException(sformat("open failed path:%s errno:%d (%s)", dir.fullname().c_str(),
+					      errno, stringerror(errno).c_str())));
 
 	struct stat buf;
-	fstat(dirfd, &buf);
+	if (fstat(dirfd, &buf) != 0)
+	    SN_THROW(IOErrorException(sformat("fstat failed path:%s errno:%d (%s)", base_path.c_str(),
+					      errno, stringerror(errno).c_str())));
+
 	if (!S_ISDIR(buf.st_mode))
 	{
-	    y2err("not a directory path:" << dir.fullname(name));
 	    close(dirfd);
-	    throw IOErrorException();
+	    SN_THROW(IOErrorException("not a directory path:" + dir.fullname(name)));
 	}
 
 	xastatus = dir.xastatus;
@@ -103,10 +107,8 @@ namespace snapper
     {
 	dirfd = fcntl(dir.dirfd, F_DUPFD_CLOEXEC, 0);
 	if (dirfd == -1)
-	{
-	    y2err("fcntl(F_DUPFD_CLOEXEC) failed error:" << stringerror(errno));
-	    throw IOErrorException();
-	}
+	    SN_THROW(IOErrorException(sformat("fcntl(F_DUPFD_CLOEXEC) failed error:%d (%s)", errno,
+					      stringerror(errno).c_str())));
 
 	xastatus = dir.xastatus;
     }
@@ -120,10 +122,8 @@ namespace snapper
 	    ::close(dirfd);
 	    dirfd = fcntl(dir.dirfd, F_DUPFD_CLOEXEC, 0);
 	    if (dirfd == -1)
-	    {
-		y2err("fcntl(F_DUPFD_CLOEXEC) failed error:" << stringerror(errno));
-		throw IOErrorException();
-	    }
+		SN_THROW(IOErrorException(sformat("fcntl(F_DUPFD_CLOEXEC) failed error:%d (%s)", errno,
+						  stringerror(errno).c_str())));
 
 	    xastatus = dir.xastatus;
 	}
@@ -182,22 +182,23 @@ namespace snapper
     {
 	int fd = fcntl(dirfd, F_DUPFD_CLOEXEC, 0);
 	if (fd == -1)
-	{
-	    y2err("fcntl(F_DUPFD_CLOEXEC) failed error:" << stringerror(errno));
-	    throw IOErrorException();
-	}
+	    SN_THROW(IOErrorException(sformat("fcntl(F_DUPFD_CLOEXEC) failed error:%d (%s)", errno,
+					      stringerror(errno).c_str())));
 
 	DIR* dp = fdopendir(fd);
 	if (dp == NULL)
 	{
-	    y2err("fdopendir failed path:" << fullname() << " error:" << stringerror(errno));
 	    ::close(fd);
-	    throw IOErrorException();
+	    SN_THROW(IOErrorException(sformat("fdopendir failed path:%s error:%d (%s)",
+					      fullname().c_str(), errno, stringerror(errno).c_str())));
 	}
 
 	vector<string> ret;
 
-	size_t len = offsetof(struct dirent, d_name) + fpathconf(dirfd, _PC_NAME_MAX) + 1;
+	long sz = fpathconf(dirfd, _PC_NAME_MAX);
+	if (sz == -1)
+	    sz = NAME_MAX;
+	size_t len = offsetof(struct dirent, d_name) + sz + 1;
 	struct dirent* ep = (struct dirent*) malloc(len);
 	struct dirent* epp;
 
@@ -405,6 +406,7 @@ namespace snapper
 
 	name = string(&t[strlen(t) - name.size()]);
 
+	free(t);
 	return true;
     }
 
@@ -503,9 +505,9 @@ namespace snapper
 	    }
 	    else
 	    {
-                y2err("Couldn't get extended attributes status for " << base_path << "/" <<
-		      path << stringerror(errno));
-                throw IOErrorException();
+                SN_THROW(IOErrorException(sformat("Couldn't get extended attributes status for %s/%s, "
+						  "errno:%d (%s)", base_path.c_str(), path.c_str(),
+						  errno, stringerror(errno).c_str())));
 	    }
 	}
 	else
@@ -568,6 +570,171 @@ namespace snapper
 
 	chdir("/");
 	return true;
+    }
+
+
+    bool
+    SDir::fsetfilecon(const string& name, char* con) const
+    {
+	assert(name.find('/') == string::npos);
+	assert(name != "..");
+
+	bool retval = true;
+
+#ifdef ENABLE_SELINUX
+	if (_is_selinux_enabled())
+	{
+	    char *src_con = NULL;
+
+	    int fd = ::openat(dirfd, name.c_str(), O_RDONLY | O_NOFOLLOW | O_NOATIME
+			      | O_NONBLOCK | O_CLOEXEC);
+	    if (fd < 0)
+	    {
+		// symlink, detached dev node?
+		if (errno != ELOOP && errno != ENXIO && errno != EWOULDBLOCK)
+		{
+		    y2err("open failed errno: " << errno << " (" << stringerror(errno) << ")");
+		    return false;
+		}
+
+		boost::lock_guard<boost::mutex> lock(cwd_mutex);
+
+		if (fchdir(dirfd) < 0)
+		{
+		    y2err("fchdir failed errno: " << errno << " (" << stringerror(errno) << ")");
+		    return false;
+		}
+
+		if (lgetfilecon(name.c_str(), &src_con) < 0 || selinux_file_context_cmp(src_con, con))
+		{
+		    y2deb("setting new SELinux context on " << fullname() << "/" << name);
+		    if (lsetfilecon(name.c_str(), con))
+		    {
+			y2err("lsetfilecon on " << fullname() << "/" << name << " failed errno: " << errno << " (" << stringerror(errno) << ")");
+			retval = false;
+		    }
+		}
+
+		chdir("/");
+
+	    }
+	    else
+	    {
+		if (fgetfilecon(fd, &src_con) < 0 || selinux_file_context_cmp(src_con, con))
+		{
+		    y2deb("setting new SELinux context on " << fullname() << "/" << name);
+		    if (::fsetfilecon(fd, con))
+		    {
+			y2err("fsetfilecon on " << fullname() << "/" << name << " failed errno: " << errno << " (" << stringerror(errno) << ")");
+			retval = false;
+		    }
+		}
+
+		::close(fd);
+	    }
+
+	    freecon(src_con);
+	}
+#endif
+	return retval;
+    }
+
+
+    bool
+    SDir::restorecon(const string& name, SelinuxLabelHandle* sh) const
+    {
+	assert(name.find('/') == string::npos);
+	assert(name != "..");
+
+	bool retval = true;
+#ifdef ENABLE_SELINUX
+	if (_is_selinux_enabled())
+	{
+	    assert(sh);
+
+	    struct stat buf;
+	    if (stat(name, &buf, AT_SYMLINK_NOFOLLOW))
+	    {
+		y2err("Failed to stat " << fullname() << "/" << name);
+		return false;
+	    }
+
+	    char* con = sh->selabel_lookup(fullname() + "/" + name, buf.st_mode);
+	    if (con)
+	    {
+		retval = fsetfilecon(name, con);
+	    }
+	    else
+	    {
+		retval = false;
+	    }
+
+	    freecon(con);
+	}
+#endif
+	return retval;
+    }
+
+
+    bool
+    SDir::fsetfilecon(char* con) const
+    {
+	bool retval = true;
+
+#ifdef ENABLE_SELINUX
+	if (_is_selinux_enabled())
+	{
+	    char* src_con = NULL;
+
+	    if (fgetfilecon(fd(), &src_con) < 0 || selinux_file_context_cmp(src_con, con))
+	    {
+		y2deb("setting new SELinux context on " << fullname());
+		if (::fsetfilecon(fd(), con))
+		{
+		    y2err("fsetfilecon on " << fullname() << " failed errno: " << errno << " (" << stringerror(errno) << ")");
+		    retval = false;
+		}
+	    }
+
+	    freecon(src_con);
+	}
+#endif
+	return retval;
+    }
+
+
+    bool
+    SDir::restorecon(SelinuxLabelHandle* sh) const
+    {
+	bool retval = true;
+#ifdef ENABLE_SELINUX
+	if (_is_selinux_enabled())
+	{
+	    assert(sh);
+
+	    struct stat buf;
+
+	    if (stat(&buf))
+	    {
+		y2err("Failed to stat " << fullname());
+		return false;
+	    }
+
+	    char* con = sh->selabel_lookup(fullname(), buf.st_mode);
+	    if (con)
+	    {
+		retval = fsetfilecon(con);
+	    }
+	    else
+	    {
+		y2war("can't get proper label for path:" << fullname());
+		retval = false;
+	    }
+
+	    freecon(con);
+	}
+#endif
+	return retval;
     }
 
 
@@ -635,6 +802,19 @@ namespace snapper
     }
 
 
+    void
+    SFile::fsetfilecon(char* con) const
+    {
+	dir.fsetfilecon(name, con);
+    }
+
+    void
+    SFile::restorecon(SelinuxLabelHandle* sh) const
+    {
+	dir.restorecon(name, sh);
+    }
+
+
     TmpDir::TmpDir(SDir& base_dir, const string& name_template)
 	: base_dir(base_dir), name(name_template)
     {
@@ -647,6 +827,13 @@ namespace snapper
     {
 	if (base_dir.unlink(name, AT_REMOVEDIR) != 0)
 	    y2err("unlink failed, errno:" << errno);
+    }
+
+
+    string
+    TmpDir::getFullname() const
+    {
+	return base_dir.fullname() + "/" + name;
     }
 
 

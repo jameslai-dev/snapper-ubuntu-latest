@@ -45,17 +45,17 @@ namespace snapper
 {
 
     Filesystem*
-    Ext4::create(const string& fstype, const string& subvolume)
+    Ext4::create(const string& fstype, const string& subvolume, const string& root_prefix)
     {
 	if (fstype == "ext4")
-	    return new Ext4(subvolume);
+	    return new Ext4(subvolume, root_prefix);
 
 	return NULL;
     }
 
 
-    Ext4::Ext4(const string& subvolume)
-	: Filesystem(subvolume)
+    Ext4::Ext4(const string& subvolume, const string& root_prefix)
+	: Filesystem(subvolume, root_prefix)
     {
 	if (access(CHSNAPBIN, X_OK) != 0)
 	{
@@ -86,7 +86,7 @@ namespace snapper
 
 
     void
-    Ext4::createConfig(bool add_fstab) const
+    Ext4::createConfig() const
     {
 	int r1 = mkdir((subvolume + "/.snapshots").c_str(), 0700);
 	if (r1 == 0)
@@ -164,7 +164,7 @@ namespace snapper
 
 
     void
-    Ext4::createSnapshot(unsigned int num, unsigned int num_parent, bool read_only) const
+    Ext4::createSnapshot(unsigned int num, unsigned int num_parent, bool read_only, bool quota) const
     {
 	if (num_parent != 0 || !read_only)
 	    throw std::logic_error("not implemented");

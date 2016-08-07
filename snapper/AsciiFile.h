@@ -1,5 +1,5 @@
 /*
- * Copyright (c) [2004-2013] Novell, Inc.
+ * Copyright (c) [2004-2015] Novell, Inc.
  *
  * All Rights Reserved.
  *
@@ -67,6 +67,8 @@ namespace snapper
 
 	string name() const { return Name_C; }
 
+	void setName(const string& name) { AsciiFile::Name_C = name; }
+
 	void reload();
 	bool save();
 
@@ -80,28 +82,30 @@ namespace snapper
 
     protected:
 
-	const string Name_C;
-	const bool remove_empty;
-
 	vector<string> Lines_C;
 
-    };
+    private:
 
+	string Name_C;
+	bool remove_empty;
+
+    };
 
 
     class SysconfigFile : protected AsciiFile
     {
     public:
 
-	struct InvalidKeyException : public SnapperException
+	struct InvalidKeyException : public Exception
 	{
-	    explicit InvalidKeyException() throw() {}
-	    virtual const char* what() const throw() { return "invalid key"; }
+	    explicit InvalidKeyException() : Exception("invalid key") {}
 	};
 
 	SysconfigFile(const char* name) : AsciiFile(name), modified(false) {}
 	SysconfigFile(const string& name) : AsciiFile(name), modified(false) {}
 	virtual ~SysconfigFile() { if (modified) save(); }
+
+	void setName(const string& name) { AsciiFile::setName(name); }
 
 	void save();
 
@@ -110,6 +114,7 @@ namespace snapper
 	virtual void setValue(const string& key, bool value);
 	bool getValue(const string& key, bool& value) const;
 
+	virtual void setValue(const string& key, const char* value);
 	virtual void setValue(const string& key, const string& value);
 	bool getValue(const string& key, string& value) const;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) [2004-2014] Novell, Inc.
+ * Copyright (c) [2004-2015] Novell, Inc.
  *
  * All Rights Reserved.
  *
@@ -34,6 +34,7 @@
 #include <map>
 #include <vector>
 #include <stdexcept>
+#include <chrono>
 
 
 namespace snapper
@@ -55,6 +56,8 @@ namespace snapper
     int symlink(const string& oldpath, const string& newpath);
 
     string realpath(const string& path);
+
+    string prepend_root_prefix(const string& root_prefix, const string& path);
 
     string stringerror(int errnum);
 
@@ -103,7 +106,7 @@ namespace snapper
 
     protected:
 
-	struct timeval start_tv;
+	std::chrono::steady_clock::time_point start_time;
 
     };
 
@@ -113,10 +116,13 @@ namespace snapper
 
     struct runtime_error_with_errno : public std::runtime_error
     {
-	explicit runtime_error_with_errno(const char* what_arg, int errnum)
-	    : runtime_error(sformat("%s, errno:%d (%s)", what_arg, errnum,
-				    stringerror(errnum).c_str()))
+	explicit runtime_error_with_errno(const char* what_arg, int error_number)
+	    : runtime_error(sformat("%s, errno:%d (%s)", what_arg, error_number,
+				    stringerror(error_number).c_str())),
+	      error_number(error_number)
 	{}
+
+	const int error_number;
     };
 
 }

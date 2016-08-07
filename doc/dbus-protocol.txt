@@ -35,15 +35,17 @@ signal SnapshotCreated config-name number
 signal SnapshotModified config-name number
 signal SnapshotsDeleted config-name list(numbers)
 
-method MountSnapshot config-name number user-request
+method MountSnapshot config-name number user-request -> path
 method UmountSnapshot config-name number user-request
-method GetMountPoint config-name number
+method GetMountPoint config-name number -> path
 
 Snapshots mounted with user-request set to false will be unmounted (delayed)
 after the client disconnects.
 
+method Sync config-name
 
-method CreateComparison config-name number1 number2
+
+method CreateComparison config-name number1 number2 -> num-files
 method DeleteComparison config-name number1 number2
 
 The following command require a successful CreateComparison in advance.
@@ -51,11 +53,13 @@ The following command require a successful CreateComparison in advance.
 method GetFiles config-name number1 number2 -> list(filename status)
 
 
+Intentionally not documented are SetupQuota, PrepareQuota and QueryQuota.
+
 
 Filenames do not include the subvolume.
 
 Strings are UTF-8. Other characters (e.g. in filenames) must be encoded
-hexadecimal as "\x?" or "\x??". As a consequence "\" must be encoded as "\\".
+hexadecimal as "\x??". As a consequence "\" must be encoded as "\\".
 
 Due to security concerns there are no methods to get, compare or revert
 files. This can be done in the client.

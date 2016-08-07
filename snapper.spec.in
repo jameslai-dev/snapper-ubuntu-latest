@@ -1,7 +1,7 @@
 #
 # spec file for package snapper
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -27,6 +27,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  libacl-devel
 BuildRequires:  libtool
 BuildRequires:  libxml2-devel
+BuildRequires:  e2fsprogs-devel
 %if 0%{?suse_version} > 1230
 BuildRequires:  libbtrfs-devel
 %endif
@@ -64,7 +65,7 @@ This package contains snapper, a tool for filesystem snapshot management.
 
 Authors:
 --------
-    Arvin Schnell <aschnell@suse.de>
+    Arvin Schnell <aschnell@suse.com>
 
 %prep
 %setup -n snapper-%{version}
@@ -84,7 +85,7 @@ autoconf
 %if 0%{?suse_version} <= 1310
 	--disable-rollback							\
 %endif
-	--disable-silent-rules --disable-ext4 --disable-btrfs-quota
+	--disable-silent-rules --disable-ext4
 make %{?jobs:-j%jobs}
 
 %install
@@ -109,12 +110,16 @@ rm -rf "$RPM_BUILD_ROOT"
 %defattr(-,root,root)
 %{prefix}/bin/snapper
 %{prefix}/sbin/snapperd
+%{prefix}/sbin/mksubvolume
+%{prefix}/lib/snapper
 %doc %{_mandir}/*/snapper.8*
 %doc %{_mandir}/*/snapperd.8*
 %doc %{_mandir}/*/snapper-configs.5*
+%doc %{_mandir}/*/mksubvolume.8*
 %config(noreplace) %{_sysconfdir}/logrotate.d/snapper
 /etc/cron.hourly/suse.de-snapper
 /etc/cron.daily/suse.de-snapper
+/usr/lib/systemd/system/snapper-*.*
 %config /etc/dbus-1/system.d/org.opensuse.Snapper.conf
 %{prefix}/share/dbus-1/system-services/org.opensuse.Snapper.service
 
@@ -133,7 +138,7 @@ This package contains libsnapper, a library for filesystem snapshot management.
 
 Authors:
 --------
-    Arvin Schnell <aschnell@suse.de>
+    Arvin Schnell <aschnell@suse.com>
 
 %files -n libsnapper@LIBVERSION_MAJOR@
 %defattr(-,root,root)
@@ -184,7 +189,7 @@ libsnapper.
 
 Authors:
 --------
-    Arvin Schnell <aschnell@suse.de>
+    Arvin Schnell <aschnell@suse.com>
 
 %files -n libsnapper-devel
 %defattr(-,root,root)
@@ -208,7 +213,7 @@ snapper during commits.
 
 Authors:
 --------
-    Arvin Schnell <aschnell@suse.de>
+    Arvin Schnell <aschnell@suse.com>
 
 %files -n snapper-zypp-plugin
 %defattr(-,root,root)

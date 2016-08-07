@@ -1,5 +1,6 @@
 /*
- * Copyright (c) [2012-2014] Novell, Inc.
+ * Copyright (c) [2012-2015] Novell, Inc.
+ * Copyright (c) 2016 SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -89,7 +90,7 @@ command_create_post_xsnapshot(DBus::Connection& conn, const string& config_name,
 
 void
 command_delete_xsnapshots(DBus::Connection& conn, const string& config_name,
-			  list<unsigned int> nums);
+			  const list<unsigned int>& nums, bool verbose);
 
 string
 command_mount_xsnapshots(DBus::Connection& conn, const string& config_name,
@@ -114,6 +115,18 @@ command_delete_xcomparison(DBus::Connection& conn, const string& config_name, un
 list<XFile>
 command_get_xfiles(DBus::Connection& conn, const string& config_name, unsigned int number1,
 		   unsigned int number2);
+
+void
+command_setup_quota(DBus::Connection& conn, const string& config_name);
+
+void
+command_prepare_quota(DBus::Connection& conn, const string& config_name);
+
+XQuotaData
+command_query_quota(DBus::Connection& conn, const string& config_name);
+
+void
+command_xsync(DBus::Connection& conn, const string& config_name);
 
 vector<string>
 command_xdebug(DBus::Connection& conn);

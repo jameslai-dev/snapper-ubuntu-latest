@@ -4,12 +4,11 @@
 
 AM_CXXFLAGS = -D_FILE_OFFSET_BITS=64
 
-INCLUDES = -I/usr/include/libxml2
+AM_CPPFLAGS = -I/usr/include/libxml2
 
 lib_LTLIBRARIES = libsnapper.la
 
 libsnapper_la_SOURCES =					\
-	Factory.cc		Factory.h		\
 	Snapper.cc		Snapper.h		\
 	Snapshot.cc		Snapshot.h		\
 	Comparison.cc		Comparison.h		\
@@ -27,7 +26,8 @@ libsnapper_la_SOURCES =					\
 	AsciiFile.cc		AsciiFile.h		\
 	Regex.cc		Regex.h			\
 	Acls.cc			Acls.h			\
-	Exception.h					\
+	Hooks.cc		Hooks.h			\
+	Exception.cc		Exception.h		\
 	SnapperTmpl.h					\
 	SnapperTypes.h					\
 	SnapperDefines.h				\
@@ -51,9 +51,18 @@ libsnapper_la_SOURCES +=				\
 	LvmCache.cc		LvmCache.h
 endif
 
+if ENABLE_ROLLBACK
+libsnapper_la_SOURCES +=				\
+	MntTable.cc		MntTable.h
+endif
+
+if ENABLE_SELINUX
+libsnapper_la_SOURCES +=				\
+	Selinux.cc		Selinux.h
+endif
 
 libsnapper_la_LDFLAGS = -version-info @LIBVERSION_INFO@
-libsnapper_la_LIBADD = -lboost_thread-mt -lboost_system-mt -lxml2 -lacl -lz -lm
+libsnapper_la_LIBADD = -lboost_thread -lboost_system -lxml2 -lacl -lz -lm
 if ENABLE_ROLLBACK
 libsnapper_la_LIBADD += -lmount
 endif
@@ -62,7 +71,6 @@ pkgincludedir = $(includedir)/snapper
 
 pkginclude_HEADERS =					\
 	Version.h					\
-	Factory.h					\
 	Snapper.h					\
 	Snapshot.h					\
 	File.h						\

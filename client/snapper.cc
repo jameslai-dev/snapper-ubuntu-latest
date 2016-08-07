@@ -1,5 +1,6 @@
 /*
- * Copyright (c) [2011-2014] Novell, Inc.
+ * Copyright (c) [2011-2015] Novell, Inc.
+ * Copyright (c) 2016 SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -34,11 +35,11 @@
 #include <snapper/SnapperTmpl.h>
 #include <snapper/Enum.h>
 #include <snapper/AsciiFile.h>
-#include <snapper/SystemCmd.h>
 #include <snapper/SnapperDefines.h>
 #include <snapper/XAttributes.h>
 #ifdef ENABLE_ROLLBACK
 #include <snapper/Filesystem.h>
+#include <snapper/Hooks.h>
 #endif
 
 #include "utils/text.h"
@@ -88,15 +89,81 @@ bool utc = false;
 bool iso = false;
 string config_name = "root";
 bool no_dbus = false;
+string target_root = "/";
 
 
 struct MyFiles : public Files
 {
-    friend class MyComparison;
+    friend struct MyComparison;
 
     MyFiles(const FilePaths* file_paths)
 	: Files(file_paths) {}
+
+    void bulk_process(FILE* file, std::function<void(File& file)> callback);
+
 };
+
+
+void
+MyFiles::bulk_process(FILE* file, std::function<void(File& file)> callback)
+{
+    if (file)
+    {
+	AsciiFileReader asciifile(file);
+
+	string line;
+	while (asciifile.getline(line))
+	{
+	    if (line.empty())
+		continue;
+
+	    string name = line;
+
+	    // strip optional status
+	    if (name[0] != '/')
+	    {
+		string::size_type pos = name.find(" ");
+		if (pos == string::npos)
+		    continue;
+
+		name.erase(0, pos + 1);
+	    }
+
+	    Files::iterator it = findAbsolutePath(name);
+	    if (it == end())
+	    {
+		cerr << sformat(_("File '%s' not found."), name.c_str()) << endl;
+		exit(EXIT_FAILURE);
+	    }
+
+	    callback(*it);
+	}
+    }
+    else
+    {
+	if (getopts.numArgs() == 0)
+	{
+	    for (Files::iterator it = begin(); it != end(); ++it)
+		callback(*it);
+	}
+	else
+	{
+	    while (getopts.numArgs() > 0)
+	    {
+		string name = getopts.popArg();
+
+		Files::iterator it = findAbsolutePath(name);
+		if (it == end())
+		{
+		    cerr << sformat(_("File '%s' not found."), name.c_str()) << endl;
+		    exit(EXIT_FAILURE);
+		}
+
+		callback(*it);
+	    }
+	}
+    }
+}
 
 
 struct MyComparison
@@ -141,6 +208,32 @@ help_list_configs()
 }
 
 
+list<pair<string, string>>
+enum_configs(DBus::Connection* conn)
+{
+    list<pair<string, string>> configs;
+
+    if (no_dbus)
+    {
+	list<ConfigInfo> config_infos = Snapper::getConfigs(target_root);
+	for (list<ConfigInfo>::const_iterator it = config_infos.begin(); it != config_infos.end(); ++it)
+	{
+	    configs.push_back(make_pair(it->getConfigName(), it->getSubvolume()));
+	}
+    }
+    else
+    {
+	list<XConfigInfo> config_infos = command_list_xconfigs(*conn);
+	for (list<XConfigInfo>::const_iterator it = config_infos.begin(); it != config_infos.end(); ++it)
+	{
+	    configs.push_back(make_pair(it->config_name, it->subvolume));
+	}
+    }
+
+    return configs;
+}
+
+
 void
 command_list_configs(DBus::Connection* conn, Snapper* snapper)
 {
@@ -158,27 +251,14 @@ command_list_configs(DBus::Connection* conn, Snapper* snapper)
     header.add(_("Subvolume"));
     table.setHeader(header);
 
-    if (no_dbus)
+    list<pair<string, string> > configs = enum_configs(conn);
+
+    for (list<pair<string,string> >::iterator it = configs.begin(); it != configs.end(); ++it)
     {
-	list<ConfigInfo> config_infos = Snapper::getConfigs();
-	for (list<ConfigInfo>::const_iterator it = config_infos.begin(); it != config_infos.end(); ++it)
-	{
-	    TableRow row;
-	    row.add(it->getConfigName());
-	    row.add(it->getSubvolume());
-	    table.add(row);
-	}
-    }
-    else
-    {
-	list<XConfigInfo> config_infos = command_list_xconfigs(*conn);
-	for (list<XConfigInfo>::const_iterator it = config_infos.begin(); it != config_infos.end(); ++it)
-	{
-	    TableRow row;
-	    row.add(it->config_name);
-	    row.add(it->subvolume);
-	    table.add(row);
-	}
+	TableRow row;
+	row.add(it->first);
+	row.add(it->second);
+	table.add(row);
     }
 
     cout << table;
@@ -204,9 +284,6 @@ command_create_config(DBus::Connection* conn, Snapper* snapper)
     const struct option options[] = {
 	{ "fstype",		required_argument,	0,	'f' },
 	{ "template",		required_argument,	0,	't' },
-#ifdef ENABLE_ROLLBACK
-	{ "add-fstab",		no_argument,		0,	0 },
-#endif
 	{ 0, 0, 0, 0 }
     };
 
@@ -226,7 +303,6 @@ command_create_config(DBus::Connection* conn, Snapper* snapper)
 
     string fstype = "";
     string template_name = "default";
-    bool add_fstab = false;
 
     GetOpts::parsed_opts::const_iterator opt;
 
@@ -236,9 +312,6 @@ command_create_config(DBus::Connection* conn, Snapper* snapper)
     if ((opt = opts.find("template")) != opts.end())
 	template_name = opt->second;
 
-    if ((opt = opts.find("add-fstab")) != opts.end())
-	add_fstab = true;
-
     if (fstype.empty() && !Snapper::detectFstype(subvolume, fstype))
     {
 	cerr << _("Detecting filesystem type failed.") << endl;
@@ -247,7 +320,7 @@ command_create_config(DBus::Connection* conn, Snapper* snapper)
 
     if (no_dbus)
     {
-	Snapper::createConfig(config_name, subvolume, fstype, template_name, add_fstab);
+	Snapper::createConfig(config_name, target_root, subvolume, fstype, template_name);
     }
     else
     {
@@ -277,7 +350,7 @@ command_delete_config(DBus::Connection* conn, Snapper* snapper)
 
     if (no_dbus)
     {
-	Snapper::deleteConfig(config_name);
+	Snapper::deleteConfig(config_name, target_root);
     }
     else
     {
@@ -314,7 +387,7 @@ command_get_config(DBus::Connection* conn, Snapper* snapper)
 
     if (no_dbus)
     {
-	ConfigInfo config_info = Snapper::getConfig(config_name);
+	ConfigInfo config_info = Snapper::getConfig(config_name, target_root);
 	map<string, string> raw = config_info.getAllValues();
 
 	for (map<string, string>::const_iterator it = raw.begin(); it != raw.end(); ++it)
@@ -382,15 +455,20 @@ help_list()
 	 << endl
 	 << _("    Options for 'list' command:") << endl
 	 << _("\t--type, -t <type>\t\tType of snapshots to list.") << endl
+	 << _("\t--all-configs, -a\t\tList snapshots from all accessible configs.") << endl
 	 << endl;
 }
 
+enum ListMode { LM_ALL, LM_SINGLE, LM_PRE_POST };
+
+void list_from_one_config(DBus::Connection* conn, Snapper* snapper, string config_name, ListMode list_mode);
 
 void
 command_list(DBus::Connection* conn, Snapper* snapper)
 {
     const struct option options[] = {
 	{ "type",		required_argument,	0,	't' },
+	{ "all-configs",	no_argument,		0,	'a' },
 	{ 0, 0, 0, 0 }
     };
 
@@ -401,7 +479,6 @@ command_list(DBus::Connection* conn, Snapper* snapper)
 	exit(EXIT_FAILURE);
     }
 
-    enum ListMode { LM_ALL, LM_SINGLE, LM_PRE_POST };
     ListMode list_mode = LM_ALL;
 
     GetOpts::parsed_opts::const_iterator opt;
@@ -421,6 +498,29 @@ command_list(DBus::Connection* conn, Snapper* snapper)
 	}
     }
 
+    list<pair<string, string> > configs;
+    if ((opt = opts.find("all-configs")) != opts.end())
+    {
+	configs = enum_configs(conn);
+    }
+    else
+    {
+	configs.push_back(make_pair(config_name, ""));
+    }
+
+    for (list<pair<string,string> >::iterator it = configs.begin(); it != configs.end(); ++it)
+    {
+	if (it != configs.begin())
+	    cout << endl;
+
+	if (configs.size() > 1)
+	    cout << "Config: " << it->first << ", subvolume: " << it->second << endl;
+	list_from_one_config(conn, snapper, it->first, list_mode);
+    }
+}
+
+void list_from_one_config(DBus::Connection* conn, Snapper* snapper, string config_name, ListMode list_mode)
+{
     Table table;
 
     switch (list_mode)
@@ -747,7 +847,6 @@ command_modify(DBus::Connection* conn, Snapper* snapper)
     };
 
     GetOpts::parsed_opts opts = getopts.parse("modify", options);
-
     if (!getopts.hasArgs())
     {
 	cerr << _("Command 'modify' needs at least one argument.") << endl;
@@ -781,6 +880,9 @@ help_delete()
 {
     cout << _("  Delete snapshot:") << endl
 	 << _("\tsnapper delete <number>") << endl
+	 << endl
+	 << _("    Options for 'delete' command:") << endl
+	 << _("\t--sync, -s\t\t\tSync after deletion.") << endl
 	 << endl;
 }
 
@@ -788,12 +890,24 @@ help_delete()
 void
 command_delete(DBus::Connection* conn, Snapper* snapper)
 {
-    getopts.parse("delete", GetOpts::no_options);
+    const struct option options[] = {
+	{ "sync",		no_argument,		0,	's' },
+	{ 0, 0, 0, 0 }
+    };
+
+    GetOpts::parsed_opts opts = getopts.parse("delete", options);
     if (!getopts.hasArgs())
     {
 	cerr << _("Command 'delete' needs at least one argument.") << endl;
 	exit(EXIT_FAILURE);
     }
+
+    bool sync = false;
+
+    GetOpts::parsed_opts::const_iterator opt;
+
+    if ((opt = opts.find("sync")) != opts.end())
+	sync = true;
 
     XSnapshots snapshots = command_list_xsnapshots(*conn, config_name);
 
@@ -826,7 +940,10 @@ command_delete(DBus::Connection* conn, Snapper* snapper)
 	}
     }
 
-    command_delete_xsnapshots(*conn, config_name, nums);
+    command_delete_xsnapshots(*conn, config_name, nums, verbose);
+
+    if (sync)
+	command_xsync(*conn, config_name);
 }
 
 
@@ -928,6 +1045,13 @@ command_status(DBus::Connection* conn, Snapper* snapper)
     if (getopts.numArgs() != 1)
     {
 	cerr << _("Command 'status' needs one argument.") << endl;
+
+	if (getopts.numArgs() == 2)
+	{
+	    cerr << _("Maybe you forgot the delimiter '..' between the snapshot numbers.") << endl
+		 << _("See 'man snapper' for further instructions.") << endl;
+	}
+
 	exit(EXIT_FAILURE);
     }
 
@@ -964,6 +1088,11 @@ help_diff()
 {
     cout << _("  Comparing snapshots:") << endl
 	 << _("\tsnapper diff <number1>..<number2> [files]") << endl
+	 << endl
+	 << _("    Options for 'diff' command:") << endl
+	 << _("\t--input, -i <file>\t\tRead files to diff from file.") << endl
+	 << _("\t--diff-cmd <command>\t\tCommand used for comparing files.") << endl
+	 << _("\t--extensions, -x <options>\tExtra options passed to the diff command.") << endl
 	 << endl;
 }
 
@@ -971,50 +1100,49 @@ help_diff()
 void
 command_diff(DBus::Connection* conn, Snapper* snapper)
 {
-    GetOpts::parsed_opts opts = getopts.parse("diff", GetOpts::no_options);
+    const struct option options[] = {
+	{ "input",		required_argument,	0,	'i' },
+	{ "diff-cmd",		required_argument,	0,	0 },
+	{ "extensions",		required_argument,	0,	'x' },
+	{ 0, 0, 0, 0 }
+    };
 
-    if (getopts.numArgs() < 1) {
+    GetOpts::parsed_opts opts = getopts.parse("diff", options);
+    if (getopts.numArgs() < 1)
+    {
 	cerr << _("Command 'diff' needs at least one argument.") << endl;
 	exit(EXIT_FAILURE);
     }
 
+    FILE* file = NULL;
+    Differ differ;
+
     GetOpts::parsed_opts::const_iterator opt;
+
+    if ((opt = opts.find("input")) != opts.end())
+    {
+	file = fopen(opt->second.c_str(), "r");
+	if (!file)
+	{
+	    cerr << sformat(_("Opening file '%s' failed."), opt->second.c_str()) << endl;
+	    exit(EXIT_FAILURE);
+	}
+    }
+
+    if ((opt = opts.find("diff-cmd")) != opts.end())
+	differ.command = opt->second;
+
+    if ((opt = opts.find("extensions")) != opts.end())
+	differ.extensions = opt->second;
 
     pair<unsigned int, unsigned int> nums(read_nums(getopts.popArg()));
 
     MyComparison comparison(*conn, nums, true);
     MyFiles& files = comparison.files;
 
-    if (getopts.numArgs() == 0)
-    {
-	for (Files::const_iterator it1 = files.begin(); it1 != files.end(); ++it1)
-	{
-	    SystemCmd cmd(DIFFBIN " --unified --new-file " + quote(it1->getAbsolutePath(LOC_PRE)) +
-			  " " + quote(it1->getAbsolutePath(LOC_POST)), false);
-
-	    const vector<string> lines = cmd.stdout();
-	    for (vector<string>::const_iterator it2 = lines.begin(); it2 != lines.end(); ++it2)
-		cout << it2->c_str() << endl;
-	}
-    }
-    else
-    {
-	while (getopts.numArgs() > 0)
-	{
-	    string name = getopts.popArg();
-
-	    Files::const_iterator it1 = files.findAbsolutePath(name);
-            if (it1 == files.end())
-                continue;
-
-	    SystemCmd cmd(DIFFBIN " --unified --new-file " + quote(it1->getAbsolutePath(LOC_PRE)) +
-			  " " + quote(it1->getAbsolutePath(LOC_POST)), false);
-
-	    const vector<string> lines = cmd.stdout();
-	    for (vector<string>::const_iterator it2 = lines.begin(); it2 != lines.end(); ++it2)
-		cout << it2->c_str() << endl;
-	}
-    }
+    files.bulk_process(file, [differ](const File& file) {
+	differ.run(file.getAbsolutePath(LOC_PRE), file.getAbsolutePath(LOC_POST));
+    });
 }
 
 
@@ -1070,57 +1198,9 @@ command_undo(DBus::Connection* conn, Snapper* snapper)
     MyComparison comparison(*conn, nums, true);
     MyFiles& files = comparison.files;
 
-    if (file)
-    {
-	AsciiFileReader asciifile(file);
-
-	string line;
-	while (asciifile.getline(line))
-	{
-	    if (line.empty())
-		continue;
-
-	    string name = line;
-
-	    // strip optional status
-	    if (name[0] != '/')
-	    {
-		string::size_type pos = name.find(" ");
-		if (pos == string::npos)
-		    continue;
-
-		name.erase(0, pos + 1);
-	    }
-
-	    Files::iterator it = files.findAbsolutePath(name);
-	    if (it == files.end())
-            {
-                cerr << sformat(_("File '%s' not found."), name.c_str()) << endl;
-                exit(EXIT_FAILURE);
-            }
-
-	    it->setUndo(true);
-	}
-    }
-    else
-    {
-	if (getopts.numArgs() == 0)
-	{
-	    for (Files::iterator it = files.begin(); it != files.end(); ++it)
-		it->setUndo(true);
-	}
-	else
-	{
-	    while (getopts.numArgs() > 0)
-	    {
-		Files::iterator it = files.findAbsolutePath(getopts.popArg());
-		if (it == files.end())
-                    continue;
-
-		it->setUndo(true);
-	    }
-	}
-    }
+    files.bulk_process(file, [](File& file) {
+	file.setUndo(true);
+    });
 
     UndoStatistic undo_statistic = files.getUndoStatistic();
 
@@ -1188,10 +1268,8 @@ command_undo(DBus::Connection* conn, Snapper* snapper)
 #ifdef ENABLE_ROLLBACK
 
 const Filesystem*
-getFilesystem(DBus::Connection* conn, Snapper* snapper)
+getFilesystem(const XConfigInfo &ci, Snapper* snapper)
 {
-    XConfigInfo ci = command_get_xconfig(*conn, config_name);
-
     map<string, string>::const_iterator it = ci.raw.find(KEY_FSTYPE);
     if (it == ci.raw.end())
     {
@@ -1201,13 +1279,27 @@ getFilesystem(DBus::Connection* conn, Snapper* snapper)
 
     try
     {
-	return Filesystem::create(it->second, ci.subvolume);
+	return Filesystem::create(it->second, ci.subvolume, target_root);
     }
     catch (const InvalidConfigException& e)
     {
+	SN_CAUGHT(e);
 	cerr << _("Failed to initialize filesystem handler.") << endl;
 	exit(EXIT_FAILURE);
     }
+}
+
+const string
+getSubvolume(const XConfigInfo &ci, Snapper* snapper)
+{
+    map<string, string>::const_iterator it = ci.raw.find(KEY_SUBVOLUME);
+    if (it == ci.raw.end())
+    {
+	cerr << _("Failed to initialize subvolume handler.") << endl;
+	exit(EXIT_FAILURE);
+    }
+
+    return it->second;
 }
 
 
@@ -1263,22 +1355,34 @@ command_rollback(DBus::Connection* conn, Snapper* snapper)
     if ((opt = opts.find("userdata")) != opts.end())
 	userdata = read_userdata(opt->second);
 
-    const Filesystem* filesystem = getFilesystem(conn, snapper);
+    XConfigInfo ci = command_get_xconfig(*conn, config_name);
+
+    const Filesystem* filesystem = getFilesystem(ci, snapper);
     if (filesystem->fstype() != "btrfs")
     {
 	cerr << _("Command 'rollback' only available for btrfs.") << endl;
 	exit(EXIT_FAILURE);
     }
 
+    const string subvolume = getSubvolume(ci, snapper);
+    if (subvolume != "/")
+    {
+        cerr << sformat(_("Command 'rollback' cannot be used on a non-root subvolume %s."),
+            subvolume.c_str()) << endl;
+        exit(EXIT_FAILURE);
+    }
+
+
+    unsigned int num1;
     unsigned int num2;
 
     if (getopts.numArgs() == 0)
     {
 	if (!quiet)
 	    cout << _("Creating read-only snapshot of default subvolume.") << flush;
-	unsigned int num1 = command_create_single_xsnapshot_of_default(*conn, config_name, true,
-								       description, cleanup,
-								       userdata);
+	num1 = command_create_single_xsnapshot_of_default(*conn, config_name, true,
+							  description, cleanup,
+							  userdata);
 	if (!quiet)
 	    cout << " " << sformat(_("(Snapshot %d.)"), num1) << endl;
 
@@ -1295,8 +1399,8 @@ command_rollback(DBus::Connection* conn, Snapper* snapper)
 
 	if (!quiet)
 	    cout << _("Creating read-only snapshot of current system.") << flush;
-	unsigned int num1 = command_create_single_xsnapshot(*conn, config_name, description,
-							    cleanup, userdata);
+	num1 = command_create_single_xsnapshot(*conn, config_name, description,
+					       cleanup, userdata);
 	if (!quiet)
 	    cout << " " << sformat(_("(Snapshot %d.)"), num1) << endl;
 
@@ -1312,11 +1416,43 @@ command_rollback(DBus::Connection* conn, Snapper* snapper)
 	cout << sformat(_("Setting default subvolume to snapshot %d."), num2) << endl;
     filesystem->setDefault(num2);
 
+    Hooks::rollback(filesystem->snapshotDir(num1), filesystem->snapshotDir(num2));
+
     if (print_number)
 	cout << num2 << endl;
 }
 
 #endif
+
+
+void
+help_setup_quota()
+{
+    cout << _("  Setup quota:") << endl
+	 << _("\tsnapper setup-quota") << endl
+	 << endl;
+}
+
+
+void
+command_setup_quota(DBus::Connection* conn, Snapper* snapper)
+{
+    GetOpts::parsed_opts opts = getopts.parse("setup-quota", GetOpts::no_options);
+    if (getopts.numArgs() != 0)
+    {
+	cerr << _("Command 'setup-quota' does not take arguments.") << endl;
+	exit(EXIT_FAILURE);
+    }
+
+    if (no_dbus)
+    {
+	snapper->setupQuota();
+    }
+    else
+    {
+	command_setup_quota(*conn, config_name);
+    }
+}
 
 
 void
@@ -1342,15 +1478,15 @@ command_cleanup(DBus::Connection* conn, Snapper* snapper)
 
     if (cleanup == "number")
     {
-	do_cleanup_number(*conn, config_name);
+	do_cleanup_number(*conn, config_name, verbose);
     }
     else if (cleanup == "timeline")
     {
-	do_cleanup_timeline(*conn, config_name);
+	do_cleanup_timeline(*conn, config_name, verbose);
     }
     else if (cleanup == "empty-pre-post")
     {
-	do_cleanup_empty_pre_post(*conn, config_name);
+	do_cleanup_empty_pre_post(*conn, config_name, verbose);
     }
     else
     {
@@ -1395,7 +1531,8 @@ help_xa_diff()
 void
 print_xa_diff(const string loc_pre, const string loc_post)
 {
-    try {
+    try
+    {
         XAModification xa_mod = XAModification(XAttributes(loc_pre), XAttributes(loc_post));
 
         if (!xa_mod.empty())
@@ -1404,15 +1541,18 @@ print_xa_diff(const string loc_pre, const string loc_post)
 	    xa_mod.dumpDiffReport(cout);
 	}
     }
-    catch (const XAttributesException& e) {}
+    catch (const XAttributesException& e)
+    {
+	SN_CAUGHT(e);
+    }
 }
 
 void
 command_xa_diff(DBus::Connection* conn, Snapper* snapper)
 {
     GetOpts::parsed_opts opts = getopts.parse("xadiff", GetOpts::no_options);
-
-    if (getopts.numArgs() < 1) {
+    if (getopts.numArgs() < 1)
+    {
         cerr << _("Command 'xadiff' needs at least one argument.") << endl;
         exit(EXIT_FAILURE);
     }
@@ -1423,9 +1563,11 @@ command_xa_diff(DBus::Connection* conn, Snapper* snapper)
     MyFiles& files = comparison.files;
 
     if (getopts.numArgs() == 0)
-        for (Files::const_iterator it1 = files.begin(); it1 != files.end(); ++it1)
+    {
+	for (Files::const_iterator it1 = files.begin(); it1 != files.end(); ++it1)
             if (it1->getPreToPostStatus() & XATTRS)
                 print_xa_diff(it1->getAbsolutePath(LOC_PRE), it1->getAbsolutePath(LOC_POST));
+    }
     else
     {
         while (getopts.numArgs() > 0)
@@ -1493,6 +1635,7 @@ help(const list<Cmd>& cmds)
 	 << _("\t--table-style, -t <style>\tTable style (integer).") << endl
 	 << _("\t--config, -c <name>\t\tSet name of config to use.") << endl
 	 << _("\t--no-dbus\t\t\tOperate without DBus.") << endl
+	 << _("\t--root, -r <path>\t\tOperate on target root (works only without DBus).") << endl
 	 << _("\t--version\t\t\tPrint version and exit.") << endl
 	 << endl;
 
@@ -1506,7 +1649,15 @@ help(const list<Cmd>& cmds)
 int
 main(int argc, char** argv)
 {
-    setlocale(LC_ALL, "");
+    try
+    {
+	locale::global(locale(""));
+    }
+    catch (const runtime_error& e)
+    {
+	cerr << "Failed to set locale. Fix your system." << endl;
+	exit (EXIT_FAILURE);
+    }
 
     setLogDo(&log_do);
     setLogQuery(&log_query);
@@ -1532,6 +1683,7 @@ main(int argc, char** argv)
 #ifdef ENABLE_ROLLBACK
 	Cmd("rollback", command_rollback, help_rollback, false, true),
 #endif
+	Cmd("setup-quota", command_setup_quota, help_setup_quota, true, true),
 	Cmd("cleanup", command_cleanup, help_cleanup, false, true),
 	Cmd("debug", command_debug, help_debug, false, false)
     };
@@ -1544,6 +1696,7 @@ main(int argc, char** argv)
 	{ "table-style",	required_argument,	0,	't' },
 	{ "config",		required_argument,	0,	'c' },
 	{ "no-dbus",		no_argument,		0,	0 },
+	{ "root",		required_argument,	0,	'r' },
 	{ "version",		no_argument,		0,	0 },
 	{ "help",		no_argument,		0,	0 },
 	{ 0, 0, 0, 0 }
@@ -1585,6 +1738,17 @@ main(int argc, char** argv)
 
     if ((opt = opts.find("no-dbus")) != opts.end())
 	no_dbus = true;
+
+    if ((opt = opts.find("root")) != opts.end())
+    {
+	target_root = opt->second;
+        if (!no_dbus)
+        {
+            cerr << _("root argument can be used only together with no-dbus.") << endl
+                 << _("Try 'snapper --help' for more information.") << endl;
+            exit(EXIT_FAILURE);
+        }
+    }
 
     if ((opt = opts.find("version")) != opts.end())
     {
@@ -1628,7 +1792,7 @@ main(int argc, char** argv)
 
 	try
 	{
-	    Snapper* snapper = cmd->needs_snapper ? new Snapper(config_name) : NULL;
+	    Snapper* snapper = cmd->needs_snapper ? new Snapper(config_name, target_root) : NULL;
 
 	    (*cmd->cmd_func)(NULL, snapper);
 
@@ -1636,48 +1800,69 @@ main(int argc, char** argv)
 	}
 
 	catch (const ConfigNotFoundException& e)
-        {
-            cerr << sformat(_("Config '%s' not found."), config_name.c_str()) << endl;
-            exit(EXIT_FAILURE);
-        }
-        catch (const InvalidConfigException& e)
-        {
-            cerr << sformat(_("Config '%s' is invalid."), config_name.c_str()) << endl;
-            exit(EXIT_FAILURE);
-        }
+	{
+	    SN_CAUGHT(e);
+	    cerr << sformat(_("Config '%s' not found."), config_name.c_str()) << endl;
+	    exit(EXIT_FAILURE);
+	}
+	catch (const InvalidConfigException& e)
+	{
+	    SN_CAUGHT(e);
+	    cerr << sformat(_("Config '%s' is invalid."), config_name.c_str()) << endl;
+	    exit(EXIT_FAILURE);
+	}
 	catch (const ListConfigsFailedException& e)
 	{
+	    SN_CAUGHT(e);
 	    cerr << sformat(_("Listing configs failed (%s)."), e.what()) << endl;
 	    exit(EXIT_FAILURE);
 	}
 	catch (const CreateConfigFailedException& e)
 	{
+	    SN_CAUGHT(e);
 	    cerr << sformat(_("Creating config failed (%s)."), e.what()) << endl;
 	    exit(EXIT_FAILURE);
 	}
 	catch (const DeleteConfigFailedException& e)
 	{
+	    SN_CAUGHT(e);
 	    cerr << sformat(_("Deleting config failed (%s)."), e.what()) << endl;
 	    exit(EXIT_FAILURE);
 	}
 	catch (const InvalidConfigdataException& e)
 	{
+	    SN_CAUGHT(e);
 	    cerr << _("Invalid configdata.") << endl;
 	    exit(EXIT_FAILURE);
 	}
 	catch (const AclException& e)
 	{
+	    SN_CAUGHT(e);
 	    cerr << _("ACL error.") << endl;
+	    exit(EXIT_FAILURE);
+	}
+	catch (const IOErrorException& e)
+	{
+	    SN_CAUGHT(e);
+	    cerr << sformat(_("IO error (%s)."), e.what()) << endl;
 	    exit(EXIT_FAILURE);
 	}
 	catch (const InvalidUserException& e)
 	{
+	    SN_CAUGHT(e);
 	    cerr << _("Invalid user.") << endl;
 	    exit(EXIT_FAILURE);
 	}
 	catch (const InvalidGroupException& e)
 	{
+	    SN_CAUGHT(e);
 	    cerr << _("Invalid group.") << endl;
+	    exit(EXIT_FAILURE);
+	}
+	catch (const QuotaException& e)
+	{
+	    SN_CAUGHT(e);
+	    cerr << sformat(_("Quota error (%s)."), e.what()) << endl;
 	    exit(EXIT_FAILURE);
 	}
     }
@@ -1691,11 +1876,21 @@ main(int argc, char** argv)
 	}
 	catch (const DBus::ErrorException& e)
 	{
+	    SN_CAUGHT(e);
+
+	    if (strcmp(e.name(), "error.unknown_config") == 0 && config_name == "root")
+	    {
+		cerr << _("The config 'root' does not exist. Likely snapper is not configured.") << endl
+		     << _("See 'man snapper' for further instructions.") << endl;
+		exit(EXIT_FAILURE);
+	    }
+
 	    cerr << error_description(e) << endl;
 	    exit(EXIT_FAILURE);
 	}
 	catch (const DBus::FatalException& e)
 	{
+	    SN_CAUGHT(e);
 	    cerr << _("Failure") << " (" << e.what() << ")." << endl;
 	    exit(EXIT_FAILURE);
 	}

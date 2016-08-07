@@ -1,5 +1,5 @@
 /*
- * Copyright (c) [2004-2014] Novell, Inc.
+ * Copyright (c) [2004-2015] Novell, Inc.
  *
  * All Rights Reserved.
  *
@@ -35,6 +35,7 @@
 #include <dirent.h>
 #include <mntent.h>
 #include <boost/algorithm/string.hpp>
+#include <boost/io/ios_state.hpp>
 
 #include "snapper/Log.h"
 #include "snapper/AppUtil.h"
@@ -90,10 +91,15 @@ namespace snapper
     bool
     copyfile(int src_fd, int dest_fd)
     {
+	posix_fadvise(src_fd, 0, 0, POSIX_FADV_SEQUENTIAL);
+
+	// TODO: maybe use POSIX_FADV_DONTNEED on dest_fd, but this could
+	// trigger a kernel bug (see bsc #888259)
+
 	while (true)
 	{
 	    // use small value for count to make function better interruptible
-	    ssize_t r1 = sendfile(dest_fd, src_fd, NULL, 0xffff);
+	    ssize_t r1 = sendfile(dest_fd, src_fd, NULL, 0x10000);
 	    if (r1 == 0)
 		return true;
 
@@ -133,6 +139,16 @@ namespace snapper
 	string s(buf);
 	free(buf);
 	return s;
+    }
+
+
+    string
+    prepend_root_prefix(const string& root_prefix, const string& path)
+    {
+        if (root_prefix == "/")
+            return path;
+        else
+            return root_prefix + path;
     }
 
 
@@ -351,26 +367,24 @@ namespace snapper
 
 
     StopWatch::StopWatch()
+	: start_time(chrono::steady_clock::now())
     {
-	gettimeofday(&start_tv, NULL);
     }
 
 
     double
     StopWatch::read() const
     {
-	struct timeval stop_tv;
-	gettimeofday(&stop_tv, NULL);
-
-	struct timeval tv;
-	timersub(&stop_tv, &start_tv, &tv);
-
-	return double(tv.tv_sec) + (double)(tv.tv_usec) / 1000000.0;
+	chrono::steady_clock::time_point stop_time = chrono::steady_clock::now();
+	chrono::steady_clock::duration duration = stop_time - start_time;
+	return chrono::duration<double>(duration).count();
     }
 
 
-    std::ostream& operator<<(std::ostream& s, const StopWatch& sw)
+    std::ostream&
+    operator<<(std::ostream& s, const StopWatch& sw)
     {
+	boost::io::ios_all_saver ias(s);
 	return s << fixed << sw.read() << "s";
     }
 

@@ -77,8 +77,8 @@ namespace snapper
 	    return false;
 	}
 
-	posix_fadvise(fd1, 0, stat1.st_size, POSIX_FADV_SEQUENTIAL);
-	posix_fadvise(fd2, 0, stat2.st_size, POSIX_FADV_SEQUENTIAL);
+	posix_fadvise(fd1, 0, 0, POSIX_FADV_SEQUENTIAL);
+	posix_fadvise(fd2, 0, 0, POSIX_FADV_SEQUENTIAL);
 
 	static_assert(sizeof(off_t) >= 8, "off_t is too small");
 
@@ -158,7 +158,7 @@ namespace snapper
 		    const struct stat& stat2)
     {
 	if ((stat1.st_mode & S_IFMT) != (stat2.st_mode & S_IFMT))
-	    throw LogicErrorException();
+	    SN_THROW(LogicErrorException());
 
 	switch (stat1.st_mode & S_IFMT)
 	{
@@ -247,16 +247,10 @@ namespace snapper
 	    return DELETED;
 
 	if (r1 != 0)
-	{
-	    y2err("stat failed path:" << file1.fullname());
-	    throw IOErrorException();
-	}
+	    SN_THROW(IOErrorException("stat failed path:" + file1.fullname()));
 
 	if (r2 != 0)
-	{
-	    y2err("lstat failed path:" << file2.fullname());
-	    throw IOErrorException();
-	}
+	    SN_THROW(IOErrorException("lstat failed path:" + file2.fullname()));
 
 	return cmpFiles(file1, stat1, file2, stat2);
     }
@@ -415,7 +409,7 @@ namespace snapper
 	    else
 	    {
 		if (*first1 != *first2)
-		    throw LogicErrorException();
+		    SN_THROW(LogicErrorException());
 
 		struct stat stat1;
 		dir1.stat(*first1, &stat1, AT_SYMLINK_NOFOLLOW); // TODO error check
@@ -439,18 +433,14 @@ namespace snapper
 	struct stat stat1;
 	int r1 = dir1.stat(&stat1);
 	if (r1 != 0)
-	{
-	    y2err("stat failed path:" << dir1.fullname() << " errno:" << errno);
-	    throw IOErrorException();
-	}
+	    SN_THROW(IOErrorException(sformat("stat failed path:%s errno:%d",
+					      dir1.fullname().c_str(), errno)));
 
 	struct stat stat2;
 	int r2 = dir2.stat(&stat2);
 	if (r2 != 0)
-	{
-	    y2err("stat failed path:" << dir2.fullname() << " errno:" << errno);
-	    throw IOErrorException();
-	}
+	    SN_THROW(IOErrorException(sformat("stat failed path:%s errno:%d",
+					      dir2.fullname().c_str(), errno)));
 
 	CmpData cmp_data;
 	cmp_data.cb = cb;

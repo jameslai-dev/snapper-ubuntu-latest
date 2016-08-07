@@ -41,26 +41,29 @@
 #include "snapper/SnapperDefines.h"
 #include "snapper/Regex.h"
 #include "snapper/LvmCache.h"
+#ifdef ENABLE_SELINUX
+#include "snapper/Selinux.h"
+#endif
 
 
 namespace snapper
 {
 
     Filesystem*
-    Lvm::create(const string& fstype, const string& subvolume)
+    Lvm::create(const string& fstype, const string& subvolume, const string& root_prefix)
     {
 	Regex rx("^lvm\\(([_a-z0-9]+)\\)$");
 	if (rx.match(fstype))
-	    return new Lvm(subvolume, rx.cap(1));
+	    return new Lvm(subvolume, root_prefix, rx.cap(1));
 
 	return NULL;
     }
 
 
-    Lvm::Lvm(const string& subvolume, const string& mount_type)
-	: Filesystem(subvolume), mount_type(mount_type),
-	caps(LvmCapabilities::get_lvm_capabilities()),
-	cache(LvmCache::get_lvm_cache())
+    Lvm::Lvm(const string& subvolume, const string& root_prefix, const string& mount_type)
+	: Filesystem(subvolume, root_prefix), mount_type(mount_type),
+	  caps(LvmCapabilities::get_lvm_capabilities()),
+	  cache(LvmCache::get_lvm_cache()), sh(NULL)
     {
 	if (access(LVCREATEBIN, X_OK) != 0)
 	{
@@ -98,20 +101,87 @@ namespace snapper
 	    mount_options.push_back("nouuid");
 	    mount_options.push_back("norecovery");
 	}
+
+#ifdef ENABLE_SELINUX
+	try
+	{
+	    sh = SelinuxLabelHandle::get_selinux_handle();
+	}
+	catch (const SelinuxException& e)
+	{
+	    SN_RETHROW(e);
+	}
+#endif
+
     }
 
 
     void
-    Lvm::createConfig(bool add_fstab) const
+    Lvm::createLvmConfig(const SDir& subvolume_dir, int mode) const
     {
-	SDir subvolume_dir = openSubvolumeDir();
-
-	int r1 = subvolume_dir.mkdir(".snapshots", 0750);
+	int r1 = subvolume_dir.mkdir(".snapshots", mode);
 	if (r1 != 0 && errno != EEXIST)
 	{
 	    y2err("mkdir failed errno:" << errno << " (" << strerror(errno) << ")");
-	    throw CreateConfigFailedException("mkdir failed");
+	    SN_THROW(CreateConfigFailedException("mkdir failed"));
 	}
+    }
+
+
+    void
+    Lvm::createConfig() const
+    {
+	int mode = 0750;
+	SDir subvolume_dir = openSubvolumeDir();
+
+#ifdef ENABLE_SELINUX
+	if (_is_selinux_enabled())
+	{
+	    assert(sh);
+
+	    char* con = NULL;
+
+	    try
+	    {
+		string path(subvolume_dir.fullname() + "/.snapshots");
+
+		con = sh->selabel_lookup(path, mode);
+		if (con)
+		{
+		    // race free mkdir with correct Selinux context preset
+		    DefaultSelinuxFileContext defcon(con);
+		    createLvmConfig(subvolume_dir, mode);
+		}
+		else
+		{
+		    y2deb("Selinux policy does not define context for path: " << path);
+
+		    // race free mkdir with correct Selinux context preset even in case
+		    // Selinux policy does not define context for the path
+		    SnapperContexts scontexts;
+		    DefaultSelinuxFileContext defcon(scontexts.subvolume_context());
+
+		    createLvmConfig(subvolume_dir, mode);
+		}
+
+		freecon(con);
+
+		return;
+	    }
+	    catch (const SelinuxException& e)
+	    {
+		SN_CAUGHT(e);
+		freecon(con);
+		// fall through intentional
+	    }
+	    catch (const CreateConfigFailedException& e)
+	    {
+		freecon(con);
+		SN_RETHROW(e);
+	    }
+	}
+#endif
+	createLvmConfig(subvolume_dir, mode);
     }
 
 
@@ -146,25 +216,25 @@ namespace snapper
 	struct stat stat;
 	if (infos_dir.stat(&stat) != 0)
 	{
-	    throw IOErrorException();
+	    throw IOErrorException("stat on .snapshots failed");
 	}
 
 	if (stat.st_uid != 0)
 	{
 	    y2err(".snapshots must have owner root");
-	    throw IOErrorException();
+	    throw IOErrorException(".snapshots must have owner root");
 	}
 
 	if (stat.st_gid != 0 && stat.st_mode & S_IWGRP)
 	{
 	    y2err(".snapshots must have group root or must not be group-writable");
-	    throw IOErrorException();
+	    throw IOErrorException(".snapshots must have group root or must not be group-writable");
 	}
 
 	if (stat.st_mode & S_IWOTH)
 	{
 	    y2err(".snapshots must not be world-writable");
-	    throw IOErrorException();
+	    throw IOErrorException(".snapshots must not be world-writable");
 	}
 
 	return infos_dir;
@@ -189,7 +259,7 @@ namespace snapper
 
 
     void
-    Lvm::createSnapshot(unsigned int num, unsigned int num_parent, bool read_only) const
+    Lvm::createSnapshot(unsigned int num, unsigned int num_parent, bool read_only, bool quota) const
     {
 	if (num_parent != 0 || !read_only)
 	    throw std::logic_error("not implemented");
@@ -251,6 +321,8 @@ namespace snapper
     void
     Lvm::mountSnapshot(unsigned int num) const
     {
+	boost::unique_lock<boost::mutex> lock(mount_mutex);
+
 	if (isSnapshotMounted(num))
 	    return;
 
@@ -273,6 +345,8 @@ namespace snapper
     void
     Lvm::umountSnapshot(unsigned int num) const
     {
+	boost::unique_lock<boost::mutex> lock(mount_mutex);
+
 	if (isSnapshotMounted(num))
 	{
 	    SDir info_dir = openInfoDir(num);

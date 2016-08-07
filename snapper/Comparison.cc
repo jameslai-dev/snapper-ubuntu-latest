@@ -51,7 +51,7 @@ namespace snapper
 	if (snapshot1 == snapper->getSnapshots().end() ||
 	    snapshot2 == snapper->getSnapshots().end() ||
 	    snapshot1 == snapshot2)
-	    throw IllegalSnapshotException();
+	    SN_THROW(IllegalSnapshotException());
 
 	y2mil("num1:" << snapshot1->getNum() << " num2:" << snapshot2->getNum());
 
@@ -101,17 +101,6 @@ namespace snapper
     }
 
 
-    struct Comparison::AppendHelper
-    {
-	AppendHelper(const FilePaths* file_paths, Files& files)
-	    : file_paths(file_paths), files(files) {}
-	void operator()(const string& name, unsigned int status)
-	    { files.push_back(File(file_paths, name, status)); }
-	const FilePaths* file_paths;
-	Files& files;
-    };
-
-
     void
     Comparison::mount() const
     {
@@ -137,13 +126,9 @@ namespace snapper
     {
 	y2mil("num1:" << getSnapshot1()->getNum() << " num2:" << getSnapshot2()->getNum());
 
-#if 1
-	cmpdirs_cb_t cb = AppendHelper(&file_paths, files);
-#else
-	cmpdirs_cb_t cb = [&file_paths, &files](const string& name, unsigned int status) {
+	cmpdirs_cb_t cb = [this](const string& name, unsigned int status) {
 	    files.push_back(File(&file_paths, name, status));
 	};
-#endif
 
 	mount();
 
@@ -167,7 +152,7 @@ namespace snapper
 	y2mil("num1:" << getSnapshot1()->getNum() << " num2:" << getSnapshot2()->getNum());
 
 	if (getSnapshot1()->isCurrent() || getSnapshot2()->isCurrent())
-	    throw IllegalSnapshotException();
+	    SN_THROW(IllegalSnapshotException());
 
 	unsigned int num1 = getSnapshot1()->getNum();
 	unsigned int num2 = getSnapshot2()->getNum();
@@ -225,7 +210,7 @@ namespace snapper
 	y2mil("num1:" << getSnapshot1()->getNum() << " num2:" << getSnapshot2()->getNum());
 
 	if (getSnapshot1()->isCurrent() || getSnapshot2()->isCurrent())
-	    throw IllegalSnapshotException();
+	    SN_THROW(IllegalSnapshotException());
 
 	unsigned int num1 = getSnapshot1()->getNum();
 	unsigned int num2 = getSnapshot2()->getNum();
@@ -242,10 +227,8 @@ namespace snapper
 
 	FILE* file = fdopen(info_dir.mktemp(tmp_name), "w");
 	if (!file)
-	{
-	    y2err("mkstemp failed errno:" << errno << " (" << stringerror(errno) << ")");
-	    throw IOErrorException();
-	}
+	    SN_THROW(IOErrorException(sformat("mkstemp failed errno:%d (%s)", errno,
+					      stringerror(errno).c_str())));
 
 	for (Files::const_iterator it = files.begin(); it != files.end(); ++it)
 	{
@@ -275,7 +258,7 @@ namespace snapper
     Comparison::getUndoStatistic() const
     {
 	if (getSnapshot1()->isCurrent())
-	    throw IllegalSnapshotException();
+	    SN_THROW(IllegalSnapshotException());
 
 	return files.getUndoStatistic();
     }
@@ -285,7 +268,7 @@ namespace snapper
     Comparison::getXAUndoStatistic() const
     {
         if (getSnapshot1()->isCurrent())
-            throw IllegalSnapshotException();
+            SN_THROW(IllegalSnapshotException());
 
         return files.getXAUndoStatistic();
     }
@@ -295,7 +278,7 @@ namespace snapper
     Comparison::getUndoSteps() const
     {
 	if (getSnapshot1()->isCurrent())
-	    throw IllegalSnapshotException();
+	    SN_THROW(IllegalSnapshotException());
 
 	return files.getUndoSteps();
     }
@@ -305,7 +288,7 @@ namespace snapper
     Comparison::doUndoStep(const UndoStep& undo_step)
     {
 	if (getSnapshot1()->isCurrent())
-	    throw IllegalSnapshotException();
+	    SN_THROW(IllegalSnapshotException());
 
 	return files.doUndoStep(undo_step);
     }

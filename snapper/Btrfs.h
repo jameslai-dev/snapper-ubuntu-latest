@@ -1,5 +1,6 @@
 /*
- * Copyright (c) [2011-2014] Novell, Inc.
+ * Copyright (c) [2011-2015] Novell, Inc.
+ * Copyright (c) 2016 SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -31,20 +32,27 @@
 namespace snapper
 {
 
+    using namespace BtrfsUtils;
+
+
     class Btrfs : public Filesystem
     {
     public:
 
-	static Filesystem* create(const string& fstype, const string& subvolume);
+	static Filesystem* create(const string& fstype, const string& subvolume,
+				  const string& root_prefix);
 
-	Btrfs(const string& subvolume);
+	Btrfs(const string& subvolume, const string& root_prefix);
 
 	virtual void evalConfigInfo(const ConfigInfo& config_info);
 
 	virtual string fstype() const { return "btrfs"; }
 
-	virtual void createConfig(bool add_fstab) const;
+	virtual void createConfig() const;
 	virtual void deleteConfig() const;
+
+	virtual void addToFstab(const string& default_subvolume_name) const;
+	virtual void removeFromFstab() const;
 
 	virtual string snapshotDir(unsigned int num) const;
 
@@ -52,9 +60,9 @@ namespace snapper
 	virtual SDir openInfosDir() const;
 	virtual SDir openSnapshotDir(unsigned int num) const;
 
-	virtual void createSnapshot(unsigned int num, unsigned int num_parent,
-				    bool read_only) const;
-	virtual void createSnapshotOfDefault(unsigned int num, bool read_only) const;
+	virtual void createSnapshot(unsigned int num, unsigned int num_parent, bool read_only,
+				    bool quota) const;
+	virtual void createSnapshotOfDefault(unsigned int num, bool read_only, bool quota) const;
 	virtual void deleteSnapshot(unsigned int num) const;
 
 	virtual bool isSnapshotMounted(unsigned int num) const;
@@ -67,14 +75,23 @@ namespace snapper
 
 	virtual void cmpDirs(const SDir& dir1, const SDir& dir2, cmpdirs_cb_t cb) const;
 
+	virtual bool isDefault(unsigned int num) const;
 	virtual void setDefault(unsigned int num) const;
+
+	virtual bool isActive(unsigned int num) const;
+
+	virtual void sync() const;
+
+	virtual qgroup_t getQGroup() const { return qgroup; }
 
     private:
 
 	qgroup_t qgroup;
 
-	void addToFstab() const;
-	void removeFromFstab() const;
+	mutable vector<subvolid_t> deleted_subvolids;
+
+	void addToFstabHelper(const string& default_subvolume_name) const;
+	void removeFromFstabHelper() const;
 
     };
 

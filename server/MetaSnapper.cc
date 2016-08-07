@@ -1,5 +1,5 @@
 /*
- * Copyright (c) [2012-2014] Novell, Inc.
+ * Copyright (c) [2012-2015] Novell, Inc.
  *
  * All Rights Reserved.
  *
@@ -35,7 +35,7 @@ MetaSnappers meta_snappers;
 
 
 RefCounter::RefCounter()
-    : counter(0), last_used(monotonic_time())
+    : counter(0), last_used(steady_clock::now())
 {
 }
 
@@ -57,7 +57,7 @@ RefCounter::dec_use_count()
     assert(counter > 0);
 
     if (--counter == 0)
-	last_used = monotonic_time();
+	last_used = steady_clock::now();
 
     return counter;
 }
@@ -68,7 +68,7 @@ RefCounter::update_use_time()
 {
     boost::lock_guard<boost::mutex> lock(mutex);
 
-    last_used = monotonic_time();
+    last_used = steady_clock::now();
 }
 
 
@@ -81,27 +81,15 @@ RefCounter::use_count() const
 }
 
 
-int
+milliseconds
 RefCounter::unused_for() const
 {
     boost::lock_guard<boost::mutex> lock(mutex);
 
     if (counter != 0)
-	return 0;
+	return milliseconds(0);
 
-    struct timespec tmp;
-    clock_gettime(CLOCK_MONOTONIC, &tmp);
-
-    return tmp.tv_sec - last_used;
-}
-
-
-time_t
-RefCounter::monotonic_time()
-{
-    struct timespec tmp;
-    clock_gettime(CLOCK_MONOTONIC, &tmp);
-    return tmp.tv_sec;
+    return duration_cast<milliseconds>(steady_clock::now() - last_used);
 }
 
 
@@ -172,7 +160,7 @@ Snapper*
 MetaSnapper::getSnapper()
 {
     if (!snapper)
-	snapper = new Snapper(config_info.getConfigName());
+	snapper = new Snapper(config_info.getConfigName(), "/");
 
     update_use_time();
 
@@ -201,15 +189,11 @@ MetaSnappers::~MetaSnappers()
 void
 MetaSnappers::init()
 {
-    list<ConfigInfo> config_infos = Snapper::getConfigs();
+    list<ConfigInfo> config_infos = Snapper::getConfigs("/");
 
     for (list<ConfigInfo>::iterator it = config_infos.begin(); it != config_infos.end(); ++it)
     {
-#if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)
 	entries.emplace_back(*it);
-#else
-	entries.push_back(*it);
-#endif
     }
 }
 
@@ -229,22 +213,18 @@ void
 MetaSnappers::createConfig(const string& config_name, const string& subvolume,
 			   const string& fstype, const string& template_name)
 {
-    Snapper::createConfig(config_name, subvolume, fstype, template_name);
+    Snapper::createConfig(config_name, "/", subvolume, fstype, template_name);
 
-    ConfigInfo config_info = Snapper::getConfig(config_name);
+    ConfigInfo config_info = Snapper::getConfig(config_name, "/");
 
-#if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)
     entries.emplace_back(config_info);
-#else
-    entries.push_back(config_info);
-#endif
 }
 
 
 void
 MetaSnappers::deleteConfig(iterator it)
 {
-    Snapper::deleteConfig(it->configName());
+    Snapper::deleteConfig(it->configName(), "/");
 
     entries.erase(it);
 }

@@ -1,5 +1,6 @@
 /*
- * Copyright (c) [2011-2014] Novell, Inc.
+ * Copyright (c) [2011-2015] Novell, Inc.
+ * Copyright (c) 2016 SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -38,13 +39,14 @@ namespace snapper
 
     class Filesystem;
     class SDir;
+    class SelinuxLabelHandle;
 
 
     class ConfigInfo : public SysconfigFile
     {
     public:
 
-	explicit ConfigInfo(const string& config_name);
+	explicit ConfigInfo(const string& config_name, const string& root_prefix);
 
 	const string& getConfigName() const { return config_name; }
 	const string& getSubvolume() const { return subvolume; }
@@ -60,49 +62,51 @@ namespace snapper
     };
 
 
-    struct ConfigNotFoundException : public SnapperException
+    struct ConfigNotFoundException : public Exception
     {
-	explicit ConfigNotFoundException() throw() {}
-	virtual const char* what() const throw() { return "config not found"; }
+	explicit ConfigNotFoundException() : Exception("config not found") {}
     };
 
-    struct InvalidConfigException : public SnapperException
+    struct InvalidConfigException : public Exception
     {
-	explicit InvalidConfigException() throw() {}
-	virtual const char* what() const throw() { return "invalid config"; }
+	explicit InvalidConfigException() : Exception("invalid config") {}
     };
 
-    struct InvalidConfigdataException : public SnapperException
+    struct InvalidConfigdataException : public Exception
     {
-	explicit InvalidConfigdataException() throw() {}
-	virtual const char* what() const throw() { return "invalid configdata"; }
+	explicit InvalidConfigdataException() : Exception("invalid configdata") {}
     };
 
-    struct InvalidUserdataException : public SnapperException
+    struct InvalidUserdataException : public Exception
     {
-	explicit InvalidUserdataException() throw() {}
-	virtual const char* what() const throw() { return "invalid userdata"; }
+	explicit InvalidUserdataException() : Exception("invalid userdata") {}
     };
 
-    struct ListConfigsFailedException : public SnapperException
+    struct ListConfigsFailedException : public Exception
     {
-	explicit ListConfigsFailedException(const char* msg) throw() : msg(msg) {}
-	virtual const char* what() const throw() { return msg; }
-	const char* msg;
+	explicit ListConfigsFailedException(const char* msg) : Exception(msg) {}
     };
 
-    struct CreateConfigFailedException : public SnapperException
+    struct CreateConfigFailedException : public Exception
     {
-	explicit CreateConfigFailedException(const char* msg) throw() : msg(msg) {}
-	virtual const char* what() const throw() { return msg; }
-	const char* msg;
+	explicit CreateConfigFailedException(const char* msg) : Exception(msg) {}
     };
 
-    struct DeleteConfigFailedException : public SnapperException
+    struct DeleteConfigFailedException : public Exception
     {
-	explicit DeleteConfigFailedException(const char* msg) throw() : msg(msg) {}
-	virtual const char* what() const throw() { return msg; }
-	const char* msg;
+	explicit DeleteConfigFailedException(const char* msg) : Exception(msg) {}
+    };
+
+    struct QuotaException : public Exception
+    {
+	explicit QuotaException(const char* msg) : Exception(msg) {}
+    };
+
+
+    struct QuotaData
+    {
+	uint64_t size;
+	uint64_t used;
     };
 
 
@@ -110,10 +114,10 @@ namespace snapper
     {
     public:
 
-	Snapper(const string& config_name = "root", bool disable_filters = false);
+	Snapper(const string& config_name, const string& root_prefix, bool disable_filters = false);
 	~Snapper();
 
-	string configName() const { return config_info->getConfigName(); }
+	const string& configName() const { return config_info->getConfigName(); }
 
 	string subvolumeDir() const;
 
@@ -125,42 +129,25 @@ namespace snapper
 
 	Snapshots::const_iterator getSnapshotCurrent() const;
 
-	Snapshots::iterator createSingleSnapshot(string description) __attribute__ ((deprecated));
-	Snapshots::iterator createPreSnapshot(string description) __attribute__ ((deprecated));
-	Snapshots::iterator createPostSnapshot(string description, Snapshots::const_iterator pre) __attribute__ ((deprecated));
+	Snapshots::iterator createSingleSnapshot(const SCD& scd);
+	Snapshots::iterator createSingleSnapshot(Snapshots::const_iterator parent, const SCD& scd);
+	Snapshots::iterator createSingleSnapshotOfDefault(const SCD& scd);
+	Snapshots::iterator createPreSnapshot(const SCD& scd);
+	Snapshots::iterator createPostSnapshot(Snapshots::const_iterator pre, const SCD& scd);
 
-	Snapshots::iterator createSingleSnapshot(uid_t uid, const string& description,
-						 const string& cleanup,
-						 const map<string, string>& userdata);
-	Snapshots::iterator createSingleSnapshot(Snapshots::const_iterator parent, bool read_only,
-						 uid_t uid, const string& description,
-						 const string& cleanup,
-						 const map<string, string>& userdata);
-	Snapshots::iterator createSingleSnapshotOfDefault(bool read_only, uid_t uid, const string& description,
-							  const string& cleanup,
-							  const map<string, string>& userdata);
-	Snapshots::iterator createPreSnapshot(uid_t uid, const string& description,
-					      const string& cleanup,
-					      const map<string, string>& userdata);
-	Snapshots::iterator createPostSnapshot(Snapshots::const_iterator pre, uid_t uid,
-					       const string& description, const string& cleanup,
-					       const map<string, string>& userdata);
-
-	void modifySnapshot(Snapshots::iterator snapshot, const string& description,
-			    const string& cleanup, const map<string, string>& userdata);
+	void modifySnapshot(Snapshots::iterator snapshot, const SMD& smd);
 
 	void deleteSnapshot(Snapshots::iterator snapshot);
 
 	const vector<string>& getIgnorePatterns() const { return ignore_patterns; }
 
-	static ConfigInfo getConfig(const string& config_name);
-	static list<ConfigInfo> getConfigs();
-	static void createConfig(const string& config_name, const string& subvolume,
-				 const string& fstype, const string& template_name);
-	static void createConfig(const string& config_name, const string& subvolume,
-				 const string& fstype, const string& template_name,
-				 bool add_fstab);
-	static void deleteConfig(const string& config_name);
+	static ConfigInfo getConfig(const string& config_name, const string& root_prefix);
+	static list<ConfigInfo> getConfigs(const string& root_prefix);
+
+	static void createConfig(const string& config_name, const string& root_prefix,
+				 const string& subvolume, const string& fstype,
+				 const string& template_name);
+	static void deleteConfig(const string& config_name, const string& root_prefix);
 
 	static bool detectFstype(const string& subvolume, string& fstype);
 
@@ -169,6 +156,14 @@ namespace snapper
 	void setConfigInfo(const map<string, string>& raw);
 
 	void syncAcl() const;
+
+	void syncFilesystem() const;
+
+	void setupQuota();
+
+	void prepareQuota() const;
+
+	QuotaData queryQuotaData() const;
 
 	static const char* compileVersion();
 	static const char* compileFlags();
@@ -182,6 +177,10 @@ namespace snapper
 
 	void syncAcl(const vector<uid_t>& uids, const vector<gid_t>& gids) const;
 
+	void syncSelinuxContexts(bool skip_snapshot_dir) const;
+	void syncSelinuxContextsInInfosDir(bool skip_snapshot_dir) const;
+	void syncInfoDir(SDir& dir) const;
+
 	ConfigInfo* config_info;
 
 	Filesystem* filesystem;
@@ -189,6 +188,8 @@ namespace snapper
 	vector<string> ignore_patterns;
 
 	Snapshots snapshots;
+
+	SelinuxLabelHandle* selabel_handle;
 
     };
 

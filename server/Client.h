@@ -1,5 +1,6 @@
 /*
- * Copyright (c) [2012-2014] Novell, Inc.
+ * Copyright (c) [2012-2015] Novell, Inc.
+ * Copyright (c) 2016 SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -51,10 +52,9 @@ using namespace snapper;
 extern boost::shared_mutex big_mutex;
 
 
-struct NoComparison : public std::exception
+struct NoComparison : Exception
 {
-    explicit NoComparison() throw() {}
-    virtual const char* what() const throw() { return "no comparison"; }
+    explicit NoComparison() : Exception("no comparison") {}
 };
 
 
@@ -104,6 +104,10 @@ public:
     void create_comparison(DBus::Connection& conn, DBus::Message& msg);
     void delete_comparison(DBus::Connection& conn, DBus::Message& msg);
     void get_files(DBus::Connection& conn, DBus::Message& msg);
+    void setup_quota(DBus::Connection& conn, DBus::Message& msg);
+    void prepare_quota(DBus::Connection& conn, DBus::Message& msg);
+    void query_quota(DBus::Connection& conn, DBus::Message& msg);
+    void sync(DBus::Connection& conn, DBus::Message& msg);
     void debug(DBus::Connection& conn, DBus::Message& msg) const;
 
     void dispatch(DBus::Connection& conn, DBus::Message& msg);

@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2012 Novell, Inc.
+ * Copyright (c) 2016 SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -32,6 +33,7 @@ using std::map;
 #include "dbus/DBusConnection.h"
 #include "snapper/Snapshot.h"
 #include "snapper/File.h"
+#include "snapper/SnapperTmpl.h"
 
 using namespace snapper;
 
@@ -42,6 +44,14 @@ struct XConfigInfo
     string subvolume;
 
     map<string, string> raw;
+
+    template<typename Type>
+    void read(const char* name, Type& value)
+    {
+	map<string, string>::const_iterator pos = raw.find(name);
+	if (pos != raw.end())
+	    pos->second >> value;
+    }
 };
 
 
@@ -77,15 +87,24 @@ struct XSnapshot
 
 struct XSnapshots
 {
+    typedef list<XSnapshot>::iterator iterator;
     typedef list<XSnapshot>::const_iterator const_iterator;
 
+    iterator begin() { return entries.begin(); }
     const_iterator begin() const { return entries.begin(); }
+
+    iterator end() { return entries.end(); }
     const_iterator end() const { return entries.end(); }
 
     const_iterator find(unsigned int num) const;
 
+    iterator findPre(iterator post);
     const_iterator findPre(const_iterator post) const;
+
+    iterator findPost(iterator pre);
     const_iterator findPost(const_iterator pre) const;
+
+    iterator erase(iterator pos) { return entries.erase(pos); }
 
     list<XSnapshot> entries;
 };
@@ -95,6 +114,13 @@ struct XFile
 {
     string name;
     unsigned int status;
+};
+
+
+struct XQuotaData
+{
+    uint64_t size;
+    uint64_t used;
 };
 
 
@@ -113,5 +139,7 @@ namespace DBus
     Hihi& operator>>(Hihi& hihi, XSnapshot& data);
 
     Hihi& operator>>(Hihi& hihi, XFile& data);
+
+    Hihi& operator>>(Hihi& hihi, XQuotaData& data);
 
 }

@@ -1,5 +1,6 @@
 /*
- * Copyright (c) [2012-2014] Novell, Inc.
+ * Copyright (c) [2012-2015] Novell, Inc.
+ * Copyright (c) 2016 SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -203,7 +204,7 @@ Client::introspect(DBus::Connection& conn, DBus::Message& msg)
 	"    </signal>\n"
 
 	"    <method name='ListConfigs'>\n"
-	"      <arg name='configs' type='v' direction='out'/>\n"
+	"      <arg name='configs' type='a(ssa{ss})' direction='out'/>\n"
 	"    </method>\n"
 
 	"    <method name='GetConfig'>\n"
@@ -237,14 +238,14 @@ Client::introspect(DBus::Connection& conn, DBus::Message& msg)
 
 	"    <method name='ListSnapshots'>\n"
 	"      <arg name='config-name' type='s' direction='in'/>\n"
-	"      <arg name='snapshots' type='v' direction='out'/>\n"
+	"      <arg name='snapshots' type='a(uquxussa{ss})' direction='out'/>\n"
 	"    </method>\n"
 
 	"    <method name='ListSnapshotsAtTime'>\n"
 	"      <arg name='config-name' type='s' direction='in'/>\n"
 	"      <arg name='begin' type='x' direction='in'/>\n"
 	"      <arg name='end' type='x' direction='in'/>\n"
-	"      <arg name='snapshots' type='v' direction='out'/>\n"
+	"      <arg name='snapshots' type='a(uquxussa{ss})' direction='out'/>\n"
 	"    </method>\n"
 
 	"    <method name='GetSnapshot'>\n"
@@ -314,6 +315,7 @@ Client::introspect(DBus::Connection& conn, DBus::Message& msg)
 	"      <arg name='config-name' type='s' direction='in'/>\n"
 	"      <arg name='number' type='u' direction='in'/>\n"
 	"      <arg name='user-request' type='b' direction='in'/>\n"
+	"      <arg name='path' type='s' direction='out'/>\n"
 	"    </method>\n"
 
 	"    <method name='UmountSnapshot'>\n"
@@ -325,6 +327,7 @@ Client::introspect(DBus::Connection& conn, DBus::Message& msg)
 	"    <method name='GetMountPoint'>\n"
 	"      <arg name='config-name' type='s' direction='in'/>\n"
 	"      <arg name='number' type='u' direction='in'/>\n"
+	"      <arg name='path' type='s' direction='out'/>\n"
 	"    </method>\n"
 
 	"    <method name='CreateComparison'>\n"
@@ -344,7 +347,11 @@ Client::introspect(DBus::Connection& conn, DBus::Message& msg)
 	"      <arg name='config-name' type='s' direction='in'/>\n"
 	"      <arg name='number1' type='u' direction='in'/>\n"
 	"      <arg name='number2' type='u' direction='in'/>\n"
-	"      <arg name='files' type='v' direction='out'/>\n"
+	"      <arg name='files' type='a(su)' direction='out'/>\n"
+	"    </method>\n"
+
+	"    <method name='Sync'>\n"
+	"      <arg name='config-name' type='s' direction='in'/>\n"
 	"    </method>\n"
 
 	"  </interface>\n"
@@ -359,10 +366,9 @@ Client::introspect(DBus::Connection& conn, DBus::Message& msg)
 }
 
 
-struct Permissions : public std::exception
+struct Permissions : public Exception
 {
-    explicit Permissions() throw() {}
-    virtual const char* what() const throw() { return "permissions"; }
+    explicit Permissions() : Exception("no permissions") {}
 };
 
 
@@ -413,10 +419,9 @@ Client::check_permission(DBus::Connection& conn, DBus::Message& msg,
 }
 
 
-struct Lock : public std::exception
+struct Lock : public Exception
 {
-    explicit Lock() throw() {}
-    virtual const char* what() const throw() { return "locked"; }
+    explicit Lock() : Exception("locked") {}
 };
 
 
@@ -434,17 +439,15 @@ Client::check_lock(DBus::Connection& conn, DBus::Message& msg, const string& con
 }
 
 
-struct ConfigInUse : public std::exception
+struct ConfigInUse : public Exception
 {
-    explicit ConfigInUse() throw() {}
-    virtual const char* what() const throw() { return "config in use"; }
+    explicit ConfigInUse() : Exception("config in use") {}
 };
 
 
-struct SnapshotInUse : public std::exception
+struct SnapshotInUse : public Exception
 {
-    explicit SnapshotInUse() throw() {}
-    virtual const char* what() const throw() { return "snapshot in use"; }
+    explicit SnapshotInUse() : Exception("snapshot in use") {}
 };
 
 
@@ -543,13 +546,6 @@ Client::signal_snapshots_deleted(DBus::Connection& conn, const string& config_na
 
     conn.send(msg);
 }
-
-
-struct UnknownFile : public std::exception
-{
-    explicit UnknownFile() throw() {}
-    virtual const char* what() const throw() { return "unknown config"; }
-};
 
 
 void
@@ -830,12 +826,10 @@ Client::set_snapshot(DBus::Connection& conn, DBus::Message& msg)
 {
     string config_name;
     dbus_uint32_t num;
-    string description;
-    string cleanup;
-    map<string, string> userdata;
+    SMD smd;
 
     DBus::Hihi hihi(msg);
-    hihi >> config_name >> num >> description >> cleanup >> userdata;
+    hihi >> config_name >> num >> smd.description >> smd.cleanup >> smd.userdata;
 
     y2deb("SetSnapshot config_name:" << config_name << " num:" << num);
 
@@ -852,7 +846,7 @@ Client::set_snapshot(DBus::Connection& conn, DBus::Message& msg)
     if (snap == snapshots.end())
 	throw IllegalSnapshotException();
 
-    snapper->modifySnapshot(snap, description, cleanup, userdata);
+    snapper->modifySnapshot(snap, smd);
 
     DBus::MessageMethodReturn reply(msg);
 
@@ -866,26 +860,24 @@ void
 Client::create_single_snapshot(DBus::Connection& conn, DBus::Message& msg)
 {
     string config_name;
-    string description;
-    string cleanup;
-    map<string, string> userdata;
+    SCD scd;
 
     DBus::Hihi hihi(msg);
-    hihi >> config_name >> description >> cleanup >> userdata;
+    hihi >> config_name >> scd.description >> scd.cleanup >> scd.userdata;
 
-    y2deb("CreateSingleSnapshot config_name:" << config_name << " description:" << description <<
-	  " cleanup:" << cleanup);
+    y2deb("CreateSingleSnapshot config_name:" << config_name << " description:" << scd.description <<
+	  " cleanup:" << scd.cleanup);
 
     boost::unique_lock<boost::shared_mutex> lock(big_mutex);
 
     MetaSnappers::iterator it = meta_snappers.find(config_name);
 
     check_permission(conn, msg, *it);
+    scd.uid = conn.get_unix_userid(msg);
 
     Snapper* snapper = it->getSnapper();
 
-    Snapshots::iterator snap1 = snapper->createSingleSnapshot(conn.get_unix_userid(msg),
-							      description, cleanup, userdata);
+    Snapshots::iterator snap1 = snapper->createSingleSnapshot(scd);
 
     DBus::MessageMethodReturn reply(msg);
 
@@ -903,22 +895,20 @@ Client::create_single_snapshot_v2(DBus::Connection& conn, DBus::Message& msg)
 {
     string config_name;
     unsigned int parent_num;
-    bool read_only;
-    string description;
-    string cleanup;
-    map<string, string> userdata;
+    SCD scd;
 
     DBus::Hihi hihi(msg);
-    hihi >> config_name >> parent_num >> read_only >> description >> cleanup >> userdata;
+    hihi >> config_name >> parent_num >> scd.read_only >> scd.description >> scd.cleanup >> scd.userdata;
 
     y2deb("CreateSingleSnapshotV2 config_name:" << config_name << " parent_num:" << parent_num <<
-	  " read_only:" << read_only << " description:" << description << " cleanup:" << cleanup);
+	  " read_only:" << scd.read_only << " description:" << scd.description << " cleanup:" << scd.cleanup);
 
     boost::unique_lock<boost::shared_mutex> lock(big_mutex);
 
     MetaSnappers::iterator it = meta_snappers.find(config_name);
 
     check_permission(conn, msg, *it);
+    scd.uid = conn.get_unix_userid(msg);
 
     Snapper* snapper = it->getSnapper();
 
@@ -926,9 +916,7 @@ Client::create_single_snapshot_v2(DBus::Connection& conn, DBus::Message& msg)
 
     Snapshots::iterator parent = snapshots.find(parent_num);
 
-    Snapshots::iterator snap2 = snapper->createSingleSnapshot(parent, read_only,
-							      conn.get_unix_userid(msg),
-							      description, cleanup, userdata);
+    Snapshots::iterator snap2 = snapper->createSingleSnapshot(parent, scd);
 
     DBus::MessageMethodReturn reply(msg);
 
@@ -945,29 +933,24 @@ void
 Client::create_single_snapshot_of_default(DBus::Connection& conn, DBus::Message& msg)
 {
     string config_name;
-    bool read_only;
-    string description;
-    string cleanup;
-    map<string, string> userdata;
+    SCD scd;
 
     DBus::Hihi hihi(msg);
-    hihi >> config_name >> read_only >> description >> cleanup >> userdata;
+    hihi >> config_name >> scd.read_only >> scd.description >> scd.cleanup >> scd.userdata;
 
     y2deb("CreateSingleSnapshotOfDefault config_name:" << config_name << " read_only:" <<
-	  read_only << " description:" << description << " cleanup:" << cleanup);
+	  scd.read_only << " description:" << scd.description << " cleanup:" << scd.cleanup);
 
     boost::unique_lock<boost::shared_mutex> lock(big_mutex);
 
     MetaSnappers::iterator it = meta_snappers.find(config_name);
 
     check_permission(conn, msg, *it);
+    scd.uid = conn.get_unix_userid(msg);
 
     Snapper* snapper = it->getSnapper();
 
-    Snapshots::iterator snap = snapper->createSingleSnapshotOfDefault(read_only,
-								      conn.get_unix_userid(msg),
-								      description, cleanup,
-								      userdata);
+    Snapshots::iterator snap = snapper->createSingleSnapshotOfDefault(scd);
 
     DBus::MessageMethodReturn reply(msg);
 
@@ -984,26 +967,24 @@ void
 Client::create_pre_snapshot(DBus::Connection& conn, DBus::Message& msg)
 {
     string config_name;
-    string description;
-    string cleanup;
-    map<string, string> userdata;
+    SCD scd;
 
     DBus::Hihi hihi(msg);
-    hihi >> config_name >> description >> cleanup >> userdata;
+    hihi >> config_name >> scd.description >> scd.cleanup >> scd.userdata;
 
-    y2deb("CreatePreSnapshot config_name:" << config_name << " description:" << description <<
-	  " cleanup:" << cleanup);
+    y2deb("CreatePreSnapshot config_name:" << config_name << " description:" << scd.description <<
+	  " cleanup:" << scd.cleanup);
 
     boost::unique_lock<boost::shared_mutex> lock(big_mutex);
 
     MetaSnappers::iterator it = meta_snappers.find(config_name);
 
     check_permission(conn, msg, *it);
+    scd.uid = conn.get_unix_userid(msg);
 
     Snapper* snapper = it->getSnapper();
 
-    Snapshots::iterator snap1 = snapper->createPreSnapshot(conn.get_unix_userid(msg), description,
-							   cleanup, userdata);
+    Snapshots::iterator snap1 = snapper->createPreSnapshot(scd);
 
     DBus::MessageMethodReturn reply(msg);
 
@@ -1021,29 +1002,27 @@ Client::create_post_snapshot(DBus::Connection& conn, DBus::Message& msg)
 {
     string config_name;
     unsigned int pre_num;
-    string description;
-    string cleanup;
-    map<string, string> userdata;
+    SCD scd;
 
     DBus::Hihi hihi(msg);
-    hihi >> config_name >> pre_num >> description >> cleanup >> userdata;
+    hihi >> config_name >> pre_num >> scd.description >> scd.cleanup >> scd.userdata;
 
     y2deb("CreatePostSnapshot config_name:" << config_name << " pre_num:" << pre_num <<
-	  " description:" << description << " cleanup:" << cleanup);
+	  " description:" << scd.description << " cleanup:" << scd.cleanup);
 
     boost::unique_lock<boost::shared_mutex> lock(big_mutex);
 
     MetaSnappers::iterator it = meta_snappers.find(config_name);
 
     check_permission(conn, msg, *it);
+    scd.uid = conn.get_unix_userid(msg);
 
     Snapper* snapper = it->getSnapper();
     Snapshots& snapshots = snapper->getSnapshots();
 
     Snapshots::iterator snap1 = snapshots.find(pre_num);
 
-    Snapshots::iterator snap2 = snapper->createPostSnapshot(snap1, conn.get_unix_userid(msg),
-							    description, cleanup, userdata);
+    Snapshots::iterator snap2 = snapper->createPostSnapshot(snap1, scd);
 
     bool background_comparison = true;
     it->getConfigInfo().getValue("BACKGROUND_COMPARISON", background_comparison);
@@ -1249,6 +1228,10 @@ Client::create_comparison(DBus::Connection& conn, DBus::Message& msg)
 
     DBus::MessageMethodReturn reply(msg);
 
+    DBus::Hoho hoho(reply);
+    dbus_uint32_t num_files = comparison->getFiles().size();
+    hoho << num_files;
+
     conn.send(reply);
 }
 
@@ -1312,6 +1295,111 @@ Client::get_files(DBus::Connection& conn, DBus::Message& msg)
 
 
 void
+Client::setup_quota(DBus::Connection& conn, DBus::Message& msg)
+{
+    string config_name;
+
+    DBus::Hihi hihi(msg);
+    hihi >> config_name;
+
+    y2deb("SetupQuota config_name:" << config_name);
+
+    boost::unique_lock<boost::shared_mutex> lock(big_mutex);
+
+    MetaSnappers::iterator it = meta_snappers.find(config_name);
+
+    check_permission(conn, msg, *it);
+
+    Snapper* snapper = it->getSnapper();
+
+    snapper->setupQuota();
+
+    DBus::MessageMethodReturn reply(msg);
+
+    conn.send(reply);
+}
+
+
+void
+Client::prepare_quota(DBus::Connection& conn, DBus::Message& msg)
+{
+    string config_name;
+
+    DBus::Hihi hihi(msg);
+    hihi >> config_name;
+
+    y2deb("PrepareQuota config_name:" << config_name);
+
+    boost::unique_lock<boost::shared_mutex> lock(big_mutex);
+
+    MetaSnappers::iterator it = meta_snappers.find(config_name);
+
+    check_permission(conn, msg, *it);
+
+    Snapper* snapper = it->getSnapper();
+
+    snapper->prepareQuota();
+
+    DBus::MessageMethodReturn reply(msg);
+
+    conn.send(reply);
+}
+
+
+void
+Client::query_quota(DBus::Connection& conn, DBus::Message& msg)
+{
+    string config_name;
+
+    DBus::Hihi hihi(msg);
+    hihi >> config_name;
+
+    y2deb("QueryQuota config_name:" << config_name);
+
+    boost::unique_lock<boost::shared_mutex> lock(big_mutex);
+
+    MetaSnappers::iterator it = meta_snappers.find(config_name);
+
+    check_permission(conn, msg, *it);
+
+    Snapper* snapper = it->getSnapper();
+
+    QuotaData quota_data = snapper->queryQuotaData();
+
+    DBus::MessageMethodReturn reply(msg);
+
+    DBus::Hoho hoho(reply);
+    hoho << quota_data;
+
+    conn.send(reply);
+}
+
+
+void
+Client::sync(DBus::Connection& conn, DBus::Message& msg)
+{
+    string config_name;
+
+    DBus::Hihi hihi(msg);
+    hihi >> config_name;
+
+    y2deb("Sync config_name:" << config_name);
+
+    MetaSnappers::iterator it = meta_snappers.find(config_name);
+
+    check_permission(conn, msg, *it);
+
+    Snapper* snapper = it->getSnapper();
+
+    snapper->syncFilesystem();
+
+    DBus::MessageMethodReturn reply(msg);
+
+    conn.send(reply);
+}
+
+
+void
 Client::debug(DBus::Connection& conn, DBus::Message& msg) const
 {
     y2deb("Debug");
@@ -1359,7 +1447,7 @@ Client::debug(DBus::Connection& conn, DBus::Message& msg) const
 	{
 	    s << ", loaded";
 	    if (it->use_count() == 0)
-		s << ", unused for " << it->unused_for() << "s";
+		s << ", unused for " << duration_cast<milliseconds>(it->unused_for()).count() << "ms";
 	    else
 		s << ", use count " << it->use_count();
 	}
@@ -1427,6 +1515,14 @@ Client::dispatch(DBus::Connection& conn, DBus::Message& msg)
 	    delete_comparison(conn, msg);
 	else if (msg.is_method_call(INTERFACE, "GetFiles"))
 	    get_files(conn, msg);
+	else if (msg.is_method_call(INTERFACE, "SetupQuota"))
+	    setup_quota(conn, msg);
+	else if (msg.is_method_call(INTERFACE, "PrepareQuota"))
+	    prepare_quota(conn, msg);
+	else if (msg.is_method_call(INTERFACE, "QueryQuota"))
+	    query_quota(conn, msg);
+	else if (msg.is_method_call(INTERFACE, "Sync"))
+	    sync(conn, msg);
 	else if (msg.is_method_call(INTERFACE, "Debug"))
 	    debug(conn, msg);
 	else
@@ -1441,117 +1537,146 @@ Client::dispatch(DBus::Connection& conn, DBus::Message& msg)
     }
     catch (const DBus::MarshallingException& e)
     {
+	SN_CAUGHT(e);
 	DBus::MessageError reply(msg, "error.dbus.marshalling", DBUS_ERROR_FAILED);
 	conn.send(reply);
     }
     catch (const DBus::FatalException& e)
     {
+	SN_CAUGHT(e);
 	DBus::MessageError reply(msg, "error.dbus.fatal", DBUS_ERROR_FAILED);
 	conn.send(reply);
     }
     catch (const UnknownConfig& e)
     {
+	SN_CAUGHT(e);
 	DBus::MessageError reply(msg, "error.unknown_config", DBUS_ERROR_FAILED);
 	conn.send(reply);
     }
     catch (const CreateConfigFailedException& e)
     {
+	SN_CAUGHT(e);
 	DBus::MessageError reply(msg, "error.create_config_failed", e.what());
 	conn.send(reply);
     }
     catch (const DeleteConfigFailedException& e)
     {
+	SN_CAUGHT(e);
 	DBus::MessageError reply(msg, "error.delete_config_failed", e.what());
 	conn.send(reply);
     }
     catch (const Permissions& e)
     {
+	SN_CAUGHT(e);
 	DBus::MessageError reply(msg, "error.no_permissions", DBUS_ERROR_FAILED);
 	conn.send(reply);
     }
     catch (const Lock& e)
     {
+	SN_CAUGHT(e);
 	DBus::MessageError reply(msg, "error.config_locked", DBUS_ERROR_FAILED);
 	conn.send(reply);
     }
     catch (const ConfigInUse& e)
     {
+	SN_CAUGHT(e);
 	DBus::MessageError reply(msg, "error.config_in_use", DBUS_ERROR_FAILED);
 	conn.send(reply);
     }
     catch (const SnapshotInUse& e)
     {
+	SN_CAUGHT(e);
 	DBus::MessageError reply(msg, "error.snapshot_in_use", DBUS_ERROR_FAILED);
 	conn.send(reply);
     }
     catch (const NoComparison& e)
     {
+	SN_CAUGHT(e);
 	DBus::MessageError reply(msg, "error.no_comparisons", DBUS_ERROR_FAILED);
 	conn.send(reply);
     }
     catch (const IllegalSnapshotException& e)
     {
+	SN_CAUGHT(e);
 	DBus::MessageError reply(msg, "error.illegal_snapshot", DBUS_ERROR_FAILED);
 	conn.send(reply);
     }
     catch (const CreateSnapshotFailedException& e)
     {
+	SN_CAUGHT(e);
 	DBus::MessageError reply(msg, "error.create_snapshot_failed", DBUS_ERROR_FAILED);
 	conn.send(reply);
     }
     catch (const DeleteSnapshotFailedException& e)
     {
+	SN_CAUGHT(e);
 	DBus::MessageError reply(msg, "error.delete_snapshot_failed", DBUS_ERROR_FAILED);
-	conn.send(reply);
-    }
-    catch (const UnknownFile& e)
-    {
-	DBus::MessageError reply(msg, "error.unknown_file", DBUS_ERROR_FAILED);
 	conn.send(reply);
     }
     catch (const InvalidConfigdataException& e)
     {
+	SN_CAUGHT(e);
 	DBus::MessageError reply(msg, "error.invalid_configdata", DBUS_ERROR_FAILED);
 	conn.send(reply);
     }
     catch (const InvalidUserdataException& e)
     {
+	SN_CAUGHT(e);
 	DBus::MessageError reply(msg, "error.invalid_userdata", DBUS_ERROR_FAILED);
 	conn.send(reply);
     }
     catch (const AclException& e)
     {
+	SN_CAUGHT(e);
 	DBus::MessageError reply(msg, "error.acl_error", DBUS_ERROR_FAILED);
 	conn.send(reply);
     }
     catch (const IOErrorException& e)
     {
-	DBus::MessageError reply(msg, "error.io_error", DBUS_ERROR_FAILED);
+	SN_CAUGHT(e);
+	DBus::MessageError reply(msg, "error.io_error", e.what());
 	conn.send(reply);
     }
     catch (const IsSnapshotMountedFailedException& e)
     {
+	SN_CAUGHT(e);
 	DBus::MessageError reply(msg, "error.is_snapshot_mounted", DBUS_ERROR_FAILED);
 	conn.send(reply);
     }
     catch (const MountSnapshotFailedException& e)
     {
+	SN_CAUGHT(e);
 	DBus::MessageError reply(msg, "error.mount_snapshot", DBUS_ERROR_FAILED);
 	conn.send(reply);
     }
     catch (const UmountSnapshotFailedException& e)
     {
+	SN_CAUGHT(e);
 	DBus::MessageError reply(msg, "error.umount_snapshot", DBUS_ERROR_FAILED);
 	conn.send(reply);
     }
     catch (const InvalidUserException& e)
     {
+	SN_CAUGHT(e);
 	DBus::MessageError reply(msg, "error.invalid_user", DBUS_ERROR_FAILED);
 	conn.send(reply);
     }
     catch (const InvalidGroupException& e)
     {
+	SN_CAUGHT(e);
 	DBus::MessageError reply(msg, "error.invalid_group", DBUS_ERROR_FAILED);
+	conn.send(reply);
+    }
+    catch (const QuotaException& e)
+    {
+	SN_CAUGHT(e);
+	DBus::MessageError reply(msg, "error.quota", e.what());
+	conn.send(reply);
+    }
+    catch (const Exception& e)
+    {
+	SN_CAUGHT(e);
+	DBus::MessageError reply(msg, "error.something", DBUS_ERROR_FAILED);
 	conn.send(reply);
     }
     catch (...)
@@ -1617,11 +1742,7 @@ Clients::add(const string& name)
 {
     assert(find(name) == entries.end());
 
-#if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)
     entries.emplace_back(name);
-#else
-    entries.push_back(name);
-#endif
 
     return --entries.end();
 }

@@ -1,5 +1,6 @@
 /*
- * Copyright (c) [2011-2014] Novell, Inc.
+ * Copyright (c) [2011-2015] Novell, Inc.
+ * Copyright (c) 2016 SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -24,6 +25,7 @@
 
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <sys/statvfs.h>
 #include <glob.h>
 #include <string.h>
 #include <mntent.h>
@@ -43,6 +45,13 @@
 #include "snapper/File.h"
 #include "snapper/AsciiFile.h"
 #include "snapper/Exception.h"
+#include "snapper/Hooks.h"
+#include "snapper/Btrfs.h"
+#include "snapper/BtrfsUtils.h"
+#ifdef ENABLE_SELINUX
+#include "snapper/Selinux.h"
+#include "snapper/Regex.h"
+#endif
 
 
 namespace snapper
@@ -50,11 +59,12 @@ namespace snapper
     using namespace std;
 
 
-    ConfigInfo::ConfigInfo(const string& config_name)
-	: SysconfigFile(CONFIGSDIR "/" + config_name), config_name(config_name), subvolume("/")
+    ConfigInfo::ConfigInfo(const string& config_name, const string& root_prefix)
+	: SysconfigFile(prepend_root_prefix(root_prefix, CONFIGSDIR "/" + config_name)),
+	  config_name(config_name), subvolume("/")
     {
 	if (!getValue(KEY_SUBVOLUME, subvolume))
-	    throw InvalidConfigException();
+	    SN_THROW(InvalidConfigException());
     }
 
 
@@ -62,7 +72,7 @@ namespace snapper
     ConfigInfo::checkKey(const string& key) const
     {
 	if (key == KEY_SUBVOLUME || key == KEY_FSTYPE)
-	    throw InvalidConfigdataException();
+	    SN_THROW(InvalidConfigdataException());
 
 	try
 	{
@@ -70,28 +80,42 @@ namespace snapper
 	}
 	catch (const InvalidKeyException& e)
 	{
-	    throw InvalidConfigdataException();
+	    SN_THROW(InvalidConfigdataException());
 	}
     }
 
 
-    Snapper::Snapper(const string& config_name, bool disable_filters)
-	: config_info(NULL), filesystem(NULL), snapshots(this)
+    Snapper::Snapper(const string& config_name, const string& root_prefix, bool disable_filters)
+	: config_info(NULL), filesystem(NULL), snapshots(this), selabel_handle(NULL)
     {
 	y2mil("Snapper constructor");
 	y2mil("libsnapper version " VERSION);
 	y2mil("config_name:" << config_name << " disable_filters:" << disable_filters);
 
+#ifdef ENABLE_SELINUX
 	try
 	{
-	    config_info = new ConfigInfo(config_name);
+	    selabel_handle = SelinuxLabelHandle::get_selinux_handle();
+	}
+	catch (const SelinuxException& e)
+	{
+	    SN_RETHROW(e);
+	}
+#endif
+
+	try
+	{
+	    config_info = new ConfigInfo(config_name, root_prefix);
 	}
 	catch (const FileNotFoundException& e)
 	{
-	    throw ConfigNotFoundException();
+	    SN_THROW(ConfigNotFoundException());
 	}
 
-	filesystem = Filesystem::create(*config_info);
+	filesystem = Filesystem::create(*config_info, root_prefix);
+
+	// With btrfs backend, it's useless try syncing snapshot RO subvolumes
+	syncSelinuxContexts(filesystem->fstype() == "btrfs");
 
 	bool sync_acl;
 	if (config_info->getValue(KEY_SYNC_ACL, sync_acl) && sync_acl == true)
@@ -113,8 +137,6 @@ namespace snapper
 
 	for (Snapshots::iterator it = snapshots.begin(); it != snapshots.end(); ++it)
 	{
-	    it->flushInfo();
-
 	    try
 	    {
 		it->handleUmountFilesystemSnapshot();
@@ -183,78 +205,47 @@ namespace snapper
 
 
     Snapshots::iterator
-    Snapper::createSingleSnapshot(string description)
+    Snapper::createSingleSnapshot(const SCD& scd)
     {
-	return snapshots.createSingleSnapshot(0, description, "", map<string, string>());
+	return snapshots.createSingleSnapshot(scd);
     }
 
 
     Snapshots::iterator
-    Snapper::createPreSnapshot(string description)
-    {
-	return snapshots.createPreSnapshot(0, description, "", map<string, string>());
-    }
-
-
-    Snapshots::iterator
-    Snapper::createPostSnapshot(string description, Snapshots::const_iterator pre)
-    {
-	return snapshots.createPostSnapshot(pre, 0, description, "", map<string, string>());
-    }
-
-
-    Snapshots::iterator
-    Snapper::createSingleSnapshot(uid_t uid, const string& description, const string& cleanup,
-				  const map<string, string>& userdata)
-    {
-	return snapshots.createSingleSnapshot(uid, description, cleanup, userdata);
-    }
-
-
-    Snapshots::iterator
-    Snapper::createSingleSnapshot(Snapshots::const_iterator parent, bool read_only, uid_t uid,
-				  const string& description, const string& cleanup,
-				  const map<string, string>& userdata)
+    Snapper::createSingleSnapshot(Snapshots::const_iterator parent, const SCD& scd)
     {
 	if (parent == snapshots.end())
-	    throw IllegalSnapshotException();
+	    SN_THROW(IllegalSnapshotException());
 
-	return snapshots.createSingleSnapshot(parent, read_only, uid, description, cleanup,
-					      userdata);
+	return snapshots.createSingleSnapshot(parent, scd);
     }
 
 
     Snapshots::iterator
-    Snapper::createSingleSnapshotOfDefault(bool read_only, uid_t uid, const string& description,
-					   const string& cleanup,
-					   const map<string, string>& userdata)
+    Snapper::createSingleSnapshotOfDefault(const SCD& scd)
     {
-	return snapshots.createSingleSnapshotOfDefault(read_only, uid, description, cleanup,
-						       userdata);
+	return snapshots.createSingleSnapshotOfDefault(scd);
     }
 
 
     Snapshots::iterator
-    Snapper::createPreSnapshot(uid_t uid, const string& description, const string& cleanup,
-			       const map<string, string>& userdata)
+    Snapper::createPreSnapshot(const SCD& scd)
     {
-	return snapshots.createPreSnapshot(uid, description, cleanup, userdata);
+	return snapshots.createPreSnapshot(scd);
     }
 
 
     Snapshots::iterator
-    Snapper::createPostSnapshot(Snapshots::const_iterator pre, uid_t uid, const string& description,
-				const string& cleanup, const map<string, string>& userdata)
+    Snapper::createPostSnapshot(Snapshots::const_iterator pre, const SCD& scd)
     {
-	return snapshots.createPostSnapshot(pre, uid, description, cleanup, userdata);
+	return snapshots.createPostSnapshot(pre, scd);
     }
 
 
     void
-    Snapper::modifySnapshot(Snapshots::iterator snapshot, const string& description,
-			    const string& cleanup, const map<string, string>& userdata)
+    Snapper::modifySnapshot(Snapshots::iterator snapshot, const SMD& smd)
     {
-	snapshots.modifySnapshot(snapshot, description, cleanup, userdata);
+	snapshots.modifySnapshot(snapshot, smd);
     }
 
 
@@ -266,14 +257,14 @@ namespace snapper
 
 
     ConfigInfo
-    Snapper::getConfig(const string& config_name)
+    Snapper::getConfig(const string& config_name, const string& root_prefix)
     {
-	return ConfigInfo(config_name);
+	return ConfigInfo(config_name, root_prefix);
     }
 
 
     list<ConfigInfo>
-    Snapper::getConfigs()
+    Snapper::getConfigs(const string& root_prefix)
     {
 	y2mil("Snapper get-configs");
 	y2mil("libsnapper version " VERSION);
@@ -282,7 +273,7 @@ namespace snapper
 
 	try
 	{
-	    SysconfigFile sysconfig(SYSCONFIGFILE);
+	    SysconfigFile sysconfig(prepend_root_prefix(root_prefix, SYSCONFIGFILE));
 	    vector<string> config_names;
 	    sysconfig.getValue("SNAPPER_CONFIGS", config_names);
 
@@ -290,7 +281,7 @@ namespace snapper
 	    {
 		try
 		{
-		    config_infos.push_back(getConfig(*it));
+		    config_infos.push_back(getConfig(*it, root_prefix));
 		}
 		catch (const FileNotFoundException& e)
 		{
@@ -304,7 +295,7 @@ namespace snapper
 	}
 	catch (const FileNotFoundException& e)
 	{
-	    throw ListConfigsFailedException("sysconfig-file not found");
+	    SN_THROW(ListConfigsFailedException("sysconfig-file not found"));
 	}
 
 	return config_infos;
@@ -312,17 +303,9 @@ namespace snapper
 
 
     void
-    Snapper::createConfig(const string& config_name, const string& subvolume,
-			  const string& fstype, const string& template_name)
-    {
-	createConfig(config_name, subvolume, fstype, template_name, false);
-    }
-
-
-    void
-    Snapper::createConfig(const string& config_name, const string& subvolume,
-			  const string& fstype, const string& template_name,
-			  bool add_fstab)
+    Snapper::createConfig(const string& config_name, const string& root_prefix,
+			  const string& subvolume, const string& fstype,
+			  const string& template_name)
     {
 	y2mil("Snapper create-config");
 	y2mil("libsnapper version " VERSION);
@@ -331,40 +314,40 @@ namespace snapper
 
 	if (config_name.empty() || config_name.find_first_of(", \t") != string::npos)
 	{
-	    throw CreateConfigFailedException("illegal config name");
+	    SN_THROW(CreateConfigFailedException("illegal config name"));
 	}
 
 	if (!boost::starts_with(subvolume, "/") || !checkDir(subvolume))
 	{
-	    throw CreateConfigFailedException("illegal subvolume");
+	    SN_THROW(CreateConfigFailedException("illegal subvolume"));
 	}
 
-	list<ConfigInfo> configs = getConfigs();
+	list<ConfigInfo> configs = getConfigs(root_prefix);
 	for (list<ConfigInfo>::const_iterator it = configs.begin(); it != configs.end(); ++it)
 	{
 	    if (it->getSubvolume() == subvolume)
 	    {
-		throw CreateConfigFailedException("subvolume already covered");
+		SN_THROW(CreateConfigFailedException("subvolume already covered"));
 	    }
 	}
 
 	if (access(string(CONFIGTEMPLATEDIR "/" + template_name).c_str(), R_OK) != 0)
 	{
-	    throw CreateConfigFailedException("cannot access template config");
+	    SN_THROW(CreateConfigFailedException("cannot access template config"));
 	}
 
-	auto_ptr<Filesystem> filesystem;
+	unique_ptr<Filesystem> filesystem;
 	try
 	{
-	    filesystem.reset(Filesystem::create(fstype, subvolume));
+	    filesystem.reset(Filesystem::create(fstype, subvolume, ""));
 	}
 	catch (const InvalidConfigException& e)
 	{
-	    throw CreateConfigFailedException("invalid filesystem type");
+	    SN_THROW(CreateConfigFailedException("invalid filesystem type"));
 	}
 	catch (const ProgramNotInstalledException& e)
 	{
-	    throw CreateConfigFailedException(e.what());
+	    SN_THROW(CreateConfigFailedException(e.what()));
 	}
 
 	try
@@ -374,7 +357,7 @@ namespace snapper
 	    sysconfig.getValue("SNAPPER_CONFIGS", config_names);
 	    if (find(config_names.begin(), config_names.end(), config_name) != config_names.end())
 	    {
-		throw CreateConfigFailedException("config already exists");
+		SN_THROW(CreateConfigFailedException("config already exists"));
 	    }
 
 	    config_names.push_back(config_name);
@@ -382,33 +365,31 @@ namespace snapper
 	}
 	catch (const FileNotFoundException& e)
 	{
-	    throw CreateConfigFailedException("sysconfig-file not found");
-	}
-
-	SystemCmd cmd1(CPBIN " " + quote(CONFIGTEMPLATEDIR "/" + template_name) + " " +
-		       quote(CONFIGSDIR "/" + config_name));
-	if (cmd1.retcode() != 0)
-	{
-	    throw CreateConfigFailedException("copying config-file template failed");
+	    SN_THROW(CreateConfigFailedException("sysconfig-file not found"));
 	}
 
 	try
 	{
-	    SysconfigFile config(CONFIGSDIR "/" + config_name);
+	    SysconfigFile config(CONFIGTEMPLATEDIR "/" + template_name);
+
+	    config.setName(CONFIGSDIR "/" + config_name);
+
 	    config.setValue(KEY_SUBVOLUME, subvolume);
 	    config.setValue(KEY_FSTYPE, filesystem->fstype());
 	}
 	catch (const FileNotFoundException& e)
 	{
-	    throw CreateConfigFailedException("modifying config failed");
+	    SN_THROW(CreateConfigFailedException("modifying config failed"));
 	}
 
 	try
 	{
-	    filesystem->createConfig(add_fstab);
+	    filesystem->createConfig();
 	}
-	catch (...)
+	catch (const Exception& e)
 	{
+	    SN_CAUGHT(e);
+
 	    SysconfigFile sysconfig(SYSCONFIGFILE);
 	    vector<string> config_names;
 	    sysconfig.getValue("SNAPPER_CONFIGS", config_names);
@@ -418,34 +399,22 @@ namespace snapper
 
 	    SystemCmd cmd(RMBIN " " + quote(CONFIGSDIR "/" + config_name));
 
-	    throw;
+	    SN_RETHROW(e);
 	}
 
-#ifdef ENABLE_ROLLBACK
-	if (subvolume == "/" && filesystem->fstype() == "btrfs" &&
-	    access("/usr/lib/snapper/plugins/grub", X_OK) == 0)
-	{
-	    SystemCmd cmd("/usr/lib/snapper/plugins/grub --enable");
-	}
-#endif
+	Hooks::create_config(subvolume, filesystem.get());
     }
 
 
     void
-    Snapper::deleteConfig(const string& config_name)
+    Snapper::deleteConfig(const string& config_name, const string& root_prefix)
     {
 	y2mil("Snapper delete-config");
 	y2mil("libsnapper version " VERSION);
 
-	auto_ptr<Snapper> snapper(new Snapper(config_name));
+	unique_ptr<Snapper> snapper(new Snapper(config_name, root_prefix));
 
-#ifdef ENABLE_ROLLBACK
-	if (snapper->subvolumeDir() == "/" && snapper->getFilesystem()->fstype() == "btrfs" &&
-	    access("/usr/lib/snapper/plugins/grub", X_OK) == 0)
-	{
-	    SystemCmd cmd("/usr/lib/snapper/plugins/grub --disable");
-	}
-#endif
+	Hooks::delete_config(snapper->subvolumeDir(), snapper->getFilesystem());
 
 	Snapshots& snapshots = snapper->getSnapshots();
 	for (Snapshots::iterator it = snapshots.begin(); it != snapshots.end(); )
@@ -471,13 +440,13 @@ namespace snapper
 	}
 	catch (const DeleteConfigFailedException& e)
 	{
-	    throw DeleteConfigFailedException("deleting snapshot failed");
+	    SN_THROW(DeleteConfigFailedException("deleting snapshot failed"));
 	}
 
 	SystemCmd cmd1(RMBIN " " + quote(CONFIGSDIR "/" + config_name));
 	if (cmd1.retcode() != 0)
 	{
-	    throw DeleteConfigFailedException("deleting config-file failed");
+	    SN_THROW(DeleteConfigFailedException("deleting config-file failed"));
 	}
 
 	try
@@ -491,7 +460,7 @@ namespace snapper
 	}
 	catch (const FileNotFoundException& e)
 	{
-	    throw DeleteConfigFailedException("sysconfig-file not found");
+	    SN_THROW(DeleteConfigFailedException("sysconfig-file not found"));
 	}
     }
 
@@ -503,6 +472,8 @@ namespace snapper
 	    config_info->setValue(it->first, it->second);
 
 	config_info->save();
+
+	filesystem->evalConfigInfo(*config_info);
 
 	if (raw.find(KEY_ALLOW_USERS) != raw.end() || raw.find(KEY_ALLOW_GROUPS) != raw.end() ||
 	    raw.find(KEY_SYNC_ACL) != raw.end())
@@ -525,7 +496,7 @@ namespace snapper
 	    {
 		uid_t uid;
 		if (!get_user_uid(it->c_str(), uid))
-		    throw InvalidUserException();
+		    SN_THROW(InvalidUserException());
 		uids.push_back(uid);
 	    }
 	}
@@ -538,7 +509,7 @@ namespace snapper
 	    {
 		gid_t gid;
 		if (!get_group_gid(it->c_str(), gid))
-		    throw InvalidGroupException();
+		    SN_THROW(InvalidGroupException());
 		gids.push_back(gid);
 	    }
 	}
@@ -547,16 +518,23 @@ namespace snapper
     }
 
 
+    void
+    Snapper::syncFilesystem() const
+    {
+	filesystem->sync();
+    }
+
+
     static void
     set_acl_permissions(acl_entry_t entry)
     {
 	acl_permset_t permset;
 	if (acl_get_permset(entry, &permset) != 0)
-	    throw AclException();
+	    SN_THROW(AclException());
 
 	if (acl_add_perm(permset, ACL_READ) != 0 || acl_delete_perm(permset, ACL_WRITE) != 0 ||
 	    acl_add_perm(permset, ACL_EXECUTE) != 0)
-	    throw AclException();
+	    SN_THROW(AclException());
     };
 
 
@@ -565,13 +543,13 @@ namespace snapper
     {
 	acl_entry_t entry;
 	if (acl_create_entry(acl, &entry) != 0)
-	    throw AclException();
+	    SN_THROW(AclException());
 
 	if (acl_set_tag_type(entry, tag) != 0)
-	    throw AclException();
+	    SN_THROW(AclException());
 
 	if (acl_set_qualifier(entry, qualifier) != 0)
-	    throw AclException();
+	    SN_THROW(AclException());
 
 	set_acl_permissions(entry);
     };
@@ -584,11 +562,11 @@ namespace snapper
 
 	acl_t orig_acl = acl_get_fd(infos_dir.fd());
 	if (!orig_acl)
-	    throw AclException();
+	    SN_THROW(AclException());
 
 	acl_t acl = acl_dup(orig_acl);
 	if (!acl)
-	    throw AclException();
+	    SN_THROW(AclException());
 
 	set<uid_t> remaining_uids = set<uid_t>(uids.begin(), uids.end());
 	set<gid_t> remaining_gids = set<gid_t>(gids.begin(), gids.end());
@@ -600,7 +578,7 @@ namespace snapper
 
 		acl_tag_t tag;
 		if (acl_get_tag_type(entry, &tag) != 0)
-		    throw AclException();
+		    SN_THROW(AclException());
 
 		switch (tag)
 		{
@@ -608,7 +586,7 @@ namespace snapper
 
 			uid_t* uid = (uid_t*) acl_get_qualifier(entry);
 			if (!uid)
-			    throw AclException();
+			    SN_THROW(AclException());
 
 			if (contains(remaining_uids, *uid))
 			{
@@ -619,7 +597,7 @@ namespace snapper
 			else
 			{
 			    if (acl_delete_entry(acl, entry) != 0)
-				throw AclException();
+				SN_THROW(AclException());
 			}
 
 		    } break;
@@ -628,7 +606,7 @@ namespace snapper
 
 			gid_t* gid = (gid_t*) acl_get_qualifier(entry);
 			if (!gid)
-			    throw AclException();
+			    SN_THROW(AclException());
 
 			if (contains(remaining_gids, *gid))
 			{
@@ -639,7 +617,7 @@ namespace snapper
 			else
 			{
 			    if (acl_delete_entry(acl, entry) != 0)
-				throw AclException();
+				SN_THROW(AclException());
 			}
 
 		    } break;
@@ -660,14 +638,218 @@ namespace snapper
 	}
 
 	if (acl_calc_mask(&acl) != 0)
-	    throw AclException();
+	    SN_THROW(AclException());
 
 	if (acl_cmp(orig_acl, acl) == 1)
 	    if (acl_set_fd(infos_dir.fd(), acl) != 0)
-		throw AclException();
+		SN_THROW(AclException());
 
 	if (acl_free(acl) != 0)
-	    throw AclException();
+	    SN_THROW(AclException());
+    }
+
+
+    void
+    Snapper::setupQuota()
+    {
+#ifdef ENABLE_BTRFS_QUOTA
+
+	const Btrfs* btrfs = dynamic_cast<const Btrfs*>(getFilesystem());
+	if (!btrfs)
+	    SN_THROW(QuotaException("quota only supported with btrfs"));
+
+	if (btrfs->getQGroup() != no_qgroup)
+	    SN_THROW(QuotaException("qgroup already set"));
+
+	SDir subvolume_dir = openSubvolumeDir();
+
+	quota_enable(subvolume_dir.fd());
+
+	qgroup_t qgroup = qgroup_find_free(subvolume_dir.fd(), 1);
+
+	y2mil("free qgroup:" << format_qgroup(qgroup));
+
+	qgroup_create(subvolume_dir.fd(), qgroup);
+
+	setConfigInfo({ { "QGROUP", format_qgroup(qgroup) } });
+
+#else
+
+	SN_THROW(QuotaException("not implemented"));
+	__builtin_unreachable();
+
+#endif
+    }
+
+
+    void
+    Snapper::prepareQuota() const
+    {
+#ifdef ENABLE_BTRFS_QUOTA
+
+	const Btrfs* btrfs = dynamic_cast<const Btrfs*>(getFilesystem());
+	if (!btrfs)
+	    SN_THROW(QuotaException("quota only supported with btrfs"));
+
+	if (btrfs->getQGroup() == no_qgroup)
+	    SN_THROW(QuotaException("qgroup not set"));
+
+	SDir subvolume_dir = openSubvolumeDir();
+
+	vector<qgroup_t> children = qgroup_query_children(subvolume_dir.fd(), btrfs->getQGroup());
+	sort(children.begin(), children.end());
+
+	// Iterate all snapshot and ensure that those and only those with a
+	// cleanup algorithm are included in the high level qgroup.
+
+	for (const Snapshot& snapshot : snapshots)
+	{
+	    if (snapshot.isCurrent())
+		continue;
+
+	    subvolid_t subvolid = get_id(snapshot.openSnapshotDir().fd());
+	    qgroup_t qgroup = calc_qgroup(0, subvolid);
+
+	    bool included = binary_search(children.begin(), children.end(), qgroup);
+
+	    if (!snapshot.getCleanup().empty() && !included)
+	    {
+		qgroup_assign(subvolume_dir.fd(), qgroup, btrfs->getQGroup());
+	    }
+	    else if (snapshot.getCleanup().empty() && included)
+	    {
+		qgroup_remove(subvolume_dir.fd(), qgroup, btrfs->getQGroup());
+	    }
+	}
+
+	quota_rescan(subvolume_dir.fd());
+
+#else
+
+	SN_THROW(QuotaException("not implemented"));
+	__builtin_unreachable();
+
+#endif
+    }
+
+
+    QuotaData
+    Snapper::queryQuotaData() const
+    {
+#ifdef ENABLE_BTRFS_QUOTA
+
+	const Btrfs* btrfs = dynamic_cast<const Btrfs*>(getFilesystem());
+	if (!btrfs)
+	    SN_THROW(QuotaException("quota only supported with btrfs"));
+
+	if (btrfs->getQGroup() == no_qgroup)
+	    SN_THROW(QuotaException("qgroup not set"));
+
+	SDir subvolume_dir = openSubvolumeDir();
+
+	// Tests have shown that without a rescan and sync here the quota data
+	// is incorrect.
+
+	quota_rescan(subvolume_dir.fd());
+	sync(subvolume_dir.fd());
+
+	struct statvfs64 fsbuf;
+	if (fstatvfs64(subvolume_dir.fd(), &fsbuf) != 0)
+	    SN_THROW(QuotaException("statvfs64 failed"));
+
+	QuotaData quota_data;
+
+	quota_data.size = fsbuf.f_blocks * fsbuf.f_bsize;
+
+	QGroupUsage qgroup_usage = qgroup_query_usage(subvolume_dir.fd(), btrfs->getQGroup());
+	quota_data.used = qgroup_usage.exclusive;
+
+	y2mil("size:" << quota_data.size << " used:" << quota_data.used);
+
+	if (quota_data.used > quota_data.size)
+	    SN_THROW(QuotaException("impossible quota values"));
+
+	return quota_data;
+
+#else
+
+	SN_THROW(QuotaException("not implemented"));
+	__builtin_unreachable();
+
+#endif
+    }
+
+
+    void
+    Snapper::syncSelinuxContexts(bool skip_snapshot_dir) const
+    {
+#ifdef ENABLE_SELINUX
+	try
+	{
+	    SDir subvol_dir = openSubvolumeDir();
+	    SDir infos_dir(subvol_dir, ".snapshots");
+
+	    if (infos_dir.restorecon(selabel_handle))
+	    {
+		syncSelinuxContextsInInfosDir(skip_snapshot_dir);
+	    }
+	    else
+	    {
+		SnapperContexts scons;
+
+		if (infos_dir.fsetfilecon(scons.subvolume_context()))
+		    syncSelinuxContextsInInfosDir(skip_snapshot_dir);
+	    }
+	}
+	catch (const SelinuxException& e)
+	{
+	    SN_CAUGHT(e);
+	    // fall through intentional
+	}
+#endif
+    }
+
+
+    void
+    Snapper::syncSelinuxContextsInInfosDir(bool skip_snapshot_dir) const
+    {
+#ifdef ENABLE_SELINUX
+	Regex rx("^[0-9]+$");
+	Regex rx_filelist("^filelist-[0-9]+.txt$");
+
+	y2deb("Syncing Selinux contexts in infos dir");
+
+	SDir infos_dir = openInfosDir();
+
+	vector<string> infos = infos_dir.entries();
+	for (vector<string>::const_iterator it1 = infos.begin(); it1 != infos.end(); ++it1)
+	{
+	    if (!rx.match(*it1))
+		continue;
+
+	    SDir info_dir(infos_dir, *it1);
+	    info_dir.restorecon(selabel_handle);
+
+	    SFile info(info_dir, "info.xml");
+	    info.restorecon(selabel_handle);
+
+	    if (!skip_snapshot_dir)
+	    {
+		SFile snapshot_dir(info_dir, "snapshot");
+		snapshot_dir.restorecon(selabel_handle);
+	    }
+
+	    vector<string> info_content = info_dir.entries();
+	    for (vector<string>::const_iterator it2 = info_content.begin(); it2 != info_content.end(); ++it2)
+	    {
+		if (!rx_filelist.match(*it2))
+		    continue;
+
+		SFile fl(info_dir, *it2);
+		fl.restorecon(selabel_handle);
+	    }
+	}
+#endif
     }
 
 
@@ -769,7 +951,12 @@ namespace snapper
 #ifndef ENABLE_BTRFS_QUOTA
 	    "no-"
 #endif
-	    "btrfs-quota"
+	    "btrfs-quota,"
+
+#ifndef ENABLE_SELINUX
+	    "no-"
+#endif
+	    "selinux"
 
 	    ;
     }

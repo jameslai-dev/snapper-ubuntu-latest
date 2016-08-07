@@ -20,11 +20,11 @@
  */
 
 
-bool
-do_cleanup_number(DBus::Connection& conn, const string& config_name);
+void
+do_cleanup_number(DBus::Connection& conn, const string& config_name, bool verbose);
 
-bool
-do_cleanup_timeline(DBus::Connection& conn, const string& config_name);
+void
+do_cleanup_timeline(DBus::Connection& conn, const string& config_name, bool verbose);
 
-bool
-do_cleanup_empty_pre_post(DBus::Connection& conn, const string& config_name);
+void
+do_cleanup_empty_pre_post(DBus::Connection& conn, const string& config_name, bool verbose);

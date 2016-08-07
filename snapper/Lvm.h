@@ -24,6 +24,7 @@
 #define SNAPPER_LVM_H
 
 #include <boost/noncopyable.hpp>
+#include <boost/thread/mutex.hpp>
 
 #include "snapper/Filesystem.h"
 
@@ -73,18 +74,20 @@ namespace snapper
 	bool time_support;
     };
 
+    class SelinuxLabelHandle;
 
     class Lvm : public Filesystem
     {
     public:
 
-	static Filesystem* create(const string& fstype, const string& subvolume);
+	static Filesystem* create(const string& fstype, const string& subvolume,
+				  const string& root_prefix);
 
-	Lvm(const string& subvolume, const string& mount_type);
+	Lvm(const string& subvolume, const string& root_prefix, const string& mount_type);
 
 	virtual string fstype() const { return "lvm(" + mount_type + ")"; }
 
-	virtual void createConfig(bool add_fstab) const;
+	virtual void createConfig() const;
 	virtual void deleteConfig() const;
 
 	virtual string snapshotDir(unsigned int num) const;
@@ -94,7 +97,7 @@ namespace snapper
 	virtual SDir openSnapshotDir(unsigned int num) const;
 
 	virtual void createSnapshot(unsigned int num, unsigned int num_parent,
-				    bool read_only) const;
+				    bool read_only, bool quota) const;
 	virtual void deleteSnapshot(unsigned int num) const;
 
 	virtual bool isSnapshotMounted(unsigned int num) const;
@@ -107,14 +110,18 @@ namespace snapper
 
     private:
 
+	mutable boost::mutex mount_mutex;
+
 	const string mount_type;
 	const LvmCapabilities* caps;
 	LvmCache* cache;
+	SelinuxLabelHandle* sh;
 
 	bool detectThinVolumeNames(const MtabData& mtab_data);
 	void activateSnapshot(const string& vg_name, const string& lv_name) const;
 	void deactivateSnapshot(const string& vg_name, const string& lv_name) const;
 	bool detectInactiveSnapshot(const string& vg_name, const string& lv_name) const;
+	void createLvmConfig(const SDir& subvolume_dir, int mode) const;
 
 	string getDevice(unsigned int num) const;
 
