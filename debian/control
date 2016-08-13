@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Nicolas Dandrimont <olasd@debian.org>
 Build-Depends:
  btrfs-tools,
- debhelper (>= 9),
+ debhelper (>= 9.20160709),
  dh-autoreconf,
  docbook-xsl,
  libacl1-dev,
