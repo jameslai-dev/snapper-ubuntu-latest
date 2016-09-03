@@ -11,3 +11,5 @@ etc/snapper
 usr/lib/snapper/installation-helper 
 usr/lib/snapper/systemd-helper 
 usr/lib/systemd/system/*	lib/systemd/system/
+debian/80snapper		etc/apt/apt.conf.d/
+debian/bash-completion/snapper	usr/share/bash-completion/completions/

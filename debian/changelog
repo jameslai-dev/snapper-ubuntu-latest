@@ -1,3 +1,13 @@
+snapper (0.3.3-0.3) experimental; urgency=medium
+
+  * Non-maintainer upload.
+  * debian/80snapper
+    - add apt hook snapshot (Closes: #770938)
+      it's just hacky test implementation, so comments are welcome.
+  * add debian/bash-completion/snapper
+
+ -- Hideki Yamane <henrich@debian.org>  Sat, 03 Sep 2016 14:43:18 +0900
+
 snapper (0.3.3-0.2) experimental; urgency=medium
 
   * Non-maintainer upload
