@@ -36,6 +36,12 @@ _snapper()
         fi
     done
 
+    case $prev in
+        --version|--help)
+            return 0
+            ;;
+    esac
+
     # supported options per command
     if [[ "$cur" == -* ]]; then
         case $command in
@@ -127,12 +133,11 @@ _snapper()
                         COMPREPLY=( $( compgen -W 'single pre post
                         ' -- "$cur" ) )
                         ;;
-                --pre-number)
-                # get .snapshot directory
+                    --pre-number)
                         COMPREPLY=( $( compgen -W '
                         ' -- "$cur" ) )
                         ;;
-                --cleanup-algorithm|-c)
+                    --cleanup-algorithm|-c)
                         COMPREPLY=( $( compgen -W 'empty-pre-post timeline number
                         ' -- "$cur" ) )
                         ;;
@@ -156,6 +161,17 @@ _snapper()
                 esac
                 return 0
                 ;;
+            cleanup)
+                case "$prev" in
+                    empty-pre-post|timeline|number)
+                    ;;
+                    *)
+                    COMPREPLY=( $( compgen -W 'empty-pre-post timeline number
+                    ' -- "$cur" ) )
+                    ;;
+                esac
+                return 0
+                ;;
             diff)
                 return 0
                 ;;
@@ -176,7 +192,7 @@ _snapper()
 
     # no command yet, show what commands we have
     if [ "$command" = "" ]; then
-        COMPREPLY=( $( compgen -W '${COMMANDS[@]}' -- "$cur" ) )
+        COMPREPLY=( $( compgen -W '${COMMANDS[@]} ${GLOGAL_SNAPPER_OPTIONS[@]}' -- "$cur" ) )
     fi
 
     return 0

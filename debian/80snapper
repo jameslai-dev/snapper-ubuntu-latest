@@ -1,3 +1,3 @@
 # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=770938
-  DPkg::Pre-Invoke       { "if [ -x /usr/bin/snapper ]; then snapper create -d apt -t pre -p > /var/tmp/snapper-apt ; fi"; };
-  DPkg::Post-Invoke      { "if [ -x /usr/bin/snapper ]; then snapper create -d apt -t post --pre-number=`cat /var/tmp/snapper-apt` ; fi"; };
+  DPkg::Pre-Invoke       { "if [ -x /usr/bin/snapper ]; then snapper create -d apt -t pre -p > /var/tmp/snapper-apt || true ; fi"; };
+  DPkg::Post-Invoke      { "if [ -x /usr/bin/snapper ]; then snapper create -d apt -t post --pre-number=`cat /var/tmp/snapper-apt` || true ; fi"; };
