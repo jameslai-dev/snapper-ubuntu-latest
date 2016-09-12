@@ -1,3 +1,22 @@
+snapper (0.3.3-1) unstable; urgency=medium
+
+  * debian/control
+    - set New maintainer
+    - set debhelper (>= 10)
+  * debian/snapper.{preinst,postinst,postrm}
+    - set error check 
+  * debian/rules
+    - make the build reproducible (Closes: #818027)
+      Thanks to Sascha Steinbiss <satta@debian.org> for the patch.
+  * debian/libsnapper-dev.examples
+    - avoid to install .gitignore files
+  * debian/patches
+    - add 0002-fix-typo.patch
+  * debian/copyright
+    - remove unused ltmain.sh and gpl-2+ with libtool exception lines
+
+ -- Hideki Yamane <henrich@debian.org>  Mon, 12 Sep 2016 21:35:10 +0900
+
 snapper (0.3.3-0.4) experimental; urgency=medium
 
   * Non-maintainer upload.

@@ -1,10 +1,10 @@
 Source: snapper
 Section: utils
 Priority: optional
-Maintainer: Nicolas Dandrimont <olasd@debian.org>
+Maintainer: Hideki Yamane <henrich@debian.org>
 Build-Depends:
  btrfs-tools,
- debhelper (>= 9.20160709),
+ debhelper (>= 10),
  dh-autoreconf,
  docbook-xsl,
  libacl1-dev,

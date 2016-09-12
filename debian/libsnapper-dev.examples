@@ -1,3 +1,2 @@
-examples/c
-examples/c++-lib
-
+examples/c/[a-zA-Z]*
+examples/c++-lib/[a-zA-Z]*

@@ -1,0 +1,58 @@
+From: Hideki Yamane <henrich@debian.org>
+Date: Mon, 12 Sep 2016 21:45:53 +0900
+Subject: fix typo
+
+---
+ doc/snapper-configs.xml.in | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/doc/snapper-configs.xml.in b/doc/snapper-configs.xml.in
+index 5db658c..3ee8293 100644
+--- a/doc/snapper-configs.xml.in
++++ b/doc/snapper-configs.xml.in
+@@ -77,7 +77,7 @@
+ 	  <para>List of users allowed to operate with the config. The user-names
+ 	  must be separated by spaces. Spaces in usernames can be escaped with a
+ 	  &quot;\&quot;.</para>
+-	  <para>Also see the PERMISSONS section in
++	  <para>Also see the PERMISSIONS section in
+ 	  <citerefentry><refentrytitle>snapper</refentrytitle><manvolnum>8</manvolnum></citerefentry>.</para>
+ 	  <para>Default value is &quot;&quot; but &quot;root&quot; is always
+ 	  implicitly included.</para>
+@@ -90,7 +90,7 @@
+ 	  <para>List of groups allowed to operate with the config. The group-names
+ 	  must be separated by spaces. Spaces in group-names can be escaped with a
+ 	  &quot;\&quot;.</para>
+-	  <para>Also see the PERMISSONS section in
++	  <para>Also see the PERMISSIONS section in
+ 	  <citerefentry><refentrytitle>snapper</refentrytitle><manvolnum>8</manvolnum></citerefentry>.</para>
+ 	  <para>Default value is &quot;&quot;.</para>
+ 	</listitem>
+@@ -102,7 +102,7 @@
+ 	  <para>Defines whether snapper will sync the users and groups from
+ 	  ALLOW_USERS and ALLOW_GROUPS to the ACL of the <filename>.snapshots</filename>
+ 	  directory.</para>
+-	  <para>Also see the PERMISSONS section in
++	  <para>Also see the PERMISSIONS section in
+ 	  <citerefentry><refentrytitle>snapper</refentrytitle><manvolnum>8</manvolnum></citerefentry>.</para>
+ 	  <para>Default value is &quot;no&quot;.</para>
+ 	  <para>New in version 0.2.0.</para>
+
+
+---
+ doc/snapper.xml.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/doc/snapper.xml.in b/doc/snapper.xml.in
+index bc86a0c..0926703 100644
+--- a/doc/snapper.xml.in
++++ b/doc/snapper.xml.in
+@@ -163,7 +163,7 @@
+ 
+       <para>Some files keep state information of the system,
+       e.g. <filename>/etc/mtab</filename>. Such files should never be
+-      reverted. To help users, snapper allows to ignore these files.</para>
++      reverted. To help users, snapper allows one to ignore these files.</para>
+ 
+       <para>Each line in all
+       files <filename>/etc/snapper/filters/*.txt</filename> specifies a
