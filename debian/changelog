@@ -1,3 +1,13 @@
+snapper (0.3.3-2) unstable; urgency=medium
+
+  * debian/control
+    - add Enhances: btrfs-tools 
+  * debian/80snapper
+    - more check to run snapper
+    - add cleanup algorism 
+
+ -- Hideki Yamane <henrich@debian.org>  Sat, 01 Oct 2016 21:18:16 +0900
+
 snapper (0.3.3-1) unstable; urgency=medium
 
   * debian/control
