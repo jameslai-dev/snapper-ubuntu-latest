@@ -1,3 +1,9 @@
+snapper (0.3.3-4) unstable; urgency=medium
+
+  * polish debian/80snapper 
+
+ -- Hideki Yamane <henrich@debian.org>  Fri, 04 Nov 2016 07:00:27 +0900
+
 snapper (0.3.3-3) unstable; urgency=medium
 
   * fix regression for debian/80snapper
