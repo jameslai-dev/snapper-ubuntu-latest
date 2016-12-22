@@ -31,9 +31,6 @@
 #include "Background.h"
 
 
-Backgrounds backgrounds;
-
-
 Backgrounds::Backgrounds()
 {
 }
@@ -116,7 +113,7 @@ Backgrounds::worker()
 	    lock.unlock();
 
 	    Snapper* snapper = task.meta_snapper->getSnapper();
-	    Comparison comparison(snapper, task.snapshot1, task.snapshot2);
+	    Comparison comparison(snapper, task.snapshot1, task.snapshot2, false);
 	    task.meta_snapper->dec_use_count();
 
 	    lock.lock();

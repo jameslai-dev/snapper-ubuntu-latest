@@ -1,3 +1,14 @@
+snapper (0.4.1-1) unstable; urgency=medium
+
+  * New upstream release 
+  * debian/patches
+    - drop 0002-fix-typo.patch: merged upstream
+  * rename debian/libsnapper3.install to debian/libsnapper4.install
+  * debian/control
+    - s/libsnapper3/libsnapper4/
+
+ -- Hideki Yamane <henrich@debian.org>  Thu, 22 Dec 2016 20:14:18 +0900
+
 snapper (0.3.3-4) unstable; urgency=medium
 
   * polish debian/80snapper 

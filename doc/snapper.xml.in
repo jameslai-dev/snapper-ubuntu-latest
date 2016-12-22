@@ -163,7 +163,7 @@
 
       <para>Some files keep state information of the system,
       e.g. <filename>/etc/mtab</filename>. Such files should never be
-      reverted. To help users, snapper allows to ignore these files.</para>
+      reverted. To help users, snapper allows one to ignore these files.</para>
 
       <para>Each line in all
       files <filename>/etc/snapper/filters/*.txt</filename> specifies a
@@ -222,7 +222,7 @@
       <varlistentry>
 	<term><option>--no-dbus</option></term>
 	<listitem>
-	  <para>Operate without a DBus connection. Only works for some commands.</para>
+	  <para>Operate without a DBus connection.</para>
 	  <para>Use with caution since a running snapperd will not know about
 	  modifications made to the system.</para>
 	</listitem>

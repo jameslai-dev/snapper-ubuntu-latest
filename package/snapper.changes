@@ -1,4 +1,39 @@
 -------------------------------------------------------------------
+Wed Dec 21 10:29:57 CET 2016 - aschnell@suse.com
+
+- fixed --root option (bsc#1016633)
+- version 0.4.1
+
+-------------------------------------------------------------------
+Thu Dec 15 21:36:23 CET 2016 - aschnell@suse.com
+
+- support option --no-dbus for all snapper commands (fate#319404,
+  fate#321049)
+- version 0.4.0
+
+-------------------------------------------------------------------
+Fri Nov 04 16:28:49 CET 2016 - aschnell@suse.com
+
+- catch exception if setting default subvolume fails (bsc#1008544)
+
+-------------------------------------------------------------------
+Wed Nov 02 22:17:16 CET 2016 - aschnell@suse.com
+
+- fixed use of getpwuid_r, getpwnam_r and getgrnam_r
+
+-------------------------------------------------------------------
+Tue Aug 09 21:53:02 CEST 2016 - aschnell@suse.com
+
+- merged patch to fix order of object destruction on shutdown
+  (gh#openSUSE/snapper#258)
+
+-------------------------------------------------------------------
+Mon Aug 08 14:40:32 CEST 2016 - aschnell@suse.com
+
+- better messages for some btrfs quota errors
+  (gh#openSUSE/snapper#257)
+
+-------------------------------------------------------------------
 Tue Aug 02 09:46:52 CEST 2016 - aschnell@suse.com
 
 - merged SELinux support from Red Hat (disabled at compile-time

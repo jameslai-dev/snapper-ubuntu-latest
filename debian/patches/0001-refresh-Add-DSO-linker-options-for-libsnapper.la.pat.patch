@@ -6,7 +6,7 @@ Subject: Add DSO linker options for libsnapper.la
 
 --- a/client/Makefile.am
 +++ b/client/Makefile.am
-@@ -16,7 +16,7 @@
+@@ -19,7 +19,7 @@
  	misc.cc		misc.h		\
  	errors.cc	errors.h
  
@@ -15,7 +15,7 @@ Subject: Add DSO linker options for libsnapper.la
  
  libexecdir = /usr/lib/snapper
  
-@@ -30,7 +30,7 @@
+@@ -36,7 +36,7 @@
  	misc.cc		misc.h		\
  	errors.cc	errors.h
  

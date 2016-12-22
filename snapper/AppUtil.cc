@@ -1,5 +1,6 @@
 /*
  * Copyright (c) [2004-2015] Novell, Inc.
+ * Copyright (c) 2016 SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -36,6 +37,7 @@
 #include <mntent.h>
 #include <boost/algorithm/string.hpp>
 #include <boost/io/ios_state.hpp>
+#include <boost/scoped_array.hpp>
 
 #include "snapper/Log.h"
 #include "snapper/AppUtil.h"
@@ -170,6 +172,14 @@ namespace snapper
     }
 
 
+    unsigned
+    pagesize()
+    {
+	long r = sysconf(_SC_PAGESIZE);
+	return r < 0 ? 4096 : r;
+    }
+
+
     bool
     getMtabData(const string& mount_point, bool& found, MtabData& mtab_data)
     {
@@ -182,19 +192,23 @@ namespace snapper
 
 	found = false;
 
-	struct mntent* m;
-	while ((m = getmntent(f)))
+	struct mntent m;
+	// each mnt table element is limited to PAGE_SIZE top in Linux
+	unsigned buf_size = 4 * pagesize();
+	boost::scoped_array<char> buf(new char[buf_size]);
+
+	while (getmntent_r(f, &m, buf.get(), buf_size))
 	{
-	    if (strcmp(m->mnt_type, "rootfs") == 0)
+	    if (strcmp(m.mnt_type, "rootfs") == 0)
 		continue;
 
-	    if (m->mnt_dir == mount_point)
+	    if (m.mnt_dir == mount_point)
 	    {
 		found = true;
-		mtab_data.device = m->mnt_fsname;
-		mtab_data.dir = m->mnt_dir;
-		mtab_data.type = m->mnt_type;
-		boost::split(mtab_data.options, m->mnt_opts, boost::is_any_of(","),
+		mtab_data.device = m.mnt_fsname;
+		mtab_data.dir = m.mnt_dir;
+		mtab_data.type = m.mnt_type;
+		boost::split(mtab_data.options, m.mnt_opts, boost::is_any_of(","),
 			     boost::token_compress_on);
 		break;
 	    }
@@ -278,16 +292,27 @@ namespace snapper
     }
 
 
+    long
+    sysconf(int name, long fallback)
+    {
+	long ret = ::sysconf(name);
+	return ret == -1 ? fallback : ret;
+    }
+
+
     bool
     get_uid_username_gid(uid_t uid, string& username, gid_t& gid)
     {
 	struct passwd pwd;
 	struct passwd* result;
 
-	long bufsize = sysconf(_SC_GETPW_R_SIZE_MAX);
-	char buf[bufsize];
+	vector<char> buf(sysconf(_SC_GETPW_R_SIZE_MAX, 1024));
 
-	if (getpwuid_r(uid, &pwd, buf, bufsize, &result) != 0 || result != &pwd)
+	int e;
+	while ((e = getpwuid_r(uid, &pwd, buf.data(), buf.size(), &result)) == ERANGE)
+	    buf.resize(2 * buf.size());
+
+	if (e != 0 || result == NULL)
 	    return false;
 
 	memset(pwd.pw_passwd, 0, strlen(pwd.pw_passwd));
@@ -305,10 +330,13 @@ namespace snapper
 	struct passwd pwd;
 	struct passwd* result;
 
-	long bufsize = sysconf(_SC_GETPW_R_SIZE_MAX);
-	char buf[bufsize];
+	vector<char> buf(sysconf(_SC_GETPW_R_SIZE_MAX, 1024));
 
-	if (getpwnam_r(username, &pwd, buf, bufsize, &result) != 0 || result != &pwd)
+	int e;
+	while ((e = getpwnam_r(username, &pwd, buf.data(), buf.size(), &result)) == ERANGE)
+	    buf.resize(2 * buf.size());
+
+	if (e != 0 || result == NULL)
 	{
 	    y2war("couldn't find username '" << username << "'");
 	    return false;
@@ -328,10 +356,13 @@ namespace snapper
 	struct group grp;
 	struct group* result;
 
-	long bufsize = sysconf(_SC_GETGR_R_SIZE_MAX);
-	char buf[bufsize];
+	vector<char> buf(sysconf(_SC_GETGR_R_SIZE_MAX, 1024));
 
-	if (getgrnam_r(groupname, &grp, buf, bufsize, &result) != 0 || result != &grp)
+	int e;
+	while ((e = getgrnam_r(groupname, &grp, buf.data(), buf.size(), &result)) == ERANGE)
+	    buf.resize(2 * buf.size());
+
+	if (e != 0 || result == NULL)
 	{
 	    y2war("couldn't find groupname '" << groupname << "'");
 	    return false;
@@ -349,18 +380,14 @@ namespace snapper
     getgrouplist(const char* username, gid_t gid)
     {
 	int n = 16;
-	gid_t* buf = (gid_t*) malloc(sizeof(gid_t) * n);
+	vector<gid_t> gids(n);
 
-	if (::getgrouplist(username, gid, buf, &n) == -1)
-	{
-	    buf = (gid_t*) realloc(buf, sizeof(gid_t) * n);
-	    ::getgrouplist(username, gid, buf, &n);
-	}
+	while (::getgrouplist(username, gid, &gids[0], &n) == -1)
+	    gids.resize(n);
 
-	vector<gid_t> gids(&buf[0], &buf[n]);
+	gids.resize(n);
+
 	sort(gids.begin(), gids.end());
-
-	free(buf);
 
 	return gids;
     }

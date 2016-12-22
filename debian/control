@@ -46,7 +46,7 @@ Description: Linux filesystem snapshot management tool
    * D-Bus interface
    * PAM module to create snapshots during login and logout (libpam-snapper)
 
-Package: libsnapper3
+Package: libsnapper4
 Section: libs
 Architecture: linux-any
 Depends: ${misc:Depends}, ${shlibs:Depends}
