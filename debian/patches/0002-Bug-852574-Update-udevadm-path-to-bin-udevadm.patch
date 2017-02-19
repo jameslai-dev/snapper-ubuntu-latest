@@ -1,0 +1,21 @@
+From: Hideki Yamane <henrich@debian.org>
+Date: Sun, 19 Feb 2017 23:33:05 +0900
+Subject: Bug#852574 Update udevadm path to /bin/udevadm
+
+---
+ client/mksubvolume.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/client/mksubvolume.cc b/client/mksubvolume.cc
+index 0bab2ab..f584757 100644
+--- a/client/mksubvolume.cc
++++ b/client/mksubvolume.cc
+@@ -101,7 +101,7 @@ do_tmp_umount(const libmnt_fs* fs, const char* tmp_mountpoint)
+     if (verbose)
+ 	cout << "do-tmp-umount" << endl;
+ 
+-    system("/sbin/udevadm settle --timeout 20");
++    system("/bin/udevadm settle --timeout 20");
+ 
+     libmnt_fs* x = mnt_copy_fs(NULL, fs);
+     if (!x)

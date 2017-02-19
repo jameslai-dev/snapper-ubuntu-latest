@@ -1,3 +1,11 @@
+snapper (0.4.1-2) unstable; urgency=medium
+
+  * debian/patches
+    - add 0002-Bug-852574-Update-udevadm-path-to-bin-udevadm.patch
+      Thanks to Michael Biebl <biebl@debian.org> (Closes: #852574) 
+
+ -- Hideki Yamane <henrich@debian.org>  Sun, 19 Feb 2017 23:38:08 +0900
+
 snapper (0.4.1-1) unstable; urgency=medium
 
   * New upstream release 
