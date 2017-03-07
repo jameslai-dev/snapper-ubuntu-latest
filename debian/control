@@ -62,7 +62,7 @@ Description: Library for Linux filesystem snapshot management tool
 Package: libsnapper-dev
 Section: libdevel
 Architecture: linux-any
-Depends: ${misc:Depends}
+Depends: ${misc:Depends}, libsnapper4 (= ${binary:Version})
 Description: Library for Linux filesystem snapshot management tool (header files)
  Snapper is a tool for Linux filesystem snapshot management. Apart from the
  obvious creation and deletion of snapshots, it can compare snapshots and revert
