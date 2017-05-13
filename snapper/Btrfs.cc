@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2011-2015] Novell, Inc.
- * Copyright (c) 2016 SUSE LLC
+ * Copyright (c) [2016-2017] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -55,6 +55,7 @@
 #include "snapper/SnapperDefines.h"
 #include "snapper/Acls.h"
 #include "snapper/Exception.h"
+#include "snapper/Regex.h"
 #ifdef ENABLE_ROLLBACK
 #include "snapper/MntTable.h"
 #endif
@@ -293,6 +294,13 @@ namespace snapper
 	SDir snapshot_dir(info_dir, "snapshot");
 
 	return snapshot_dir;
+    }
+
+
+    SDir
+    Btrfs::openGeneralDir() const
+    {
+	return openInfosDir();
     }
 
 
@@ -1441,24 +1449,46 @@ namespace snapper
     }
 
 
+    std::pair<bool, unsigned int>
+    Btrfs::getDefault() const
+    {
+	SDir subvolume_dir = openSubvolumeDir();
+
+	subvolid_t id = get_default_id(subvolume_dir.fd());
+
+	string path = get_subvolume(subvolume_dir.fd(), id);
+
+	Regex rx("/([0-9]+)/snapshot$");
+	if (!rx.match(path))
+	    return make_pair(false, 0);
+
+	unsigned int num = stoi(rx.cap(1));
+
+	if (get_id(openSnapshotDir(num).fd()) != id)
+	    return make_pair(false, 0);
+
+	return make_pair(true, num);
+    }
+
+
     void
     Btrfs::setDefault(unsigned int num) const
     {
 	try
 	{
+	    SDir general_dir = openGeneralDir();
+
 	    if (num == 0)
 	    {
 		SDir subvolume_dir = openSubvolumeDir();
 		subvolid_t id = get_id(subvolume_dir.fd());
-		set_default_id(subvolume_dir.fd(), id);
+		set_default_id(general_dir.fd(), id);
 	    }
 	    else
 	    {
 		SDir snapshot_dir = openSnapshotDir(num);
 		subvolid_t id = get_id(snapshot_dir.fd());
-
-		SDir subvolume_dir = openSubvolumeDir();
-		set_default_id(subvolume_dir.fd(), id);
+		set_default_id(general_dir.fd(), id);
 	    }
 	}
 	catch (const runtime_error& e)
@@ -1494,6 +1524,13 @@ namespace snapper
 
     bool
     Btrfs::isDefault(unsigned int num) const
+    {
+	throw std::logic_error("not implemented");
+    }
+
+
+    std::pair<bool, unsigned int>
+    Btrfs::getDefault() const
     {
 	throw std::logic_error("not implemented");
     }

@@ -77,6 +77,10 @@ struct btrfs_ioctl_vol_args_v2
 #define BTRFS_IOC_SUBVOL_GETFLAGS _IOR(BTRFS_IOCTL_MAGIC, 25, __u64)
 #endif
 
+#ifndef BTRFS_QGROUP_LEVEL_SHIFT
+#define BTRFS_QGROUP_LEVEL_SHIFT 48
+#endif
+
 
 namespace snapper
 {
@@ -101,7 +105,7 @@ namespace snapper
 	is_subvolume_read_only(int fd)
 	{
 	    __u64 flags;
-	    if (ioctl(fd, BTRFS_IOC_SUBVOL_GETFLAGS, &flags) != 0)
+	    if (ioctl(fd, BTRFS_IOC_SUBVOL_GETFLAGS, &flags) < 0)
 		throw runtime_error_with_errno("ioctl(BTRFS_IOC_SUBVOL_GETFLAGS) failed", errno);
 
 	    return flags & BTRFS_SUBVOL_RDONLY;
@@ -116,7 +120,7 @@ namespace snapper
 
 	    strncpy(args.name, name.c_str(), sizeof(args.name) - 1);
 
-	    if (ioctl(fddst, BTRFS_IOC_SUBVOL_CREATE, &args) != 0)
+	    if (ioctl(fddst, BTRFS_IOC_SUBVOL_CREATE, &args) < 0)
 		throw runtime_error_with_errno("ioctl(BTRFS_IOC_SUBVOL_CREATE) failed", errno);
 	}
 
@@ -162,7 +166,7 @@ namespace snapper
 	    args.fd = fd;
 	    strncpy(args.name, name.c_str(), sizeof(args.name) - 1);
 
-	    if (ioctl(fddst, BTRFS_IOC_SNAP_CREATE, &args) != 0)
+	    if (ioctl(fddst, BTRFS_IOC_SNAP_CREATE, &args) < 0)
 		throw runtime_error_with_errno("ioctl(BTRFS_IOC_SNAP_CREATE) failed", errno);
 	}
 
@@ -175,7 +179,7 @@ namespace snapper
 
 	    strncpy(args.name, name.c_str(), sizeof(args.name) - 1);
 
-	    if (ioctl(fd, BTRFS_IOC_SNAP_DESTROY, &args) != 0)
+	    if (ioctl(fd, BTRFS_IOC_SNAP_DESTROY, &args) < 0)
 		throw runtime_error_with_errno("ioctl(BTRFS_IOC_SNAP_DESTROY) failed", errno);
 	}
 
@@ -185,7 +189,7 @@ namespace snapper
 	void
 	set_default_id(int fd, subvolid_t id)
 	{
-	    if (ioctl(fd, BTRFS_IOC_DEFAULT_SUBVOL, &id) != 0)
+	    if (ioctl(fd, BTRFS_IOC_DEFAULT_SUBVOL, &id) < 0)
 		throw runtime_error_with_errno("ioctl(BTRFS_IOC_DEFAULT_SUBVOL) failed", errno);
 	}
 
@@ -206,7 +210,7 @@ namespace snapper
 	    sk->max_offset = (__u64) -1;
 	    sk->max_transid = (__u64) -1;
 
-	    if (ioctl(fd, BTRFS_IOC_TREE_SEARCH, &args) != 0)
+	    if (ioctl(fd, BTRFS_IOC_TREE_SEARCH, &args) < 0)
 		throw runtime_error_with_errno("ioctl(BTRFS_IOC_TREE_SEARCH) failed", errno);
 
 	    if (sk->nr_items == 0)
@@ -251,7 +255,7 @@ namespace snapper
 	    args.treeid = 0;
 	    args.objectid = BTRFS_FIRST_FREE_OBJECTID;
 
-	    if (ioctl(fd, BTRFS_IOC_INO_LOOKUP, &args) != 0)
+	    if (ioctl(fd, BTRFS_IOC_INO_LOOKUP, &args) < 0)
 		throw runtime_error_with_errno("ioctl(BTRFS_IOC_INO_LOOKUP) failed", errno);
 
 	    return args.treeid;
@@ -275,7 +279,7 @@ namespace snapper
 	    sk->max_transid = (u64) -1;
 	    sk->nr_items = 1;
 
-	    if (ioctl(fd, BTRFS_IOC_TREE_SEARCH, &args) != 0)
+	    if (ioctl(fd, BTRFS_IOC_TREE_SEARCH, &args) < 0)
 		throw runtime_error_with_errno("ioctl(BTRFS_IOC_TREE_SEARCH) failed", errno);
 
 	    return sk->nr_items == 0;
@@ -293,7 +297,7 @@ namespace snapper
 	     memset(&args, 0, sizeof(args));
 	     args.cmd = BTRFS_QUOTA_CTL_ENABLE;
 
-	     if (ioctl(fd, BTRFS_IOC_QUOTA_CTL, &args) != 0)
+	     if (ioctl(fd, BTRFS_IOC_QUOTA_CTL, &args) < 0)
 		 throw runtime_error_with_errno("ioctl(BTRFS_IOC_QUOTA_CTL) failed", errno);
 	}
 
@@ -305,7 +309,7 @@ namespace snapper
 	     memset(&args, 0, sizeof(args));
 	     args.cmd = BTRFS_QUOTA_CTL_DISABLE;
 
-	     if (ioctl(fd, BTRFS_IOC_QUOTA_CTL, &args) != 0)
+	     if (ioctl(fd, BTRFS_IOC_QUOTA_CTL, &args) < 0)
 		 throw runtime_error_with_errno("ioctl(BTRFS_IOC_QUOTA_CTL) failed", errno);
 	}
 
@@ -316,7 +320,7 @@ namespace snapper
 	    struct btrfs_ioctl_quota_rescan_args args;
 	    memset(&args, 0, sizeof(args));
 
-	    if (ioctl(fd, BTRFS_IOC_QUOTA_RESCAN, &args) != 0)
+	    if (ioctl(fd, BTRFS_IOC_QUOTA_RESCAN, &args) < 0)
 		throw runtime_error_with_errno("ioctl(BTRFS_IOC_QUOTA_RESCAN) failed", errno);
 
 	    while (true)
@@ -325,7 +329,7 @@ namespace snapper
 
 		memset(&args, 0, sizeof(args));
 
-		if (ioctl(fd, BTRFS_IOC_QUOTA_RESCAN_STATUS, &args) != 0)
+		if (ioctl(fd, BTRFS_IOC_QUOTA_RESCAN_STATUS, &args) < 0)
 		    throw runtime_error_with_errno("ioctl(BTRFS_IOC_QUOTA_RESCAN_STATUS) failed", errno);
 
 		if (!args.flags)
@@ -396,7 +400,7 @@ namespace snapper
 	    args.create = 1;
 	    args.qgroupid = qgroup;
 
-	    if (ioctl(fd, BTRFS_IOC_QGROUP_CREATE, &args) != 0)
+	    if (ioctl(fd, BTRFS_IOC_QGROUP_CREATE, &args) < 0)
 		throw runtime_error_with_errno("ioctl(BTRFS_IOC_QGROUP_CREATE) failed", errno);
 	}
 
@@ -409,7 +413,7 @@ namespace snapper
 	    args.create = 0;
 	    args.qgroupid = qgroup;
 
-	    if (ioctl(fd, BTRFS_IOC_QGROUP_CREATE, &args) != 0)
+	    if (ioctl(fd, BTRFS_IOC_QGROUP_CREATE, &args) < 0)
 		throw runtime_error_with_errno("ioctl(BTRFS_IOC_QGROUP_CREATE) failed", errno);
 	}
 
@@ -423,7 +427,7 @@ namespace snapper
 	    args.src = src;
 	    args.dst = dst;
 
-	    if (ioctl(fd, BTRFS_IOC_QGROUP_ASSIGN, &args) != 0)
+	    if (ioctl(fd, BTRFS_IOC_QGROUP_ASSIGN, &args) < 0)
 		throw runtime_error_with_errno("ioctl(BTRFS_IOC_QGROUP_ASSIGN) failed", errno);
 	}
 
@@ -437,7 +441,7 @@ namespace snapper
 	    args.src = src;
 	    args.dst = dst;
 
-	    if (ioctl(fd, BTRFS_IOC_QGROUP_ASSIGN, &args) != 0)
+	    if (ioctl(fd, BTRFS_IOC_QGROUP_ASSIGN, &args) < 0)
 		throw runtime_error_with_errno("ioctl(BTRFS_IOC_QGROUP_ASSIGN) failed", errno);
 	}
 
@@ -486,7 +490,7 @@ namespace snapper
 
 	    while (true)
 	    {
-		if (ioctl(fd, BTRFS_IOC_TREE_SEARCH, &args) != 0)
+		if (ioctl(fd, BTRFS_IOC_TREE_SEARCH, &args) < 0)
 		    throw runtime_error_with_errno("ioctl(BTRFS_IOC_TREE_SEARCH) failed", errno);
 
 		if (sk->nr_items == 0)
@@ -609,7 +613,7 @@ namespace snapper
 	void
 	sync(int fd)
 	{
-	    if (ioctl(fd, BTRFS_IOC_SYNC) != 0)
+	    if (ioctl(fd, BTRFS_IOC_SYNC) < 0)
 		throw runtime_error_with_errno("ioctl(BTRFS_IOC_SYNC) failed", errno);
 	}
 

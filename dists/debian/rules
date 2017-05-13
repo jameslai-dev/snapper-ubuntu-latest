@@ -1,0 +1,25 @@
+#!/usr/bin/make -f
+
+# Turn on verbose mode.
+export DH_VERBOSE=1
+
+CFLAGS = -g
+ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+CFLAGS += -O0 -Wall
+else
+CFLAGS += -O2 -Wall
+endif
+
+# allow parallel builds
+%:
+	dh $@ --parallel
+
+override_dh_auto_configure:
+	dh_auto_configure -- --docdir=/usr/share/doc/packages/snapper --disable-silent-rules	\
+	  --disable-ext4 --enable-xattrs --disable-rollback --disable-btrfs-quota
+
+override_dh_auto_install:
+	dh_auto_install
+	install -D -m 644 data/sysconfig.snapper $$(pwd)/debian/tmp/etc/sysconfig/snapper
+	mv $$(pwd)/debian/tmp/etc/cron.hourly/suse.de-snapper $$(pwd)/debian/tmp/etc/cron.hourly/snapper
+	mv $$(pwd)/debian/tmp/etc/cron.daily/suse.de-snapper $$(pwd)/debian/tmp/etc/cron.daily/snapper

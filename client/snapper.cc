@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2011-2015] Novell, Inc.
- * Copyright (c) 2016 SUSE LLC
+ * Copyright (c) [2016-2017] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -706,24 +706,18 @@ command_modify(ProxySnappers* snappers, ProxySnapper* snapper)
     {
 	ProxySnapshots::iterator snapshot = snapshots.findNum(getopts.popArg());
 
-	SMD smd;
+	SMD smd = snapshot->getSmd();
 
 	GetOpts::parsed_opts::const_iterator opt;
 
 	if ((opt = opts.find("description")) != opts.end())
 	    smd.description = opt->second;
-	else
-	    smd.description = snapshot->getDescription();
 
 	if ((opt = opts.find("cleanup-algorithm")) != opts.end())
 	    smd.cleanup = opt->second;
-	else
-	    smd.cleanup = snapshot->getCleanup();
 
 	if ((opt = opts.find("userdata")) != opts.end())
 	    smd.userdata = read_userdata(opt->second, snapshot->getUserdata());
-	else
-	    smd.userdata = snapshot->getUserdata();
 
 	snapper->modifySnapshot(snapshot, smd);
     }
@@ -1181,7 +1175,13 @@ command_rollback(ProxySnappers* snappers, ProxySnapper* snapper)
     }
 
     bool print_number = false;
-    SCD scd;
+
+    SCD scd1;
+    scd1.description = "rollback backup";
+    scd1.cleanup = "number";
+    scd1.userdata["important"] = "yes";
+
+    SCD scd2;
 
     GetOpts::parsed_opts::const_iterator opt;
 
@@ -1189,13 +1189,16 @@ command_rollback(ProxySnappers* snappers, ProxySnapper* snapper)
 	print_number = true;
 
     if ((opt = opts.find("description")) != opts.end())
-	scd.description = opt->second;
+	scd1.description = scd2.description = opt->second;
 
     if ((opt = opts.find("cleanup-algorithm")) != opts.end())
-	scd.cleanup = opt->second;
+	scd1.cleanup = scd2.cleanup = opt->second;
 
     if ((opt = opts.find("userdata")) != opts.end())
-	scd.userdata = read_userdata(opt->second);
+    {
+	scd1.userdata = read_userdata(opt->second, scd1.userdata);
+	scd2.userdata = read_userdata(opt->second);
+    }
 
     ProxyConfig config = snapper->getConfig();
 
@@ -1209,10 +1212,15 @@ command_rollback(ProxySnappers* snappers, ProxySnapper* snapper)
     const string subvolume = config.getSubvolume();
     if (subvolume != "/")
     {
-        cerr << sformat(_("Command 'rollback' cannot be used on a non-root subvolume %s."),
+	cerr << sformat(_("Command 'rollback' cannot be used on a non-root subvolume %s."),
 			subvolume.c_str()) << endl;
-        exit(EXIT_FAILURE);
+	exit(EXIT_FAILURE);
     }
+
+    pair<bool, unsigned int> previous_default = filesystem->getDefault();
+
+    if (previous_default.first && scd1.description == "rollback backup")
+	scd1.description += sformat(" of #%d", previous_default.second);
 
     ProxySnapshots& snapshots = snapper->getSnapshots();
 
@@ -1224,8 +1232,8 @@ command_rollback(ProxySnappers* snappers, ProxySnapper* snapper)
 	if (!quiet)
 	    cout << _("Creating read-only snapshot of default subvolume.") << flush;
 
-	scd.read_only = true;
-	snapshot1 = snapper->createSingleSnapshotOfDefault(scd);
+	scd1.read_only = true;
+	snapshot1 = snapper->createSingleSnapshotOfDefault(scd1);
 
 	if (!quiet)
 	    cout << " " << sformat(_("(Snapshot %d.)"), snapshot1->getNum()) << endl;
@@ -1233,8 +1241,8 @@ command_rollback(ProxySnappers* snappers, ProxySnapper* snapper)
 	if (!quiet)
 	    cout << _("Creating read-write snapshot of current subvolume.") << flush;
 
-	scd.read_only = false;
-	snapshot2 = snapper->createSingleSnapshot(snapshots.getCurrent(), scd);
+	scd2.read_only = false;
+	snapshot2 = snapper->createSingleSnapshot(snapshots.getCurrent(), scd2);
 
 	if (!quiet)
 	    cout << " " << sformat(_("(Snapshot %d.)"), snapshot2->getNum()) << endl;
@@ -1246,7 +1254,7 @@ command_rollback(ProxySnappers* snappers, ProxySnapper* snapper)
 	if (!quiet)
 	    cout << _("Creating read-only snapshot of current system.") << flush;
 
-	snapshot1 = snapper->createSingleSnapshot(scd);
+	snapshot1 = snapper->createSingleSnapshot(scd1);
 
 	if (!quiet)
 	    cout << " " << sformat(_("(Snapshot %d.)"), snapshot1->getNum()) << endl;
@@ -1254,11 +1262,22 @@ command_rollback(ProxySnappers* snappers, ProxySnapper* snapper)
 	if (!quiet)
 	    cout << sformat(_("Creating read-write snapshot of snapshot %d."), tmp->getNum()) << flush;
 
-	scd.read_only = false;
-	snapshot2 = snapper->createSingleSnapshot(tmp, scd);
+	scd2.read_only = false;
+	snapshot2 = snapper->createSingleSnapshot(tmp, scd2);
 
 	if (!quiet)
 	    cout << " " << sformat(_("(Snapshot %d.)"), snapshot2->getNum()) << endl;
+    }
+
+    if (previous_default.first)
+    {
+	ProxySnapshots::iterator it = snapshots.find(previous_default.second);
+	if (it->getCleanup().empty())
+	{
+	    SMD smd = it->getSmd();
+	    smd.cleanup = "number";
+	    snapper->modifySnapshot(it, smd);
+	}
     }
 
     if (!quiet)

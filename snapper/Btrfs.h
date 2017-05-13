@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2011-2015] Novell, Inc.
- * Copyright (c) 2016 SUSE LLC
+ * Copyright (c) [2016-2017] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -60,6 +60,13 @@ namespace snapper
 	virtual SDir openInfosDir() const;
 	virtual SDir openSnapshotDir(unsigned int num) const;
 
+	/**
+	 * A general read-write directory that can be used for ioctls. The
+	 * exact directory can change to adapt to the system changes,
+	 * e.g. which subvolumes are read-only.
+	 */
+	SDir openGeneralDir() const;
+
 	virtual void createSnapshot(unsigned int num, unsigned int num_parent, bool read_only,
 				    bool quota) const;
 	virtual void createSnapshotOfDefault(unsigned int num, bool read_only, bool quota) const;
@@ -76,6 +83,8 @@ namespace snapper
 	virtual void cmpDirs(const SDir& dir1, const SDir& dir2, cmpdirs_cb_t cb) const;
 
 	virtual bool isDefault(unsigned int num) const;
+
+	virtual std::pair<bool, unsigned int> getDefault() const;
 	virtual void setDefault(unsigned int num) const;
 
 	virtual bool isActive(unsigned int num) const;

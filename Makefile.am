@@ -22,7 +22,9 @@ UBUNTU_FLAVOURS =	\
     xUbuntu_14.10	\
     xUbuntu_15.04	\
     xUbuntu_15.10	\
-    xUbuntu_16.04
+    xUbuntu_16.04	\
+    xUbuntu_16.10	\
+    xUbuntu_17.04
 
 show-debian:
 	@echo "Debian flavors: $(DEBIAN_FLAVOURS)"
@@ -58,10 +60,11 @@ package-clean:
 # $< is the first depencency of the rule, i.e. snapper-$(VERSION).tar.gz in this case.
 #
 package: snapper-$(VERSION).tar.bz2 package-clean
-	cp debian/* package/
-	echo "$(shell md5sum $< | sed -e 's/\s.*//') $(shell wc -c $<)" >>package/snapper-Debian.dsc.in
-	echo "$(shell md5sum $< | sed -e 's/\s.*//') $(shell wc -c $<)" >>package/snapper-xUbuntu.dsc.in
-	for FLAV in $(DEBIAN_FLAVOURS); do cp -v package/snapper-Debian.dsc.in  package/snapper-$${FLAV}.dsc; done
+	tar cfzv package/debian.tar.gz --transform='s|dists/||' --show-transformed --exclude='*.in' dists/debian/*
+	cp dists/debian/*.dsc.in package/
+	echo "$(shell md5sum $< | sed -e 's/\s.*//') $(shell wc -c $<)" >> package/snapper-Debian.dsc.in
+	echo "$(shell md5sum $< | sed -e 's/\s.*//') $(shell wc -c $<)" >> package/snapper-xUbuntu.dsc.in
+	for FLAV in $(DEBIAN_FLAVOURS); do cp -v package/snapper-Debian.dsc.in package/snapper-$${FLAV}.dsc; done
 	for FLAV in $(UBUNTU_FLAVOURS); do cp -v package/snapper-xUbuntu.dsc.in package/snapper-$${FLAV}.dsc; done
 	rm package/snapper*.dsc.in*
 	mv snapper-$(VERSION).tar.bz2 package/
