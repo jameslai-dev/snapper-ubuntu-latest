@@ -10,7 +10,7 @@ include /usr/share/dpkg/architecture.mk
 
 
 %:
-	dh $@ --with autoreconf
+	dh $@
 
 override_dh_auto_configure:
 	dh_auto_configure -- --with-conf=/etc/default --disable-zypp --enable-xattrs --disable-silent-rules

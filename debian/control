@@ -3,7 +3,7 @@ Section: utils
 Priority: optional
 Maintainer: Hideki Yamane <henrich@debian.org>
 Build-Depends:
- btrfs-tools,
+ btrfs-progs,
  debhelper (>= 10),
  dh-autoreconf,
  docbook-xsl,
@@ -19,7 +19,7 @@ Build-Depends:
  zlib1g-dev,
  e2fslibs-dev,
  locales-all,
-Standards-Version: 3.9.8
+Standards-Version: 4.0.0
 Homepage: http://snapper.io/
 Vcs-Git: https://anonscm.debian.org/git/collab-maint/snapper.git
 Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/snapper.git/
@@ -27,7 +27,7 @@ Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/snapper.git/
 Package: snapper
 Architecture: linux-any
 Depends: ${misc:Depends}, ${shlibs:Depends}
-Enhances: btrfs-tools
+Enhances: btrfs-progs
 Description: Linux filesystem snapshot management tool
  Snapper is a tool for Linux filesystem snapshot management. Apart from the
  obvious creation and deletion of snapshots, it can compare snapshots and revert

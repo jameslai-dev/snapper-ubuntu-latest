@@ -1,2 +1,2 @@
-version=3
-http://ftp.suse.com/pub/projects/snapper/ snapper-([\d\.]+).tar.bz2
+version=4
+http://ftp.suse.com/pub/projects/@PACKAGE@/ @PACKAGE@@ANY_VERSION@@ARCHIVE_EXT@

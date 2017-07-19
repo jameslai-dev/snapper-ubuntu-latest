@@ -1,3 +1,15 @@
+snapper (0.5.0-2) unstable; urgency=medium
+
+  * debian/control
+    - set Standards-Version: 4.0.0
+    - s/btrfs-tools/btrfs-progs/ since -tools is transitional dummy package
+  * debian/rules
+    - drop unnecessary autoreconf option with dh10
+  * debian/watch
+    - update to version 4
+
+ -- Hideki Yamane <henrich@debian.org>  Wed, 19 Jul 2017 19:59:39 +0900
+
 snapper (0.5.0-1) unstable; urgency=medium
 
   * New upstream release 
