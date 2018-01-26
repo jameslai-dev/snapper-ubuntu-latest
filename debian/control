@@ -4,8 +4,7 @@ Priority: optional
 Maintainer: Hideki Yamane <henrich@debian.org>
 Build-Depends:
  btrfs-progs,
- debhelper (>= 10),
- dh-autoreconf,
+ debhelper (>= 11),
  docbook-xsl,
  libacl1-dev,
  libboost-dev,
@@ -19,10 +18,10 @@ Build-Depends:
  zlib1g-dev,
  e2fslibs-dev,
  locales-all,
-Standards-Version: 4.0.0
+Standards-Version: 4.1.3
 Homepage: http://snapper.io/
-Vcs-Git: https://anonscm.debian.org/git/collab-maint/snapper.git
-Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/snapper.git/
+Vcs-Git: https://salsa.debian.org/debian/snapper.git
+Vcs-Browser: https://salsa.debian.org/debian/snapper
 
 Package: snapper
 Architecture: linux-any
@@ -39,7 +38,7 @@ Description: Linux filesystem snapshot management tool
    * Automatically create snapshots, e.g. when using a package manager
    * Automatically create timeline of snapshots
    * Show and revert changes between snapshots
-   * Works with btrfs, ext4 and thin-provisioned LVM volumes
+   * Works with btrfs and thin-provisioned LVM volumes
    * Supports Access Control Lists and Extended Attributes
    * Automatic cleanup of old snapshots
    * Command line interface
@@ -49,6 +48,7 @@ Description: Linux filesystem snapshot management tool
 Package: libsnapper4
 Section: libs
 Architecture: linux-any
+Multi-Arch: same
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: Library for Linux filesystem snapshot management tool
  Snapper is a tool for Linux filesystem snapshot management. Apart from the

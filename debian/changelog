@@ -1,3 +1,19 @@
+snapper (0.5.0-3) unstable; urgency=medium
+
+  * debian/control
+    - drop dh-autoreconf with dh10
+    - set Build-Depends: debhelper (>= 11) 
+    - set Standards-Version: 4.1.3
+    - libsnapper4: set "Multi-Arch: same"
+    - move Vcs-* to salsa.debian.org
+  * debian/compat
+    - set 11
+  * debian/rules
+    - add "--disable-ext4" option to explicitly disable experimental
+      ext4 support (Closes: #887292)
+
+ -- Hideki Yamane <henrich@debian.org>  Fri, 26 Jan 2018 23:11:15 +0900
+
 snapper (0.5.0-2) unstable; urgency=medium
 
   * debian/control
