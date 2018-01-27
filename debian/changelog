@@ -1,3 +1,12 @@
+snapper (0.5.0-4) unstable; urgency=medium
+
+  * debian/patches
+    - add 0003-fix-888535-set-sysconfig-dir-in-manpage-correctly.patch
+      Thanks to Daniel Mulholland <dan.mulholland@gmail.com> for the report
+      (Closes: #888535) 
+
+ -- Hideki Yamane <henrich@debian.org>  Sun, 28 Jan 2018 02:00:55 +0900
+
 snapper (0.5.0-3) unstable; urgency=medium
 
   * debian/control
