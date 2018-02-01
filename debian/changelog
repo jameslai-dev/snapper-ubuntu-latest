@@ -1,3 +1,12 @@
+snapper (0.5.4-1) unstable; urgency=medium
+
+  * New upstream release
+  * debian/patches
+    - drop 0003-fix-888535-set-sysconfig-dir-in-manpage-correctly.patch:
+      merged upstream
+
+ -- Hideki Yamane <henrich@debian.org>  Thu, 01 Feb 2018 22:11:03 +0900
+
 snapper (0.5.0-4) unstable; urgency=medium
 
   * debian/patches

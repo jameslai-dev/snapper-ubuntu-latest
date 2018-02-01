@@ -15,7 +15,8 @@ snapper-$(VERSION).tar.bz2: dist-bzip2
 
 DEBIAN_FLAVOURS =	\
     Debian_7.0		\
-    Debian_8.0
+    Debian_8.0		\
+    Debian_9.0
 
 UBUNTU_FLAVOURS =	\
     xUbuntu_14.04	\
@@ -24,7 +25,8 @@ UBUNTU_FLAVOURS =	\
     xUbuntu_15.10	\
     xUbuntu_16.04	\
     xUbuntu_16.10	\
-    xUbuntu_17.04
+    xUbuntu_17.04	\
+    xUbuntu_17.10
 
 show-debian:
 	@echo "Debian flavors: $(DEBIAN_FLAVOURS)"
@@ -58,9 +60,32 @@ package-clean:
 # VERSION file.
 #
 # $< is the first depencency of the rule, i.e. snapper-$(VERSION).tar.gz in this case.
-#
+
+# Build a reproducible tarball:
+# - set the file time stamps according to the latest commit
+# - sort the files (in a locale independent way, use the NULL separator to
+#   correctly process also the file names containing a new line)
+#   Note: tar >= 1.28 supports "--sort=name" option, unfortunately
+#   Leap 42.3 and SLES12-SP3 contain version 1.27.1
+# - use the GNU format (the default POSIX format contains some time stamps)
+# - set the owner and group to "root"
+# - set the fixed modification time
+
+# shared tar options
+EXTRA_TAR_OPTIONS = --format=gnu --owner=root --group=root \
+--mtime='$(shell git show -s --format=%ci)' --null --files-from -
+
+# redefine the standard automake "tar" command
+am__tar=find "$$tardir" -type f -print0 | LC_ALL=C sort -z | \
+  tar -c -f - $(EXTRA_TAR_OPTIONS)
+
 package: snapper-$(VERSION).tar.bz2 package-clean
-	tar cfzv package/debian.tar.gz --transform='s|dists/||' --show-transformed --exclude='*.in' dists/debian/*
+	find dists/debian -not -name '*.in' -not -name '.*' -type f -print0 | \
+	  LC_ALL=C sort -z | \
+	  tar -c -f package/debian.tar --transform='s|dists/||' --show-transformed \
+			$(EXTRA_TAR_OPTIONS)
+	## use -n option to exclude the original file time stamps to have a reproducible tarball
+	gzip -n package/debian.tar
 	cp dists/debian/*.dsc.in package/
 	echo "$(shell md5sum $< | sed -e 's/\s.*//') $(shell wc -c $<)" >> package/snapper-Debian.dsc.in
 	echo "$(shell md5sum $< | sed -e 's/\s.*//') $(shell wc -c $<)" >> package/snapper-xUbuntu.dsc.in
