@@ -1,0 +1,2 @@
+# if you want to disable snapshot per install/upgrade, then set "yes"
+DISABLE_APT_SNAPSHOT="no"

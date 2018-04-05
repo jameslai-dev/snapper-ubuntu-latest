@@ -1,3 +1,4 @@
+#! /usr/bin/dh-exec
 etc/dbus-1/
 etc/default/snapper
 etc/logrotate.d/snapper
@@ -13,3 +14,4 @@ usr/lib/snapper/systemd-helper
 usr/lib/systemd/system/*	lib/systemd/system/
 debian/80snapper		etc/apt/apt.conf.d/
 debian/bash-completion/snapper	usr/share/bash-completion/completions/
+debian/default             =>   etc/default/snapper

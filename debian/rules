@@ -49,5 +49,5 @@ override_dh_compress:
 override_dh_makeshlibs:
 	dh_makeshlibs -V
 
-override_dh_install:
-	dh_install --fail-missing
+override_dh_missing:
+	dh_missing --fail-missing

@@ -1,3 +1,19 @@
+snapper (0.5.4-2) unstable; urgency=medium
+
+  * debian/80snapper
+    - Add option to disable apt snapshotting (Closes: #880144)
+      Thanks to James Valleroy <jvalleroy@mailbox.org> for the patch
+  * debian/default
+    - Add it as /etc/default/snapper
+  * debian/control
+    - Add Build-Depends: dh-exec
+  * debian/snapper.install
+    - Use dh-exec and add debian/default
+  * debian/rules
+    - Use dh_missing instead of dh_install --fail-missing
+
+ -- Hideki Yamane <henrich@debian.org>  Thu, 05 Apr 2018 21:58:58 +0900
+
 snapper (0.5.4-1) unstable; urgency=medium
 
   * New upstream release
