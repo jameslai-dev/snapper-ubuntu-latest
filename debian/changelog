@@ -1,3 +1,15 @@
+snapper (0.5.4-3) unstable; urgency=medium
+
+  * debian/rules
+    - Fix FTCBFS (Closes: #894966)
+      Thanks to Helmut Grohne <helmut@subdivi.de> for the patch
+  * debian/patches
+    - Properly add 0003-Add-debian-specific-option-DISABLE_APT_SNAPSHOT.patch 
+      for Bug#880144
+  * Revert changes in 0.5.4-2 except debian/rules
+
+ -- Hideki Yamane <henrich@debian.org>  Fri, 06 Apr 2018 12:16:19 +0900
+
 snapper (0.5.4-2) unstable; urgency=medium
 
   * debian/80snapper
