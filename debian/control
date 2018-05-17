@@ -3,7 +3,7 @@ Section: utils
 Priority: optional
 Maintainer: Hideki Yamane <henrich@debian.org>
 Build-Depends:
- btrfs-progs,
+ libbtrfs-dev,
  debhelper (>= 11),
  docbook-xsl,
  libacl1-dev,

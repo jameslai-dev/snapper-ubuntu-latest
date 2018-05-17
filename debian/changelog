@@ -1,3 +1,10 @@
+snapper (0.5.4-4) unstable; urgency=medium
+
+  [ Dimitri John Ledkov ]
+  * Update build-dependency on the new libbtrfs-dev (Closes: #898877)
+
+ -- Hideki Yamane <henrich@debian.org>  Thu, 17 May 2018 11:34:49 +0900
+
 snapper (0.5.4-3) unstable; urgency=medium
 
   * debian/rules
