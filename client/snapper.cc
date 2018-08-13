@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2011-2015] Novell, Inc.
- * Copyright (c) [2016-2017] SUSE LLC
+ * Copyright (c) [2016-2018] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -1521,8 +1521,7 @@ main(int argc, char** argv)
     }
     catch (const runtime_error& e)
     {
-	cerr << "Failed to set locale. Fix your system." << endl;
-	exit(EXIT_FAILURE);
+	cerr << _("Failed to set locale. Fix your system.") << endl;
     }
 
     setLogDo(&log_do);

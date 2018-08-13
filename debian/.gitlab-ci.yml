@@ -1,0 +1,27 @@
+image: debian:sid
+
+variables:
+# adjust to your source package
+  PKG: snapper
+
+stages:
+   - build
+   - test
+
+package_build:
+  stage: build
+  script:
+    - echo "deb-src http://deb.debian.org/debian sid main" >> /etc/apt/sources.list && apt update -qq && apt build-dep ./ -y -qq
+    - apt install -y -qq dpkg-dev && dpkg-buildpackage -us -uc -b && mkdir build; cd ../; ls -al && mv ./${PKG}_*.deb ./${PKG}_*.changes ${PKG}/build/
+  artifacts:
+    paths:
+      - build/*.deb
+      - build/*.changes
+
+#piuparts:
+#  stage: test
+#  script:
+#    - apt update -qq && apt install -y -qq piuparts
+#    - piuparts --mirror=http://deb.debian.org/debian --logfile=../piuparts.log --fail-on-broken-symlinks build/*.changes
+#  dependencies:
+#    - package_build

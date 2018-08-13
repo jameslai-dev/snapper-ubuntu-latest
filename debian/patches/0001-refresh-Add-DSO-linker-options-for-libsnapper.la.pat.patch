@@ -67,7 +67,7 @@ index 2a6a4c2..fe05e06 100644
  	Types.cc		Types.h
  
  snapperd_LDADD = ../snapper/libsnapper.la ../dbus/libdbus.la -lrt
--snapperd_LDFLAGS = -lboost_system -lboost_thread
+-snapperd_LDFLAGS = -lboost_system -lboost_thread -lpthread
 +snapperd_LDFLAGS = -lboost_system -lboost_thread \
 +                   -lxml2 -lacl -lz -lm
 diff --git a/testsuite-cmp/Makefile.am b/testsuite-cmp/Makefile.am

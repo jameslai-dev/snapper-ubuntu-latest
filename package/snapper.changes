@@ -1,4 +1,29 @@
 -------------------------------------------------------------------
+Mon Jul 23 20:52:26 CEST 2018 - aschnell@suse.com
+
+- fixed logging during shutdown of snapperd to avoid core dumps
+  (bsc#1096401 and others)
+- version 0.5.6
+
+-------------------------------------------------------------------
+Mon May 28 10:44:49 CEST 2018 - aschnell@suse.com
+
+- merged (gh#openSUSE/snapper#409) to build with boost 1.67.0
+  (bsc#1096208)
+- version 0.5.5
+
+-------------------------------------------------------------------
+Thu May 10 11:43:53 UTC 2018 - jsrain@suse.cz
+
+- move warning in case of non-UTF8 locale to man page (bsc#1092103)
+
+-------------------------------------------------------------------
+Fri Apr 20 14:19:29 CEST 2018 - aschnell@suse.com
+
+- soften error handling if setting locale fails due to broken
+  system setup (bsc#1085832)
+
+-------------------------------------------------------------------
 Mon Jan 29 11:32:56 CET 2018 - aschnell@suse.com
 
 - create subvolume instead of snapshot for initial system
