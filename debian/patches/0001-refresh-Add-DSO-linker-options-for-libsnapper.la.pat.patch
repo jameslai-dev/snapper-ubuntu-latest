@@ -12,11 +12,9 @@ Subject: Add DSO linker options for libsnapper.la
  testsuite/Makefile.am        | 2 +-
  7 files changed, 10 insertions(+), 8 deletions(-)
 
-diff --git a/client/Makefile.am b/client/Makefile.am
-index e8f9a5e..198c507 100644
 --- a/client/Makefile.am
 +++ b/client/Makefile.am
-@@ -19,7 +19,7 @@ snapper_SOURCES =			\
+@@ -19,7 +19,7 @@
  	misc.cc		misc.h		\
  	errors.cc	errors.h
  
@@ -25,7 +23,7 @@ index e8f9a5e..198c507 100644
  
  libexecdir = /usr/lib/snapper
  
-@@ -36,7 +36,7 @@ systemd_helper_SOURCES =		\
+@@ -36,7 +36,7 @@
  	misc.cc		misc.h		\
  	errors.cc	errors.h
  
@@ -34,19 +32,15 @@ index e8f9a5e..198c507 100644
  
  if ENABLE_BTRFS
  
-diff --git a/client/utils/Makefile.am b/client/utils/Makefile.am
-index 910beda..b6016fc 100644
 --- a/client/utils/Makefile.am
 +++ b/client/utils/Makefile.am
-@@ -14,5 +14,5 @@ libutils_la_SOURCES =			\
+@@ -14,5 +14,5 @@
  	GetOpts.cc	GetOpts.h	\
  	Range.cc	Range.h
  
 -libutils_la_LIBADD = ../../snapper/libsnapper.la
 +libutils_la_LIBADD = ../../snapper/libsnapper.la -lboost_thread -lboost_system -lxml2 -lacl -lz -lm
  
-diff --git a/examples/c++-lib/Makefile.am b/examples/c++-lib/Makefile.am
-index 52c81e5..2807f81 100644
 --- a/examples/c++-lib/Makefile.am
 +++ b/examples/c++-lib/Makefile.am
 @@ -5,7 +5,8 @@
@@ -59,19 +53,15 @@ index 52c81e5..2807f81 100644
  
  noinst_PROGRAMS = List ListAll Create CmpDirs CreateNumber CreateTimeline
  
-diff --git a/server/Makefile.am b/server/Makefile.am
-index 2a6a4c2..fe05e06 100644
 --- a/server/Makefile.am
 +++ b/server/Makefile.am
-@@ -14,4 +14,5 @@ snapperd_SOURCES =					\
+@@ -14,4 +14,5 @@
  	Types.cc		Types.h
  
  snapperd_LDADD = ../snapper/libsnapper.la ../dbus/libdbus.la -lrt
 -snapperd_LDFLAGS = -lboost_system -lboost_thread -lpthread
-+snapperd_LDFLAGS = -lboost_system -lboost_thread \
++snapperd_LDFLAGS = -lboost_system -lboost_thread -lpthread \
 +                   -lxml2 -lacl -lz -lm
-diff --git a/testsuite-cmp/Makefile.am b/testsuite-cmp/Makefile.am
-index 81104bf..aca7a79 100644
 --- a/testsuite-cmp/Makefile.am
 +++ b/testsuite-cmp/Makefile.am
 @@ -5,7 +5,7 @@
@@ -83,11 +73,9 @@ index 81104bf..aca7a79 100644
  
  noinst_SCRIPTS = run-all
  
-diff --git a/testsuite-real/Makefile.am b/testsuite-real/Makefile.am
-index 8148b54..0e51ae2 100644
 --- a/testsuite-real/Makefile.am
 +++ b/testsuite-real/Makefile.am
-@@ -6,7 +6,7 @@ CXXFLAGS += -std=gnu++0x
+@@ -6,7 +6,7 @@
  
  AM_CPPFLAGS = -I$(top_srcdir)
  
@@ -96,8 +84,6 @@ index 8148b54..0e51ae2 100644
  
  if HAVE_XATTRS
  TMP_XATST = xattrs1 xattrs2 xattrs3 xattrs4
-diff --git a/testsuite/Makefile.am b/testsuite/Makefile.am
-index 8b3fbd6..7fffb29 100644
 --- a/testsuite/Makefile.am
 +++ b/testsuite/Makefile.am
 @@ -4,7 +4,7 @@
