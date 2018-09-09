@@ -1,3 +1,4 @@
 0001-refresh-Add-DSO-linker-options-for-libsnapper.la.pat.patch
 0002-Bug-852574-Update-udevadm-path-to-bin-udevadm.patch
 0003-Add-debian-specific-option-DISABLE_APT_SNAPSHOT.patch
+0004-add-boost-libs-to-dbus.patch

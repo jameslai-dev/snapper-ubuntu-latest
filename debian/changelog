@@ -1,3 +1,12 @@
+snapper (0.5.6-3) unstable; urgency=medium
+
+  [ Andreas Hasenack ]
+  * debian/patches
+    - 0004-add-boost-libs-to-dbus.patch: add boost libs to dbus to fix
+      the armhf build.
+
+ -- Hideki Yamane <henrich@debian.org>  Mon, 10 Sep 2018 02:06:40 +0900
+
 snapper (0.5.6-2) unstable; urgency=medium
 
   * debian/patches
