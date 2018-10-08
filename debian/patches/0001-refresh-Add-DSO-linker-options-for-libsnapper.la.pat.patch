@@ -34,9 +34,9 @@ Subject: Add DSO linker options for libsnapper.la
  
 --- a/client/utils/Makefile.am
 +++ b/client/utils/Makefile.am
-@@ -14,5 +14,5 @@
- 	GetOpts.cc	GetOpts.h	\
- 	Range.cc	Range.h
+@@ -15,5 +15,5 @@
+ 	Range.cc	Range.h		\
+ 	HumanString.cc  HumanString.h
  
 -libutils_la_LIBADD = ../../snapper/libsnapper.la
 +libutils_la_LIBADD = ../../snapper/libsnapper.la -lboost_thread -lboost_system -lxml2 -lacl -lz -lm
@@ -94,4 +94,4 @@ Subject: Add DSO linker options for libsnapper.la
 +LDADD = ../snapper/libsnapper.la ../dbus/libdbus.la -lboost_unit_test_framework -lboost_thread -lboost_system -lxml2 -lacl -lz -lm
  
  check_PROGRAMS = sysconfig-get1.test dirname1.test basename1.test		\
- 	equal-date.test dbus-escape.test cmp-lt.test
+ 	equal-date.test dbus-escape.test cmp-lt.test humanstring.test
