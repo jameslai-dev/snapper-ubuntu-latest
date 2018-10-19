@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2011-2015] Novell, Inc.
- * Copyright (c) [2016-2017] SUSE LLC
+ * Copyright (c) [2016-2018] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -166,35 +166,44 @@ namespace snapper
     void
     Filesystem::createSnapshotOfDefault(unsigned int num, bool read_only, bool quota) const
     {
-	throw std::logic_error("not implemented");
+	SN_THROW(UnsupportedException());
+	__builtin_unreachable();
     }
 
 
     bool
     Filesystem::isDefault(unsigned int num) const
     {
-	throw std::logic_error("not implemented");
+	return false;
     }
 
 
     std::pair<bool, unsigned int>
     Filesystem::getDefault() const
     {
-	throw std::logic_error("not implemented");
+	return std::make_pair(false, 0);
     }
 
 
     void
     Filesystem::setDefault(unsigned int num) const
     {
-	throw std::logic_error("not implemented");
+	SN_THROW(UnsupportedException());
+	__builtin_unreachable();
+    }
+
+
+    std::pair<bool, unsigned int>
+    Filesystem::getActive() const
+    {
+	return std::make_pair(false, 0);
     }
 
 
     bool
     Filesystem::isActive(unsigned int num) const
     {
-	throw std::logic_error("not implemented");
+	return false;
     }
 
 

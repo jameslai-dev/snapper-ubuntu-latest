@@ -6,8 +6,6 @@ Subject: Add debian specific option DISABLE_APT_SNAPSHOT
  data/sysconfig.snapper | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/data/sysconfig.snapper b/data/sysconfig.snapper
-index 77d2ad9..a18ddcc 100644
 --- a/data/sysconfig.snapper
 +++ b/data/sysconfig.snapper
 @@ -5,3 +5,5 @@

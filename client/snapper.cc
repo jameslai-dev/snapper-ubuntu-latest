@@ -443,6 +443,11 @@ command_list(ProxySnappers* snappers, ProxySnapper*)
 void
 list_from_one_config(ProxySnapper* snapper, ListMode list_mode, bool show_used_space)
 {
+    const ProxySnapshots& snapshots = snapper->getSnapshots();
+
+    ProxySnapshots::const_iterator default_snapshot = snapshots.getDefault();
+    ProxySnapshots::const_iterator active_snapshot = snapshots.getActive();
+
     if (list_mode != LM_ALL && list_mode != LM_SINGLE)
 	show_used_space = false;
 
@@ -460,13 +465,19 @@ list_from_one_config(ProxySnapper* snapper, ListMode list_mode, bool show_used_s
 	}
     }
 
-    auto add_date = [](TableRow& row, const ProxySnapshot& snapshot) {
-	row.add(snapshot.isCurrent() ? "" : datetime(snapshot.getDate(), utc, iso));
+    auto format_num = [&snapshots, default_snapshot, active_snapshot](const ProxySnapshot& snapshot) -> string {
+	bool is_default = default_snapshot != snapshots.end() && default_snapshot->getNum() == snapshot.getNum();
+	bool is_active = active_snapshot != snapshots.end() && active_snapshot->getNum() == snapshot.getNum();
+	static const char sign[2][2] = { { ' ', '-' }, { '+', '*' } };
+	return decString(snapshot.getNum()) + sign[is_default][is_active];
     };
 
-    auto add_used_space = [show_used_space](TableRow& row, const ProxySnapshot& snapshot) {
-	if (show_used_space)
-	    row.add(snapshot.isCurrent() ? "" : byte_to_humanstring(snapshot.getUsedSpace(), 2));
+    auto format_date = [](const ProxySnapshot& snapshot) -> string {
+	return snapshot.isCurrent() ? "" : datetime(snapshot.getDate(), utc, iso);
+    };
+
+    auto format_used_space = [](const ProxySnapshot& snapshot) -> string {
+	return snapshot.isCurrent() ? "" : byte_to_humanstring(snapshot.getUsedSpace(), 2);
     };
 
     Table table;
@@ -476,28 +487,28 @@ list_from_one_config(ProxySnapper* snapper, ListMode list_mode, bool show_used_s
 	case LM_ALL:
 	{
 	    TableHeader header;
+	    header.add(_("#"), TableAlign::RIGHT);
 	    header.add(_("Type"));
-	    header.add(_("#"));
-	    header.add(_("Pre #"));
+	    header.add(_("Pre #"), TableAlign::RIGHT);
 	    header.add(_("Date"));
 	    header.add(_("User"));
 	    if (show_used_space)
-		header.add(_("Used Space"));
+		header.add(_("Used Space"), TableAlign::RIGHT);
 	    header.add(_("Cleanup"));
 	    header.add(_("Description"));
 	    header.add(_("Userdata"));
 	    table.setHeader(header);
 
-	    const ProxySnapshots& snapshots = snapper->getSnapshots();
 	    for (const ProxySnapshot& snapshot : snapshots)
 	    {
 		TableRow row;
+		row.add(format_num(snapshot));
 		row.add(toString(snapshot.getType()));
-		row.add(decString(snapshot.getNum()));
 		row.add(snapshot.getType() == POST ? decString(snapshot.getPreNum()) : "");
-		add_date(row, snapshot);
+		row.add(format_date(snapshot));
 		row.add(username(snapshot.getUid()));
-		add_used_space(row, snapshot);
+		if (show_used_space)
+		    row.add(format_used_space(snapshot));
 		row.add(snapshot.getCleanup());
 		row.add(snapshot.getDescription());
 		row.add(show_userdata(snapshot.getUserdata()));
@@ -509,26 +520,26 @@ list_from_one_config(ProxySnapper* snapper, ListMode list_mode, bool show_used_s
 	case LM_SINGLE:
 	{
 	    TableHeader header;
-	    header.add(_("#"));
+	    header.add(_("#"), TableAlign::RIGHT);
 	    header.add(_("Date"));
 	    header.add(_("User"));
 	    if (show_used_space)
-		header.add(_("Used Space"));
+		header.add(_("Used Space"), TableAlign::RIGHT);
 	    header.add(_("Description"));
 	    header.add(_("Userdata"));
 	    table.setHeader(header);
 
-	    const ProxySnapshots& snapshots = snapper->getSnapshots();
 	    for (const ProxySnapshot& snapshot : snapshots)
 	    {
 		if (snapshot.getType() != SINGLE)
 		    continue;
 
 		TableRow row;
-		row.add(decString(snapshot.getNum()));
-		add_date(row, snapshot);
+		row.add(format_num(snapshot));
+		row.add(format_date(snapshot));
 		row.add(username(snapshot.getUid()));
-		add_used_space(row, snapshot);
+		if (show_used_space)
+		    row.add(format_used_space(snapshot));
 		row.add(snapshot.getDescription());
 		row.add(show_userdata(snapshot.getUserdata()));
 		table.add(row);
@@ -539,15 +550,14 @@ list_from_one_config(ProxySnapper* snapper, ListMode list_mode, bool show_used_s
 	case LM_PRE_POST:
 	{
 	    TableHeader header;
-	    header.add(_("Pre #"));
-	    header.add(_("Post #"));
+	    header.add(_("Pre #"), TableAlign::RIGHT);
+	    header.add(_("Post #"), TableAlign::RIGHT);
 	    header.add(_("Pre Date"));
 	    header.add(_("Post Date"));
 	    header.add(_("Description"));
 	    header.add(_("Userdata"));
 	    table.setHeader(header);
 
-	    const ProxySnapshots& snapshots = snapper->getSnapshots();
 	    for (ProxySnapshots::const_iterator it1 = snapshots.begin(); it1 != snapshots.end(); ++it1)
 	    {
 		if (it1->getType() != PRE)
@@ -561,8 +571,8 @@ list_from_one_config(ProxySnapper* snapper, ListMode list_mode, bool show_used_s
 		const ProxySnapshot& post = *it2;
 
 		TableRow row;
-		row.add(decString(pre.getNum()));
-		row.add(decString(post.getNum()));
+		row.add(format_num(pre));
+		row.add(format_num(post));
 		row.add(datetime(pre.getDate(), utc, iso));
 		row.add(datetime(post.getDate(), utc, iso));
 		row.add(pre.getDescription());
@@ -778,6 +788,35 @@ help_delete()
 
 
 void
+filter_undeletables(ProxySnapshots& snapshots, vector<ProxySnapshots::iterator>& nums)
+{
+    vector<ProxySnapshots::const_iterator> undeletables;
+
+    undeletables.push_back(snapshots.begin());
+
+    ProxySnapshots::const_iterator default_snapshot = snapshots.getDefault();
+    if (default_snapshot != snapshots.end())
+	undeletables.push_back(default_snapshot);
+
+    ProxySnapshots::const_iterator active_snapshot = snapshots.getActive();
+    if (active_snapshot != snapshots.end())
+	undeletables.push_back(active_snapshot);
+
+    for (ProxySnapshots::const_iterator undeletable : undeletables)
+    {
+	vector<ProxySnapshots::iterator>::iterator keep = find_if(nums.begin(), nums.end(),
+	    [undeletable](ProxySnapshots::iterator it){ return undeletable->getNum() == it->getNum(); });
+
+	if (keep != nums.end())
+	{
+	    cerr << sformat(_("Cannot delete snapshot %d."), (*keep)->getNum()) << endl;
+	    nums.erase(keep);
+	}
+    }
+}
+
+
+void
 command_delete(ProxySnappers* snappers, ProxySnapper* snapper)
 {
     const struct option options[] = {
@@ -832,6 +871,8 @@ command_delete(ProxySnappers* snappers, ProxySnapper* snapper)
 	    }
 	}
     }
+
+    filter_undeletables(snapshots, nums);
 
     snapper->deleteSnapshots(nums, verbose);
 
