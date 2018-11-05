@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-16 15:03+0200\n"
+"POT-Creation-Date: 2018-10-29 14:27+0100\n"
 "PO-Revision-Date: 2016-04-28 04:47+0000\n"
 "Last-Translator: mohammad alhargan <malham1@gmail.com>\n"
 "Language-Team: Arabic <http://l10n.opensuse.org/projects/snapper/master/ar/>\n"
@@ -263,8 +263,16 @@ msgid "B"
 msgstr ""
 
 #, fuzzy, c-format
-msgid "Cannot delete snapshot %d."
+msgid "Cannot delete snapshot %d since it is the current system."
 msgstr "  حذف اللقطات:"
+
+#, c-format
+msgid "Cannot delete snapshot %d since it is the currently mounted snapshot."
+msgstr ""
+
+#, c-format
+msgid "Cannot delete snapshot %d since it is the next to be mounted snapshot."
+msgstr ""
 
 msgid "Cleanup"
 msgstr "تنظيف"
@@ -440,6 +448,10 @@ msgstr "فشل (%s)."
 msgid "File '%s' not found."
 msgstr "الملف '%s' غير موجود."
 
+#, fuzzy, c-format
+msgid "Free space error (%s)."
+msgstr "خطأ ‎‏IO ‏(%s)."
+
 #. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
 msgid "GiB"
 msgstr ""
@@ -549,10 +561,6 @@ msgstr "ما قبل التاريخ"
 #, fuzzy, c-format
 msgid "Quota error (%s)."
 msgstr "خطأ ‎‏IO ‏(%s)."
-
-#, fuzzy, c-format
-msgid "Quota failure (%s)."
-msgstr "فشل (%s)."
 
 msgid "See 'man snapper' for further instructions."
 msgstr "لمزيد من التعليمات، راجع 'man snapper'."
@@ -669,6 +677,10 @@ msgstr "يمكن استخدام الوسيطة الجذر فقط في حالة �
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr "استخدام: اللقطة [--global-options] <command> [--command-options] [أمر-وسائط]"
+
+#, fuzzy
+#~ msgid "Quota failure (%s)."
+#~ msgstr "فشل (%s)."
 
 #~ msgid "Command '%s' does not work without DBus."
 #~ msgstr "لا يعمل الأمر '%s' دون DBus."

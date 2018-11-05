@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: installation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-16 15:03+0200\n"
+"POT-Creation-Date: 2018-10-29 14:27+0100\n"
 "PO-Revision-Date: 2006-11-03 14:26\n"
 "Last-Translator: Novell Language <language@novell.com>\n"
 "Language-Team: Novell Language <language@novell.com>\n"
@@ -262,8 +262,16 @@ msgid "B"
 msgstr ""
 
 #, fuzzy, c-format
-msgid "Cannot delete snapshot %d."
+msgid "Cannot delete snapshot %d since it is the current system."
 msgstr "Skrapping van die CA het misluk. %1."
+
+#, c-format
+msgid "Cannot delete snapshot %d since it is the currently mounted snapshot."
+msgstr ""
+
+#, c-format
+msgid "Cannot delete snapshot %d since it is the next to be mounted snapshot."
+msgstr ""
 
 msgid "Cleanup"
 msgstr ""
@@ -464,6 +472,11 @@ msgstr "Misluk"
 msgid "File '%s' not found."
 msgstr "Lêer %1 nie in die bewaarplek gevind nie."
 
+# error box title
+#, fuzzy, c-format
+msgid "Free space error (%s)."
+msgstr "I/O-fout"
+
 #. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
 msgid "GiB"
 msgstr ""
@@ -585,10 +598,6 @@ msgstr ""
 #, fuzzy, c-format
 msgid "Quota error (%s)."
 msgstr "I/O-fout"
-
-#, fuzzy, c-format
-msgid "Quota failure (%s)."
-msgstr "Misluk"
 
 #, fuzzy
 msgid "See 'man snapper' for further instructions."
@@ -712,6 +721,10 @@ msgstr ""
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Quota failure (%s)."
+#~ msgstr "Misluk"
 
 #, fuzzy
 #~ msgid "Command '%s' does not work without DBus."

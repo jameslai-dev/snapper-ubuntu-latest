@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-16 15:03+0200\n"
+"POT-Creation-Date: 2018-10-29 14:27+0100\n"
 "PO-Revision-Date: 2018-04-26 15:16+0000\n"
 "Last-Translator: Robert Taisz <robert.taisz@emerald.hu>\n"
 "Language-Team: Hungarian <https://l10n.opensuse.org/projects/snapper/master/hu/>\n"
@@ -278,8 +278,16 @@ msgid "B"
 msgstr ""
 
 #, fuzzy, c-format
-msgid "Cannot delete snapshot %d."
+msgid "Cannot delete snapshot %d since it is the current system."
 msgstr "  Pillanatkép törlése:"
+
+#, c-format
+msgid "Cannot delete snapshot %d since it is the currently mounted snapshot."
+msgstr ""
+
+#, c-format
+msgid "Cannot delete snapshot %d since it is the next to be mounted snapshot."
+msgstr ""
 
 msgid "Cleanup"
 msgstr "Tisztítás"
@@ -465,6 +473,10 @@ msgstr "Hiba (%s)."
 msgid "File '%s' not found."
 msgstr "A(z) '%s' fájl nem található."
 
+#, fuzzy, c-format
+msgid "Free space error (%s)."
+msgstr "I/O-hiba (%s)."
+
 #. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
 msgid "GiB"
 msgstr ""
@@ -576,11 +588,6 @@ msgstr "Dátum"
 
 #, c-format
 msgid "Quota error (%s)."
-msgstr "Kvótahiba (%s)."
-
-# SLE12
-#, c-format
-msgid "Quota failure (%s)."
 msgstr "Kvótahiba (%s)."
 
 msgid "See 'man snapper' for further instructions."
@@ -702,6 +709,10 @@ msgstr "A root argumentum csak a no-dbus beállítással együtt használható."
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr "használat: snapper [--global-options] <parancs> [--command-options] [command-arguments]"
+
+# SLE12
+#~ msgid "Quota failure (%s)."
+#~ msgstr "Kvótahiba (%s)."
 
 #~ msgid "Running in non UTF-8 locale. Setup is unsupported."
 #~ msgstr "Futtatás nem UTF-8 területi beállítással. A beállítás nem támogatott."

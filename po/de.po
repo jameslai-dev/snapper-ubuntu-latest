@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: snapper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-16 15:03+0200\n"
-"PO-Revision-Date: 2018-10-16 19:13+0000\n"
+"POT-Creation-Date: 2018-10-29 14:27+0100\n"
+"PO-Revision-Date: 2018-10-29 14:29+0000\n"
 "Last-Translator: Sarah Kriesch <ada.lovelace@gmx.de>\n"
 "Language-Team: German <https://l10n.opensuse.org/projects/snapper/master/de/>"
 "\n"
@@ -261,8 +261,16 @@ msgid "B"
 msgstr "B"
 
 #, c-format
-msgid "Cannot delete snapshot %d."
-msgstr "Schnappschuss %d kann nicht gelöscht werden."
+msgid "Cannot delete snapshot %d since it is the current system."
+msgstr "Schnappschuss %d kann nicht gelöscht werden, seitdem es das jetzt laufende System ist."
+
+#, c-format
+msgid "Cannot delete snapshot %d since it is the currently mounted snapshot."
+msgstr "Schnappschuss %d kann nicht gelöscht werden, seitdem es der jetzt gemountete Schnappschuss ist."
+
+#, c-format
+msgid "Cannot delete snapshot %d since it is the next to be mounted snapshot."
+msgstr "Schnappschuss %d kann nicht gelöscht werden, seitdem es der nächste zu mountende Schnappschuss ist."
 
 msgid "Cleanup"
 msgstr "Bereinigen"
@@ -432,6 +440,10 @@ msgstr "Fehler (%s)."
 msgid "File '%s' not found."
 msgstr "Datei '%s' wurde nicht gefunden."
 
+#, c-format
+msgid "Free space error (%s)."
+msgstr "Speicherplatz-Fehler (%s)."
+
 #. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
 msgid "GiB"
 msgstr "GiB"
@@ -540,10 +552,6 @@ msgstr "Vorher-Datum"
 #, c-format
 msgid "Quota error (%s)."
 msgstr "Quota-Fehler (%s)."
-
-#, c-format
-msgid "Quota failure (%s)."
-msgstr "Quota-Störung (%s)."
 
 msgid "See 'man snapper' for further instructions."
 msgstr "Weitere Anweisungen finden Sie im \"man snapper\"."
@@ -660,6 +668,9 @@ msgstr "Root-Argument kann nur zusammen mit \"no-dbus\" verwendet werden."
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr "Aufruf: snapper [--Globale-Optionen] <Befehl> [--Befehlsoptionen] [Befehlsargumente]"
+
+#~ msgid "Quota failure (%s)."
+#~ msgstr "Quota-Störung (%s)."
 
 #~ msgid "Running in non UTF-8 locale. Setup is unsupported."
 #~ msgstr "Läuft in einer nicht-UTF-8-Locale. Setup wird nicht unterstützt."

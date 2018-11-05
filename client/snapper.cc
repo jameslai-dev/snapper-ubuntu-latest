@@ -445,8 +445,25 @@ list_from_one_config(ProxySnapper* snapper, ListMode list_mode, bool show_used_s
 {
     const ProxySnapshots& snapshots = snapper->getSnapshots();
 
-    ProxySnapshots::const_iterator default_snapshot = snapshots.getDefault();
-    ProxySnapshots::const_iterator active_snapshot = snapshots.getActive();
+    ProxySnapshots::const_iterator default_snapshot = snapshots.end();
+    ProxySnapshots::const_iterator active_snapshot = snapshots.end();
+
+    try
+    {
+	default_snapshot = snapshots.getDefault();
+	active_snapshot = snapshots.getActive();
+    }
+    catch (const DBus::ErrorException& e)
+    {
+	SN_CAUGHT(e);
+
+	// If snapper was just updated and the old snapperd is still
+	// running it might not know the GetDefaultSnapshot and
+	// GetActiveSnapshot methods.
+
+	if (strcmp(e.name(), "error.unknown_method") != 0)
+	    SN_RETHROW(e);
+    }
 
     if (list_mode != LM_ALL && list_mode != LM_SINGLE)
 	show_used_space = false;
@@ -790,29 +807,31 @@ help_delete()
 void
 filter_undeletables(ProxySnapshots& snapshots, vector<ProxySnapshots::iterator>& nums)
 {
-    vector<ProxySnapshots::const_iterator> undeletables;
-
-    undeletables.push_back(snapshots.begin());
-
-    ProxySnapshots::const_iterator default_snapshot = snapshots.getDefault();
-    if (default_snapshot != snapshots.end())
-	undeletables.push_back(default_snapshot);
-
-    ProxySnapshots::const_iterator active_snapshot = snapshots.getActive();
-    if (active_snapshot != snapshots.end())
-	undeletables.push_back(active_snapshot);
-
-    for (ProxySnapshots::const_iterator undeletable : undeletables)
+    auto filter = [&snapshots, &nums](ProxySnapshots::const_iterator undeletable, const string& message)
     {
+	if (undeletable == snapshots.end())
+	    return;
+
+	unsigned int num = undeletable->getNum();
+
 	vector<ProxySnapshots::iterator>::iterator keep = find_if(nums.begin(), nums.end(),
-	    [undeletable](ProxySnapshots::iterator it){ return undeletable->getNum() == it->getNum(); });
+	    [num](ProxySnapshots::iterator it){ return num == it->getNum(); });
 
 	if (keep != nums.end())
 	{
-	    cerr << sformat(_("Cannot delete snapshot %d."), (*keep)->getNum()) << endl;
+	    cerr << sformat(message, num) << endl;
 	    nums.erase(keep);
 	}
-    }
+    };
+
+    ProxySnapshots::const_iterator current_snapshot = snapshots.begin();
+    filter(current_snapshot, _("Cannot delete snapshot %d since it is the current system."));
+
+    ProxySnapshots::const_iterator active_snapshot = snapshots.getActive();
+    filter(active_snapshot, _("Cannot delete snapshot %d since it is the currently mounted snapshot."));
+
+    ProxySnapshots::const_iterator default_snapshot = snapshots.getDefault();
+    filter(default_snapshot, _("Cannot delete snapshot %d since it is the next to be mounted snapshot."));
 }
 
 
@@ -1829,6 +1848,12 @@ main(int argc, char** argv)
     {
 	SN_CAUGHT(e);
 	cerr << sformat(_("Quota error (%s)."), e.what()) << endl;
+	exit(EXIT_FAILURE);
+    }
+    catch (const FreeSpaceException& e)
+    {
+	SN_CAUGHT(e);
+	cerr << sformat(_("Free space error (%s)."), e.what()) << endl;
 	exit(EXIT_FAILURE);
     }
     catch (const Exception& e)

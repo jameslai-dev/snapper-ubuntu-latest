@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-16 15:03+0200\n"
+"POT-Creation-Date: 2018-10-29 14:27+0100\n"
 "PO-Revision-Date: 2003-09-23 10:33+0200\n"
 "Last-Translator: Kevin Donnelly <kevin@dotmon.com>\n"
 "Language-Team: Welsh <i18n@suse.de>\n"
@@ -256,8 +256,16 @@ msgid "B"
 msgstr ""
 
 #, fuzzy, c-format
-msgid "Cannot delete snapshot %d."
+msgid "Cannot delete snapshot %d since it is the current system."
 msgstr "DBI Execution failed: %s."
+
+#, c-format
+msgid "Cannot delete snapshot %d since it is the currently mounted snapshot."
+msgstr ""
+
+#, c-format
+msgid "Cannot delete snapshot %d since it is the next to be mounted snapshot."
+msgstr ""
 
 msgid "Cleanup"
 msgstr ""
@@ -434,6 +442,10 @@ msgstr "Failed to parse: %s."
 msgid "File '%s' not found."
 msgstr ""
 
+#, fuzzy, c-format
+msgid "Free space error (%s)."
+msgstr "Gwall"
+
 #. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
 msgid "GiB"
 msgstr ""
@@ -543,10 +555,6 @@ msgstr ""
 #, fuzzy, c-format
 msgid "Quota error (%s)."
 msgstr "Gwall"
-
-#, fuzzy, c-format
-msgid "Quota failure (%s)."
-msgstr "Failed to parse: %s."
 
 msgid "See 'man snapper' for further instructions."
 msgstr ""
@@ -664,6 +672,10 @@ msgstr ""
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Quota failure (%s)."
+#~ msgstr "Failed to parse: %s."
 
 #, fuzzy
 #~ msgid "Unknown file."

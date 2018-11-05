@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-16 15:03+0200\n"
-"PO-Revision-Date: 2018-10-16 15:13+0000\n"
+"POT-Creation-Date: 2018-10-29 14:27+0100\n"
+"PO-Revision-Date: 2018-10-29 22:36+0000\n"
 "Last-Translator: Freek de Kruijf <freek@opensuse.org>\n"
 "Language-Team: Dutch <https://l10n.opensuse.org/projects/snapper/master/nl/>"
 "\n"
@@ -265,8 +265,16 @@ msgid "B"
 msgstr "B"
 
 #, c-format
-msgid "Cannot delete snapshot %d."
-msgstr "Kan momentopname %d niet verwijderen."
+msgid "Cannot delete snapshot %d since it is the current system."
+msgstr "Kan momentopname %d niet verwijderen omdat deze het huidige systeem is."
+
+#, c-format
+msgid "Cannot delete snapshot %d since it is the currently mounted snapshot."
+msgstr "Kan momentopname %d niet verwijderen omdat deze de huidige aangekoppelde momentopname is."
+
+#, c-format
+msgid "Cannot delete snapshot %d since it is the next to be mounted snapshot."
+msgstr "Kan momentopname %d niet verwijderen omdat deze de volgende aan te koppelen momentopname is."
 
 msgid "Cleanup"
 msgstr "Opschonen"
@@ -436,6 +444,10 @@ msgstr "Mislukking (%s)."
 msgid "File '%s' not found."
 msgstr "Bestand '%s' niet gevonden."
 
+#, c-format
+msgid "Free space error (%s)."
+msgstr "Fout in vrije ruimte (%s)."
+
 #. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
 msgid "GiB"
 msgstr "GiB"
@@ -544,10 +556,6 @@ msgstr "Pre-datum"
 #, c-format
 msgid "Quota error (%s)."
 msgstr "Qouta-fout (%s)."
-
-#, c-format
-msgid "Quota failure (%s)."
-msgstr "Quota-mislukking (%s)."
 
 msgid "See 'man snapper' for further instructions."
 msgstr "Zie 'man snapper' voor meer instructies."
@@ -664,6 +672,9 @@ msgstr "rootargument kan alleen samen worden gebruikt met no-dbus."
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr "gebruik: snapper [--global-options] <opdracht> [--commando-options] [commando-arguments]"
+
+#~ msgid "Quota failure (%s)."
+#~ msgstr "Quota-mislukking (%s)."
 
 #~ msgid "Running in non UTF-8 locale. Setup is unsupported."
 #~ msgstr "Uitvoering in niet UTF-8 locale. Instelling wordt niet ondersteund."

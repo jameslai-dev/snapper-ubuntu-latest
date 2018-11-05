@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: memory.ku.po\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-16 15:03+0200\n"
+"POT-Creation-Date: 2018-10-29 14:27+0100\n"
 "PO-Revision-Date: 2005-09-23 00:15+0200\n"
 "Last-Translator: Kurdish Team <i18n@suse.de>\n"
 "Language-Team: Kurdish Team <i18n@suse.de>\n"
@@ -267,8 +267,16 @@ msgid "B"
 msgstr ""
 
 #, fuzzy, c-format
-msgid "Cannot delete snapshot %d."
+msgid "Cannot delete snapshot %d since it is the current system."
 msgstr "Nivîsandina mîhengan têk çû"
+
+#, c-format
+msgid "Cannot delete snapshot %d since it is the currently mounted snapshot."
+msgstr ""
+
+#, c-format
+msgid "Cannot delete snapshot %d since it is the next to be mounted snapshot."
+msgstr ""
 
 #, fuzzy
 msgid "Cleanup"
@@ -447,6 +455,10 @@ msgstr "Têkçûn"
 msgid "File '%s' not found."
 msgstr "Pel nehat dîtin."
 
+#, fuzzy, c-format
+msgid "Free space error (%s)."
+msgstr "Çewtî"
+
 #. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
 msgid "GiB"
 msgstr ""
@@ -560,10 +572,6 @@ msgstr "Roja Niha"
 #, fuzzy, c-format
 msgid "Quota error (%s)."
 msgstr "Çewtî"
-
-#, fuzzy, c-format
-msgid "Quota failure (%s)."
-msgstr "Têkçûn"
 
 msgid "See 'man snapper' for further instructions."
 msgstr ""
@@ -685,6 +693,10 @@ msgstr ""
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Quota failure (%s)."
+#~ msgstr "Têkçûn"
 
 #, fuzzy
 #~ msgid "Unknown file."

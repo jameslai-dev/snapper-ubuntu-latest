@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-16 15:03+0200\n"
-"PO-Revision-Date: 2018-04-26 14:31+0000\n"
-"Last-Translator: Ewelina Michalowska <ewelina.michalowska@stgambit.com>\n"
+"POT-Creation-Date: 2018-10-29 14:27+0100\n"
+"PO-Revision-Date: 2018-10-23 20:05+0000\n"
+"Last-Translator: Damian Zaręba <damianzrb@gmail.com>\n"
 "Language-Team: Polish <https://l10n.opensuse.org/projects/snapper/master/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -24,8 +24,9 @@ msgid "\t--all-configs, -a\t\tList snapshots from all accessible configs."
 msgstr "\t--all-configs, -a\t\tWyświetla listę migawek z wszystkich dostępnych konfiguracji."
 
 msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshot."
-msgstr "\t--cleanup-algorithm, -c <algo>\tAlgorytm kasowania starych zrzutów."
+msgstr "\t--cleanup-algorithm, -c <algo>\tAlgorytm usuwania starych zrzutów."
 
+#, fuzzy
 msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshots."
 msgstr "\t--cleanup-algorithm, -c <algo>\tAlgorytm czyszczenia migawek."
 
@@ -79,6 +80,7 @@ msgstr "\t--print-number, -p\t\tWyświetl numer tworzonego zrzutu."
 msgid "\t--print-number, -p\t\tPrint number of second created snapshot."
 msgstr "\t--print-number, -p\t\tWyświetlenie numeru migawki utworzonej jako druga."
 
+#, fuzzy
 msgid "\t--quiet, -q\t\t\tSuppress normal output."
 msgstr "\t--quiet, -q\t\t\tWyłącza normalne wyjście."
 
@@ -89,10 +91,10 @@ msgid "\t--sync, -s\t\t\tSync after deletion."
 msgstr "\t--sync, -s\t\t\tPrzeprowadza synchronizację po usunięciu."
 
 msgid "\t--table-style, -t <style>\tTable style (integer)."
-msgstr "\t--table-style, -t <styl>\tStyl tabeli (całkowity)."
+msgstr "\t--table-style, -t <styl>\tStyl tabeli (liczba całkowita)."
 
 msgid "\t--template, -t <name>\t\tName of config template to use."
-msgstr "\t--template, -t <name>\t\tNazwa konfiguracji szablonu do użycia."
+msgstr "\t--template, -t <name>\t\tNazwa szablonu konfiguracji do użycia."
 
 msgid "\t--type, -t <type>\t\tType for snapshot."
 msgstr "\t--type, -t <type>\t\tRodzaj zrzutu."
@@ -122,7 +124,7 @@ msgid "\tsnapper create"
 msgstr "\tsnapper create"
 
 msgid "\tsnapper create-config <subvolume>"
-msgstr "\tsnapper create-config <podwolumen>"
+msgstr "\tsnapper create-config <podwolumin>"
 
 msgid "\tsnapper delete <number>"
 msgstr "\tsnapper delete <numer>"
@@ -265,8 +267,16 @@ msgid "B"
 msgstr ""
 
 #, fuzzy, c-format
-msgid "Cannot delete snapshot %d."
+msgid "Cannot delete snapshot %d since it is the current system."
 msgstr "  Usunięcie zrzutu:"
+
+#, c-format
+msgid "Cannot delete snapshot %d since it is the currently mounted snapshot."
+msgstr ""
+
+#, c-format
+msgid "Cannot delete snapshot %d since it is the next to be mounted snapshot."
+msgstr ""
 
 msgid "Cleanup"
 msgstr "Wyczyszczono"
@@ -437,6 +447,10 @@ msgstr "Niepowodzenie (%s)."
 msgid "File '%s' not found."
 msgstr "Nie znaleziono pliku '%s'."
 
+#, fuzzy, c-format
+msgid "Free space error (%s)."
+msgstr "Błąd we-wy (%s)."
+
 #. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
 msgid "GiB"
 msgstr ""
@@ -545,10 +559,6 @@ msgstr "Przed datą"
 #, c-format
 msgid "Quota error (%s)."
 msgstr "Błąd przydziału (%s)."
-
-#, c-format
-msgid "Quota failure (%s)."
-msgstr "Niepowodzenie przydziału (%s)."
 
 msgid "See 'man snapper' for further instructions."
 msgstr "Dodatkowe instrukcje można uzyskać, wydając polecenie \"man snapper\"."
@@ -665,6 +675,9 @@ msgstr "argumentu root można użyć tylko razem z parametrem no-dbus."
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr "Użycie: snapper [--opcje-globalne] <polecenia> [--opcje-poleceń] [argumenty-polecenia]"
+
+#~ msgid "Quota failure (%s)."
+#~ msgstr "Niepowodzenie przydziału (%s)."
 
 #~ msgid "Running in non UTF-8 locale. Setup is unsupported."
 #~ msgstr "W systemie są uruchomione ustawienia regionalne inne niż UTF-8. Instalacja jest nieobsługiwana."

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: autoinst.fi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-16 15:03+0200\n"
+"POT-Creation-Date: 2018-10-29 14:27+0100\n"
 "PO-Revision-Date: 2003-09-22 13:26+0200\n"
 "Last-Translator: Ain Vagula <avagula@gmail.com>\n"
 "Language-Team: Estonian <et@li.org>\n"
@@ -264,8 +264,16 @@ msgid "B"
 msgstr ""
 
 #, fuzzy, c-format
-msgid "Cannot delete snapshot %d."
+msgid "Cannot delete snapshot %d since it is the current system."
 msgstr "SK kustutamine nurjus: %1."
+
+#, c-format
+msgid "Cannot delete snapshot %d since it is the currently mounted snapshot."
+msgstr ""
+
+#, c-format
+msgid "Cannot delete snapshot %d since it is the next to be mounted snapshot."
+msgstr ""
 
 msgid "Cleanup"
 msgstr ""
@@ -466,6 +474,11 @@ msgstr "Parsimine nurjus: %s."
 msgid "File '%s' not found."
 msgstr "Faili ei leitud: %1."
 
+# error box title
+#, fuzzy, c-format
+msgid "Free space error (%s)."
+msgstr "I/O viga"
+
 #. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
 msgid "GiB"
 msgstr ""
@@ -587,10 +600,6 @@ msgstr ""
 #, fuzzy, c-format
 msgid "Quota error (%s)."
 msgstr "I/O viga"
-
-#, fuzzy, c-format
-msgid "Quota failure (%s)."
-msgstr "Parsimine nurjus: %s."
 
 #, fuzzy
 msgid "See 'man snapper' for further instructions."
@@ -714,6 +723,10 @@ msgstr ""
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Quota failure (%s)."
+#~ msgstr "Parsimine nurjus: %s."
 
 #, fuzzy
 #~ msgid "Command '%s' does not work without DBus."

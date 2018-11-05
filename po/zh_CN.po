@@ -9,11 +9,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-16 15:03+0200\n"
-"PO-Revision-Date: 2018-10-20 02:49+0000\n"
-"Last-Translator: Dingzhong Chen <wsxy162@gmail.com>\n"
-"Language-Team: Chinese (China) "
-"<https://l10n.opensuse.org/projects/snapper/master/zh_CN/>\n"
+"POT-Creation-Date: 2018-10-29 14:27+0100\n"
+"PO-Revision-Date: 2018-10-23 13:00+0000\n"
+"Last-Translator: Marguerite Su <i@marguerite.su>\n"
+"Language-Team: Chinese (China) <https://l10n.opensuse.org/projects/snapper/master/zh_CN/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -265,8 +264,16 @@ msgid "B"
 msgstr "B"
 
 #, c-format
-msgid "Cannot delete snapshot %d."
-msgstr "无法删除快照 %d。"
+msgid "Cannot delete snapshot %d since it is the current system."
+msgstr "无法删除快照 %d 因为它就是当前的系统。"
+
+#, c-format
+msgid "Cannot delete snapshot %d since it is the currently mounted snapshot."
+msgstr "无法删除快照 %d 因为它就是当前挂载的快照。"
+
+#, c-format
+msgid "Cannot delete snapshot %d since it is the next to be mounted snapshot."
+msgstr "无法删除快照 %d 因为它是将要挂载的快照。"
 
 msgid "Cleanup"
 msgstr "清空"
@@ -435,6 +442,10 @@ msgstr "失败 (%s)。"
 msgid "File '%s' not found."
 msgstr "未找到文件 '%s'。"
 
+#, fuzzy, c-format
+msgid "Free space error (%s)."
+msgstr "IO 错误 (%s)。"
+
 #. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
 msgid "GiB"
 msgstr "GiB"
@@ -543,10 +554,6 @@ msgstr "前期快照日期"
 #, c-format
 msgid "Quota error (%s)."
 msgstr "定额错误 (%s)。"
-
-#, c-format
-msgid "Quota failure (%s)."
-msgstr "定额失败 (%s)。"
 
 msgid "See 'man snapper' for further instructions."
 msgstr "有关更多指导，请参见“man snapper”。"
@@ -663,6 +670,9 @@ msgstr "根自变量只能与 no-dbus 一起使用。"
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr "用法：snapper  [--全局选项] <命令> [--命令选项] [命令参数]"
+
+#~ msgid "Quota failure (%s)."
+#~ msgstr "定额失败 (%s)。"
 
 #~ msgid "Running in non UTF-8 locale. Setup is unsupported."
 #~ msgstr "正以非 UTF-8 区域设置运行。不支持设置。"

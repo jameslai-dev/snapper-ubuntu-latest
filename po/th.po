@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-16 15:03+0200\n"
+"POT-Creation-Date: 2018-10-29 14:27+0100\n"
 "PO-Revision-Date: 2008-01-04 08:58+0100\n"
 "Last-Translator: i18n@suse.de\n"
 "Language-Team: Thai <i18n@suse.de>\n"
@@ -275,8 +275,16 @@ msgid "B"
 msgstr ""
 
 #, fuzzy, c-format
-msgid "Cannot delete snapshot %d."
+msgid "Cannot delete snapshot %d since it is the current system."
 msgstr "การสร้างระบบแฟ้มล้มเหลว"
+
+#, c-format
+msgid "Cannot delete snapshot %d since it is the currently mounted snapshot."
+msgstr ""
+
+#, c-format
+msgid "Cannot delete snapshot %d since it is the next to be mounted snapshot."
+msgstr ""
 
 #, fuzzy
 msgid "Cleanup"
@@ -456,6 +464,10 @@ msgstr "ล้มเหลว"
 msgid "File '%s' not found."
 msgstr "ไม่พบแฟ้มควบคุม %1 บนสื่อการติดตั้ง"
 
+#, fuzzy, c-format
+msgid "Free space error (%s)."
+msgstr "ผิดพลาด"
+
 #. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
 msgid "GiB"
 msgstr ""
@@ -572,10 +584,6 @@ msgstr "วันที่ปัจจุบัน"
 #, fuzzy, c-format
 msgid "Quota error (%s)."
 msgstr "ผิดพลาด"
-
-#, fuzzy, c-format
-msgid "Quota failure (%s)."
-msgstr "ล้มเหลว"
 
 #, fuzzy
 msgid "See 'man snapper' for further instructions."
@@ -700,6 +708,10 @@ msgstr ""
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Quota failure (%s)."
+#~ msgstr "ล้มเหลว"
 
 #, fuzzy
 #~ msgid "Unknown file."

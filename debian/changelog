@@ -1,3 +1,9 @@
+snapper (0.8.0-1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Hideki Yamane <henrich@debian.org>  Mon, 05 Nov 2018 22:26:49 +0900
+
 snapper (0.7.2-1) unstable; urgency=medium
 
   * New upstream release

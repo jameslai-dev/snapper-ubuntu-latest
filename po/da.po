@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: snapper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-16 15:03+0200\n"
-"PO-Revision-Date: 2018-10-17 15:09+0000\n"
+"POT-Creation-Date: 2018-10-29 14:27+0100\n"
+"PO-Revision-Date: 2018-10-30 01:01+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <https://l10n.opensuse.org/projects/snapper/master/da/>"
 "\n"
@@ -261,8 +261,16 @@ msgid "B"
 msgstr "B"
 
 #, c-format
-msgid "Cannot delete snapshot %d."
-msgstr "Kan ikke slette øjebliksbilledet %d."
+msgid "Cannot delete snapshot %d since it is the current system."
+msgstr "Kan ikke slette øjebliksbilledet %d, eftersom det er det nuværende system."
+
+#, c-format
+msgid "Cannot delete snapshot %d since it is the currently mounted snapshot."
+msgstr "Kan ikke slette øjebliksbilledet %d, eftersom det er det nuværende monteret system."
+
+#, c-format
+msgid "Cannot delete snapshot %d since it is the next to be mounted snapshot."
+msgstr "Kan ikke slette øjebliksbilledet %d, eftersom det er det øjebliksbillede der skal monteres næste gang."
 
 msgid "Cleanup"
 msgstr "Oprydning"
@@ -433,6 +441,11 @@ msgstr "Fejl (%s)."
 msgid "File '%s' not found."
 msgstr "Filen \"%s\" blev ikke fundet."
 
+# error box title
+#, c-format
+msgid "Free space error (%s)."
+msgstr "Fejl om ledig plads (%s)."
+
 #. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
 msgid "GiB"
 msgstr "GiB"
@@ -544,10 +557,6 @@ msgstr "Præ-dato"
 #, c-format
 msgid "Quota error (%s)."
 msgstr "Fejl i kvote (%s)."
-
-#, c-format
-msgid "Quota failure (%s)."
-msgstr "Kvote mislykkedes (%s)."
 
 msgid "See 'man snapper' for further instructions."
 msgstr "Se \"man snapper\" for yderligere vejledning."
@@ -664,6 +673,9 @@ msgstr "root-argumentet kan kun bruges sammen med no-dbus."
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr "brug: snapper [--globale-tilvalg] <kommando> [--kommando-tilvalg] [kommando-argumenter]"
+
+#~ msgid "Quota failure (%s)."
+#~ msgstr "Kvote mislykkedes (%s)."
 
 #~ msgid "Running in non UTF-8 locale. Setup is unsupported."
 #~ msgstr "Kører i ikke-UTF-8-lokalitet. Opsætning understøttes ikke."
