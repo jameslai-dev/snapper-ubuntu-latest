@@ -1,0 +1,7 @@
+Bug-Database: https://github.com/openSUSE/snapper/issues/
+Bug-Submit: https://github.com/openSUSE/snapper/issues/new
+Contact: yast-devel@opensuse.org
+Documentation: http://snapper.io/documentation.html
+Name: snapper
+Repository: https://github.com/openSUSE/snapper.git
+Repository-Browse: https://github.com/openSUSE/snapper
