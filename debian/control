@@ -18,10 +18,11 @@ Build-Depends:
  zlib1g-dev,
  e2fslibs-dev,
  locales-all,
-Standards-Version: 4.2.1
+Standards-Version: 4.3.0
 Homepage: http://snapper.io/
 Vcs-Git: https://salsa.debian.org/debian/snapper.git
 Vcs-Browser: https://salsa.debian.org/debian/snapper
+Rules-Requires-Root: no
 
 Package: snapper
 Architecture: linux-any
