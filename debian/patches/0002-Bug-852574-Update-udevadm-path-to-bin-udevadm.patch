@@ -6,9 +6,11 @@ Subject: Bug#852574 Update udevadm path to /bin/udevadm
  client/mksubvolume.cc | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/client/mksubvolume.cc b/client/mksubvolume.cc
+index de56856..e733d8a 100644
 --- a/client/mksubvolume.cc
 +++ b/client/mksubvolume.cc
-@@ -101,7 +101,7 @@
+@@ -101,7 +101,7 @@ do_tmp_umount(const libmnt_fs* fs, const char* tmp_mountpoint)
      if (verbose)
  	cout << "do-tmp-umount" << endl;
  

@@ -12,9 +12,11 @@ Subject: Add DSO linker options for libsnapper.la
  testsuite/Makefile.am        | 2 +-
  7 files changed, 10 insertions(+), 8 deletions(-)
 
+diff --git a/client/Makefile.am b/client/Makefile.am
+index e8f9a5e..198c507 100644
 --- a/client/Makefile.am
 +++ b/client/Makefile.am
-@@ -19,7 +19,7 @@
+@@ -19,7 +19,7 @@ snapper_SOURCES =			\
  	misc.cc		misc.h		\
  	errors.cc	errors.h
  
@@ -23,7 +25,7 @@ Subject: Add DSO linker options for libsnapper.la
  
  libexecdir = /usr/lib/snapper
  
-@@ -36,7 +36,7 @@
+@@ -36,7 +36,7 @@ systemd_helper_SOURCES =		\
  	misc.cc		misc.h		\
  	errors.cc	errors.h
  
@@ -32,15 +34,19 @@ Subject: Add DSO linker options for libsnapper.la
  
  if ENABLE_BTRFS
  
+diff --git a/client/utils/Makefile.am b/client/utils/Makefile.am
+index 7ebc87b..626cc14 100644
 --- a/client/utils/Makefile.am
 +++ b/client/utils/Makefile.am
-@@ -15,5 +15,5 @@
+@@ -15,5 +15,5 @@ libutils_la_SOURCES =			\
  	Range.cc	Range.h		\
  	HumanString.cc  HumanString.h
  
 -libutils_la_LIBADD = ../../snapper/libsnapper.la
 +libutils_la_LIBADD = ../../snapper/libsnapper.la -lboost_thread -lboost_system -lxml2 -lacl -lz -lm
  
+diff --git a/examples/c++-lib/Makefile.am b/examples/c++-lib/Makefile.am
+index 52c81e5..2807f81 100644
 --- a/examples/c++-lib/Makefile.am
 +++ b/examples/c++-lib/Makefile.am
 @@ -5,7 +5,8 @@
@@ -53,15 +59,19 @@ Subject: Add DSO linker options for libsnapper.la
  
  noinst_PROGRAMS = List ListAll Create CmpDirs CreateNumber CreateTimeline
  
+diff --git a/server/Makefile.am b/server/Makefile.am
+index 009fe41..9a1f9dd 100644
 --- a/server/Makefile.am
 +++ b/server/Makefile.am
-@@ -14,4 +14,5 @@
+@@ -14,4 +14,5 @@ snapperd_SOURCES =					\
  	Types.cc		Types.h
  
  snapperd_LDADD = ../snapper/libsnapper.la ../dbus/libdbus.la -lrt
 -snapperd_LDFLAGS = -lboost_system -lboost_thread -lpthread
 +snapperd_LDFLAGS = -lboost_system -lboost_thread -lpthread \
 +                   -lxml2 -lacl -lz -lm
+diff --git a/testsuite-cmp/Makefile.am b/testsuite-cmp/Makefile.am
+index 81104bf..aca7a79 100644
 --- a/testsuite-cmp/Makefile.am
 +++ b/testsuite-cmp/Makefile.am
 @@ -5,7 +5,7 @@
@@ -73,9 +83,11 @@ Subject: Add DSO linker options for libsnapper.la
  
  noinst_SCRIPTS = run-all
  
+diff --git a/testsuite-real/Makefile.am b/testsuite-real/Makefile.am
+index 8148b54..0e51ae2 100644
 --- a/testsuite-real/Makefile.am
 +++ b/testsuite-real/Makefile.am
-@@ -6,7 +6,7 @@
+@@ -6,7 +6,7 @@ CXXFLAGS += -std=gnu++0x
  
  AM_CPPFLAGS = -I$(top_srcdir)
  
@@ -84,6 +96,8 @@ Subject: Add DSO linker options for libsnapper.la
  
  if HAVE_XATTRS
  TMP_XATST = xattrs1 xattrs2 xattrs3 xattrs4
+diff --git a/testsuite/Makefile.am b/testsuite/Makefile.am
+index 5607a37..d593ac7 100644
 --- a/testsuite/Makefile.am
 +++ b/testsuite/Makefile.am
 @@ -4,7 +4,7 @@

@@ -1,0 +1,40 @@
+From: Hideki Yamane <henrich@debian.org>
+Date: Sun, 6 Jan 2019 15:04:14 +0900
+Subject: fix manpage
+
+Already sent PR to upstream
+---
+ doc/snapper-configs.xml.in | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/doc/snapper-configs.xml.in b/doc/snapper-configs.xml.in
+index e81f101..3ea959c 100644
+--- a/doc/snapper-configs.xml.in
++++ b/doc/snapper-configs.xml.in
+@@ -134,7 +134,7 @@
+ 	<listitem>
+ 	  <para>Defines whether the number cleanup algorithm should be run for
+ 	  the config.</para>
+-	  <para>Default value is &quot;no&quot;.</para>
++	  <para>Default value is &quot;yes&quot;.</para>
+ 	</listitem>
+       </varlistentry>
+ 
+@@ -178,7 +178,7 @@
+ 	  <para>Together with the timeline cleanup algorithm this will create
+ 	  a collection of snapshots with more snapshots is the near past and
+ 	  less snapshots in the far past.</para>
+-	  <para>Default value is &quot;no&quot;.</para>
++	  <para>Default value is &quot;yes&quot;.</para>
+ 	</listitem>
+       </varlistentry>
+ 
+@@ -187,7 +187,7 @@
+ 	<listitem>
+ 	  <para>Defines whether the timeline cleanup algorithm should be run for
+ 	  the config.</para>
+-	  <para>Default value is &quot;no&quot;.</para>
++	  <para>Default value is &quot;yes&quot;.</para>
+ 	</listitem>
+       </varlistentry>
+ 
