@@ -34,6 +34,12 @@
 #ifdef HAVE_LIBBTRFS
 #include <btrfs/ioctl.h>
 #include <btrfs/send-utils.h>
+#ifdef swap
+// temporary workaround, see
+// https://github.com/openSUSE/snapper/issues/459, fixed properly in
+// btrfs-progs 4.19.1
+#undef swap
+#endif
 #endif
 #include <algorithm>
 #include <functional>
@@ -137,10 +143,11 @@ namespace snapper
 
 #ifdef ENABLE_BTRFS_QUOTA
 
+	    size_t size = sizeof(btrfs_qgroup_inherit) + sizeof(((btrfs_qgroup_inherit*) 0)->qgroups[0]);
+	    vector<char> buffer(size, 0);
+        
 	    if (qgroup != no_qgroup)
 	    {
-		size_t size = sizeof(btrfs_qgroup_inherit) + sizeof(((btrfs_qgroup_inherit*) 0)->qgroups[0]);
-		vector<char> buffer(size, 0);
 		struct btrfs_qgroup_inherit* inherit = (btrfs_qgroup_inherit*) &buffer[0];
 
 		inherit->num_qgroups = 1;

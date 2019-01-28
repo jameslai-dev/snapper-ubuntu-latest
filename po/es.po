@@ -4,16 +4,16 @@ msgstr ""
 "Project-Id-Version: snapper\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-29 14:27+0100\n"
-"PO-Revision-Date: 2018-11-12 11:06+0000\n"
-"Last-Translator: Antonio Larrosa <alarrosa@suse.com>\n"
-"Language-Team: Spanish "
-"<https://l10n.opensuse.org/projects/snapper/master/es/>\n"
+"PO-Revision-Date: 2019-01-20 17:44+0000\n"
+"Last-Translator: jcsl <trcs@gmx.com>\n"
+"Language-Team: Spanish <https://l10n.opensuse.org/projects/snapper/master/es/"
+">\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.18\n"
+"X-Generator: Weblate 3.3\n"
 
 msgid "\t--all-configs, -a\t\tList snapshots from all accessible configs."
 msgstr "\t--all-configs, -a\t\tMuestra las instantáneas de todas las configuraciones a las que se puede acceder."
@@ -147,7 +147,7 @@ msgid "\tsnapper modify <number>"
 msgstr "\tsnapper modify <número>"
 
 msgid "\tsnapper mount <number>"
-msgstr "\tsnapper mount <number>"
+msgstr "\tsnapper mount <número>"
 
 # SLE12
 msgid "\tsnapper rollback [number]"
@@ -163,7 +163,7 @@ msgid "\tsnapper status <number1>..<number2>"
 msgstr "\tsnapper status <número1>..<número2>"
 
 msgid "\tsnapper umount <number>"
-msgstr "\tsnapper umount <number>"
+msgstr "\tsnapper umount <número>"
 
 msgid "\tsnapper undochange <number1>..<number2> [files]"
 msgstr "\tsnapper undochange <número1>..<número2> [archivos]"
@@ -269,17 +269,21 @@ msgstr "Error de ACL."
 msgid "B"
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot delete snapshot %d since it is the current system."
-msgstr "  Borrar imagen:"
+msgstr "No se puede borrar la imagen %d porque es el sistema actual."
 
 #, c-format
 msgid "Cannot delete snapshot %d since it is the currently mounted snapshot."
 msgstr ""
+"No se puede borrar la imagen %d porque es la imagen montada en estos "
+"momentos."
 
 #, c-format
 msgid "Cannot delete snapshot %d since it is the next to be mounted snapshot."
 msgstr ""
+"No se puede borrar la imagen %d porque es la siguiente imagen que se va a "
+"montar."
 
 msgid "Cleanup"
 msgstr "Limpieza"
@@ -461,9 +465,9 @@ msgstr "Error (%s)."
 msgid "File '%s' not found."
 msgstr "No se ha encontrado el archivo '%s'."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Free space error (%s)."
-msgstr "Error de E/S (%s)."
+msgstr "Error de espacio libre (%s)."
 
 #. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
 msgid "GiB"
@@ -639,7 +643,7 @@ msgid "Use an integer number from %d to %d."
 msgstr "Use un número entero entre %d y %d."
 
 msgid "Used Space"
-msgstr ""
+msgstr "Espacio usado"
 
 msgid "User"
 msgstr "Usuario"

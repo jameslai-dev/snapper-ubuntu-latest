@@ -3,7 +3,7 @@ Upstream-Name: Snapper
 Source: http://snapper.io/
 
 Files: *
-Copyright: 2004-2018 Novell, Inc.
+Copyright: 2004-2019 Novell, Inc.
 License: GPL-2
 
 Files: ./snapper/Acls.cc snapper/Acls.h snapper/LvmCache.cc snapper/LvmCache.h snapper/XAttributes.cc snapper/XAttributes.h

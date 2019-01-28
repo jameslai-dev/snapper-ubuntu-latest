@@ -41,6 +41,12 @@
 #include <btrfs/send.h>
 #include <btrfs/send-stream.h>
 #include <btrfs/send-utils.h>
+#ifdef swap
+// temporary workaround, see
+// https://github.com/openSUSE/snapper/issues/459, fixed properly in
+// btrfs-progs 4.19.1
+#undef swap
+#endif
 #include <boost/version.hpp>
 #include <boost/thread.hpp>
 #endif
@@ -1232,14 +1238,50 @@ namespace snapper
     };
 
 
+    struct FdCloser
+    {
+	FdCloser(int fd)
+	    : fd(fd)
+	{
+	}
+
+	~FdCloser()
+	{
+	    if (fd > -1 )
+		::close(fd);
+	}
+
+	void reset()
+	{
+	    fd = -1;
+	}
+
+	int close()
+	{
+	    int r = ::close(fd);
+	    fd = -1;
+	    return r;
+	}
+
+    private:
+
+	int fd;
+
+    };
+
+
     bool
     StreamProcessor::dumper(int fd)
     {
+	FdCloser fd_closer(fd);
+
+	unsigned int iterations = 0;
+
 	while (true)
 	{
 	    boost::this_thread::interruption_point();
 
-	     // remove the fourth parameter for older versions of libbtrfs
+	    // remove the fourth parameter for older versions of libbtrfs
 	    int r;
 
 #if BTRFS_LIB_VERSION < 101
@@ -1248,9 +1290,15 @@ namespace snapper
 	    r = btrfs_read_and_process_send_stream(fd, &send_ops, &*this, 0, 1);
 #endif
 
-	    if (r < 0)
+	    // Only return an error when r == -ENODATA if this was the
+	    // first call to btrfs_read_and_process_send_stream(). See
+	    // https://github.com/openSUSE/snapper/pull/438,
+	    // https://bugzilla.suse.com/show_bug.cgi?id=1111414 and
+	    // the btrfs-progs source code.
+
+	    if (r < 0 && !(r == -ENODATA && iterations > 0))
 	    {
-		y2err("btrfs_read_and_process_send_stream failed");
+		y2err("btrfs_read_and_process_send_stream failed " << r);
 
 #if BOOST_VERSION < 104100
 		dumper_ret = false;
@@ -1268,6 +1316,7 @@ namespace snapper
 		return true;
 	    }
 
+	    ++iterations;
 	}
     }
 
@@ -1282,6 +1331,10 @@ namespace snapper
 	    y2err("pipe failed errno:" << errno << " (" << stringerror(errno) << ")");
 	    SN_THROW(BtrfsSendReceiveException());
 	}
+
+	// Use RAII to help close fds.
+	FdCloser fd0_closer(pipefd[0]);
+	FdCloser fd1_closer(pipefd[1]);
 
 	struct btrfs_ioctl_send_args io_send;
 	memset(&io_send, 0, sizeof(io_send));
@@ -1298,17 +1351,17 @@ namespace snapper
 
 	boost::thread task(boost::move(pt));
 
+	fd0_closer.reset();
+
 	int r2 = ioctl(dir2.fd(), BTRFS_IOC_SEND, &io_send);
 	if (r2 < 0)
 	{
 	    y2err("send ioctl failed errno:" << errno << " (" << stringerror(errno) << ")");
 	}
 
-	close(pipefd[1]);
+	fd1_closer.close();
 
 	uf.wait();
-
-	close(pipefd[0]);
 
 	if (r2 < 0 || !uf.get())
 	{
@@ -1319,17 +1372,17 @@ namespace snapper
 
 	boost::thread dumper_thread(boost::bind(&StreamProcessor::dumper, this, pipefd[0]));
 
+	fd0_closer.reset();
+
 	int r2 = ioctl(dir2.fd(), BTRFS_IOC_SEND, &io_send);
 	if (r2 < 0)
 	{
 	    y2err("send ioctl failed errno:" << errno << " (" << stringerror(errno) << ")");
 	}
 
-	close(pipefd[1]);
+	fd1_closer.close();
 
 	dumper_thread.join();
-
-	close(pipefd[0]);
 
 	if (r2 < 0 || !dumper_ret)
 	{
