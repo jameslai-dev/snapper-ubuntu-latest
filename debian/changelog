@@ -1,3 +1,13 @@
+snapper (0.8.3-1) unstable; urgency=medium
+
+  * New upstream release
+  * debian/copyright
+    - update copyright year
+  * debian/{rules,libpam-snapper.install}
+    - move installation from rules to .install
+
+ -- Hideki Yamane <henrich@debian.org>  Sun, 31 Mar 2019 17:53:20 +0900
+
 snapper (0.8.2-1) unstable; urgency=medium
 
   * New upstream release

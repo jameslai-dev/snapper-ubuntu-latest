@@ -17,9 +17,6 @@ override_dh_auto_configure:
 override_dh_auto_install:
 	dh_auto_install
 
-	# Add pam-configs for snapper
-	cp -a $(CURDIR)/debian/pam-configs $(CURDIR)/debian/tmp/usr/share
-
 	# Remove zypp-related files
 	find $(CURDIR)/debian/tmp -name *zypp* -delete
 
