@@ -1,3 +1,13 @@
+snapper (0.8.5-1) unstable; urgency=medium
+
+  * New upstream release
+  * add debian/salsa-ci.yml
+  * debian/control
+    - set Standards-Version: 4.4.1 with no change
+    - drop Build-Depends: debhelper, just debhelper-compat is enough
+
+ -- Hideki Yamane <henrich@debian.org>  Sat, 19 Oct 2019 22:12:38 +0900
+
 snapper (0.8.3-1) unstable; urgency=medium
 
   * New upstream release
