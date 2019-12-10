@@ -1,3 +1,11 @@
+snapper (0.8.6-1) unstable; urgency=medium
+
+  * New upstream release
+  * debian/patches
+    - add 0005-drop-testsuite-real-to-avoid-to-be-installed-into-pa.patch
+
+ -- Hideki Yamane <henrich@debian.org>  Tue, 10 Dec 2019 22:48:01 +0900
+
 snapper (0.8.5-1) unstable; urgency=medium
 
   * New upstream release

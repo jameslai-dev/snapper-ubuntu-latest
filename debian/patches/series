@@ -2,3 +2,4 @@
 0002-Bug-852574-Update-udevadm-path-to-bin-udevadm.patch
 0003-Add-debian-specific-option-DISABLE_APT_SNAPSHOT.patch
 0004-fix-manpage.patch
+0005-drop-testsuite-real-to-avoid-to-be-installed-into-pa.patch
