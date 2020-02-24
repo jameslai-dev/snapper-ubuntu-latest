@@ -1,2 +1,3 @@
 version=4
-http://ftp.suse.com/pub/projects/@PACKAGE@/ @PACKAGE@@ANY_VERSION@@ARCHIVE_EXT@
+https://github.com/openSUSE/snapper/releases \
+ /openSUSE/@PACKAGE@/archive/v@ANY_VERSION@@ARCHIVE_EXT@

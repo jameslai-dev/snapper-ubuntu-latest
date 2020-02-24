@@ -1,3 +1,16 @@
+snapper (0.8.7-1) unstable; urgency=medium
+
+  * New upstream release
+  * debian/control
+    - set Standards-Version: 4.5.0
+    - bump up to libsnapper5
+  * debian/watch
+    - update url, use github instead of ftp.suse.com
+  * debian/patches
+    - refresh patches
+
+ -- Hideki Yamane <henrich@debian.org>  Tue, 25 Feb 2020 00:43:47 +0900
+
 snapper (0.8.6-1) unstable; urgency=medium
 
   * New upstream release

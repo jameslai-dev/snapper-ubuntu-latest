@@ -1,21 +1,21 @@
 From: Hideki Yamane <henrich@debian.org>
-Date: Tue, 10 Dec 2019 22:28:54 +0900
-Subject: drop testsuite-real to avoid to be installed into package
+Date: Tue, 25 Feb 2020 01:09:07 +0900
+Subject: drop testsuite-real for install
 
 ---
  Makefile.am | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile.am b/Makefile.am
-index 46d93d1..6e3bf3a 100644
+index 50c2b22..25d336c 100644
 --- a/Makefile.am
 +++ b/Makefile.am
 @@ -3,7 +3,7 @@
  #
  
  SUBDIRS = snapper examples dbus server client scripts pam data doc po		\
--	testsuite testsuite-real testsuite-cmp
-+	testsuite testsuite-cmp
+-	testsuite testsuite-real testsuite-cmp zypp-plugin
++	testsuite testsuite-cmp zypp-plugin
  
  AUTOMAKE_OPTIONS = foreign dist-bzip2 no-dist-gzip
  
