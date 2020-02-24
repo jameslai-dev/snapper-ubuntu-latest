@@ -1,15 +1,15 @@
 From: Hideki Yamane <henrich@debian.org>
-Date: Tue, 25 Feb 2020 01:09:07 +0900
-Subject: drop testsuite-real for install
+Date: Tue, 10 Dec 2019 22:28:54 +0900
+Subject: drop testsuite-real to avoid to be installed into package
 
 ---
  Makefile.am | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Makefile.am b/Makefile.am
-index 50c2b22..25d336c 100644
---- a/Makefile.am
-+++ b/Makefile.am
+Index: snapper/Makefile.am
+===================================================================
+--- snapper.orig/Makefile.am
++++ snapper/Makefile.am
 @@ -3,7 +3,7 @@
  #
  

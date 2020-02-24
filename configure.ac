@@ -56,7 +56,27 @@ dnl Disable it by "configure --disable-silent-rules" or "make V=1"
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
 CFLAGS="${CFLAGS} -std=c99 -Wall -Wextra -Wformat -Wmissing-prototypes -Wno-unused-parameter"
-CXXFLAGS="${CXXFLAGS} -std=c++11 -Wall -Wextra -Wformat -Wnon-virtual-dtor -Wno-unused-parameter -Wsuggest-override"
+CXXFLAGS="${CXXFLAGS} -std=c++11 -Wall -Wextra -Wformat -Wnon-virtual-dtor -Wno-unused-parameter"
+
+AC_DEFUN([TRY_ADD_CXXFLAGS], [
+  AC_MSG_CHECKING([if $CXX supports $1])
+  OLD_CXXFLAGS="$CXXFLAGS"
+  CXXFLAGS="${CXXFLAGS} $1"
+  AC_LANG_PUSH([C++])
+  AC_TRY_COMPILE(
+    [], [],
+    [
+      AC_MSG_RESULT([yes])
+    ],
+    [
+      AC_MSG_RESULT([no])
+      CXXFLAGS="$OLD_CXXFLAGS"
+    ]
+  )
+  AC_LANG_POP([C++])
+])
+
+TRY_ADD_CXXFLAGS([-Wsuggest-override])
 
 SYSCONFIG=/etc/sysconfig
 
@@ -146,10 +166,19 @@ if test "x$with_selinux" = "xyes"; then
 	AC_CHECK_LIB(selinux, selinux_snapperd_contexts_path, [], [AC_MSG_ERROR([selinux library does not provide selinux_snapperd_contexts_path symbol])])
 fi
 
+AC_ARG_ENABLE([coverage], AC_HELP_STRING([--enable-coverage], [Enable test coverage measurement]),
+                [enable_coverage=$enableval], [enable_coverage=no])
+AM_CONDITIONAL(ENABLE_COVERAGE, [test "x$enable_coverage" = "xyes"])
+if test "x$enable_coverage" = "xyes"; then
+        CFLAGS="${CFLAGS} --coverage"
+        CXXFLAGS="${CXXFLAGS} --coverage"
+        LDFLAGS="${LDFLAGS} --coverage"
+fi
+
 PKG_CHECK_MODULES(DBUS, dbus-1)
 PKG_CHECK_MODULES(XML2, libxml-2.0)
 if test "x$with_zypp" = "xyes"; then
-   PKG_CHECK_MODULES(JSONC, json-c)
+   PKG_CHECK_MODULES(JSONC, json-c, [], [AC_MSG_WARN([Cannot find json-c. Please install libjson-c-devel])])
 fi
 
 AC_CHECK_HEADER(acl/libacl.h,[],[AC_MSG_ERROR([Cannout find libacl headers. Please install libacl-devel])])

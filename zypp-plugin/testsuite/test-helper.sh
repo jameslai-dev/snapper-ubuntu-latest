@@ -3,7 +3,16 @@
 
 MYDIR=$(dirname "$0")
 
+# usage: echo "message..." | runit [--validate] > /dev/null
 runit() {
+    # with --validate, insert a validating plugin
+    # into the communication pipeline
+    if [ "$1" = "--validate" ]; then
+        local VALIDATE=("$MYDIR"/../forwarding-zypp-plugin)
+        shift
+    else
+        local VALIDATE=()
+    fi
     local CONFIG="${1:-../../data/zypp-plugin.conf}"
     local STRACE=""
     # STRACE="strace -efile"
@@ -12,6 +21,7 @@ runit() {
       SNAPPER_ZYPP_PLUGIN_SNAPPER_CONFIG=testsuite \
       SNAPPER_ZYPP_PLUGIN_DBUS_SESSION=1 \
       $STRACE \
+      "${VALIDATE[@]}" \
       "$MYDIR"/../snapper-zypp-plugin
 }
 
@@ -54,6 +64,8 @@ test_pre_post_snapshots() {
     stomp_message COMMITBEGIN "" "$(json mypkg)"
     stomp_message COMMITEND "" "$(json mypkg)"
     stomp_message PLUGINEND "" ""
+    stomp_message UNKNOWNMESSAGE "" ""
+    stomp_message _DISCONNECT "" ""
 }
 
 test_pre_del_snapshots() {
@@ -61,6 +73,19 @@ test_pre_del_snapshots() {
     stomp_message COMMITBEGIN "" "$(json mypkg)"
     stomp_message COMMITEND "" ""
     stomp_message PLUGINEND "" ""
+}
+
+# snapper needs a DBus connection even if it ends up not using it :-/
+dbus_session_setup() {
+    if [ -z "${DBUS_SESSION_BUS_ADDRESS-}" ]; then
+        if ! type -P dbus-run-session >/dev/null; then
+            echo "dbus-run-session cannot be run, skipping test"
+            return 77
+        else
+            echo "Restarting test with dbus-run-session"
+            exec dbus-run-session -- "$0"
+        fi
+    fi
 }
 
 mock_snapperd_setup() {

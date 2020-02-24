@@ -1,3 +1,13 @@
+snapper (0.8.9-1) unstable; urgency=medium
+
+  * New upstream release
+  * debian/patches
+    - drop 0001-refresh-Add-DSO-linker-options-for-libsnapper.la.pat.patch
+  * debian/salsa-ci.yml
+    - set "reprotest: allow_failure: true"
+  
+ -- Hideki Yamane <henrich@debian.org>  Tue, 25 Feb 2020 01:26:47 +0900
+
 snapper (0.8.7-1) unstable; urgency=medium
 
   * New upstream release
