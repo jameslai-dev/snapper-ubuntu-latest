@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Hideki Yamane <henrich@debian.org>
 Build-Depends:
  libbtrfs-dev,
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  docbook-xsl,
  libacl1-dev,
  libboost-dev,
