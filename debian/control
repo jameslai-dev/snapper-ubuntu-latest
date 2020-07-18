@@ -79,6 +79,7 @@ Package: libpam-snapper
 Section: admin
 Architecture: linux-any
 Depends: snapper, ${misc:Depends}, ${shlibs:Depends}
+Breaks: snapper (<< 0.8.11-1)
 Description: PAM module for Linux filesystem snapshot management tool
  Snapper is a tool for Linux filesystem snapshot management. Apart from the
  obvious creation and deletion of snapshots, it can compare snapshots and revert

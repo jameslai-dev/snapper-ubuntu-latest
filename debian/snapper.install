@@ -7,7 +7,6 @@ etc/snapper
 /usr/share/dbus-1
 /usr/share/doc/snapper
 /usr/share/locale
-/usr/share/man
 usr/lib/snapper/installation-helper 
 usr/lib/snapper/systemd-helper 
 usr/lib/systemd/system/*	lib/systemd/system/

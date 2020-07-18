@@ -1,0 +1,4 @@
+usr/share/man/man5/snapper-configs.5
+usr/share/man/man8/snapper.8
+usr/share/man/man8/snapperd.8
+usr/share/man/man8/mksubvolume.8

@@ -1,3 +1,13 @@
+snapper (0.8.11-1) unstable; urgency=medium
+
+  * New upstream release
+  * debian/{snapper.{install,manpages},libpam-snapper.manpages}
+    - Split manpages to each package
+  * debian/control
+    - Adjust dependency with above change
+
+ -- Hideki Yamane <henrich@debian.org>  Sat, 18 Jul 2020 23:13:36 +0900
+
 snapper (0.8.10-1) unstable; urgency=medium
 
   * New upstream release
