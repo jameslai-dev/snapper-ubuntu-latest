@@ -1,3 +1,12 @@
+snapper (0.8.12-1) unstable; urgency=medium
+
+  * New upstream release
+  * debian/patches
+    - Drop 0002-Bug-852574-Update-udevadm-path-to-bin-udevadm.patch:
+      now udevadm is /usr/bin/udevadm, so it's unnecessary
+
+ -- Hideki Yamane <henrich@debian.org>  Sun, 26 Jul 2020 16:51:30 +0900
+
 snapper (0.8.11-1) unstable; urgency=medium
 
   * New upstream release
