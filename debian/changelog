@@ -1,3 +1,9 @@
+snapper (0.8.13-1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Hideki Yamane <henrich@debian.org>  Fri, 04 Sep 2020 22:35:30 +0900
+
 snapper (0.8.12-1) unstable; urgency=medium
 
   * New upstream release
