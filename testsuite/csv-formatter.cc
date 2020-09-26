@@ -4,16 +4,15 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include <vector>
-#include <string>
-
 #include "../client/utils/CsvFormatter.h"
+
 
 using namespace std;
 
+
 BOOST_AUTO_TEST_CASE(test1)
 {
-    vector<string> columns = { "column1", "column2", "column3" };;
+    vector<string> columns = { "column1", "column2", "column3" };
 
     vector<vector<string>> rows = {
 	{ "value;1", "value\n2", "value\"3" },
@@ -29,5 +28,5 @@ BOOST_AUTO_TEST_CASE(test1)
 	"\"value;1\";\"value\n2\";\"value\"\"3\"\n"
 	"value1;\"\"\"value2\"\"\";value3\n";
 
-    BOOST_CHECK_EQUAL(formatter.output(), result);
+    BOOST_CHECK_EQUAL(formatter.str(), result);
 }

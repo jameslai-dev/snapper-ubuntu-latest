@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-13 16:13+0200\n"
+"POT-Creation-Date: 2020-09-23 10:33+0200\n"
 "PO-Revision-Date: 2019-03-01 20:28+0000\n"
 "Last-Translator: Murat Servan Kahraman <muratservan@outlook.com>\n"
 "Language-Team: Turkish <https://l10n.opensuse.org/projects/snapper/master/tr/>\n"
@@ -49,6 +49,9 @@ msgstr ""
 msgid "\t--extensions, -x <options>\tExtra options passed to the diff command."
 msgstr ""
 
+msgid "\t--free-space <space>\t\tTry to make space available."
+msgstr ""
+
 msgid "\t--from\t\t\t\tCreate a snapshot from the specified snapshot."
 msgstr ""
 
@@ -77,6 +80,9 @@ msgstr ""
 
 msgid "\t--output, -o <file>\t\tSave status to file."
 msgstr "\t--output, -o <file>\t\tDurumu dosyaya kaydet."
+
+msgid "\t--path <path>\t\t\tCleanup all configs affecting path."
+msgstr ""
 
 #, fuzzy
 msgid "\t--pre-number <number>\t\tNumber of corresponding pre snapshot."
@@ -195,6 +201,10 @@ msgstr "\tyakalayıcı fark <number1>..<number2> [dosyalar]"
 msgid "    Global options:"
 msgstr "    Evrensel seçenekler:"
 
+#, fuzzy
+msgid "    Options for 'cleanup' command:"
+msgstr "    'create' komutu için seçenekler:"
+
 msgid "    Options for 'create' command:"
 msgstr "    'create' komutu için seçenekler:"
 
@@ -279,6 +289,20 @@ msgstr "  Anlık görüntüyü çerçeveleme:"
 #, fuzzy
 msgid "  Undo changes:"
 msgstr "  Değişikikleri geri al:"
+
+#. TRANSLATORS: used to construct list of values
+#. %1$s is replaced by first value
+#. %2$s is replaced by second value
+#, c-format
+msgid "%1$s or %2$s"
+msgstr ""
+
+#. TRANSLATORS: used to construct list of values
+#. %1$s is replaced by first value
+#. %2$s is replaced by second value
+#, c-format
+msgid "%1$s, %2$s"
+msgstr ""
 
 #, c-format
 msgid "(Snapshot %d.)"
@@ -414,6 +438,13 @@ msgid "Configdata '%s' has empty key."
 msgstr ""
 
 #, c-format
+msgid "Could not make enough free space available for path '%s'."
+msgstr ""
+
+msgid "Could not make enough free space available."
+msgstr ""
+
+#, c-format
 msgid "Creating config failed (%s)."
 msgstr "Yapılandırma oluşturma başarısız oldu (%s)."
 
@@ -450,6 +481,14 @@ msgstr[0] "Yapılandırma oluşturma başarısız oldu (%s)."
 msgid "Detecting filesystem type failed."
 msgstr "Dosya sistemi türünü tespit etme başarısız oldu."
 
+#. TRANSLATORS: symbol for "exa" (best keep untranslated)
+msgid "E"
+msgstr ""
+
+#. TRANSLATORS: symbol for "exa bytes" (best keep untranslated)
+msgid "EB"
+msgstr ""
+
 #. TRANSLATORS: symbol for "exbi bytes" (best keep untranslated)
 msgid "EiB"
 msgstr ""
@@ -467,6 +506,18 @@ msgstr "Giriş/Çıkış hatası"
 
 msgid "Failed to initialize filesystem handler."
 msgstr ""
+
+#, fuzzy, c-format
+msgid "Failed to parse '%s'."
+msgstr "%s oluşturma başarısız oldu"
+
+#, c-format
+msgid "Failed to query free space for path '%s'."
+msgstr ""
+
+#, fuzzy
+msgid "Failed to query free space."
+msgstr "%s oluşturma başarısız oldu"
 
 msgid "Failed to set locale. Fix your system."
 msgstr ""
@@ -486,6 +537,14 @@ msgstr "'%s' dosyası bulunamadı."
 #, fuzzy, c-format
 msgid "Free space error (%s)."
 msgstr "Giriş/Çıkış hatası"
+
+#. TRANSLATORS: symbol for "giga" (best keep untranslated)
+msgid "G"
+msgstr ""
+
+#. TRANSLATORS: symbol for "giga bytes" (best keep untranslated)
+msgid "GB"
+msgstr ""
 
 #. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
 msgid "GiB"
@@ -510,19 +569,27 @@ msgid "Illegal snapshot."
 msgstr "Geçersiz anlık görüntü."
 
 #, fuzzy, c-format
-msgid "Invalid ambit %s."
+msgid "Invalid ambit '%s'."
 msgstr "Geçersiz '%s' anlık görüntüsü."
 
 #, fuzzy
 msgid "Invalid configdata."
 msgstr "Geçersiz kullanıcı verisi."
 
+#, fuzzy
+msgid "Invalid free-space value."
+msgstr "Geçersiz arkases."
+
 msgid "Invalid group."
 msgstr ""
 
-#, c-format
-msgid "Invalid machine readable format %s."
-msgstr ""
+#, fuzzy, c-format
+msgid "Invalid machine readable format '%s'."
+msgstr "%d geçersiz tablo stili."
+
+#, fuzzy, c-format
+msgid "Invalid path '%s'."
+msgstr "Geçersiz '%s' anlık görüntüsü."
 
 #, c-format
 msgid "Invalid snapshot '%s'."
@@ -536,7 +603,7 @@ msgid "Invalid subvolume."
 msgstr "Geçersiz arkases."
 
 #, fuzzy, c-format
-msgid "Invalid table style %s."
+msgid "Invalid table style '%s'."
 msgstr "%d geçersiz tablo stili."
 
 msgid "Invalid user."
@@ -552,6 +619,14 @@ msgstr ""
 #, c-format
 msgid "Listing configs failed (%s)."
 msgstr "Yapılandırmaları listeleme başarısız oldu (%s)."
+
+#. TRANSLATORS: symbol for "mega" (best keep untranslated)
+msgid "M"
+msgstr ""
+
+#. TRANSLATORS: symbol for "mega bytes" (best keep untranslated)
+msgid "MB"
+msgstr ""
 
 msgid "Maybe you forgot the delimiter '..' between the snapshot numbers."
 msgstr ""
@@ -570,7 +645,7 @@ msgstr "'%s' küresel seçeneği için eksik argüman."
 
 # clients/lan_inetd_custom.ycp:758
 #, fuzzy
-msgid "Missing command argument."
+msgid "Missing command option."
 msgstr "Çok fazla argüman."
 
 msgid "Missing delimiter '..' between snapshot numbers."
@@ -596,6 +671,14 @@ msgstr ""
 msgid "Option --read-write only supported for snapshots of type single."
 msgstr ""
 
+#. TRANSLATORS: symbol for "peta" (best keep untranslated)
+msgid "P"
+msgstr ""
+
+#. TRANSLATORS: symbol for "peta bytes" (best keep untranslated)
+msgid "PB"
+msgstr ""
+
 #. TRANSLATORS: symbol for "pebi bytes" (best keep untranslated)
 msgid "PiB"
 msgstr ""
@@ -618,6 +701,14 @@ msgid "Snapshot '%u' not found."
 msgstr "'%u' anlık görüntüsü bulunamadı."
 
 msgid "Snapshot is in use."
+msgstr ""
+
+#. TRANSLATORS: symbol for "tera" (best keep untranslated)
+msgid "T"
+msgstr ""
+
+#. TRANSLATORS: symbol for "tera bytes" (best keep untranslated)
+msgid "TB"
 msgstr ""
 
 msgid "The ambit can be specified manually using the --ambit option."
@@ -657,12 +748,14 @@ msgstr "Bilinmeyen '%s' evrensel seçeneği."
 msgid "Unknown option '%s' for command '%s'."
 msgstr "Bilinmeyen '%s' seçeneği; '%s' komutu için."
 
-#, fuzzy
-msgid "Unknown type of snapshot."
-msgstr "Bilinmeyen anlık görüntü formatı."
+#, fuzzy, c-format
+msgid "Unknown type '%s'."
+msgstr "'Bilinmeyen komut '%s'."
 
+#. TRANSLATORS: a list of possible values
+#. %1$s is replaced by list of possible values
 #, c-format
-msgid "Use %s, %s or %s."
+msgid "Use %1$s."
 msgstr ""
 
 #, c-format
@@ -701,6 +794,14 @@ msgstr "%s 'i silme başarısız oldu"
 msgid "failed to modify %s"
 msgstr "%s 'i değiştirme başarısız oldu"
 
+#. TRANSLATORS: symbol for "kilo" (best keep untranslated)
+msgid "k"
+msgstr ""
+
+#. TRANSLATORS: symbol for "kilo bytes" (best keep untranslated)
+msgid "kB"
+msgstr ""
+
 #, c-format
 msgid "modifying %s"
 msgstr "%s üzerinde değişiklik yapılıyor"
@@ -709,14 +810,16 @@ msgid "nothing to do"
 msgstr ""
 
 #, fuzzy
-msgid ""
-"root argument can be used only together with no-dbus.\n"
-"Try 'snapper --help' for more information."
+msgid "root argument can be used only together with no-dbus.\n"
 msgstr "Daha fazla bilgi için 'Yakalayıcı yardımı'nı okumayı deneyin."
 
 #, fuzzy
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr "kullanım: yakalayıcı  [--global-options] <command> [--command-options] [command-arguments]"
+
+#, fuzzy
+#~ msgid "Unknown type of snapshot."
+#~ msgstr "Bilinmeyen anlık görüntü formatı."
 
 #, fuzzy
 #~ msgid "\t--disable-used-space\t\tDisable showing used space."

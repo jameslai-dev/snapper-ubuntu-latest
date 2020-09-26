@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-13 16:13+0200\n"
+"POT-Creation-Date: 2020-09-23 10:33+0200\n"
 "PO-Revision-Date: 2020-05-02 19:50+0000\n"
 "Last-Translator: mohammad alhargan <malham1@gmail.com>\n"
 "Language-Team: Arabic <https://l10n.opensuse.org/projects/snapper/master/ar/>\n"
@@ -47,6 +47,9 @@ msgstr "\t--diff-cmd <command>\t\tأمر مستخدم لمقارنة الملف�
 msgid "\t--extensions, -x <options>\tExtra options passed to the diff command."
 msgstr "\t--extensions، -x <options>\tخيارات إضافية تم تمريرها إلى أمر diff."
 
+msgid "\t--free-space <space>\t\tTry to make space available."
+msgstr ""
+
 msgid "\t--from\t\t\t\tCreate a snapshot from the specified snapshot."
 msgstr ""
 "\t--من\t\t\t\tقم بإنشاء لقطة من اللقطة المحددة.\n"
@@ -75,6 +78,9 @@ msgstr "\t--no-dbus\t\t\tلا تعمل بدون تثبيت DBus."
 
 msgid "\t--output, -o <file>\t\tSave status to file."
 msgstr "\t--output, -o <file>\t\tحفظ الحالة إلى ملف."
+
+msgid "\t--path <path>\t\t\tCleanup all configs affecting path."
+msgstr ""
 
 msgid "\t--pre-number <number>\t\tNumber of corresponding pre snapshot."
 msgstr "\t--pre-number <number>\t\tعدد اللقطات المتطابقة لكل لقطة."
@@ -175,6 +181,10 @@ msgstr "\tإختلافات الملتقط <number1>..<number2> [ملف]"
 msgid "    Global options:"
 msgstr "    خيارات عالمية:"
 
+#, fuzzy
+msgid "    Options for 'cleanup' command:"
+msgstr "    الأمر 'تعديل' خيارات:"
+
 msgid "    Options for 'create' command:"
 msgstr "    الأمر 'تعديل' خيارات:"
 
@@ -240,6 +250,20 @@ msgstr "  الغ تحميل لقطة:"
 
 msgid "  Undo changes:"
 msgstr "  التراجع عن التغييرات:"
+
+#. TRANSLATORS: used to construct list of values
+#. %1$s is replaced by first value
+#. %2$s is replaced by second value
+#, c-format
+msgid "%1$s or %2$s"
+msgstr ""
+
+#. TRANSLATORS: used to construct list of values
+#. %1$s is replaced by first value
+#. %2$s is replaced by second value
+#, c-format
+msgid "%1$s, %2$s"
+msgstr ""
 
 #, c-format
 msgid "(Snapshot %d.)"
@@ -358,6 +382,13 @@ msgid "Configdata '%s' has empty key."
 msgstr "معلوات الإعداد '%s' تحتوي مفاتيح خالية."
 
 #, c-format
+msgid "Could not make enough free space available for path '%s'."
+msgstr ""
+
+msgid "Could not make enough free space available."
+msgstr ""
+
+#, c-format
 msgid "Creating config failed (%s)."
 msgstr "فشل إنشاء إعداد (%s)."
 
@@ -397,6 +428,15 @@ msgstr[5] "حذف اللقطات من %s:"
 msgid "Detecting filesystem type failed."
 msgstr "فشل الكشف عن نوع نظام الملفات."
 
+#. TRANSLATORS: symbol for "exa" (best keep untranslated)
+msgid "E"
+msgstr ""
+
+#. TRANSLATORS: symbol for "exa bytes" (best keep untranslated)
+#, fuzzy
+msgid "EB"
+msgstr "EiB"
+
 #. TRANSLATORS: symbol for "exbi bytes" (best keep untranslated)
 msgid "EiB"
 msgstr "EiB"
@@ -413,6 +453,18 @@ msgstr "خطأ (%s)."
 
 msgid "Failed to initialize filesystem handler."
 msgstr "فشل في تهيئة نظام معالجة الملفات."
+
+#, fuzzy, c-format
+msgid "Failed to parse '%s'."
+msgstr "فشل في إنشاء %s"
+
+#, c-format
+msgid "Failed to query free space for path '%s'."
+msgstr ""
+
+#, fuzzy
+msgid "Failed to query free space."
+msgstr "فشل في إنشاء %s"
 
 msgid "Failed to set locale. Fix your system."
 msgstr "فشل تعيين الإعدادات المحلية. الرجاء إصلاح النظام."
@@ -431,6 +483,15 @@ msgstr "الملف '%s' غير موجود."
 #, c-format
 msgid "Free space error (%s)."
 msgstr "خطأ في المساحة الخالية (%s)."
+
+#. TRANSLATORS: symbol for "giga" (best keep untranslated)
+msgid "G"
+msgstr ""
+
+#. TRANSLATORS: symbol for "giga bytes" (best keep untranslated)
+#, fuzzy
+msgid "GB"
+msgstr "GiB"
 
 #. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
 msgid "GiB"
@@ -451,18 +512,26 @@ msgid "Illegal snapshot."
 msgstr "لقطة غير مسموح بها."
 
 #, fuzzy, c-format
-msgid "Invalid ambit %s."
+msgid "Invalid ambit '%s'."
 msgstr "لقطة غير صالحة '%s'."
 
 msgid "Invalid configdata."
 msgstr "بيانات إعداد غير صالحة."
 
+#, fuzzy
+msgid "Invalid free-space value."
+msgstr "الحجم الفرعي غير صالح."
+
 msgid "Invalid group."
 msgstr "مجموعة غير صالحة."
 
-#, c-format
-msgid "Invalid machine readable format %s."
-msgstr ""
+#, fuzzy, c-format
+msgid "Invalid machine readable format '%s'."
+msgstr "نمط الجدول غير صالح %d."
+
+#, fuzzy, c-format
+msgid "Invalid path '%s'."
+msgstr "لقطة غير صالحة '%s'."
 
 #, c-format
 msgid "Invalid snapshot '%s'."
@@ -475,7 +544,7 @@ msgid "Invalid subvolume."
 msgstr "الحجم الفرعي غير صالح."
 
 #, fuzzy, c-format
-msgid "Invalid table style %s."
+msgid "Invalid table style '%s'."
 msgstr "نمط الجدول غير صالح %d."
 
 msgid "Invalid user."
@@ -492,6 +561,15 @@ msgstr "KiB"
 msgid "Listing configs failed (%s)."
 msgstr "فشل سرد إعداد (%s)."
 
+#. TRANSLATORS: symbol for "mega" (best keep untranslated)
+msgid "M"
+msgstr ""
+
+#. TRANSLATORS: symbol for "mega bytes" (best keep untranslated)
+#, fuzzy
+msgid "MB"
+msgstr "MiB"
+
 msgid "Maybe you forgot the delimiter '..' between the snapshot numbers."
 msgstr "ربما نسيت المحدد '..' بين أرقام اللقطة."
 
@@ -507,7 +585,8 @@ msgstr "وسيط مفقودة لخيار الأمر '%s'."
 msgid "Missing argument for global option '%s'."
 msgstr "وسيط مفقودة لخيار العالمي '%s'."
 
-msgid "Missing command argument."
+#, fuzzy
+msgid "Missing command option."
 msgstr "أمر الوسائط مفقود."
 
 msgid "Missing delimiter '..' between snapshot numbers."
@@ -532,6 +611,15 @@ msgstr "الاختيار -- مدعوم فقط للقطات من النوع ال�
 msgid "Option --read-write only supported for snapshots of type single."
 msgstr "الاختيار --القراءة والكتابة مدعومة فقط للقطات من النوع المفرد."
 
+#. TRANSLATORS: symbol for "peta" (best keep untranslated)
+msgid "P"
+msgstr ""
+
+#. TRANSLATORS: symbol for "peta bytes" (best keep untranslated)
+#, fuzzy
+msgid "PB"
+msgstr "PiB"
+
 #. TRANSLATORS: symbol for "pebi bytes" (best keep untranslated)
 msgid "PiB"
 msgstr "PiB"
@@ -553,6 +641,15 @@ msgstr "اللقطة '%u' لم يتم العثور على."
 
 msgid "Snapshot is in use."
 msgstr "اللقطة قيد الاستخدام."
+
+#. TRANSLATORS: symbol for "tera" (best keep untranslated)
+msgid "T"
+msgstr ""
+
+#. TRANSLATORS: symbol for "tera bytes" (best keep untranslated)
+#, fuzzy
+msgid "TB"
+msgstr "TiB"
 
 msgid "The ambit can be specified manually using the --ambit option."
 msgstr ""
@@ -589,11 +686,14 @@ msgstr "الخيار العالمي غير معروف '%s'."
 msgid "Unknown option '%s' for command '%s'."
 msgstr "خيار غير معروف '%s' للأمر '%s'."
 
-msgid "Unknown type of snapshot."
-msgstr "نوع اللقطة غير معروف."
+#, fuzzy, c-format
+msgid "Unknown type '%s'."
+msgstr "أمر غير معروف '%s'."
 
+#. TRANSLATORS: a list of possible values
+#. %1$s is replaced by list of possible values
 #, c-format
-msgid "Use %s, %s or %s."
+msgid "Use %1$s."
 msgstr ""
 
 #, c-format
@@ -632,6 +732,15 @@ msgstr "فشل في حذف %s"
 msgid "failed to modify %s"
 msgstr "فشل في تعديل %s"
 
+#. TRANSLATORS: symbol for "kilo" (best keep untranslated)
+msgid "k"
+msgstr ""
+
+#. TRANSLATORS: symbol for "kilo bytes" (best keep untranslated)
+#, fuzzy
+msgid "kB"
+msgstr "B"
+
 #, c-format
 msgid "modifying %s"
 msgstr "تعديل %s"
@@ -640,13 +749,14 @@ msgid "nothing to do"
 msgstr "لا يوجد ما يمكن فعله"
 
 #, fuzzy
-msgid ""
-"root argument can be used only together with no-dbus.\n"
-"Try 'snapper --help' for more information."
+msgid "root argument can be used only together with no-dbus.\n"
 msgstr "يمكن استخدام الوسيطة الجذر فقط في حالة عدم وجود dbus."
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr "استخدام: اللقطة [--global-options] <command> [--command-options] [أمر-وسائط]"
+
+#~ msgid "Unknown type of snapshot."
+#~ msgstr "نوع اللقطة غير معروف."
 
 #~ msgid "\t--all-configs, -a\t\tList snapshots from all accessible configs."
 #~ msgstr "\t--all-configs، -a\t\tقائمة باللقطات من كل التكوينات التي يمكن الوصول إليها."

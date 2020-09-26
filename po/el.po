@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-13 16:13+0200\n"
-"PO-Revision-Date: 2016-09-24 16:01+0000\n"
-"Last-Translator: Efstathios Iosifidis <eiosifidis@gmail.com>\n"
+"POT-Creation-Date: 2020-09-23 10:33+0200\n"
+"PO-Revision-Date: 2020-09-18 20:48+0000\n"
+"Last-Translator: Arvin Schnell <aschnell@suse.com>\n"
 "Language-Team: Greek <https://l10n.opensuse.org/projects/snapper/master/el/>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.6\n"
+"X-Generator: Weblate 3.6.1\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
 msgid "\t--ambit, -a ambit\t\tOperate in the specified ambit."
@@ -28,7 +28,6 @@ msgstr "\t--cleanup-algorithm, -c <algo>\t\tΑλγόριθμος εκκαθάρ�
 msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshots."
 msgstr "\t--cleanup-algorithm, -c <algo>\tΑλγόρυθμος εκκαθάρισης για τα στιγμιότυπα."
 
-#, fuzzy
 msgid "\t--command <command>\t\tRun command and create pre and post snapshots."
 msgstr "\t--command <command>\tΕκτέλεση εντολής και δημιουργία στιγμιότυπου πριν και μετά."
 
@@ -50,6 +49,9 @@ msgstr ""
 msgid "\t--extensions, -x <options>\tExtra options passed to the diff command."
 msgstr ""
 
+msgid "\t--free-space <space>\t\tTry to make space available."
+msgstr ""
+
 msgid "\t--from\t\t\t\tCreate a snapshot from the specified snapshot."
 msgstr ""
 
@@ -59,7 +61,6 @@ msgstr "\t--fstype, -f <fstype>\t\tΟρίσετε είδος συστήματο�
 msgid "\t--input, -i <file>\t\tRead files for which to undo changes from file."
 msgstr "\t--input, -i <file>\t\tΑνάγνωση αρχείων που θα γίνει αναίρεση αλλαγών από αρχείο."
 
-#, fuzzy
 msgid "\t--input, -i <file>\t\tRead files to diff from file."
 msgstr "\t--input, -i <file>\t\tΑνάγνωση αρχείων που θα γίνει αναίρεση αλλαγών από αρχείο."
 
@@ -77,6 +78,9 @@ msgstr "\t--no-dbus\t\t\tΛειτουργία χωρίς το DBus."
 
 msgid "\t--output, -o <file>\t\tSave status to file."
 msgstr "\t--output, -o <file>\t\tΑποθήκευση κατάστασης σε αρχείο."
+
+msgid "\t--path <path>\t\t\tCleanup all configs affecting path."
+msgstr ""
 
 msgid "\t--pre-number <number>\t\tNumber of corresponding pre snapshot."
 msgstr "\t--pre-number <αριθμός>\t\tΑριθμός από αντίστοιχα προ-στιγμιότυπα."
@@ -159,7 +163,6 @@ msgstr "\tsnapper rollback [number]"
 msgid "\tsnapper set-config <configdata>"
 msgstr "\tsnapper set-configs <configdata>"
 
-#, fuzzy
 msgid "\tsnapper setup-quota"
 msgstr "\tsnapper get-config"
 
@@ -178,13 +181,16 @@ msgstr "\tsnapper xadiff number1>..<number2> [files]"
 msgid "    Global options:"
 msgstr "    Γενικές Επιλογές:"
 
+#, fuzzy
+msgid "    Options for 'cleanup' command:"
+msgstr "    Επιλογές για την εντολή 'create':"
+
 msgid "    Options for 'create' command:"
 msgstr "    Επιλογές για την εντολή 'create':"
 
 msgid "    Options for 'create-config' command:"
 msgstr "    Επιλογές για την εντολή 'create-config':"
 
-#, fuzzy
 msgid "    Options for 'delete' command:"
 msgstr "    Επιλογές για την εντολή 'create':"
 
@@ -245,6 +251,20 @@ msgstr "  Αποπροσάρτηση στιγμιοτύπου:"
 msgid "  Undo changes:"
 msgstr "  Αναίρεση αλλαγών:"
 
+#. TRANSLATORS: used to construct list of values
+#. %1$s is replaced by first value
+#. %2$s is replaced by second value
+#, c-format
+msgid "%1$s or %2$s"
+msgstr ""
+
+#. TRANSLATORS: used to construct list of values
+#. %1$s is replaced by first value
+#. %2$s is replaced by second value
+#, c-format
+msgid "%1$s, %2$s"
+msgstr ""
+
 #, c-format
 msgid "(Snapshot %d.)"
 msgstr "(Στιγμιότυπο %d.)"
@@ -265,7 +285,7 @@ msgstr ""
 
 #, fuzzy, c-format
 msgid "Cannot delete snapshot %d since it is the current system."
-msgstr "  Διαγραφή στιγμιοτύπου:"
+msgstr "Διαγραφή στιγμιοτύπου:"
 
 #, c-format
 msgid "Cannot delete snapshot %d since it is the currently mounted snapshot."
@@ -324,14 +344,12 @@ msgstr "Η εντολή 'rollback' δέχετε είτε ένα είτε καν�
 msgid "Command 'set-config' needs at least one argument."
 msgstr "Η εντολή 'set-config' χρειάζεται τουλάχιστον μία παράμετρο."
 
-#, fuzzy
 msgid "Command 'setup-quota' does not take arguments."
 msgstr "Η εντολή 'help' δεν δέχεται παραμέτρους."
 
 msgid "Command 'status' needs one argument."
 msgstr "Η εντολή 'status' χρειάζεται μία παράμετρο."
 
-#, fuzzy
 msgid "Command 'umount' needs at least one argument."
 msgstr "Η εντολή 'mount' χρειάζεται τουλάχιστον μία παράμετρο."
 
@@ -364,6 +382,13 @@ msgid "Configdata '%s' has empty key."
 msgstr "Τα δεδομένα ρυθμίσεων '%s' έχουν κενό κλειδί."
 
 #, c-format
+msgid "Could not make enough free space available for path '%s'."
+msgstr ""
+
+msgid "Could not make enough free space available."
+msgstr ""
+
+#, c-format
 msgid "Creating config failed (%s)."
 msgstr "Αποτυχία δημιουργίας ρύθμισης (%s)."
 
@@ -387,6 +412,7 @@ msgstr "Αποτυχία δημιουργίας στιγμιοτύπου."
 msgid "Deleting config failed (%s)."
 msgstr "Αποτυχία διαγραφής ρυθμίσεων (%s)."
 
+#, fuzzy
 msgid "Deleting snapshot failed."
 msgstr "Αποτυχία διαγραφής στιγμιοτύπου."
 
@@ -399,9 +425,18 @@ msgstr[1] "Αποτυχία διαγραφής στιγμιοτύπου."
 msgid "Detecting filesystem type failed."
 msgstr "Απέτυχε ο εντοπισμός του τύπου συστήματος αρχείων."
 
+#. TRANSLATORS: symbol for "exa" (best keep untranslated)
+msgid "E"
+msgstr ""
+
+#. TRANSLATORS: symbol for "exa bytes" (best keep untranslated)
+#, fuzzy
+msgid "EB"
+msgstr "EiB"
+
 #. TRANSLATORS: symbol for "exbi bytes" (best keep untranslated)
 msgid "EiB"
-msgstr ""
+msgstr "EiB"
 
 msgid "Empty configdata."
 msgstr "Κενά δεδομένα ρυθμίσεων."
@@ -410,12 +445,24 @@ msgid "Empty userdata."
 msgstr "Κενά δεδομένα χρήστη."
 
 # error box title
-#, fuzzy, c-format
+#, c-format
 msgid "Error (%s)."
-msgstr "Σφάλμα I/O."
+msgstr "Σφάλμα (%s)."
 
 msgid "Failed to initialize filesystem handler."
 msgstr "Αποτυχία αρχικοποίησης χειριστή συστήματος αρχείων."
+
+#, fuzzy, c-format
+msgid "Failed to parse '%s'."
+msgstr "αποτυχία δημιουργίας %s"
+
+#, c-format
+msgid "Failed to query free space for path '%s'."
+msgstr ""
+
+#, fuzzy
+msgid "Failed to query free space."
+msgstr "αποτυχία δημιουργίας %s"
 
 msgid "Failed to set locale. Fix your system."
 msgstr ""
@@ -436,40 +483,56 @@ msgstr "Δεν βρέθηκε το αρχείο '%s'."
 msgid "Free space error (%s)."
 msgstr "Σφάλμα I/O."
 
-#. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
-msgid "GiB"
+#. TRANSLATORS: symbol for "giga" (best keep untranslated)
+msgid "G"
 msgstr ""
 
-# error box title
-#, fuzzy, c-format
-msgid "IO Error (%s)."
-msgstr "Σφάλμα I/O."
+#. TRANSLATORS: symbol for "giga bytes" (best keep untranslated)
+#, fuzzy
+msgid "GB"
+msgstr "GiB"
+
+#. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
+msgid "GiB"
+msgstr "GiB"
 
 # error box title
-#, fuzzy, c-format
+#, c-format
+msgid "IO Error (%s)."
+msgstr "Σφάλμα I/O (%s)."
+
+# error box title
+#, c-format
 msgid "IO error (%s)."
-msgstr "Σφάλμα I/O."
+msgstr "Σφάλμα I/O (%s)."
 
 msgid "Identical snapshots."
 msgstr "Πανομοιότυπα στιγμιότυπα."
 
-#, fuzzy
 msgid "Illegal snapshot."
 msgstr "Αντικανονικό στιγμιότυπο."
 
-#, fuzzy, c-format
-msgid "Invalid ambit %s."
+#, c-format
+msgid "Invalid ambit '%s'."
 msgstr "Μη έγκυρο στιγμιότυπο '%s'."
 
 msgid "Invalid configdata."
 msgstr "Μη έγκυρα δεδομένα ρυθμίσεων."
 
+#, fuzzy
+msgid "Invalid free-space value."
+msgstr "Μη έγκυρος υποτόμος."
+
 msgid "Invalid group."
 msgstr "Μη έγκυρη ομάδα."
 
-#, c-format
-msgid "Invalid machine readable format %s."
-msgstr ""
+#, fuzzy, c-format
+msgid "Invalid machine readable format '%s'."
+msgstr "Μη έγκυρος τύπος πίνακα %d."
+
+#, fuzzy, c-format
+msgid "Invalid path '%s'."
+msgstr "Μη έγκυρο στιγμιότυπο '%s'."
 
 #, c-format
 msgid "Invalid snapshot '%s'."
@@ -482,7 +545,7 @@ msgid "Invalid subvolume."
 msgstr "Μη έγκυρος υποτόμος."
 
 #, fuzzy, c-format
-msgid "Invalid table style %s."
+msgid "Invalid table style '%s'."
 msgstr "Μη έγκυρος τύπος πίνακα %d."
 
 msgid "Invalid user."
@@ -493,18 +556,27 @@ msgstr "Μη έγκυρο userdata"
 
 #. TRANSLATORS: symbol for "kibi bytes" (best keep untranslated)
 msgid "KiB"
-msgstr ""
+msgstr "KiB"
 
 #, c-format
 msgid "Listing configs failed (%s)."
 msgstr "Απέτυχε η εμφάνιση αρχείων ρυθμίσεων (%s)."
+
+#. TRANSLATORS: symbol for "mega" (best keep untranslated)
+msgid "M"
+msgstr ""
+
+#. TRANSLATORS: symbol for "mega bytes" (best keep untranslated)
+#, fuzzy
+msgid "MB"
+msgstr "MiB"
 
 msgid "Maybe you forgot the delimiter '..' between the snapshot numbers."
 msgstr ""
 
 #. TRANSLATORS: symbol for "mebi bytes" (best keep untranslated)
 msgid "MiB"
-msgstr ""
+msgstr "MiB"
 
 #, c-format
 msgid "Missing argument for command option '%s'."
@@ -514,7 +586,7 @@ msgstr "Απουσία παραμέτρου για την επιλογή εντ�
 msgid "Missing argument for global option '%s'."
 msgstr "Απουσία παραμέτρου για γενική ρύθμιση '%s'."
 
-msgid "Missing command argument."
+msgid "Missing command option."
 msgstr "Απουσία παραμέτρου εντολής."
 
 msgid "Missing delimiter '..' between snapshot numbers."
@@ -539,16 +611,24 @@ msgstr ""
 msgid "Option --read-write only supported for snapshots of type single."
 msgstr ""
 
+#. TRANSLATORS: symbol for "peta" (best keep untranslated)
+msgid "P"
+msgstr ""
+
+#. TRANSLATORS: symbol for "peta bytes" (best keep untranslated)
+#, fuzzy
+msgid "PB"
+msgstr "PiB"
+
 #. TRANSLATORS: symbol for "pebi bytes" (best keep untranslated)
 msgid "PiB"
-msgstr ""
+msgstr "PiB"
 
 # error box title
 #, fuzzy, c-format
 msgid "Quota error (%s)."
 msgstr "Σφάλμα I/O."
 
-#, fuzzy
 msgid "See 'man snapper' for further instructions."
 msgstr "Για περισσότερες πληροφορίες δοκιμάστε 'snapper --help'."
 
@@ -563,6 +643,15 @@ msgstr "Δεν βρέθηκε στιγμιότυπο '%u'."
 msgid "Snapshot is in use."
 msgstr "Το στιγμιότυπο είναι σε χρήση."
 
+#. TRANSLATORS: symbol for "tera" (best keep untranslated)
+msgid "T"
+msgstr ""
+
+#. TRANSLATORS: symbol for "tera bytes" (best keep untranslated)
+#, fuzzy
+msgid "TB"
+msgstr "TiB"
+
 msgid "The ambit can be specified manually using the --ambit option."
 msgstr ""
 
@@ -574,7 +663,7 @@ msgstr ""
 
 #. TRANSLATORS: symbol for "tebi bytes" (best keep untranslated)
 msgid "TiB"
-msgstr ""
+msgstr "TiB"
 
 msgid "Try 'snapper --help' for more information."
 msgstr "Για περισσότερες πληροφορίες δοκιμάστε 'snapper --help'."
@@ -598,11 +687,14 @@ msgstr "Άγνωστη γενική επιλογή '%s'."
 msgid "Unknown option '%s' for command '%s'."
 msgstr "Άγνωστη επιλογή '%s' για την εντολή '%s'."
 
-msgid "Unknown type of snapshot."
-msgstr "Άγνωστος τύπος στιγμιοτύπου."
-
 #, c-format
-msgid "Use %s, %s or %s."
+msgid "Unknown type '%s'."
+msgstr "Άγνωστος τύπος '%s'."
+
+#. TRANSLATORS: a list of possible values
+#. %1$s is replaced by list of possible values
+#, c-format
+msgid "Use %1$s."
 msgstr ""
 
 #, c-format
@@ -641,6 +733,14 @@ msgstr "αποτυχία διαγραφής %s"
 msgid "failed to modify %s"
 msgstr "αποτυχία τροποποίησης %s"
 
+#. TRANSLATORS: symbol for "kilo" (best keep untranslated)
+msgid "k"
+msgstr ""
+
+#. TRANSLATORS: symbol for "kilo bytes" (best keep untranslated)
+msgid "kB"
+msgstr ""
+
 #, c-format
 msgid "modifying %s"
 msgstr "τροποποίηση %s"
@@ -649,13 +749,22 @@ msgid "nothing to do"
 msgstr "τίποτα για να γίνει"
 
 #, fuzzy
-msgid ""
-"root argument can be used only together with no-dbus.\n"
-"Try 'snapper --help' for more information."
-msgstr "Για περισσότερες πληροφορίες δοκιμάστε 'snapper --help'."
+msgid "root argument can be used only together with no-dbus.\n"
+msgstr "Για περισσότερες πληροφορίες δοκιμάστε 'snapper --help'.\n"
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
-msgstr "Χρήση: snapper [--global-options] <command> [--command-options] [command-arguments]"
+msgstr "χρήση: snapper [--global-options] <command> [--command-options] [command-arguments]"
+
+#, c-format
+#~ msgid "Use %s, %s or %s."
+#~ msgstr "Χρήση %s, %s ή %s."
+
+#, c-format
+#~ msgid "Use %s, %s, %s or %s."
+#~ msgstr "Χρήση %s, %s, %s ή %s."
+
+#~ msgid "Unknown type of snapshot."
+#~ msgstr "Άγνωστος τύπος στιγμιοτύπου."
 
 #~ msgid "\t--all-configs, -a\t\tList snapshots from all accessible configs."
 #~ msgstr "\t--all-configs, -a\t\tΕμφανίζει τα στιγμιότυπα από όλες τις προσβάσιμες ρυθμίσεις."

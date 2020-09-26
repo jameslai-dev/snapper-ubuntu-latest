@@ -4,12 +4,11 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include <vector>
-#include <string>
-
 #include "../client/utils/JsonFormatter.h"
 
+
 using namespace std;
+
 
 BOOST_AUTO_TEST_CASE(test1_escape_values)
 {
@@ -38,9 +37,12 @@ BOOST_AUTO_TEST_CASE(test1_escape_values)
 	"  \"key4\": \"\\\"value9\\\"\"\n"
 	"}";
 
+    // TODO it is inconsistent that here a final newline is missing while the other
+    // formatters add it
+
     snapper::cli::JsonFormatter formatter(data);
 
-    BOOST_CHECK_EQUAL(formatter.output(), expected_result);
+    BOOST_CHECK_EQUAL(formatter.str(), expected_result);
 }
 
 
@@ -61,7 +63,7 @@ BOOST_AUTO_TEST_CASE(test2_skip_format)
 
     formatter.skip_format_values({ "key1" });
 
-    BOOST_CHECK_EQUAL(formatter.output(), expected_result);
+    BOOST_CHECK_EQUAL(formatter.str(), expected_result);
 }
 
 
@@ -82,7 +84,7 @@ BOOST_AUTO_TEST_CASE(test3_indent)
 
     snapper::cli::JsonFormatter formatter(data);
 
-    BOOST_CHECK_EQUAL(formatter.output(1), expected_result);
+    BOOST_CHECK_EQUAL(formatter.str(1), expected_result);
 }
 
 
@@ -105,7 +107,7 @@ BOOST_AUTO_TEST_CASE(test4_inline)
 
     formatter.set_inline(true);
 
-    BOOST_CHECK_EQUAL(formatter.output(1), expected_result);
+    BOOST_CHECK_EQUAL(formatter.str(1), expected_result);
 }
 
 
@@ -122,5 +124,5 @@ BOOST_AUTO_TEST_CASE(test5_list)
 	"value3\n"
 	"]";
 
-    BOOST_CHECK_EQUAL(formatter.output(), result);
+    BOOST_CHECK_EQUAL(formatter.str(), result);
 }

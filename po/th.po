@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-13 16:13+0200\n"
+"POT-Creation-Date: 2020-09-23 10:33+0200\n"
 "PO-Revision-Date: 2008-01-04 08:58+0100\n"
 "Last-Translator: i18n@suse.de\n"
 "Language-Team: Thai <i18n@suse.de>\n"
@@ -45,6 +45,9 @@ msgstr ""
 msgid "\t--extensions, -x <options>\tExtra options passed to the diff command."
 msgstr ""
 
+msgid "\t--free-space <space>\t\tTry to make space available."
+msgstr ""
+
 msgid "\t--from\t\t\t\tCreate a snapshot from the specified snapshot."
 msgstr ""
 
@@ -70,6 +73,9 @@ msgid "\t--no-dbus\t\t\tOperate without DBus."
 msgstr ""
 
 msgid "\t--output, -o <file>\t\tSave status to file."
+msgstr ""
+
+msgid "\t--path <path>\t\t\tCleanup all configs affecting path."
 msgstr ""
 
 msgid "\t--pre-number <number>\t\tNumber of corresponding pre snapshot."
@@ -173,6 +179,10 @@ msgid "    Global options:"
 msgstr "ตัวเลือกทั่วไป"
 
 #, fuzzy
+msgid "    Options for 'cleanup' command:"
+msgstr "ตัวเลือกต่อท้ายบรรทัดคำสั่งเพื่อส่งไปให้เคอร์เนล"
+
+#, fuzzy
 msgid "    Options for 'create' command:"
 msgstr "ตัวเลือกต่อท้ายบรรทัดคำสั่งเพื่อส่งไปให้เคอร์เนล"
 
@@ -248,6 +258,20 @@ msgid "  Umount snapshot:"
 msgstr "ไม่ต้องสร้างการสำรองข้อมูล"
 
 msgid "  Undo changes:"
+msgstr ""
+
+#. TRANSLATORS: used to construct list of values
+#. %1$s is replaced by first value
+#. %2$s is replaced by second value
+#, c-format
+msgid "%1$s or %2$s"
+msgstr ""
+
+#. TRANSLATORS: used to construct list of values
+#. %1$s is replaced by first value
+#. %2$s is replaced by second value
+#, c-format
+msgid "%1$s, %2$s"
 msgstr ""
 
 #, fuzzy, c-format
@@ -369,6 +393,13 @@ msgstr ""
 msgid "Configdata '%s' has empty key."
 msgstr ""
 
+#, c-format
+msgid "Could not make enough free space available for path '%s'."
+msgstr ""
+
+msgid "Could not make enough free space available."
+msgstr ""
+
 #, fuzzy, c-format
 msgid "Creating config failed (%s)."
 msgstr "การสร้างระบบแฟ้มล้มเหลว"
@@ -408,6 +439,14 @@ msgstr[0] "การสร้างระบบแฟ้มล้มเหลว
 msgid "Detecting filesystem type failed."
 msgstr "การสร้างระบบแฟ้มล้มเหลว"
 
+#. TRANSLATORS: symbol for "exa" (best keep untranslated)
+msgid "E"
+msgstr ""
+
+#. TRANSLATORS: symbol for "exa bytes" (best keep untranslated)
+msgid "EB"
+msgstr ""
+
 #. TRANSLATORS: symbol for "exbi bytes" (best keep untranslated)
 msgid "EiB"
 msgstr ""
@@ -428,6 +467,18 @@ msgstr "ผิดพลาด"
 msgid "Failed to initialize filesystem handler."
 msgstr "ล้มเหลวในการเริ่มเรียกใช้คลังแพกเกจของซอฟต์แวร์"
 
+#, fuzzy, c-format
+msgid "Failed to parse '%s'."
+msgstr "ล้มเหลวในการคืนค่าส่วน MBR ของฮาร์ดดิสก์"
+
+#, c-format
+msgid "Failed to query free space for path '%s'."
+msgstr ""
+
+#, fuzzy
+msgid "Failed to query free space."
+msgstr "ล้มเหลวในการคืนค่าส่วน MBR ของฮาร์ดดิสก์"
+
 msgid "Failed to set locale. Fix your system."
 msgstr ""
 
@@ -445,6 +496,14 @@ msgstr "ไม่พบแฟ้มควบคุม %1 บนสื่อก�
 #, fuzzy, c-format
 msgid "Free space error (%s)."
 msgstr "ผิดพลาด"
+
+#. TRANSLATORS: symbol for "giga" (best keep untranslated)
+msgid "G"
+msgstr ""
+
+#. TRANSLATORS: symbol for "giga bytes" (best keep untranslated)
+msgid "GB"
+msgstr ""
 
 #. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
 msgid "GiB"
@@ -466,20 +525,27 @@ msgid "Illegal snapshot."
 msgstr "ไดเรกทอรีปลายทาง (%1) ใช้งานไม่ได้"
 
 #, fuzzy, c-format
-msgid "Invalid ambit %s."
+msgid "Invalid ambit '%s'."
 msgstr "ไดเรกทอรีปลายทาง (%1) ใช้งานไม่ได้"
 
 #, fuzzy
 msgid "Invalid configdata."
 msgstr "ไดเรกทอรีปลายทาง (%1) ใช้งานไม่ได้"
 
+msgid "Invalid free-space value."
+msgstr ""
+
 #, fuzzy
 msgid "Invalid group."
 msgstr "พาธการสำรองข้อมูลใช้ไม่ได้"
 
-#, c-format
-msgid "Invalid machine readable format %s."
-msgstr ""
+#, fuzzy, c-format
+msgid "Invalid machine readable format '%s'."
+msgstr "ไดเรกทอรีปลายทาง (%1) ใช้งานไม่ได้"
+
+#, fuzzy, c-format
+msgid "Invalid path '%s'."
+msgstr "ไดเรกทอรีปลายทาง (%1) ใช้งานไม่ได้"
 
 #, fuzzy, c-format
 msgid "Invalid snapshot '%s'."
@@ -492,7 +558,7 @@ msgid "Invalid subvolume."
 msgstr ""
 
 #, fuzzy, c-format
-msgid "Invalid table style %s."
+msgid "Invalid table style '%s'."
 msgstr "ไดเรกทอรีปลายทาง (%1) ใช้งานไม่ได้"
 
 #, fuzzy
@@ -511,6 +577,14 @@ msgstr ""
 msgid "Listing configs failed (%s)."
 msgstr "การเขียนการตั้งค่าล้มเหลว"
 
+#. TRANSLATORS: symbol for "mega" (best keep untranslated)
+msgid "M"
+msgstr ""
+
+#. TRANSLATORS: symbol for "mega bytes" (best keep untranslated)
+msgid "MB"
+msgstr ""
+
 msgid "Maybe you forgot the delimiter '..' between the snapshot numbers."
 msgstr ""
 
@@ -526,8 +600,9 @@ msgstr "ไม่มีค่าของตัวเลือก"
 msgid "Missing argument for global option '%s'."
 msgstr "ไม่มีค่าของตัวเลือก"
 
-msgid "Missing command argument."
-msgstr ""
+#, fuzzy
+msgid "Missing command option."
+msgstr "ไม่มีค่าของตัวเลือก"
 
 msgid "Missing delimiter '..' between snapshot numbers."
 msgstr ""
@@ -550,6 +625,14 @@ msgid "Option --from only supported for snapshots of type single."
 msgstr ""
 
 msgid "Option --read-write only supported for snapshots of type single."
+msgstr ""
+
+#. TRANSLATORS: symbol for "peta" (best keep untranslated)
+msgid "P"
+msgstr ""
+
+#. TRANSLATORS: symbol for "peta bytes" (best keep untranslated)
+msgid "PB"
 msgstr ""
 
 #. TRANSLATORS: symbol for "pebi bytes" (best keep untranslated)
@@ -575,6 +658,14 @@ msgstr "ไม่พบรายการบูตระบบ %1"
 #, fuzzy
 msgid "Snapshot is in use."
 msgstr "ไม่พบรายการบูตระบบ %1"
+
+#. TRANSLATORS: symbol for "tera" (best keep untranslated)
+msgid "T"
+msgstr ""
+
+#. TRANSLATORS: symbol for "tera bytes" (best keep untranslated)
+msgid "TB"
+msgstr ""
 
 msgid "The ambit can be specified manually using the --ambit option."
 msgstr ""
@@ -613,12 +704,14 @@ msgstr "ไม่รู้จักตัวเลือก: '%1'"
 msgid "Unknown option '%s' for command '%s'."
 msgstr "ไม่รู้จักตัวเลือกสำหรับคำสั่ง '%1': %2"
 
-#, fuzzy
-msgid "Unknown type of snapshot."
-msgstr "ไม่รู้จักชนิด"
+#, fuzzy, c-format
+msgid "Unknown type '%s'."
+msgstr "ไม่รู้จักคำสั่ง: %1"
 
+#. TRANSLATORS: a list of possible values
+#. %1$s is replaced by list of possible values
 #, c-format
-msgid "Use %s, %s or %s."
+msgid "Use %1$s."
 msgstr ""
 
 #, c-format
@@ -657,6 +750,14 @@ msgstr "ล้มเหลวในการปรับใช้แฟ้ม de
 msgid "failed to modify %s"
 msgstr ""
 
+#. TRANSLATORS: symbol for "kilo" (best keep untranslated)
+msgid "k"
+msgstr ""
+
+#. TRANSLATORS: symbol for "kilo bytes" (best keep untranslated)
+msgid "kB"
+msgstr ""
+
 #, fuzzy, c-format
 msgid "modifying %s"
 msgstr "กำลังเอา %1$s ออก"
@@ -666,13 +767,15 @@ msgid "nothing to do"
 msgstr "ไม่มีอะไรต้องทำ"
 
 #, fuzzy
-msgid ""
-"root argument can be used only together with no-dbus.\n"
-"Try 'snapper --help' for more information."
+msgid "root argument can be used only together with no-dbus.\n"
 msgstr "กำลังหาข้อมูลของหน่วยความจำ..."
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Unknown type of snapshot."
+#~ msgstr "ไม่รู้จักชนิด"
 
 #, fuzzy
 #~ msgid "    Options for 'list' command:"

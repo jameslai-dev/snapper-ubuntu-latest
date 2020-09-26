@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-13 16:13+0200\n"
+"POT-Creation-Date: 2020-09-23 10:33+0200\n"
 "PO-Revision-Date: 2018-04-07 16:03+0000\n"
 "Last-Translator: Anshul Panwar <caspian7pena@gmail.com>\n"
 "Language-Team: Hindi <https://l10n.opensuse.org/projects/snapper/master/hi/>\n"
@@ -43,6 +43,9 @@ msgstr ""
 msgid "\t--extensions, -x <options>\tExtra options passed to the diff command."
 msgstr ""
 
+msgid "\t--free-space <space>\t\tTry to make space available."
+msgstr ""
+
 msgid "\t--from\t\t\t\tCreate a snapshot from the specified snapshot."
 msgstr ""
 
@@ -68,6 +71,9 @@ msgid "\t--no-dbus\t\t\tOperate without DBus."
 msgstr ""
 
 msgid "\t--output, -o <file>\t\tSave status to file."
+msgstr ""
+
+msgid "\t--path <path>\t\t\tCleanup all configs affecting path."
 msgstr ""
 
 msgid "\t--pre-number <number>\t\tNumber of corresponding pre snapshot."
@@ -170,6 +176,9 @@ msgstr ""
 msgid "    Global options:"
 msgstr "अज्ञात ग्लोबल विकल्प"
 
+msgid "    Options for 'cleanup' command:"
+msgstr ""
+
 msgid "    Options for 'create' command:"
 msgstr ""
 
@@ -238,6 +247,20 @@ msgid "  Umount snapshot:"
 msgstr "इसपर बना"
 
 msgid "  Undo changes:"
+msgstr ""
+
+#. TRANSLATORS: used to construct list of values
+#. %1$s is replaced by first value
+#. %2$s is replaced by second value
+#, c-format
+msgid "%1$s or %2$s"
+msgstr ""
+
+#. TRANSLATORS: used to construct list of values
+#. %1$s is replaced by first value
+#. %2$s is replaced by second value
+#, c-format
+msgid "%1$s, %2$s"
 msgstr ""
 
 #, fuzzy, c-format
@@ -377,6 +400,13 @@ msgstr ""
 msgid "Configdata '%s' has empty key."
 msgstr ""
 
+#, c-format
+msgid "Could not make enough free space available for path '%s'."
+msgstr ""
+
+msgid "Could not make enough free space available."
+msgstr ""
+
 #, fuzzy, c-format
 msgid "Creating config failed (%s)."
 msgstr "पार्सिंग समरूपण फाइलें..."
@@ -416,6 +446,14 @@ msgstr[1] "CA को मिटाया जाना असफल रहा : %1
 msgid "Detecting filesystem type failed."
 msgstr ""
 
+#. TRANSLATORS: symbol for "exa" (best keep untranslated)
+msgid "E"
+msgstr ""
+
+#. TRANSLATORS: symbol for "exa bytes" (best keep untranslated)
+msgid "EB"
+msgstr ""
+
 #. TRANSLATORS: symbol for "exbi bytes" (best keep untranslated)
 msgid "EiB"
 msgstr ""
@@ -435,6 +473,18 @@ msgstr "I/O त्रुटि"
 msgid "Failed to initialize filesystem handler."
 msgstr ""
 
+#, fuzzy, c-format
+msgid "Failed to parse '%s'."
+msgstr "%s बनाने में विफल"
+
+#, c-format
+msgid "Failed to query free space for path '%s'."
+msgstr ""
+
+#, fuzzy
+msgid "Failed to query free space."
+msgstr "%s बनाने में विफल"
+
 msgid "Failed to set locale. Fix your system."
 msgstr ""
 
@@ -453,6 +503,14 @@ msgstr "कोष में फाइल %1 नहीं प्राप्त �
 #, fuzzy, c-format
 msgid "Free space error (%s)."
 msgstr "I/O त्रुटि"
+
+#. TRANSLATORS: symbol for "giga" (best keep untranslated)
+msgid "G"
+msgstr ""
+
+#. TRANSLATORS: symbol for "giga bytes" (best keep untranslated)
+msgid "GB"
+msgstr ""
 
 #. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
 msgid "GiB"
@@ -474,20 +532,27 @@ msgid "Illegal snapshot."
 msgstr "अमान्य प्रकार %1।"
 
 #, fuzzy, c-format
-msgid "Invalid ambit %s."
+msgid "Invalid ambit '%s'."
 msgstr "अमान्य प्रकार %1।"
 
 #, fuzzy
 msgid "Invalid configdata."
 msgstr "अमान्य जारी डेटा।"
 
+msgid "Invalid free-space value."
+msgstr ""
+
 #, fuzzy
 msgid "Invalid group."
 msgstr "अमान्य CRL कारण।"
 
-#, c-format
-msgid "Invalid machine readable format %s."
-msgstr ""
+#, fuzzy, c-format
+msgid "Invalid machine readable format '%s'."
+msgstr "अमान्य प्रकार %1।"
+
+#, fuzzy, c-format
+msgid "Invalid path '%s'."
+msgstr "अमान्य प्रकार %1।"
 
 #, fuzzy, c-format
 msgid "Invalid snapshot '%s'."
@@ -500,7 +565,7 @@ msgid "Invalid subvolume."
 msgstr ""
 
 #, fuzzy, c-format
-msgid "Invalid table style %s."
+msgid "Invalid table style '%s'."
 msgstr "अमान्य प्रकार %1।"
 
 #, fuzzy
@@ -519,6 +584,14 @@ msgstr ""
 msgid "Listing configs failed (%s)."
 msgstr "पार्सिंग समरूपण फाइलें..."
 
+#. TRANSLATORS: symbol for "mega" (best keep untranslated)
+msgid "M"
+msgstr ""
+
+#. TRANSLATORS: symbol for "mega bytes" (best keep untranslated)
+msgid "MB"
+msgstr ""
+
 msgid "Maybe you forgot the delimiter '..' between the snapshot numbers."
 msgstr ""
 
@@ -535,7 +608,7 @@ msgid "Missing argument for global option '%s'."
 msgstr ""
 
 #, fuzzy
-msgid "Missing command argument."
+msgid "Missing command option."
 msgstr "लॉगइनः बहुत से तर्क\n"
 
 msgid "Missing delimiter '..' between snapshot numbers."
@@ -562,6 +635,14 @@ msgstr ""
 msgid "Option --read-write only supported for snapshots of type single."
 msgstr ""
 
+#. TRANSLATORS: symbol for "peta" (best keep untranslated)
+msgid "P"
+msgstr ""
+
+#. TRANSLATORS: symbol for "peta bytes" (best keep untranslated)
+msgid "PB"
+msgstr ""
+
 #. TRANSLATORS: symbol for "pebi bytes" (best keep untranslated)
 msgid "PiB"
 msgstr ""
@@ -585,6 +666,14 @@ msgstr "%s '%s' नहीं मिला"
 #, fuzzy
 msgid "Snapshot is in use."
 msgstr "%s '%s' नहीं मिला"
+
+#. TRANSLATORS: symbol for "tera" (best keep untranslated)
+msgid "T"
+msgstr ""
+
+#. TRANSLATORS: symbol for "tera bytes" (best keep untranslated)
+msgid "TB"
+msgstr ""
 
 msgid "The ambit can be specified manually using the --ambit option."
 msgstr ""
@@ -623,12 +712,14 @@ msgstr "अज्ञात ग्लोबल विकल्प"
 msgid "Unknown option '%s' for command '%s'."
 msgstr "अज्ञात निर्यात कमांड"
 
-#, fuzzy
-msgid "Unknown type of snapshot."
+#, fuzzy, c-format
+msgid "Unknown type '%s'."
 msgstr "अनंजान"
 
+#. TRANSLATORS: a list of possible values
+#. %1$s is replaced by list of possible values
 #, c-format
-msgid "Use %s, %s or %s."
+msgid "Use %1$s."
 msgstr ""
 
 #, c-format
@@ -667,6 +758,14 @@ msgstr "%s हटाने में विफल"
 msgid "failed to modify %s"
 msgstr "%s संशोधित करने में विफल"
 
+#. TRANSLATORS: symbol for "kilo" (best keep untranslated)
+msgid "k"
+msgstr ""
+
+#. TRANSLATORS: symbol for "kilo bytes" (best keep untranslated)
+msgid "kB"
+msgstr ""
+
 #, c-format
 msgid "modifying %s"
 msgstr "%s को संशोधित किया जा रहा है"
@@ -675,13 +774,15 @@ msgid "nothing to do"
 msgstr "करने के लिए कुछ नहीं है"
 
 #, fuzzy
-msgid ""
-"root argument can be used only together with no-dbus.\n"
-"Try 'snapper --help' for more information."
+msgid "root argument can be used only together with no-dbus.\n"
 msgstr "अधिक जानकारी के लिए `%s --मदद' या `%s --प्रयोग' प्रयास करें।\n"
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Unknown type of snapshot."
+#~ msgstr "अनंजान"
 
 #, fuzzy
 #~ msgid "Command 'get-config' does not take arguments."

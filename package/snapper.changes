@@ -1,4 +1,34 @@
 -------------------------------------------------------------------
+Tue Sep 22 09:17:28 CEST 2020 - aschnell@suse.com
+
+- added option to cleanup to make requested free space available
+  (jsc#SLE-15765)
+- version 0.8.14
+
+-------------------------------------------------------------------
+Fri Sep 04 19:10:26 CEST 2020 - aschnell@suse.com
+
+- package new snapperd.service file on Debian based distributions
+  (gh#openSUSE/snapper#557)
+
+-------------------------------------------------------------------
+Tue Sep 01 09:50:00 CEST 2020 - lnussel@suse.com
+
+- activate snapperd using systemd service
+
+-------------------------------------------------------------------
+Mon Aug 31 17:18:14 CEST 2020 - aschnell@suse.com
+
+- fix LVM setup for volume groups and logical volumes with one
+  character long names (gh#openSUSE/snapper#465)
+
+-------------------------------------------------------------------
+Fri Aug 28 11:06:23 CEST 2020 - aschnell@suse.com
+
+- improved error messages for wrong command line options and
+  arguments (bsc#1150156)
+
+-------------------------------------------------------------------
 Thu Aug 27 12:04:44 CEST 2020 - aschnell@suse.com
 
 - call fsync after writing snapshot info file (bsc#1078336)

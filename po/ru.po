@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-13 16:13+0200\n"
+"POT-Creation-Date: 2020-09-23 10:33+0200\n"
 "PO-Revision-Date: 2020-06-29 19:46+0000\n"
 "Last-Translator: Alex Minton <alex239@gmail.com>\n"
 "Language-Team: Russian <https://l10n.opensuse.org/projects/snapper/master/ru/>\n"
@@ -44,6 +44,9 @@ msgstr "\t--diff-cmd <command>\t\tКоманда для сравнения фа�
 msgid "\t--extensions, -x <options>\tExtra options passed to the diff command."
 msgstr "\t--extensions, -x <options>\tДополнительные параметры, переданные в команду diff."
 
+msgid "\t--free-space <space>\t\tTry to make space available."
+msgstr ""
+
 msgid "\t--from\t\t\t\tCreate a snapshot from the specified snapshot."
 msgstr "\t--from\t\t\t\tСоздать снимок из указанного снимка."
 
@@ -70,6 +73,9 @@ msgstr "\t--no-dbus\t\t\tРаботать без DBus."
 
 msgid "\t--output, -o <file>\t\tSave status to file."
 msgstr "\t--output, -o <файл>\t\tСохранить статус в файл."
+
+msgid "\t--path <path>\t\t\tCleanup all configs affecting path."
+msgstr ""
 
 msgid "\t--pre-number <number>\t\tNumber of corresponding pre snapshot."
 msgstr "\t--pre-number <число>\t\tНомер соответствующего предварительного снимка."
@@ -170,6 +176,10 @@ msgstr "\tsnapper xadiff <число1>..<число2> [файлы]"
 msgid "    Global options:"
 msgstr "    Общие параметры:"
 
+#, fuzzy
+msgid "    Options for 'cleanup' command:"
+msgstr "    Опции команды 'create':"
+
 msgid "    Options for 'create' command:"
 msgstr "    Опции команды 'create':"
 
@@ -235,6 +245,20 @@ msgstr "  Отмонтировать снимок:"
 
 msgid "  Undo changes:"
 msgstr "  Откат изменений:"
+
+#. TRANSLATORS: used to construct list of values
+#. %1$s is replaced by first value
+#. %2$s is replaced by second value
+#, c-format
+msgid "%1$s or %2$s"
+msgstr ""
+
+#. TRANSLATORS: used to construct list of values
+#. %1$s is replaced by first value
+#. %2$s is replaced by second value
+#, c-format
+msgid "%1$s, %2$s"
+msgstr ""
 
 #, c-format
 msgid "(Snapshot %d.)"
@@ -354,6 +378,13 @@ msgid "Configdata '%s' has empty key."
 msgstr "Пустой ключ в данных конфигурации '%s'."
 
 #, c-format
+msgid "Could not make enough free space available for path '%s'."
+msgstr ""
+
+msgid "Could not make enough free space available."
+msgstr ""
+
+#, c-format
 msgid "Creating config failed (%s)."
 msgstr "Сбой при создании конфигурации (%s)."
 
@@ -390,6 +421,15 @@ msgstr[2] "Удаление моментальных снимков из %s:"
 msgid "Detecting filesystem type failed."
 msgstr "Сбой при определении типа файловой системы."
 
+#. TRANSLATORS: symbol for "exa" (best keep untranslated)
+msgid "E"
+msgstr ""
+
+#. TRANSLATORS: symbol for "exa bytes" (best keep untranslated)
+#, fuzzy
+msgid "EB"
+msgstr "ЭиБ"
+
 #. TRANSLATORS: symbol for "exbi bytes" (best keep untranslated)
 msgid "EiB"
 msgstr "ЭиБ"
@@ -406,6 +446,18 @@ msgstr "Ошибка (%s)."
 
 msgid "Failed to initialize filesystem handler."
 msgstr "Не удалось инициализировать обработчик файловой системы."
+
+#, fuzzy, c-format
+msgid "Failed to parse '%s'."
+msgstr "сбой при создании %s"
+
+#, c-format
+msgid "Failed to query free space for path '%s'."
+msgstr ""
+
+#, fuzzy
+msgid "Failed to query free space."
+msgstr "сбой при создании %s"
 
 msgid "Failed to set locale. Fix your system."
 msgstr "Сбой определения локали. Исправьте системные настройки."
@@ -424,6 +476,15 @@ msgstr "Файл '%s' не найден."
 #, c-format
 msgid "Free space error (%s)."
 msgstr "Ошибка свободного пространства (%s)."
+
+#. TRANSLATORS: symbol for "giga" (best keep untranslated)
+msgid "G"
+msgstr ""
+
+#. TRANSLATORS: symbol for "giga bytes" (best keep untranslated)
+#, fuzzy
+msgid "GB"
+msgstr "ГиБ"
 
 #. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
 msgid "GiB"
@@ -444,18 +505,26 @@ msgid "Illegal snapshot."
 msgstr "Некорректный снимок."
 
 #, fuzzy, c-format
-msgid "Invalid ambit %s."
+msgid "Invalid ambit '%s'."
 msgstr "Неверный снимок '%s'."
 
 msgid "Invalid configdata."
 msgstr "Неверные данные конфигурации."
 
+#, fuzzy
+msgid "Invalid free-space value."
+msgstr "Неверный подтом."
+
 msgid "Invalid group."
 msgstr "Неверная группа."
 
-#, c-format
-msgid "Invalid machine readable format %s."
-msgstr ""
+#, fuzzy, c-format
+msgid "Invalid machine readable format '%s'."
+msgstr "Неверный стиль таблицы %d."
+
+#, fuzzy, c-format
+msgid "Invalid path '%s'."
+msgstr "Неверный снимок '%s'."
 
 #, c-format
 msgid "Invalid snapshot '%s'."
@@ -468,7 +537,7 @@ msgid "Invalid subvolume."
 msgstr "Неверный подтом."
 
 #, fuzzy, c-format
-msgid "Invalid table style %s."
+msgid "Invalid table style '%s'."
 msgstr "Неверный стиль таблицы %d."
 
 msgid "Invalid user."
@@ -485,6 +554,15 @@ msgstr "КиБ"
 msgid "Listing configs failed (%s)."
 msgstr "Сбой при перечислении конфигураций (%s)."
 
+#. TRANSLATORS: symbol for "mega" (best keep untranslated)
+msgid "M"
+msgstr ""
+
+#. TRANSLATORS: symbol for "mega bytes" (best keep untranslated)
+#, fuzzy
+msgid "MB"
+msgstr "МиБ"
+
 msgid "Maybe you forgot the delimiter '..' between the snapshot numbers."
 msgstr "Возможно, вы забыли разделитель .. между номерами моментальных снимков."
 
@@ -500,7 +578,8 @@ msgstr "Отсутствует аргумент для опции команды
 msgid "Missing argument for global option '%s'."
 msgstr "Отсутствует аргумент для опции '%s'."
 
-msgid "Missing command argument."
+#, fuzzy
+msgid "Missing command option."
 msgstr "Отсутствует аргумент команды."
 
 msgid "Missing delimiter '..' between snapshot numbers."
@@ -525,6 +604,15 @@ msgstr "Параметр --from поддерживается только для
 msgid "Option --read-write only supported for snapshots of type single."
 msgstr "Параметр --read-write поддерживается только для одиночных снимков."
 
+#. TRANSLATORS: symbol for "peta" (best keep untranslated)
+msgid "P"
+msgstr ""
+
+#. TRANSLATORS: symbol for "peta bytes" (best keep untranslated)
+#, fuzzy
+msgid "PB"
+msgstr "ПиБ"
+
 #. TRANSLATORS: symbol for "pebi bytes" (best keep untranslated)
 msgid "PiB"
 msgstr "ПиБ"
@@ -546,6 +634,15 @@ msgstr "Снимок '%u' не найден."
 
 msgid "Snapshot is in use."
 msgstr "Снимок уже используется."
+
+#. TRANSLATORS: symbol for "tera" (best keep untranslated)
+msgid "T"
+msgstr ""
+
+#. TRANSLATORS: symbol for "tera bytes" (best keep untranslated)
+#, fuzzy
+msgid "TB"
+msgstr "ТиБ"
 
 msgid "The ambit can be specified manually using the --ambit option."
 msgstr ""
@@ -582,11 +679,14 @@ msgstr "Неизвестная опция '%s'."
 msgid "Unknown option '%s' for command '%s'."
 msgstr "Неизвестная опция '%s' для команды '%s'."
 
-msgid "Unknown type of snapshot."
-msgstr "Неизвестный тип снимка."
+#, fuzzy, c-format
+msgid "Unknown type '%s'."
+msgstr "Неизвестная команда '%s'."
 
+#. TRANSLATORS: a list of possible values
+#. %1$s is replaced by list of possible values
 #, c-format
-msgid "Use %s, %s or %s."
+msgid "Use %1$s."
 msgstr ""
 
 #, c-format
@@ -625,6 +725,15 @@ msgstr "сбой при удалении %s"
 msgid "failed to modify %s"
 msgstr "сбой при изменении %s"
 
+#. TRANSLATORS: symbol for "kilo" (best keep untranslated)
+msgid "k"
+msgstr ""
+
+#. TRANSLATORS: symbol for "kilo bytes" (best keep untranslated)
+#, fuzzy
+msgid "kB"
+msgstr "Б"
+
 #, c-format
 msgid "modifying %s"
 msgstr "изменение %s"
@@ -633,13 +742,14 @@ msgid "nothing to do"
 msgstr "нечего выполнять"
 
 #, fuzzy
-msgid ""
-"root argument can be used only together with no-dbus.\n"
-"Try 'snapper --help' for more information."
+msgid "root argument can be used only together with no-dbus.\n"
 msgstr "Аргумент root можно использовать только вместе с no-dbus."
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr "использование: snapper [--общие-параметры] <команда> [--опции-команды] [аргументы-команды]"
+
+#~ msgid "Unknown type of snapshot."
+#~ msgstr "Неизвестный тип снимка."
 
 #~ msgid "\t--all-configs, -a\t\tList snapshots from all accessible configs."
 #~ msgstr "\t--all-configs, -a\t\tСписок моментальных снимков из всех доступных конфигураций."

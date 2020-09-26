@@ -1,3 +1,12 @@
+snapper (0.8.14-1) unstable; urgency=medium
+
+  * Trim trailing whitespace.
+  * Set field Upstream-Contact in debian/copyright.
+  * Remove obsolete fields Contact, Name from debian/upstream/metadata (already
+    present in machine-readable debian/copyright).
+
+ -- Hideki Yamane <henrich@debian.org>  Sat, 26 Sep 2020 12:41:02 +0900
+
 snapper (0.8.13-1) unstable; urgency=medium
 
   * New upstream release
@@ -38,7 +47,7 @@ snapper (0.8.9-1) unstable; urgency=medium
     - drop 0001-refresh-Add-DSO-linker-options-for-libsnapper.la.pat.patch
   * debian/salsa-ci.yml
     - set "reprotest: allow_failure: true"
-  
+
  -- Hideki Yamane <henrich@debian.org>  Tue, 25 Feb 2020 01:26:47 +0900
 
 snapper (0.8.7-1) unstable; urgency=medium

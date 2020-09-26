@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: entries\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-13 16:13+0200\n"
+"POT-Creation-Date: 2020-09-23 10:33+0200\n"
 "PO-Revision-Date: 2019-03-01 20:28+0000\n"
 "Last-Translator: Hwajin Kim <hwajin.kim@e4net.net>\n"
 "Language-Team: Korean <https://l10n.opensuse.org/projects/snapper/master/ko/>\n"
@@ -49,6 +49,9 @@ msgstr "\t--diff-cmd <command>\t\t파일을 비교하는 데 쓰는 명령입니
 msgid "\t--extensions, -x <options>\tExtra options passed to the diff command."
 msgstr "\t--extensions, -x <options>\tdiff 명령에 전달되는 추가 옵션입니다."
 
+msgid "\t--free-space <space>\t\tTry to make space available."
+msgstr ""
+
 msgid "\t--from\t\t\t\tCreate a snapshot from the specified snapshot."
 msgstr ""
 
@@ -80,6 +83,9 @@ msgstr "\t--no-dbus\t\t\tDBus 없이 작동합니다."
 # SLE12
 msgid "\t--output, -o <file>\t\tSave status to file."
 msgstr "\t--output, -o <file>\t\t상태를 파일에 저장합니다."
+
+msgid "\t--path <path>\t\t\tCleanup all configs affecting path."
+msgstr ""
 
 # SLE12
 msgid "\t--pre-number <number>\t\tNumber of corresponding pre snapshot."
@@ -209,6 +215,11 @@ msgid "    Global options:"
 msgstr "    전역 옵션:"
 
 # SLE12
+#, fuzzy
+msgid "    Options for 'cleanup' command:"
+msgstr "    'create' 명령에 대한 옵션:"
+
+# SLE12
 msgid "    Options for 'create' command:"
 msgstr "    'create' 명령에 대한 옵션:"
 
@@ -292,6 +303,20 @@ msgstr "  스냅샷 마운트 해제:"
 # SLE12
 msgid "  Undo changes:"
 msgstr "  변경 취소:"
+
+#. TRANSLATORS: used to construct list of values
+#. %1$s is replaced by first value
+#. %2$s is replaced by second value
+#, c-format
+msgid "%1$s or %2$s"
+msgstr ""
+
+#. TRANSLATORS: used to construct list of values
+#. %1$s is replaced by first value
+#. %2$s is replaced by second value
+#, c-format
+msgid "%1$s, %2$s"
+msgstr ""
 
 # SLE12
 #, c-format
@@ -437,6 +462,13 @@ msgstr "Configdata '%s'에 '=' 기호가 포함되어 있지 않습니다."
 msgid "Configdata '%s' has empty key."
 msgstr "Configdata '%s'에 빈 키가 있습니다."
 
+#, c-format
+msgid "Could not make enough free space available for path '%s'."
+msgstr ""
+
+msgid "Could not make enough free space available."
+msgstr ""
+
 # SLE12
 #, c-format
 msgid "Creating config failed (%s)."
@@ -481,6 +513,15 @@ msgstr[0] "%s에서 스냅샷 삭제 중:"
 msgid "Detecting filesystem type failed."
 msgstr "파일 시스템 유형을 감지하지 못했습니다."
 
+#. TRANSLATORS: symbol for "exa" (best keep untranslated)
+msgid "E"
+msgstr ""
+
+#. TRANSLATORS: symbol for "exa bytes" (best keep untranslated)
+#, fuzzy
+msgid "EB"
+msgstr "EiB"
+
 #. TRANSLATORS: symbol for "exbi bytes" (best keep untranslated)
 msgid "EiB"
 msgstr "EiB"
@@ -500,6 +541,20 @@ msgstr "오류입니다(%s)."
 # SLE12
 msgid "Failed to initialize filesystem handler."
 msgstr "파일 시스템 처리기를 초기화하지 못했습니다."
+
+# SLE12
+#, fuzzy, c-format
+msgid "Failed to parse '%s'."
+msgstr "%s 생성에 실패"
+
+#, c-format
+msgid "Failed to query free space for path '%s'."
+msgstr ""
+
+# SLE12
+#, fuzzy
+msgid "Failed to query free space."
+msgstr "%s 생성에 실패"
 
 msgid "Failed to set locale. Fix your system."
 msgstr "로케일을 설정하지 못했습니다. 시스템을 수정하십시오."
@@ -521,6 +576,15 @@ msgstr "'%s' 파일을 찾을 수 없습니다."
 #, c-format
 msgid "Free space error (%s)."
 msgstr "사용 가능한 공간 오류(%s)입니다."
+
+#. TRANSLATORS: symbol for "giga" (best keep untranslated)
+msgid "G"
+msgstr ""
+
+#. TRANSLATORS: symbol for "giga bytes" (best keep untranslated)
+#, fuzzy
+msgid "GB"
+msgstr "GiB"
 
 #. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
 msgid "GiB"
@@ -544,7 +608,7 @@ msgstr "잘못된 스냅샷입니다."
 
 # SLE12
 #, fuzzy, c-format
-msgid "Invalid ambit %s."
+msgid "Invalid ambit '%s'."
 msgstr "'%s' 스냅샷이 잘못되었습니다."
 
 # SLE12
@@ -552,12 +616,22 @@ msgid "Invalid configdata."
 msgstr "잘못된 configdata입니다."
 
 # SLE12
+#, fuzzy
+msgid "Invalid free-space value."
+msgstr "하위 볼륨이 잘못되었습니다."
+
+# SLE12
 msgid "Invalid group."
 msgstr "잘못된 그룹입니다."
 
-#, c-format
-msgid "Invalid machine readable format %s."
-msgstr ""
+#, fuzzy, c-format
+msgid "Invalid machine readable format '%s'."
+msgstr "잘못된 테이블 모양 %d 입니다."
+
+# SLE12
+#, fuzzy, c-format
+msgid "Invalid path '%s'."
+msgstr "'%s' 스냅샷이 잘못되었습니다."
 
 # SLE12
 #, c-format
@@ -573,7 +647,7 @@ msgid "Invalid subvolume."
 msgstr "하위 볼륨이 잘못되었습니다."
 
 #, fuzzy, c-format
-msgid "Invalid table style %s."
+msgid "Invalid table style '%s'."
 msgstr "잘못된 테이블 모양 %d 입니다."
 
 # SLE12
@@ -593,6 +667,15 @@ msgstr "KiB"
 msgid "Listing configs failed (%s)."
 msgstr "구성 나열에 실패했습니다(%s)."
 
+#. TRANSLATORS: symbol for "mega" (best keep untranslated)
+msgid "M"
+msgstr ""
+
+#. TRANSLATORS: symbol for "mega bytes" (best keep untranslated)
+#, fuzzy
+msgid "MB"
+msgstr "MiB"
+
 msgid "Maybe you forgot the delimiter '..' between the snapshot numbers."
 msgstr "스냅샷 번호 사이에 '..' 구분 기호가 누락된 것 같습니다."
 
@@ -611,7 +694,8 @@ msgid "Missing argument for global option '%s'."
 msgstr "전역 옵션 '%s'에 대한 인수가 누락되었습니다."
 
 # SLE12
-msgid "Missing command argument."
+#, fuzzy
+msgid "Missing command option."
 msgstr "명령 인수가 누락되었습니다."
 
 msgid "Missing delimiter '..' between snapshot numbers."
@@ -640,6 +724,15 @@ msgstr ""
 msgid "Option --read-write only supported for snapshots of type single."
 msgstr ""
 
+#. TRANSLATORS: symbol for "peta" (best keep untranslated)
+msgid "P"
+msgstr ""
+
+#. TRANSLATORS: symbol for "peta bytes" (best keep untranslated)
+#, fuzzy
+msgid "PB"
+msgstr "PiB"
+
 #. TRANSLATORS: symbol for "pebi bytes" (best keep untranslated)
 msgid "PiB"
 msgstr "PiB"
@@ -664,6 +757,15 @@ msgstr "'%u' 스냅샷을 찾을 수 없습니다."
 # SLE12
 msgid "Snapshot is in use."
 msgstr "스냅샷이 사용 중입니다."
+
+#. TRANSLATORS: symbol for "tera" (best keep untranslated)
+msgid "T"
+msgstr ""
+
+#. TRANSLATORS: symbol for "tera bytes" (best keep untranslated)
+#, fuzzy
+msgid "TB"
+msgstr "TiB"
 
 msgid "The ambit can be specified manually using the --ambit option."
 msgstr ""
@@ -707,11 +809,14 @@ msgid "Unknown option '%s' for command '%s'."
 msgstr "알 수 없는 옵션 '%s' - '%s' 명령."
 
 # SLE12
-msgid "Unknown type of snapshot."
-msgstr "알 수 없는 스냅샷 유형입니다."
+#, fuzzy, c-format
+msgid "Unknown type '%s'."
+msgstr "알 수 없는 명령 '%s'."
 
+#. TRANSLATORS: a list of possible values
+#. %1$s is replaced by list of possible values
 #, c-format
-msgid "Use %s, %s or %s."
+msgid "Use %1$s."
 msgstr ""
 
 # SLE12
@@ -759,6 +864,15 @@ msgstr "%s 삭제에 실패"
 msgid "failed to modify %s"
 msgstr "%s 수정에 실패"
 
+#. TRANSLATORS: symbol for "kilo" (best keep untranslated)
+msgid "k"
+msgstr ""
+
+#. TRANSLATORS: symbol for "kilo bytes" (best keep untranslated)
+#, fuzzy
+msgid "kB"
+msgstr "B"
+
 # SLE12
 #, c-format
 msgid "modifying %s"
@@ -769,14 +883,16 @@ msgid "nothing to do"
 msgstr "수행할 작업 없음"
 
 #, fuzzy
-msgid ""
-"root argument can be used only together with no-dbus.\n"
-"Try 'snapper --help' for more information."
+msgid "root argument can be used only together with no-dbus.\n"
 msgstr "루트 인수는 no-dbus와 함께 사용해야 합니다."
 
 # SLE12
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr "사용법: snapper [--global-options] <command> [--command-options] [command-arguments]"
+
+# SLE12
+#~ msgid "Unknown type of snapshot."
+#~ msgstr "알 수 없는 스냅샷 유형입니다."
 
 #~ msgid "\t--all-configs, -a\t\tList snapshots from all accessible configs."
 #~ msgstr "\t--all-configs, -a\t\t액세스 가능한 구성의 스냅샷을 모두 나열합니다."
