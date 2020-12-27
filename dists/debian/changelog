@@ -1,10 +1,16 @@
+snapper (0.8.15) stable; urgency=low
+
+  * Updated to version 0.8.15
+
+ -- Arvin Schnell <aschnell@suse.com>  THu, 17 Dec 2020 10:22:04 +0000
+
 snapper (0.8.14) stable; urgency=low
 
   * Updated to version 0.8.14
 
   * added option to cleanup to make requested free space available
 
--- Arvin Schnell <aschnell@suse.com>  Wed, 23 Sep 2020 10:32:48 +0000
+ -- Arvin Schnell <aschnell@suse.com>  Wed, 23 Sep 2020 10:32:48 +0000
 
 snapper (0.8.13) stable; urgency=low
 

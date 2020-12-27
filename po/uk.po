@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-23 10:33+0200\n"
+"POT-Creation-Date: 2020-12-17 13:34+0100\n"
 "PO-Revision-Date: 2015-10-17 16:22+0200\n"
 "Last-Translator: Andriy Bandura <andriykopanytsia@gmail.com>\n"
 "Language-Team: Ukrainian <http://10n.opensuse.org/projects/snapper/master/uk/>\n"
@@ -19,6 +19,12 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 2.3\n"
 
+msgid "\t--abbreviate\t\t\tAllow to abbreviate table columns."
+msgstr ""
+
+msgid "\t--all-configs, -a\t\tList snapshots from all accessible configs."
+msgstr "\t--all-configs, -a\t\tСписок знімків із усіх доступних конфігурацій."
+
 msgid "\t--ambit, -a ambit\t\tOperate in the specified ambit."
 msgstr ""
 
@@ -27,6 +33,19 @@ msgstr "\t--cleanup-algorithm, -c <алгоритм>\tАлгоритм очищ�
 
 msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshots."
 msgstr "\t--cleanup-algorithm, -c <алгоритм>\tАлгоритм очищення для знімків."
+
+msgid ""
+"\t--columns <columns>\t\tColumns to show separated by comma.\n"
+"\t\t\t\t\tPossible columns: config, subvolume, number, default, active,\n"
+"\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
+"\t\t\t\t\tpre-number, post-number, post-date."
+msgstr ""
+
+msgid ""
+"\t--columns <columns>\t\tColumns to show separated by comma.\n"
+"\t\t\t\t\tPossible columns: key, value.\n"
+"\t\t\t\t\tColumns are not selected when JSON format is used."
+msgstr ""
 
 #, fuzzy
 msgid "\t--command <command>\t\tRun command and create pre and post snapshots."
@@ -46,6 +65,9 @@ msgstr "\t--description, -d <опис>\tОпис знімків."
 
 msgid "\t--diff-cmd <command>\t\tCommand used for comparing files."
 msgstr "\t--diff-cmd <command>\t\tКоманда для порівняння файлів."
+
+msgid "\t--disable-used-space\t\tDisable showing used space."
+msgstr ""
 
 msgid "\t--extensions, -x <options>\tExtra options passed to the diff command."
 msgstr "\t--extensions, -x <options>\tДодаткові параметри, передані у команду diff."
@@ -119,6 +141,9 @@ msgstr "\t--template, -t <ім'я>\t\tНазва шаблону конфігур
 msgid "\t--type, -t <type>\t\tType for snapshot."
 msgstr "\t--type, -t <тип>\t\tТип знімка."
 
+msgid "\t--type, -t <type>\t\tType of snapshots to list."
+msgstr "\t--type, -t <тип>\t\tТип перерахованих знімків."
+
 msgid "\t--userdata, -u <userdata>\tUserdata for snapshot."
 msgstr "\t--userdata, -u <дані>\tДані для знімка."
 
@@ -151,6 +176,15 @@ msgstr "\tsnapper delete-config"
 
 msgid "\tsnapper diff <number1>..<number2> [files]"
 msgstr "\tsnapper diff <число1>..<число2> [файли]"
+
+msgid "\tsnapper get-config"
+msgstr "\tsnapper get-config"
+
+msgid "\tsnapper list"
+msgstr "\tsnapper list"
+
+msgid "\tsnapper list-configs"
+msgstr "\tsnapper list-configs"
 
 msgid "\tsnapper modify <number>"
 msgstr "\tsnapper modify <число>"
@@ -199,6 +233,19 @@ msgstr "    Параметри команди 'delete':"
 msgid "    Options for 'diff' command:"
 msgstr "    Параметри команди 'diff':"
 
+#, fuzzy
+msgid "    Options for 'get-config' command:"
+msgstr "    Параметри команди 'create-config':"
+
+msgid "    Options for 'list' command:"
+msgstr "    Параметри команди 'list':"
+
+msgid ""
+"    Options for 'list-configs' command:\n"
+"\t--columns <columns>\t\tColumns to show separated by comma.\n"
+"\t\t\t\t\tPossible columns: config, subvolume.\n"
+msgstr ""
+
 msgid "    Options for 'modify' command:"
 msgstr "    Параметри команди 'modify':"
 
@@ -232,6 +279,15 @@ msgstr "  Вилучити конфігурацію:"
 msgid "  Delete snapshot:"
 msgstr "  Видалення знімка:"
 
+msgid "  Get config:"
+msgstr "  Отримати конфігурацію:"
+
+msgid "  List configs:"
+msgstr "  Список конфігурацій:"
+
+msgid "  List snapshots:"
+msgstr "  Список знімків:"
+
 msgid "  Modify snapshot:"
 msgstr "  Зміна знімка:"
 
@@ -253,6 +309,9 @@ msgstr "  Відмонтувати знімок:"
 msgid "  Undo changes:"
 msgstr "  Скасувати зміни:"
 
+msgid "#"
+msgstr "#"
+
 #. TRANSLATORS: used to construct list of values
 #. %1$s is replaced by first value
 #. %2$s is replaced by second value
@@ -273,6 +332,9 @@ msgstr "(Знімок %d.)"
 
 msgid "ACL error."
 msgstr "Помилка ACL."
+
+msgid "Active"
+msgstr ""
 
 msgid "Active snapshot is already default snapshot."
 msgstr ""
@@ -303,6 +365,9 @@ msgstr ""
 msgid "Cannot do rollback since default subvolume is unknown."
 msgstr ""
 
+msgid "Cleanup"
+msgstr "Очищення"
+
 msgid "Command 'cleanup' needs one arguments."
 msgstr "Команді 'cleanup' потрібен один аргумент."
 
@@ -324,8 +389,17 @@ msgstr "Команді 'delete-config' не потрібні аргументи.
 msgid "Command 'diff' needs at least one argument."
 msgstr "Команді 'diff' потрібен хоча б один аргумент."
 
+msgid "Command 'get-config' does not take arguments."
+msgstr "Команді 'get-config' не потрібні аргументи."
+
 msgid "Command 'help' does not take arguments."
 msgstr "Команді 'help' не потрібні аргументи."
+
+msgid "Command 'list' does not take arguments."
+msgstr "Команді 'list' не потрібні аргументи."
+
+msgid "Command 'list-configs' does not take arguments."
+msgstr "Команді ''list-configs' не потрібні аргументи."
 
 msgid "Command 'modify' needs at least one argument."
 msgstr "Команді 'modify' потрібен хоча б один аргумент."
@@ -362,6 +436,9 @@ msgstr "Команді 'undochange' потрібен хоча б один арг
 
 msgid "Command 'xadiff' needs at least one argument."
 msgstr "Команді 'xadiff' потрібен хоча б один аргумент."
+
+msgid "Config"
+msgstr "Конфігурація"
 
 #, c-format
 msgid "Config '%s' is invalid."
@@ -412,6 +489,12 @@ msgstr "Створення знімка %d для читання-запису."
 msgid "Creating snapshot failed."
 msgstr "Не вдалося зробити знімок."
 
+msgid "Date"
+msgstr "Дата"
+
+msgid "Default"
+msgstr ""
+
 #, c-format
 msgid "Deleting config failed (%s)."
 msgstr "Помилка при видаленні конфігурації (%s)."
@@ -425,6 +508,9 @@ msgid_plural "Deleting snapshots from %s:"
 msgstr[0] "Вилучення знімка із %s:"
 msgstr[1] "Вилучення знімків із %s:"
 msgstr[2] "Вилучення знімків із %s:"
+
+msgid "Description"
+msgstr "Опис"
 
 msgid "Detecting filesystem type failed."
 msgstr "Збій при визначенні типу файлової системи."
@@ -519,6 +605,10 @@ msgstr "Некоректний знімок."
 msgid "Invalid ambit '%s'."
 msgstr "Неправильний знімок '%s'."
 
+#, fuzzy, c-format
+msgid "Invalid column '%s'."
+msgstr "Неправильний знімок '%s'."
+
 msgid "Invalid configdata."
 msgstr "Неправильні дані конфігурації."
 
@@ -556,6 +646,9 @@ msgstr "Неправильний користувач."
 
 msgid "Invalid userdata."
 msgstr "Непридатні дані користувача."
+
+msgid "Key"
+msgstr "Ключ"
 
 #. TRANSLATORS: symbol for "kibi bytes" (best keep untranslated)
 msgid "KiB"
@@ -626,6 +719,18 @@ msgstr ""
 msgid "PiB"
 msgstr ""
 
+msgid "Post #"
+msgstr "№ майбутнього знімка"
+
+msgid "Post Date"
+msgstr "Дата майбутнього знімка"
+
+msgid "Pre #"
+msgstr "№ попереднього знімка"
+
+msgid "Pre Date"
+msgstr "Дата попереднього знімка"
+
 # error box title
 #, fuzzy, c-format
 msgid "Quota error (%s)."
@@ -644,6 +749,9 @@ msgstr "Знімок '%u' не знайдено."
 
 msgid "Snapshot is in use."
 msgstr "Знімок вже використовується."
+
+msgid "Subvolume"
+msgstr "Підтом"
 
 #. TRANSLATORS: symbol for "tera" (best keep untranslated)
 msgid "T"
@@ -668,6 +776,9 @@ msgstr ""
 
 msgid "Try 'snapper --help' for more information."
 msgstr "Щоб отримати більше інформації, спробуйте \"snapper --help'."
+
+msgid "Type"
+msgstr "Тип"
 
 #, c-format
 msgid "Unknown cleanup algorithm '%s'."
@@ -702,6 +813,15 @@ msgstr ""
 msgid "Use an integer number from %d to %d."
 msgstr "Використовуйте ціле число від %d до %d."
 
+msgid "Used Space"
+msgstr ""
+
+msgid "User"
+msgstr "Користувач"
+
+msgid "Userdata"
+msgstr "Дані користувача"
+
 #, c-format
 msgid "Userdata '%s' does not include '=' sign."
 msgstr "Дані користувача '%s' не включають знак '='."
@@ -709,6 +829,9 @@ msgstr "Дані користувача '%s' не включають знак '=
 #, c-format
 msgid "Userdata '%s' has empty key."
 msgstr "Порожній ключ в даних користувача '%s'."
+
+msgid "Value"
+msgstr "Значення"
 
 #, c-format
 msgid "create:%d modify:%d delete:%d"
@@ -746,6 +869,9 @@ msgstr ""
 msgid "modifying %s"
 msgstr "зміна %s"
 
+msgid "no"
+msgstr ""
+
 msgid "nothing to do"
 msgstr "нема що робити"
 
@@ -756,92 +882,14 @@ msgstr "Аргумент root можна використовувати тіль
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr "використання: snapper [--загальні параметри] <команда> [--параметри команди] [аргументи команди]"
 
+msgid "yes"
+msgstr ""
+
 #~ msgid "Unknown type of snapshot."
 #~ msgstr "Невідомий тип знімка."
 
-#~ msgid "\t--all-configs, -a\t\tList snapshots from all accessible configs."
-#~ msgstr "\t--all-configs, -a\t\tСписок знімків із усіх доступних конфігурацій."
-
-#~ msgid "\t--type, -t <type>\t\tType of snapshots to list."
-#~ msgstr "\t--type, -t <тип>\t\tТип перерахованих знімків."
-
-#~ msgid "\tsnapper get-config"
-#~ msgstr "\tsnapper get-config"
-
-#~ msgid "\tsnapper list"
-#~ msgstr "\tsnapper list"
-
-#~ msgid "\tsnapper list-configs"
-#~ msgstr "\tsnapper list-configs"
-
-#~ msgid "    Options for 'list' command:"
-#~ msgstr "    Параметри команди 'list':"
-
-#~ msgid "  Get config:"
-#~ msgstr "  Отримати конфігурацію:"
-
-#~ msgid "  List configs:"
-#~ msgstr "  Список конфігурацій:"
-
-#~ msgid "  List snapshots:"
-#~ msgstr "  Список знімків:"
-
-#~ msgid "#"
-#~ msgstr "#"
-
-#~ msgid "Cleanup"
-#~ msgstr "Очищення"
-
-#~ msgid "Command 'get-config' does not take arguments."
-#~ msgstr "Команді 'get-config' не потрібні аргументи."
-
-#~ msgid "Command 'list' does not take arguments."
-#~ msgstr "Команді 'list' не потрібні аргументи."
-
-#~ msgid "Command 'list-configs' does not take arguments."
-#~ msgstr "Команді ''list-configs' не потрібні аргументи."
-
-#~ msgid "Config"
-#~ msgstr "Конфігурація"
-
-#~ msgid "Date"
-#~ msgstr "Дата"
-
-#~ msgid "Description"
-#~ msgstr "Опис"
-
-#~ msgid "Key"
-#~ msgstr "Ключ"
-
-#~ msgid "Post #"
-#~ msgstr "№ майбутнього знімка"
-
-#~ msgid "Post Date"
-#~ msgstr "Дата майбутнього знімка"
-
-#~ msgid "Pre #"
-#~ msgstr "№ попереднього знімка"
-
-#~ msgid "Pre Date"
-#~ msgstr "Дата попереднього знімка"
-
-#~ msgid "Subvolume"
-#~ msgstr "Підтом"
-
-#~ msgid "Type"
-#~ msgstr "Тип"
-
 #~ msgid "Unknown type of snapshots."
 #~ msgstr "Невідомий тип знімків."
-
-#~ msgid "User"
-#~ msgstr "Користувач"
-
-#~ msgid "Userdata"
-#~ msgstr "Дані користувача"
-
-#~ msgid "Value"
-#~ msgstr "Значення"
 
 #, fuzzy
 #~ msgid "Quota failure (%s)."

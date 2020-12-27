@@ -1,3 +1,4 @@
 0003-Add-debian-specific-option-DISABLE_APT_SNAPSHOT.patch
 0004-fix-manpage.patch
 0005-drop-testsuite-real-to-avoid-to-be-installed-into-pa.patch
+0006-Run-check-for-JSONC-whether-with_zypp-is-enable-or-n.patch

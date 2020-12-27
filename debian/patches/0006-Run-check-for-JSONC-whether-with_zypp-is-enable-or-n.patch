@@ -1,0 +1,24 @@
+From: Hideki Yamane <henrich@debian.org>
+Date: Sun, 27 Dec 2020 20:12:11 +0900
+Subject: Run check for JSONC whether with_zypp is enable or not
+
+Forwarded: https://github.com/openSUSE/snapper/issues/616
+
+---
+ configure.ac | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 839d012..eead71d 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -194,9 +194,7 @@ fi
+ 
+ PKG_CHECK_MODULES(DBUS, dbus-1)
+ PKG_CHECK_MODULES(XML2, libxml-2.0)
+-if test "x$with_zypp" = "xyes"; then
+    PKG_CHECK_MODULES(JSONC, json-c, [], [AC_MSG_WARN([Cannot find json-c. Please install libjson-c-devel])])
+-fi
+ 
+ AC_CHECK_HEADER(acl/libacl.h,[],[AC_MSG_ERROR([Cannout find libacl headers. Please install libacl-devel])])
+ 

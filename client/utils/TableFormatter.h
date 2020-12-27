@@ -19,12 +19,13 @@
  * find current contact information at www.novell.com.
  */
 
-#ifndef SNAPPER_CLI_TABLE_FORMATTER_H
-#define SNAPPER_CLI_TABLE_FORMATTER_H
+#ifndef SNAPPER_TABLE_FORMATTER_H
+#define SNAPPER_TABLE_FORMATTER_H
+
 
 #include <string>
 #include <vector>
-#include <utility>
+#include <ostream>
 
 #include "client/utils/Table.h"
 
@@ -35,33 +36,34 @@ namespace snapper
     using namespace std;
 
 
-    namespace cli
+    class TableFormatter
     {
 
-	class TableFormatter
-	{
+    public:
 
-	public:
+	static const TableStyle default_style;
 
-	    static const TableStyle default_style;
+	TableFormatter(TableStyle style) : style(style) {}
 
-	    TableFormatter(const vector<pair<string, TableAlign>>& header,
-			   const vector<vector<string>>& rows, TableStyle style)
-		: header(header), rows(rows), style(style)
-	    {
-	    }
+	TableFormatter(const TableFormatter&) = delete;
 
-	    string str() const;
+	TableFormatter& operator=(const TableFormatter&) = delete;
 
-	private:
+	vector<pair<string, TableAlign>>& header() { return _header; }
+	vector<bool>& abbrev() { return _abbrev; }
+	vector<vector<string>>& rows() { return _rows; }
 
-	    const vector<pair<string, TableAlign>> header;
-	    const vector<vector<string>> rows;
-	    const TableStyle style;
+	friend ostream& operator<<(ostream& stream, const TableFormatter& table_formatter);
 
-	};
+    private:
 
-    }
+	const TableStyle style;
+
+	vector<pair<string, TableAlign>> _header;
+	vector<bool> _abbrev;
+	vector<vector<string>> _rows;
+
+    };
 
 }
 

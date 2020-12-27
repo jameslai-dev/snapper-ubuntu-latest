@@ -43,6 +43,7 @@ namespace snapper
 	    + _("\t--utc\t\t\t\tDisplay dates and times in UTC.") + '\n'
 	    + _("\t--iso\t\t\t\tDisplay dates and times in ISO format.") + '\n'
 	    + _("\t--table-style, -t <style>\tTable style (integer).") + '\n'
+	    + _("\t--abbreviate\t\t\tAllow to abbreviate table columns.") + '\n'
 	    + _("\t--machine-readable <format>\tSet a machine-readable output format (csv, json).") + '\n'
 	    + _("\t--csvout\t\t\tSet CSV output format.") + '\n'
 	    + _("\t--jsonout\t\t\tSet JSON output format.") + '\n'
@@ -64,6 +65,7 @@ namespace snapper
 	    Option("utc",		no_argument),
 	    Option("iso",		no_argument),
 	    Option("table-style",	required_argument,	't'),
+	    Option("abbreviate",	no_argument),
 	    Option("machine-readable",	required_argument),
 	    Option("csvout",		no_argument),
 	    Option("jsonout",		no_argument),
@@ -88,6 +90,7 @@ namespace snapper
 	_version = opts.has_option("version");
 	_help = opts.has_option("help");
 	_table_style = table_style_value(opts);
+	_abbreviate = opts.has_option("abbreviate");
 	_output_format = output_format_value(opts);
 	_separator = separator_value(opts);
 	_config = config_value(opts);
@@ -113,7 +116,7 @@ namespace snapper
     {
 	ParsedOpts::const_iterator it = opts.find("table-style");
 	if (it == opts.end())
-	    return cli::TableFormatter::default_style;
+	    return TableFormatter::default_style;
 
 	try
 	{
@@ -132,7 +135,7 @@ namespace snapper
 	    SN_THROW(OptionsException(error));
 	}
 
-	return cli::TableFormatter::default_style;
+	return TableFormatter::default_style;
     }
 
 
@@ -167,7 +170,7 @@ namespace snapper
     {
 	ParsedOpts::const_iterator it = opts.find("separator");
 	if (it == opts.end())
-	    return cli::CsvFormatter::default_separator;
+	    return CsvFormatter::default_separator;
 
 	return it->second;
     }

@@ -6,10 +6,10 @@ Subject: drop testsuite-real to avoid to be installed into package
  Makefile.am | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Index: snapper/Makefile.am
-===================================================================
---- snapper.orig/Makefile.am
-+++ snapper/Makefile.am
+diff --git a/Makefile.am b/Makefile.am
+index 9d7fb3a..e080721 100644
+--- a/Makefile.am
++++ b/Makefile.am
 @@ -3,7 +3,7 @@
  #
  

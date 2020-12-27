@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: entries\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-23 10:33+0200\n"
+"POT-Creation-Date: 2020-12-17 13:34+0100\n"
 "PO-Revision-Date: 2019-03-01 20:28+0000\n"
 "Last-Translator: Hwajin Kim <hwajin.kim@e4net.net>\n"
 "Language-Team: Korean <https://l10n.opensuse.org/projects/snapper/master/ko/>\n"
@@ -12,6 +12,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 3.3\n"
+
+msgid "\t--abbreviate\t\t\tAllow to abbreviate table columns."
+msgstr ""
+
+msgid "\t--all-configs, -a\t\tList snapshots from all accessible configs."
+msgstr "\t--all-configs, -a\t\t액세스 가능한 구성의 스냅샷을 모두 나열합니다."
 
 msgid "\t--ambit, -a ambit\t\tOperate in the specified ambit."
 msgstr ""
@@ -23,6 +29,19 @@ msgstr "\t--cleanup-algorithm, -c <algo>\t스냅샷에 대한 정리 알고리�
 # SLE12
 msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshots."
 msgstr "\t--cleanup-algorithm, -c <algo>\t스냅샷에 대한 정리 알고리즘입니다."
+
+msgid ""
+"\t--columns <columns>\t\tColumns to show separated by comma.\n"
+"\t\t\t\t\tPossible columns: config, subvolume, number, default, active,\n"
+"\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
+"\t\t\t\t\tpre-number, post-number, post-date."
+msgstr ""
+
+msgid ""
+"\t--columns <columns>\t\tColumns to show separated by comma.\n"
+"\t\t\t\t\tPossible columns: key, value.\n"
+"\t\t\t\t\tColumns are not selected when JSON format is used."
+msgstr ""
 
 # SLE12
 msgid "\t--command <command>\t\tRun command and create pre and post snapshots."
@@ -45,6 +64,9 @@ msgstr "\t--description, -d <description>\t스냅샷에 대한 설명입니다."
 
 msgid "\t--diff-cmd <command>\t\tCommand used for comparing files."
 msgstr "\t--diff-cmd <command>\t\t파일을 비교하는 데 쓰는 명령입니다."
+
+msgid "\t--disable-used-space\t\tDisable showing used space."
+msgstr "\t--disable-used-space\t\t사용된 공간 표시를 비활성화합니다."
 
 msgid "\t--extensions, -x <options>\tExtra options passed to the diff command."
 msgstr "\t--extensions, -x <options>\tdiff 명령에 전달되는 추가 옵션입니다."
@@ -131,6 +153,10 @@ msgid "\t--type, -t <type>\t\tType for snapshot."
 msgstr "\t--type, -t <type>\t\t스냅샷 유형."
 
 # SLE12
+msgid "\t--type, -t <type>\t\tType of snapshots to list."
+msgstr "\t--type, -t <type>\t\t나열할 스냅샷 유형."
+
+# SLE12
 msgid "\t--userdata, -u <userdata>\tUserdata for snapshot."
 msgstr "\t--userdata, -u <userdata>\t스냅샷용 사용자 데이터."
 
@@ -173,6 +199,18 @@ msgstr "\tsnapper delete-config"
 # SLE12
 msgid "\tsnapper diff <number1>..<number2> [files]"
 msgstr "\tsnapper diff <number1>..<number2> [files]"
+
+# SLE12
+msgid "\tsnapper get-config"
+msgstr "\tsnapper get-config"
+
+# SLE12
+msgid "\tsnapper list"
+msgstr "\tsnapper list"
+
+# SLE12
+msgid "\tsnapper list-configs"
+msgstr "\tsnapper list-configs"
 
 # SLE12
 msgid "\tsnapper modify <number>"
@@ -234,6 +272,21 @@ msgid "    Options for 'diff' command:"
 msgstr "    'diff' 명령에 대한 옵션:"
 
 # SLE12
+#, fuzzy
+msgid "    Options for 'get-config' command:"
+msgstr "    'create-config' 명령에 대한 옵션:"
+
+# SLE12
+msgid "    Options for 'list' command:"
+msgstr "    'list' 명령에 대한 옵션:"
+
+msgid ""
+"    Options for 'list-configs' command:\n"
+"\t--columns <columns>\t\tColumns to show separated by comma.\n"
+"\t\t\t\t\tPossible columns: config, subvolume.\n"
+msgstr ""
+
+# SLE12
 msgid "    Options for 'modify' command:"
 msgstr "    'modify' 명령에 대한 옵션:"
 
@@ -278,6 +331,18 @@ msgid "  Delete snapshot:"
 msgstr "  스냅샷 삭제:"
 
 # SLE12
+msgid "  Get config:"
+msgstr "  구성 가져오기:"
+
+# SLE12
+msgid "  List configs:"
+msgstr "  구성 나열:"
+
+# SLE12
+msgid "  List snapshots:"
+msgstr "  스냅샷 나열:"
+
+# SLE12
 msgid "  Modify snapshot:"
 msgstr "  스냅샷 수정:"
 
@@ -304,6 +369,10 @@ msgstr "  스냅샷 마운트 해제:"
 msgid "  Undo changes:"
 msgstr "  변경 취소:"
 
+# SLE12
+msgid "#"
+msgstr "#"
+
 #. TRANSLATORS: used to construct list of values
 #. %1$s is replaced by first value
 #. %2$s is replaced by second value
@@ -326,6 +395,9 @@ msgstr "(스냅샷 %d)"
 # SLE12
 msgid "ACL error."
 msgstr "ACL 오류입니다."
+
+msgid "Active"
+msgstr ""
 
 msgid "Active snapshot is already default snapshot."
 msgstr ""
@@ -358,6 +430,10 @@ msgid "Cannot do rollback since default subvolume is unknown."
 msgstr ""
 
 # SLE12
+msgid "Cleanup"
+msgstr "정리"
+
+# SLE12
 msgid "Command 'cleanup' needs one arguments."
 msgstr "'cleanup' 명령에 하나의 인수가 필요합니다."
 
@@ -386,8 +462,20 @@ msgid "Command 'diff' needs at least one argument."
 msgstr "'diff' 명령에 하나 이상의 인수가 필요합니다."
 
 # SLE12
+msgid "Command 'get-config' does not take arguments."
+msgstr "'get-config' 명령은 인수를 사용하지 않습니다."
+
+# SLE12
 msgid "Command 'help' does not take arguments."
 msgstr "'help' 명령은 인수를 사용하지 않습니다."
+
+# SLE12
+msgid "Command 'list' does not take arguments."
+msgstr "'list' 명령은 인수를 사용하지 않습니다."
+
+# SLE12
+msgid "Command 'list-configs' does not take arguments."
+msgstr "'list-configs' 명령은 인수를 사용하지 않습니다."
 
 # SLE12
 msgid "Command 'modify' needs at least one argument."
@@ -433,6 +521,10 @@ msgstr "'undochange' 명령에 하나 이상의 인수가 필요합니다."
 # SLE12
 msgid "Command 'xadiff' needs at least one argument."
 msgstr "'xadiff' 명령에는 인수가 하나 이상 필요합니다."
+
+# SLE12
+msgid "Config"
+msgstr "구성"
 
 # SLE12
 #, c-format
@@ -496,6 +588,13 @@ msgid "Creating snapshot failed."
 msgstr "스냅샷을 생성하지 못했습니다."
 
 # SLE12
+msgid "Date"
+msgstr "날짜"
+
+msgid "Default"
+msgstr ""
+
+# SLE12
 #, c-format
 msgid "Deleting config failed (%s)."
 msgstr "구성을 삭제하지 못했습니다(%s)."
@@ -508,6 +607,9 @@ msgstr "스냅샷을 삭제하지 못했습니다."
 msgid "Deleting snapshot from %s:"
 msgid_plural "Deleting snapshots from %s:"
 msgstr[0] "%s에서 스냅샷 삭제 중:"
+
+msgid "Description"
+msgstr "설명"
 
 # SLE12
 msgid "Detecting filesystem type failed."
@@ -612,6 +714,11 @@ msgid "Invalid ambit '%s'."
 msgstr "'%s' 스냅샷이 잘못되었습니다."
 
 # SLE12
+#, fuzzy, c-format
+msgid "Invalid column '%s'."
+msgstr "'%s' 스냅샷이 잘못되었습니다."
+
+# SLE12
 msgid "Invalid configdata."
 msgstr "잘못된 configdata입니다."
 
@@ -657,6 +764,10 @@ msgstr "잘못된 사용자입니다."
 # SLE12
 msgid "Invalid userdata."
 msgstr "잘못된 사용자 데이터입니다."
+
+# SLE12
+msgid "Key"
+msgstr "키"
 
 #. TRANSLATORS: symbol for "kibi bytes" (best keep untranslated)
 msgid "KiB"
@@ -737,6 +848,22 @@ msgstr "PiB"
 msgid "PiB"
 msgstr "PiB"
 
+# SLE12
+msgid "Post #"
+msgstr "사후 번호"
+
+# SLE12
+msgid "Post Date"
+msgstr "게시 날짜"
+
+# SLE12
+msgid "Pre #"
+msgstr "사전 번호"
+
+# SLE12
+msgid "Pre Date"
+msgstr "사전 날짜"
+
 #, c-format
 msgid "Quota error (%s)."
 msgstr "할당량 오류입니다(%s)."
@@ -757,6 +884,10 @@ msgstr "'%u' 스냅샷을 찾을 수 없습니다."
 # SLE12
 msgid "Snapshot is in use."
 msgstr "스냅샷이 사용 중입니다."
+
+# SLE12
+msgid "Subvolume"
+msgstr "하위 볼륨"
 
 #. TRANSLATORS: symbol for "tera" (best keep untranslated)
 msgid "T"
@@ -783,6 +914,9 @@ msgstr "TiB"
 # SLE12
 msgid "Try 'snapper --help' for more information."
 msgstr "자세한 내용을 보려면 'snapper --help'를 실행하십시오."
+
+msgid "Type"
+msgstr "타입"
 
 # SLE12
 #, c-format
@@ -824,6 +958,17 @@ msgstr ""
 msgid "Use an integer number from %d to %d."
 msgstr "%d에서 %d 사이의 정수를 사용하십시오."
 
+msgid "Used Space"
+msgstr "사용된 공간"
+
+# SLE12
+msgid "User"
+msgstr "사용자"
+
+# SLE12
+msgid "Userdata"
+msgstr "사용자 데이터"
+
 # SLE12
 #, c-format
 msgid "Userdata '%s' does not include '=' sign."
@@ -833,6 +978,9 @@ msgstr "Userdata '%s'에 '=' 기호가 포함되어 있지 않습니다."
 #, c-format
 msgid "Userdata '%s' has empty key."
 msgstr "Userdata '%s'에 빈 키가 있습니다."
+
+msgid "Value"
+msgstr "값"
 
 # SLE12
 #, c-format
@@ -878,6 +1026,9 @@ msgstr "B"
 msgid "modifying %s"
 msgstr "%s 수정 중"
 
+msgid "no"
+msgstr ""
+
 # SLE12
 msgid "nothing to do"
 msgstr "수행할 작업 없음"
@@ -890,123 +1041,16 @@ msgstr "루트 인수는 no-dbus와 함께 사용해야 합니다."
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr "사용법: snapper [--global-options] <command> [--command-options] [command-arguments]"
 
+msgid "yes"
+msgstr ""
+
 # SLE12
 #~ msgid "Unknown type of snapshot."
 #~ msgstr "알 수 없는 스냅샷 유형입니다."
 
-#~ msgid "\t--all-configs, -a\t\tList snapshots from all accessible configs."
-#~ msgstr "\t--all-configs, -a\t\t액세스 가능한 구성의 스냅샷을 모두 나열합니다."
-
-#~ msgid "\t--disable-used-space\t\tDisable showing used space."
-#~ msgstr "\t--disable-used-space\t\t사용된 공간 표시를 비활성화합니다."
-
-# SLE12
-#~ msgid "\t--type, -t <type>\t\tType of snapshots to list."
-#~ msgstr "\t--type, -t <type>\t\t나열할 스냅샷 유형."
-
-# SLE12
-#~ msgid "\tsnapper get-config"
-#~ msgstr "\tsnapper get-config"
-
-# SLE12
-#~ msgid "\tsnapper list"
-#~ msgstr "\tsnapper list"
-
-# SLE12
-#~ msgid "\tsnapper list-configs"
-#~ msgstr "\tsnapper list-configs"
-
-# SLE12
-#~ msgid "    Options for 'list' command:"
-#~ msgstr "    'list' 명령에 대한 옵션:"
-
-# SLE12
-#~ msgid "  Get config:"
-#~ msgstr "  구성 가져오기:"
-
-# SLE12
-#~ msgid "  List configs:"
-#~ msgstr "  구성 나열:"
-
-# SLE12
-#~ msgid "  List snapshots:"
-#~ msgstr "  스냅샷 나열:"
-
-# SLE12
-#~ msgid "#"
-#~ msgstr "#"
-
-# SLE12
-#~ msgid "Cleanup"
-#~ msgstr "정리"
-
-# SLE12
-#~ msgid "Command 'get-config' does not take arguments."
-#~ msgstr "'get-config' 명령은 인수를 사용하지 않습니다."
-
-# SLE12
-#~ msgid "Command 'list' does not take arguments."
-#~ msgstr "'list' 명령은 인수를 사용하지 않습니다."
-
-# SLE12
-#~ msgid "Command 'list-configs' does not take arguments."
-#~ msgstr "'list-configs' 명령은 인수를 사용하지 않습니다."
-
-# SLE12
-#~ msgid "Config"
-#~ msgstr "구성"
-
-# SLE12
-#~ msgid "Date"
-#~ msgstr "날짜"
-
-#~ msgid "Description"
-#~ msgstr "설명"
-
-# SLE12
-#~ msgid "Key"
-#~ msgstr "키"
-
-# SLE12
-#~ msgid "Post #"
-#~ msgstr "사후 번호"
-
-# SLE12
-#~ msgid "Post Date"
-#~ msgstr "게시 날짜"
-
-# SLE12
-#~ msgid "Pre #"
-#~ msgstr "사전 번호"
-
-# SLE12
-#~ msgid "Pre Date"
-#~ msgstr "사전 날짜"
-
-# SLE12
-#~ msgid "Subvolume"
-#~ msgstr "하위 볼륨"
-
-#~ msgid "Type"
-#~ msgstr "타입"
-
 # SLE12
 #~ msgid "Unknown type of snapshots."
 #~ msgstr "알 수 없는 스냅샷 유형입니다."
-
-#~ msgid "Used Space"
-#~ msgstr "사용된 공간"
-
-# SLE12
-#~ msgid "User"
-#~ msgstr "사용자"
-
-# SLE12
-#~ msgid "Userdata"
-#~ msgstr "사용자 데이터"
-
-#~ msgid "Value"
-#~ msgstr "값"
 
 # SLE12
 #~ msgid "Quota failure (%s)."

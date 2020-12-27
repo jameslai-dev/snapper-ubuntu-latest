@@ -30,6 +30,7 @@
 #include <dirent.h>
 #include <errno.h>
 #include <string.h>
+#include <regex>
 #include <boost/algorithm/string.hpp>
 
 #include "snapper/Snapshot.h"
@@ -37,12 +38,13 @@
 #include "snapper/AppUtil.h"
 #include "snapper/XmlFile.h"
 #include "snapper/Filesystem.h"
+#ifdef ENABLE_BTRFS
 #include "snapper/Btrfs.h"
+#endif
 #include "snapper/Enum.h"
 #include "snapper/SnapperTmpl.h"
 #include "snapper/SnapperDefines.h"
 #include "snapper/Exception.h"
-#include "snapper/Regex.h"
 #include "snapper/Hooks.h"
 
 
@@ -185,14 +187,14 @@ namespace snapper
     void
     Snapshots::read()
     {
-	Regex rx("^[0-9]+$");
+	static const regex rx("[0-9]+", regex::extended);
 
 	SDir infos_dir = snapper->openInfosDir();
 
 	vector<string> infos = infos_dir.entries();
 	for (vector<string>::const_iterator it1 = infos.begin(); it1 != infos.end(); ++it1)
 	{
-	    if (!rx.match(*it1))
+	    if (!regex_match(*it1, rx))
 		continue;
 
 	    try

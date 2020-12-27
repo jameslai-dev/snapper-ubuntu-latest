@@ -82,7 +82,6 @@ SYSCONFIG=/etc/sysconfig
 
 AC_ARG_WITH([conf], AC_HELP_STRING([--with-conf], [Use a custom sysconfig directory (default is /etc/sysconfig)]),
 	[with_conf=$withval], [with_conf=no])
-
 AS_IF([test "x$with_conf" != xno], [SYSCONFIG="${with_conf}"])
 
 CPPFLAGS="${CPPFLAGS} -DCONF_DIR='\"${SYSCONFIG}\"'"
@@ -90,7 +89,6 @@ CPPFLAGS="${CPPFLAGS} -DCONF_DIR='\"${SYSCONFIG}\"'"
 
 AC_ARG_ENABLE([btrfs], AC_HELP_STRING([--disable-btrfs],[Disable Btrfs internal snapshots support]),
 		[with_btrfs=$enableval],[with_btrfs=yes])
-
 AM_CONDITIONAL(ENABLE_BTRFS, [test "x$with_btrfs" = "xyes"])
 
 if test "x$with_btrfs" = "xyes"; then
@@ -99,7 +97,6 @@ fi
 
 AC_ARG_ENABLE([ext4], AC_HELP_STRING([--disable-ext4],[Disable ext4 snapshots support]),
 		[with_ext4=$enableval],[with_ext4=yes])
-
 AM_CONDITIONAL(ENABLE_EXT4, [test "x$with_ext4" = "xyes"])
 
 if test "x$with_ext4" = "xyes"; then
@@ -108,7 +105,6 @@ fi
 
 AC_ARG_ENABLE([lvm], AC_HELP_STRING([--disable-lvm],[Disable LVM thinprovisioned snapshots support]),
 		[with_lvm=$enableval],[with_lvm=yes])
-
 AM_CONDITIONAL(ENABLE_LVM, [test "x$with_lvm" = "xyes"])
 
 if test "x$with_lvm" = "xyes"; then
@@ -123,8 +119,20 @@ AC_ARG_ENABLE([zypp], AC_HELP_STRING([--disable-zypp],[Disable zypp plugin suppo
 		[with_zypp=$enableval],[with_zypp=yes])
 AM_CONDITIONAL(HAVE_ZYPP, [test "x$with_zypp" = "xyes"])
 
+AC_ARG_ENABLE([systemd], AC_HELP_STRING([--disable-systemd],[Disable systemd support]),
+		[enable_systemd=$enableval],[enable_systemd=yes])
+AM_CONDITIONAL(ENABLE_SYSTEMD, [test "x$enable_systemd" = "xyes"])
+
 AC_CHECK_LIB(btrfs, btrfs_read_and_process_send_stream)
 AC_CHECK_HEADERS([btrfs/version.h])
+
+AC_ARG_ENABLE([doc], AC_HELP_STRING([--disable-doc],[Disable Build DOC support]),
+		[enable_doc=$enableval],[enable_doc=yes])
+AM_CONDITIONAL(ENABLE_DOC, [test "x$enable_doc" = "xyes"])
+
+if test "x$enable_doc" = "xyes"; then
+	AC_DEFINE(ENABLE_DOC, 1, [Enable Build DOC support])
+fi
 
 AC_ARG_ENABLE([xattrs], AC_HELP_STRING([--disable-xattrs],[Disable extended attributes support]),
 		[with_xattrs=$enableval],[with_xattrs=yes])
@@ -139,9 +147,14 @@ AC_ARG_ENABLE([rollback], AC_HELP_STRING([--disable-rollback],[Disable rollback 
 AM_CONDITIONAL(ENABLE_ROLLBACK, [test "x$enable_rollback" = "xyes"])
 
 if test "x$enable_rollback" = "xyes"; then
+	if test "x$with_btrfs" != "xyes"; then
+		AC_MSG_ERROR([rollback support needs btrfs support])
+	fi
+
 	AC_DEFINE(ENABLE_ROLLBACK, 1, [Enable rollback support])
-        # libmount is needed for rollback feature
-        AC_CHECK_HEADER(libmount/libmount.h,[],[AC_MSG_ERROR([Cannout find libmount headers. Please install libmount-devel])])
+
+	# libmount is needed for rollback feature
+	AC_CHECK_HEADER(libmount/libmount.h,[],[AC_MSG_ERROR([Cannout find libmount headers. Please install libmount-devel])])
 fi
 
 AC_ARG_ENABLE([btrfs-quota], AC_HELP_STRING([--disable-btrfs-quota],[Disable btrfs quota support]),
@@ -149,6 +162,10 @@ AC_ARG_ENABLE([btrfs-quota], AC_HELP_STRING([--disable-btrfs-quota],[Disable btr
 AM_CONDITIONAL(ENABLE_BTRFS_QUOTA, [test "x$enable_btrfs_quota" = "xyes"])
 
 if test "x$enable_btrfs_quota" = "xyes"; then
+	if test "x$with_btrfs" != "xyes"; then
+		AC_MSG_ERROR([btrfs quota support needs btrfs support])
+	fi
+
 	AC_DEFINE(ENABLE_BTRFS_QUOTA, 1, [Enable btrfs quota support])
 fi
 
@@ -202,13 +219,6 @@ AC_OUTPUT(
 	server/Makefile
 	client/Makefile
 	client/utils/Makefile
-	client/Command/Makefile
-	client/Command/ListSnapshots/Makefile
-	client/Command/ListSnapshots/SnappersData/Makefile
-	client/Command/ListConfigs/Makefile
-	client/Command/ListConfigs/SnappersData/Makefile
-	client/Command/GetConfig/Makefile
-	client/Command/GetConfig/ConfigData/Makefile
 	scripts/Makefile
 	pam/Makefile
 	data/Makefile
@@ -229,4 +239,5 @@ AC_OUTPUT(
 	package/snapper.spec:snapper.spec.in
 	dists/debian/snapper-Debian.dsc.in:dists/debian/snapper-Debian.dsc.in.in
 	dists/debian/snapper-xUbuntu.dsc.in:dists/debian/snapper-xUbuntu.dsc.in.in
+	dists/debian/snapper-Raspbian.dsc.in:dists/debian/snapper-Raspbian.dsc.in.in
 )

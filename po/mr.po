@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-23 10:33+0200\n"
+"POT-Creation-Date: 2020-12-17 13:34+0100\n"
 "PO-Revision-Date: 2005-07-29 15:37+0530\n"
 "Last-Translator: \"( अमेय पाळंदे ) Ameya Palande\" <2ameya@gmail.com>\n"
 "Language-Team: Marathi <i18n@suse.de>\n"
@@ -16,6 +16,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
+msgid "\t--abbreviate\t\t\tAllow to abbreviate table columns."
+msgstr ""
+
+msgid "\t--all-configs, -a\t\tList snapshots from all accessible configs."
+msgstr ""
+
 msgid "\t--ambit, -a ambit\t\tOperate in the specified ambit."
 msgstr ""
 
@@ -23,6 +29,19 @@ msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshot."
 msgstr ""
 
 msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshots."
+msgstr ""
+
+msgid ""
+"\t--columns <columns>\t\tColumns to show separated by comma.\n"
+"\t\t\t\t\tPossible columns: config, subvolume, number, default, active,\n"
+"\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
+"\t\t\t\t\tpre-number, post-number, post-date."
+msgstr ""
+
+msgid ""
+"\t--columns <columns>\t\tColumns to show separated by comma.\n"
+"\t\t\t\t\tPossible columns: key, value.\n"
+"\t\t\t\t\tColumns are not selected when JSON format is used."
 msgstr ""
 
 msgid "\t--command <command>\t\tRun command and create pre and post snapshots."
@@ -41,6 +60,9 @@ msgid "\t--description, -d <description>\tDescription for snapshots."
 msgstr ""
 
 msgid "\t--diff-cmd <command>\t\tCommand used for comparing files."
+msgstr ""
+
+msgid "\t--disable-used-space\t\tDisable showing used space."
 msgstr ""
 
 msgid "\t--extensions, -x <options>\tExtra options passed to the diff command."
@@ -115,6 +137,9 @@ msgstr ""
 msgid "\t--type, -t <type>\t\tType for snapshot."
 msgstr ""
 
+msgid "\t--type, -t <type>\t\tType of snapshots to list."
+msgstr ""
+
 msgid "\t--userdata, -u <userdata>\tUserdata for snapshot."
 msgstr ""
 
@@ -146,6 +171,15 @@ msgid "\tsnapper delete-config"
 msgstr ""
 
 msgid "\tsnapper diff <number1>..<number2> [files]"
+msgstr ""
+
+msgid "\tsnapper get-config"
+msgstr ""
+
+msgid "\tsnapper list"
+msgstr ""
+
+msgid "\tsnapper list-configs"
 msgstr ""
 
 msgid "\tsnapper modify <number>"
@@ -194,6 +228,18 @@ msgstr ""
 msgid "    Options for 'diff' command:"
 msgstr ""
 
+msgid "    Options for 'get-config' command:"
+msgstr ""
+
+msgid "    Options for 'list' command:"
+msgstr ""
+
+msgid ""
+"    Options for 'list-configs' command:\n"
+"\t--columns <columns>\t\tColumns to show separated by comma.\n"
+"\t\t\t\t\tPossible columns: config, subvolume.\n"
+msgstr ""
+
 msgid "    Options for 'modify' command:"
 msgstr ""
 
@@ -227,6 +273,16 @@ msgstr ""
 msgid "  Delete snapshot:"
 msgstr ""
 
+msgid "  Get config:"
+msgstr ""
+
+msgid "  List configs:"
+msgstr ""
+
+#, fuzzy
+msgid "  List snapshots:"
+msgstr "अज्ञात प्रकार"
+
 msgid "  Modify snapshot:"
 msgstr ""
 
@@ -250,6 +306,9 @@ msgstr "अज्ञात प्रकार"
 msgid "  Undo changes:"
 msgstr ""
 
+msgid "#"
+msgstr ""
+
 #. TRANSLATORS: used to construct list of values
 #. %1$s is replaced by first value
 #. %2$s is replaced by second value
@@ -271,6 +330,9 @@ msgstr "होस्ट %s आढळले नाही."
 #, fuzzy
 msgid "ACL error."
 msgstr "चूक"
+
+msgid "Active"
+msgstr ""
 
 msgid "Active snapshot is already default snapshot."
 msgstr ""
@@ -299,6 +361,9 @@ msgid "Cannot detect ambit since default subvolume is unknown."
 msgstr ""
 
 msgid "Cannot do rollback since default subvolume is unknown."
+msgstr ""
+
+msgid "Cleanup"
 msgstr ""
 
 #, fuzzy
@@ -330,8 +395,20 @@ msgid "Command 'diff' needs at least one argument."
 msgstr "गेट साठी कमीत कमी एका युक्तीवादाची आवश्यकता"
 
 #, fuzzy
+msgid "Command 'get-config' does not take arguments."
+msgstr "सूची_समूहाला युक्तिवाद असता कामा नयेत"
+
+#, fuzzy
 msgid "Command 'help' does not take arguments."
 msgstr "पुन्हा लोड करताना युक्तिवाद असू नयेत"
+
+#, fuzzy
+msgid "Command 'list' does not take arguments."
+msgstr "पुन्हा लोड करताना युक्तिवाद असू नयेत"
+
+#, fuzzy
+msgid "Command 'list-configs' does not take arguments."
+msgstr "सूची_समूहाला युक्तिवाद असता कामा नयेत"
 
 #, fuzzy
 msgid "Command 'modify' needs at least one argument."
@@ -376,6 +453,10 @@ msgstr "गेट साठी कमीत कमी एका युक्त�
 #, fuzzy
 msgid "Command 'xadiff' needs at least one argument."
 msgstr "गेट साठी कमीत कमी एका युक्तीवादाची आवश्यकता"
+
+#, fuzzy
+msgid "Config"
+msgstr "संकप संवाद"
 
 #, fuzzy, c-format
 msgid "Config '%s' is invalid."
@@ -430,6 +511,13 @@ msgstr "आकृतीबंध फाईल्स संग्रहित क
 msgid "Creating snapshot failed."
 msgstr "आकृतीबंध फाईल्स संग्रहित करत आहे..."
 
+#, fuzzy
+msgid "Date"
+msgstr "सुरु केल्या नंतरचे"
+
+msgid "Default"
+msgstr ""
+
 #, fuzzy, c-format
 msgid "Deleting config failed (%s)."
 msgstr "आकृतीबंध फाईल्स संग्रहित करत आहे..."
@@ -443,6 +531,9 @@ msgid "Deleting snapshot from %s:"
 msgid_plural "Deleting snapshots from %s:"
 msgstr[0] " CA पुसून टाकण्यात अपयश: %1."
 msgstr[1] " CA पुसून टाकण्यात अपयश: %1."
+
+msgid "Description"
+msgstr "विवरण"
 
 msgid "Detecting filesystem type failed."
 msgstr ""
@@ -536,6 +627,10 @@ msgstr "अवैध प्रकार %1."
 msgid "Invalid ambit '%s'."
 msgstr "अवैध प्रकार %1."
 
+#, fuzzy, c-format
+msgid "Invalid column '%s'."
+msgstr "अवैध प्रकार %1."
+
 #, fuzzy
 msgid "Invalid configdata."
 msgstr "अवैध इश्यु डाटा"
@@ -576,6 +671,10 @@ msgstr "अवैध प्रकार %1."
 #, fuzzy
 msgid "Invalid userdata."
 msgstr "अवैध प्रकार %1."
+
+#, fuzzy
+msgid "Key"
+msgstr "केनिया"
 
 #. TRANSLATORS: symbol for "kibi bytes" (best keep untranslated)
 msgid "KiB"
@@ -648,6 +747,21 @@ msgstr ""
 msgid "PiB"
 msgstr ""
 
+#, fuzzy
+msgid "Post #"
+msgstr "सुरु केल्या नंतरचे"
+
+#, fuzzy
+msgid "Post Date"
+msgstr "सुरु केल्या नंतरचे"
+
+msgid "Pre #"
+msgstr ""
+
+#, fuzzy
+msgid "Pre Date"
+msgstr "सुरु केल्या नंतरचे"
+
 #, fuzzy, c-format
 msgid "Quota error (%s)."
 msgstr "I/O चूक"
@@ -667,6 +781,9 @@ msgstr "होस्ट %s आढळले नाही."
 #, fuzzy
 msgid "Snapshot is in use."
 msgstr "होस्ट %s आढळले नाही."
+
+msgid "Subvolume"
+msgstr ""
 
 #. TRANSLATORS: symbol for "tera" (best keep untranslated)
 msgid "T"
@@ -692,6 +809,9 @@ msgstr ""
 #, fuzzy
 msgid "Try 'snapper --help' for more information."
 msgstr "अधिक माहितीसाठी `%s --हेल्प' किंवा `%s --यूसेजचा' प्रयत्न करा.\n"
+
+msgid "Type"
+msgstr "प्रकार"
 
 #, fuzzy, c-format
 msgid "Unknown cleanup algorithm '%s'."
@@ -727,6 +847,16 @@ msgstr ""
 msgid "Use an integer number from %d to %d."
 msgstr ""
 
+msgid "Used Space"
+msgstr ""
+
+msgid "User"
+msgstr ""
+
+#, fuzzy
+msgid "Userdata"
+msgstr "अवैध प्रकार %1."
+
 #, c-format
 msgid "Userdata '%s' does not include '=' sign."
 msgstr ""
@@ -734,6 +864,9 @@ msgstr ""
 #, c-format
 msgid "Userdata '%s' has empty key."
 msgstr ""
+
+msgid "Value"
+msgstr "व्हॅल्यू"
 
 #, c-format
 msgid "create:%d modify:%d delete:%d"
@@ -771,6 +904,9 @@ msgstr ""
 msgid "modifying %s"
 msgstr ""
 
+msgid "no"
+msgstr ""
+
 #, fuzzy
 msgid "nothing to do"
 msgstr "करावयास काहीच नाही."
@@ -782,46 +918,16 @@ msgstr "अधिक माहितीसाठी `%s --हेल्प' क�
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr ""
 
+msgid "yes"
+msgstr ""
+
 #, fuzzy
 #~ msgid "Unknown type of snapshot."
 #~ msgstr "अज्ञात प्रकार"
 
 #, fuzzy
-#~ msgid "Command 'get-config' does not take arguments."
-#~ msgstr "सूची_समूहाला युक्तिवाद असता कामा नयेत"
-
-#, fuzzy
-#~ msgid "Command 'list' does not take arguments."
-#~ msgstr "पुन्हा लोड करताना युक्तिवाद असू नयेत"
-
-#, fuzzy
-#~ msgid "Command 'list-configs' does not take arguments."
-#~ msgstr "सूची_समूहाला युक्तिवाद असता कामा नयेत"
-
-#, fuzzy
-#~ msgid "Config"
-#~ msgstr "संकप संवाद"
-
-#~ msgid "Description"
-#~ msgstr "विवरण"
-
-#, fuzzy
-#~ msgid "Key"
-#~ msgstr "केनिया"
-
-#, fuzzy
-#~ msgid "Post Date"
-#~ msgstr "सुरु केल्या नंतरचे"
-
-#~ msgid "Type"
-#~ msgstr "प्रकार"
-
-#, fuzzy
 #~ msgid "Unknown type of snapshots."
 #~ msgstr "अज्ञात प्रकार"
-
-#~ msgid "Value"
-#~ msgstr "व्हॅल्यू"
 
 #, fuzzy
 #~ msgid "Quota failure (%s)."

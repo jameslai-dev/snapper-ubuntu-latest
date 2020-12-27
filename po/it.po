@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-23 10:33+0200\n"
-"PO-Revision-Date: 2020-08-24 16:13+0000\n"
+"POT-Creation-Date: 2020-12-17 13:34+0100\n"
+"PO-Revision-Date: 2020-10-01 09:48+0000\n"
 "Last-Translator: Paolo Za <zapaolo@email.it>\n"
 "Language-Team: Italian <https://l10n.opensuse.org/projects/snapper/master/it/>\n"
 "Language: it\n"
@@ -14,6 +14,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 3.6.1\n"
 
+msgid "\t--abbreviate\t\t\tAllow to abbreviate table columns."
+msgstr ""
+
+msgid "\t--all-configs, -a\t\tList snapshots from all accessible configs."
+msgstr "\t--all-configs, -a\t\tElenca gli shapshot da tutte le configurazioni accessibili."
+
 msgid "\t--ambit, -a ambit\t\tOperate in the specified ambit."
 msgstr "\t--ambit, -a ambit\t\tOpera nell'ambito specificato."
 
@@ -22,6 +28,26 @@ msgstr "\t--cleanup-algorithm, -c <algo>\tAlgoritmo di pulitura per l'istantanea
 
 msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshots."
 msgstr "\t--cleanup-algorithm, -c <algo>\tAlgoritmo di pulitura per le istantanee."
+
+msgid ""
+"\t--columns <columns>\t\tColumns to show separated by comma.\n"
+"\t\t\t\t\tPossible columns: config, subvolume, number, default, active,\n"
+"\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
+"\t\t\t\t\tpre-number, post-number, post-date."
+msgstr ""
+"\t--columns <columns>\t\tColonne da mostrare separate da virgola.\n"
+"\t\t\t\t\tPossibili colonne: config, subvolume, number, default, active,\n"
+"\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
+"\t\t\t\t\tpre-number, post-number, post-date."
+
+msgid ""
+"\t--columns <columns>\t\tColumns to show separated by comma.\n"
+"\t\t\t\t\tPossible columns: key, value.\n"
+"\t\t\t\t\tColumns are not selected when JSON format is used."
+msgstr ""
+"\t--columns <columns>\t\tColonne da mostrare separate da virgola.\n"
+"\t\t\t\t\tPossibili colonne: key, value.\n"
+"\t\t\t\t\tLe colonne non vengono selezionate quando viene utilizzato il formato JSON."
 
 msgid "\t--command <command>\t\tRun command and create pre and post snapshots."
 msgstr "\t--command <comando>\t\tLancia il comando e crea istantanee pre e post."
@@ -41,11 +67,14 @@ msgstr "\t--description, -d <descrizione>\tDescrizione delle istantanee."
 msgid "\t--diff-cmd <command>\t\tCommand used for comparing files."
 msgstr "\t--diff-cmd <comando>\t\tComando utilizzato per confrontare i file."
 
+msgid "\t--disable-used-space\t\tDisable showing used space."
+msgstr "\t--disable-used-space\t\tDisabilita la visualizzazione dello spazio utilizzato."
+
 msgid "\t--extensions, -x <options>\tExtra options passed to the diff command."
 msgstr "\t--extensions, -x <opzioni>\tOpzioni supplementari trasmesse al comando diff."
 
 msgid "\t--free-space <space>\t\tTry to make space available."
-msgstr ""
+msgstr "\t--free-space <space>\t\tCerca di rendere disponibile lo spazio."
 
 msgid "\t--from\t\t\t\tCreate a snapshot from the specified snapshot."
 msgstr "\t--from\t\t\t\tCrea un'istantanea dall'istantanea specificata."
@@ -75,7 +104,7 @@ msgid "\t--output, -o <file>\t\tSave status to file."
 msgstr "\t--output, -o <file>\t\tSalva lo stato sul file."
 
 msgid "\t--path <path>\t\t\tCleanup all configs affecting path."
-msgstr ""
+msgstr "\t--path <path>\t\t\tPulisci tutte le configurazioni che interessano il percorso."
 
 msgid "\t--pre-number <number>\t\tNumber of corresponding pre snapshot."
 msgstr "\t--pre-number <numero>\t\tNumero della pre-istantanea corrispondente."
@@ -113,6 +142,9 @@ msgstr "\t--template, -t <nome>\t\tNome del modello di configurazione da usare."
 msgid "\t--type, -t <type>\t\tType for snapshot."
 msgstr "\t--type, -t <tipo>\t\tTipo per l'istantanea."
 
+msgid "\t--type, -t <type>\t\tType of snapshots to list."
+msgstr "\t--type, -t <tipo>\t\tTipo di istantanee da elencare."
+
 msgid "\t--userdata, -u <userdata>\tUserdata for snapshot."
 msgstr "\t--userdata, -u <datiutente>\tDati utente per l'istantanea."
 
@@ -146,6 +178,15 @@ msgstr "\tsnapper delete-config"
 msgid "\tsnapper diff <number1>..<number2> [files]"
 msgstr "\tsnapper diff <numero1>..<numero2> [vari file]"
 
+msgid "\tsnapper get-config"
+msgstr "\tsnapper get-config"
+
+msgid "\tsnapper list"
+msgstr "\tsnapper list"
+
+msgid "\tsnapper list-configs"
+msgstr "\tsnapper list-configs"
+
 msgid "\tsnapper modify <number>"
 msgstr "\tsnapper modify <numero>"
 
@@ -176,9 +217,8 @@ msgstr "\tsnapper xadiff <numero1>..<numero2> [vari file]"
 msgid "    Global options:"
 msgstr "    Opzioni globali:"
 
-#, fuzzy
 msgid "    Options for 'cleanup' command:"
-msgstr "    Opzioni per il comando 'create':"
+msgstr "    Opzioni per il comando 'cleanup':"
 
 msgid "    Options for 'create' command:"
 msgstr "    Opzioni per il comando 'create':"
@@ -191,6 +231,21 @@ msgstr "    Opzioni per il comando 'delete':"
 
 msgid "    Options for 'diff' command:"
 msgstr "    Opzioni per il comando 'diff':"
+
+msgid "    Options for 'get-config' command:"
+msgstr "    Opzioni per il comando 'get-config':"
+
+msgid "    Options for 'list' command:"
+msgstr "    Opzioni per il comando 'list':"
+
+msgid ""
+"    Options for 'list-configs' command:\n"
+"\t--columns <columns>\t\tColumns to show separated by comma.\n"
+"\t\t\t\t\tPossible columns: config, subvolume.\n"
+msgstr ""
+"    Opzioni per il comando 'list-configs':\n"
+"\t--columns <columns>\t\tColonne da mostrare separate da virgola.\n"
+"\t\t\t\t\tPossibili colonne: config, subvolume.\n"
 
 msgid "    Options for 'modify' command:"
 msgstr "    Opzioni per il comando 'modify':"
@@ -225,6 +280,15 @@ msgstr "  Eliminazione configurazione:"
 msgid "  Delete snapshot:"
 msgstr "  Eliminazione istantanee:"
 
+msgid "  Get config:"
+msgstr "  Ottenimento configurazione:"
+
+msgid "  List configs:"
+msgstr "  Elenco configurazioni:"
+
+msgid "  List snapshots:"
+msgstr "  Elenco istantanee:"
+
 msgid "  Modify snapshot:"
 msgstr "  Modifica istantanee:"
 
@@ -246,19 +310,22 @@ msgstr "  Smontaggio istantanea:"
 msgid "  Undo changes:"
 msgstr "  Ripristina le modifiche:"
 
+msgid "#"
+msgstr "#"
+
 #. TRANSLATORS: used to construct list of values
 #. %1$s is replaced by first value
 #. %2$s is replaced by second value
 #, c-format
 msgid "%1$s or %2$s"
-msgstr ""
+msgstr "%1$s o %2$s"
 
 #. TRANSLATORS: used to construct list of values
 #. %1$s is replaced by first value
 #. %2$s is replaced by second value
 #, c-format
 msgid "%1$s, %2$s"
-msgstr ""
+msgstr "%1$s, %2$s"
 
 #, c-format
 msgid "(Snapshot %d.)"
@@ -267,6 +334,9 @@ msgstr "(Istantanea %d.)"
 # error box title
 msgid "ACL error."
 msgstr "Errore ACL."
+
+msgid "Active"
+msgstr "Attiva"
 
 msgid "Active snapshot is already default snapshot."
 msgstr "L'istantanea attiva è già la predefinita."
@@ -297,6 +367,9 @@ msgstr "Impossibile rilevare l'ambito perché il sotto-volume è sconosciuto."
 msgid "Cannot do rollback since default subvolume is unknown."
 msgstr "Impossibile effettuare il ripristino perché il sotto-volume predefinito è sconosciuto."
 
+msgid "Cleanup"
+msgstr "Pulitura"
+
 msgid "Command 'cleanup' needs one arguments."
 msgstr "Il comando 'cleanup' richiede un argomento."
 
@@ -318,8 +391,17 @@ msgstr "Il comando 'delete-config' non richiede argomenti."
 msgid "Command 'diff' needs at least one argument."
 msgstr "Il comando 'diff' richiede almeno un argomento."
 
+msgid "Command 'get-config' does not take arguments."
+msgstr "Il comando 'get-config' non richiede argomenti."
+
 msgid "Command 'help' does not take arguments."
 msgstr "Il comando 'help' non richiede argomenti."
+
+msgid "Command 'list' does not take arguments."
+msgstr "Il comando 'list' non richiede argomenti."
+
+msgid "Command 'list-configs' does not take arguments."
+msgstr "Il comando 'list-configs' non richiede argomenti."
 
 msgid "Command 'modify' needs at least one argument."
 msgstr "Il comando 'modify' richiede almeno un argomento."
@@ -355,6 +437,9 @@ msgstr "Il comando 'undochange' richiede almeno un argomento."
 msgid "Command 'xadiff' needs at least one argument."
 msgstr "Il comando 'xadiff' richiede almeno un argomento."
 
+msgid "Config"
+msgstr "Configurazione"
+
 #, c-format
 msgid "Config '%s' is invalid."
 msgstr "Configurazione '%s' non valida."
@@ -379,10 +464,10 @@ msgstr "Il dato di configurazione '%s' ha la chiave vuota."
 
 #, c-format
 msgid "Could not make enough free space available for path '%s'."
-msgstr ""
+msgstr "Impossibile creare abbastanza spazio libero disponibile per il percorso '%s'."
 
 msgid "Could not make enough free space available."
-msgstr ""
+msgstr "Impossibile creare abbastanza spazio libero disponibile."
 
 #, c-format
 msgid "Creating config failed (%s)."
@@ -404,6 +489,12 @@ msgstr "Creazione di un'istantanea in lettura/scrittura dell'istantanea %d."
 msgid "Creating snapshot failed."
 msgstr "Creazione dell'istantanea fallita."
 
+msgid "Date"
+msgstr "Data"
+
+msgid "Default"
+msgstr "Predefinito"
+
 #, c-format
 msgid "Deleting config failed (%s)."
 msgstr "Eliminazione della configurazione fallita (%s)."
@@ -417,17 +508,19 @@ msgid_plural "Deleting snapshots from %s:"
 msgstr[0] "Eliminazione dello snapshot da %s:"
 msgstr[1] "Eliminazione degli snapshot da %s:"
 
+msgid "Description"
+msgstr "Descrizione"
+
 msgid "Detecting filesystem type failed."
 msgstr "Rilevamento del tipo di file system fallito."
 
 #. TRANSLATORS: symbol for "exa" (best keep untranslated)
 msgid "E"
-msgstr ""
+msgstr "E"
 
 #. TRANSLATORS: symbol for "exa bytes" (best keep untranslated)
-#, fuzzy
 msgid "EB"
-msgstr "EiB"
+msgstr "EB"
 
 #. TRANSLATORS: symbol for "exbi bytes" (best keep untranslated)
 msgid "EiB"
@@ -446,17 +539,16 @@ msgstr "Errore (%s)."
 msgid "Failed to initialize filesystem handler."
 msgstr "Errore nell'inizializzazione del gestore del file system."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to parse '%s'."
-msgstr "creazione di %s fallita"
+msgstr "Impossibile analizzare '%s'."
 
 #, c-format
 msgid "Failed to query free space for path '%s'."
-msgstr ""
+msgstr "Impossibile interrogare lo spazio libero per il percorso '%s'."
 
-#, fuzzy
 msgid "Failed to query free space."
-msgstr "creazione di %s fallita"
+msgstr "Impossibile interrogare lo spazio libero."
 
 msgid "Failed to set locale. Fix your system."
 msgstr "Impossibile impostare la localizzazione. Correggere il sistema."
@@ -478,12 +570,11 @@ msgstr "Errore di spazio libero (%s)."
 
 #. TRANSLATORS: symbol for "giga" (best keep untranslated)
 msgid "G"
-msgstr ""
+msgstr "G"
 
 #. TRANSLATORS: symbol for "giga bytes" (best keep untranslated)
-#, fuzzy
 msgid "GB"
-msgstr "GiB"
+msgstr "GB"
 
 #. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
 msgid "GiB"
@@ -507,23 +598,26 @@ msgstr "Istantanea illegale."
 msgid "Invalid ambit '%s'."
 msgstr "Ambito '%s' non valido."
 
+#, c-format
+msgid "Invalid column '%s'."
+msgstr "Colonna '%s' non valida."
+
 msgid "Invalid configdata."
 msgstr "Dati di configurazione non validi."
 
-#, fuzzy
 msgid "Invalid free-space value."
-msgstr "Sottovolume non valido."
+msgstr "Valore dello spazio libero non valido."
 
 msgid "Invalid group."
 msgstr "Gruppo non valido."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid machine readable format '%s'."
-msgstr "Formato leggibile dalla macchina %s non valido."
+msgstr "Formato leggibile dalla macchina '%s' non valido."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid path '%s'."
-msgstr "Ambito '%s' non valido."
+msgstr "Percorso '%s' non valido."
 
 #, c-format
 msgid "Invalid snapshot '%s'."
@@ -535,15 +629,18 @@ msgstr "Istantanee non valide."
 msgid "Invalid subvolume."
 msgstr "Sottovolume non valido."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid table style '%s'."
-msgstr "Stile tabella %s non valido."
+msgstr "Stile della tabella '%s' non valido."
 
 msgid "Invalid user."
 msgstr "Utente non valido."
 
 msgid "Invalid userdata."
 msgstr "Dati utente non validi."
+
+msgid "Key"
+msgstr "Chiave"
 
 #. TRANSLATORS: symbol for "kibi bytes" (best keep untranslated)
 msgid "KiB"
@@ -555,12 +652,11 @@ msgstr "Elenco dei file di configurazione fallito (%s)."
 
 #. TRANSLATORS: symbol for "mega" (best keep untranslated)
 msgid "M"
-msgstr ""
+msgstr "M"
 
 #. TRANSLATORS: symbol for "mega bytes" (best keep untranslated)
-#, fuzzy
 msgid "MB"
-msgstr "MiB"
+msgstr "MB"
 
 msgid "Maybe you forgot the delimiter '..' between the snapshot numbers."
 msgstr "È possibile che si sia dimenticato il delimitatore '..' tra i numeri di snapshot."
@@ -577,9 +673,8 @@ msgstr "Argomento mancante per l'opzione di comando '%s'."
 msgid "Missing argument for global option '%s'."
 msgstr "Argomento mancante per l'opzione globale '%s'."
 
-#, fuzzy
 msgid "Missing command option."
-msgstr "Argomento del comando mancante."
+msgstr "Opzione del comando mancante."
 
 msgid "Missing delimiter '..' between snapshot numbers."
 msgstr "Delimitatore '..' mancante tra i numeri di snapshot."
@@ -605,16 +700,27 @@ msgstr "Opzione --read-write supportata solo per istantanee di tipo singolo."
 
 #. TRANSLATORS: symbol for "peta" (best keep untranslated)
 msgid "P"
-msgstr ""
+msgstr "P"
 
 #. TRANSLATORS: symbol for "peta bytes" (best keep untranslated)
-#, fuzzy
 msgid "PB"
-msgstr "PiB"
+msgstr "PB"
 
 #. TRANSLATORS: symbol for "pebi bytes" (best keep untranslated)
 msgid "PiB"
 msgstr "PiB"
+
+msgid "Post #"
+msgstr "Post #"
+
+msgid "Post Date"
+msgstr "Post data"
+
+msgid "Pre #"
+msgstr "Pre #"
+
+msgid "Pre Date"
+msgstr "Pre data"
 
 #, c-format
 msgid "Quota error (%s)."
@@ -634,14 +740,16 @@ msgstr "Istantanea '%u' non trovata."
 msgid "Snapshot is in use."
 msgstr "L'istantanea è in uso."
 
+msgid "Subvolume"
+msgstr "Sottovolume"
+
 #. TRANSLATORS: symbol for "tera" (best keep untranslated)
 msgid "T"
-msgstr ""
+msgstr "T"
 
 #. TRANSLATORS: symbol for "tera bytes" (best keep untranslated)
-#, fuzzy
 msgid "TB"
-msgstr "TiB"
+msgstr "TB"
 
 msgid "The ambit can be specified manually using the --ambit option."
 msgstr "L'ambito può essere specificato manualmente usando l'opzione --ambit."
@@ -658,6 +766,9 @@ msgstr "TiB"
 
 msgid "Try 'snapper --help' for more information."
 msgstr "Per ulteriori informazioni, usare 'snapper --help'."
+
+msgid "Type"
+msgstr "Tipo"
 
 #, c-format
 msgid "Unknown cleanup algorithm '%s'."
@@ -678,19 +789,28 @@ msgstr "Opzione globale '%s' sconosciuta."
 msgid "Unknown option '%s' for command '%s'."
 msgstr "Opzione '%s' sconosciuta per il comando '%s'."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown type '%s'."
-msgstr "Comando '%s' sconosciuto."
+msgstr "Tipo '%s' sconosciuto."
 
 #. TRANSLATORS: a list of possible values
 #. %1$s is replaced by list of possible values
 #, c-format
 msgid "Use %1$s."
-msgstr ""
+msgstr "Usare %1$s."
 
 #, c-format
 msgid "Use an integer number from %d to %d."
 msgstr "Usare un numero intero da %d a %d."
+
+msgid "Used Space"
+msgstr "Spazio utilizzato"
+
+msgid "User"
+msgstr "Utente"
+
+msgid "Userdata"
+msgstr "Dati utente"
 
 #, c-format
 msgid "Userdata '%s' does not include '=' sign."
@@ -699,6 +819,9 @@ msgstr "Il dato utente '%s' non contiene il simbolo '='."
 #, c-format
 msgid "Userdata '%s' has empty key."
 msgstr "Il dato utente '%s' ha la chiave vuota."
+
+msgid "Value"
+msgstr "Valore"
 
 #, c-format
 msgid "create:%d modify:%d delete:%d"
@@ -726,30 +849,32 @@ msgstr "modifica di %s fallita"
 
 #. TRANSLATORS: symbol for "kilo" (best keep untranslated)
 msgid "k"
-msgstr ""
+msgstr "k"
 
 #. TRANSLATORS: symbol for "kilo bytes" (best keep untranslated)
-#, fuzzy
 msgid "kB"
-msgstr "B"
+msgstr "kB"
 
 #, c-format
 msgid "modifying %s"
 msgstr "modifica di %s"
 
+msgid "no"
+msgstr "no"
+
 msgid "nothing to do"
 msgstr "nessuna operazione da eseguire"
 
-#, fuzzy
 msgid "root argument can be used only together with no-dbus.\n"
-msgstr ""
-"L'argomento principale può essere utilizzato solo unitamente a no-dbus.\n"
-"Vedere 'snapper --help' per ulteriori informazioni."
+msgstr "l'argomento principale può essere utilizzato solo unitamente a no-dbus.\n"
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr ""
 "Uso:\n"
 "\tsnapper [--opzioni-globali] <comando> [--opzioni-del-comando] [argomenti-del-comando]"
+
+msgid "yes"
+msgstr "sì"
 
 #~ msgid "Unknown type of snapshot."
 #~ msgstr "Tipo di istantanea sconosciuto."
@@ -758,95 +883,8 @@ msgstr ""
 #~ msgid "Use %s, %s or %s."
 #~ msgstr "Usare %s, %s o %s."
 
-#~ msgid "\t--all-configs, -a\t\tList snapshots from all accessible configs."
-#~ msgstr "\t--all-configs, -a\t\tElenca gli shapshot da tutte le configurazioni accessibili."
-
-#~ msgid "\t--disable-used-space\t\tDisable showing used space."
-#~ msgstr "\t--disable-used-space\t\tDisabilita la visualizzazione dello spazio utilizzato."
-
-#~ msgid "\t--type, -t <type>\t\tType of snapshots to list."
-#~ msgstr "\t--type, -t <tipo>\t\tTipo di istantanee da elencare."
-
-#~ msgid "\tsnapper get-config"
-#~ msgstr "\tsnapper get-config"
-
-#~ msgid "\tsnapper list"
-#~ msgstr "\tsnapper list"
-
-#~ msgid "\tsnapper list-configs"
-#~ msgstr "\tsnapper list-configs"
-
-#~ msgid "    Options for 'list' command:"
-#~ msgstr "    Opzioni per il comando 'list':"
-
-#~ msgid "  Get config:"
-#~ msgstr "  Ottenimento configurazione:"
-
-#~ msgid "  List configs:"
-#~ msgstr "  Elenco configurazioni:"
-
-#~ msgid "  List snapshots:"
-#~ msgstr "  Elenco istantanee:"
-
-#~ msgid "#"
-#~ msgstr "#"
-
-#~ msgid "Cleanup"
-#~ msgstr "Pulitura"
-
-#~ msgid "Command 'get-config' does not take arguments."
-#~ msgstr "Il comando 'get-config' non richiede argomenti."
-
-#~ msgid "Command 'list' does not take arguments."
-#~ msgstr "Il comando 'list' non richiede argomenti."
-
-#~ msgid "Command 'list-configs' does not take arguments."
-#~ msgstr "Il comando 'list-configs' non richiede argomenti."
-
-#~ msgid "Config"
-#~ msgstr "Configurazione"
-
-#~ msgid "Date"
-#~ msgstr "Data"
-
-#~ msgid "Description"
-#~ msgstr "Descrizione"
-
-#~ msgid "Key"
-#~ msgstr "Chiave"
-
-#~ msgid "Post #"
-#~ msgstr "Post #"
-
-#~ msgid "Post Date"
-#~ msgstr "Post data"
-
-#~ msgid "Pre #"
-#~ msgstr "Pre #"
-
-#~ msgid "Pre Date"
-#~ msgstr "Pre data"
-
-#~ msgid "Subvolume"
-#~ msgstr "Sottovolume"
-
-#~ msgid "Type"
-#~ msgstr "Tipo"
-
 #~ msgid "Unknown type of snapshots."
 #~ msgstr "Tipo sconosciuto di istantanee."
-
-#~ msgid "Used Space"
-#~ msgstr "Spazio utilizzato"
-
-#~ msgid "User"
-#~ msgstr "Utente"
-
-#~ msgid "Userdata"
-#~ msgstr "Dati utente"
-
-#~ msgid "Value"
-#~ msgstr "Valore"
 
 #~ msgid "Quota failure (%s)."
 #~ msgstr "Avaria quota (%s)."

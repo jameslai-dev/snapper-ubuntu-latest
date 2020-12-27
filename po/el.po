@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-23 10:33+0200\n"
+"POT-Creation-Date: 2020-12-17 13:34+0100\n"
 "PO-Revision-Date: 2020-09-18 20:48+0000\n"
 "Last-Translator: Arvin Schnell <aschnell@suse.com>\n"
 "Language-Team: Greek <https://l10n.opensuse.org/projects/snapper/master/el/>\n"
@@ -19,6 +19,12 @@ msgstr ""
 "X-Generator: Weblate 3.6.1\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
+msgid "\t--abbreviate\t\t\tAllow to abbreviate table columns."
+msgstr ""
+
+msgid "\t--all-configs, -a\t\tList snapshots from all accessible configs."
+msgstr "\t--all-configs, -a\t\tΕμφανίζει τα στιγμιότυπα από όλες τις προσβάσιμες ρυθμίσεις."
+
 msgid "\t--ambit, -a ambit\t\tOperate in the specified ambit."
 msgstr ""
 
@@ -27,6 +33,19 @@ msgstr "\t--cleanup-algorithm, -c <algo>\t\tΑλγόριθμος εκκαθάρ�
 
 msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshots."
 msgstr "\t--cleanup-algorithm, -c <algo>\tΑλγόρυθμος εκκαθάρισης για τα στιγμιότυπα."
+
+msgid ""
+"\t--columns <columns>\t\tColumns to show separated by comma.\n"
+"\t\t\t\t\tPossible columns: config, subvolume, number, default, active,\n"
+"\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
+"\t\t\t\t\tpre-number, post-number, post-date."
+msgstr ""
+
+msgid ""
+"\t--columns <columns>\t\tColumns to show separated by comma.\n"
+"\t\t\t\t\tPossible columns: key, value.\n"
+"\t\t\t\t\tColumns are not selected when JSON format is used."
+msgstr ""
 
 msgid "\t--command <command>\t\tRun command and create pre and post snapshots."
 msgstr "\t--command <command>\tΕκτέλεση εντολής και δημιουργία στιγμιότυπου πριν και μετά."
@@ -45,6 +64,10 @@ msgstr "\t--description, -d <description>\tΠεριγραφή για τα στι
 
 msgid "\t--diff-cmd <command>\t\tCommand used for comparing files."
 msgstr ""
+
+#, fuzzy
+msgid "\t--disable-used-space\t\tDisable showing used space."
+msgstr "\t--disable-filters\t\tΑπενεργοποίηση φίλτρων."
 
 msgid "\t--extensions, -x <options>\tExtra options passed to the diff command."
 msgstr ""
@@ -118,6 +141,9 @@ msgstr "\t--template, -t <name>\t\tΌνομα προτύπου ρυθμίσεω�
 msgid "\t--type, -t <type>\t\tType for snapshot."
 msgstr "\t--type, -t <type>\t\tΤύπος στιγμιοτύπου."
 
+msgid "\t--type, -t <type>\t\tType of snapshots to list."
+msgstr "\t--type, -t <type>\t\tΤύπος στιγμιοτύπου για εμφάνιση."
+
 msgid "\t--userdata, -u <userdata>\tUserdata for snapshot."
 msgstr "\t--userdata, -u <userdata>\tΔεδομένα χρήστη στιγμιότυπου."
 
@@ -150,6 +176,15 @@ msgstr "\tsnapper delete-config"
 
 msgid "\tsnapper diff <number1>..<number2> [files]"
 msgstr "\tsnapper diff <number1>..<number2> [files]"
+
+msgid "\tsnapper get-config"
+msgstr "\tsnapper get-config"
+
+msgid "\tsnapper list"
+msgstr "\tsnapper list"
+
+msgid "\tsnapper list-configs"
+msgstr "\tsnapper list-configs"
 
 msgid "\tsnapper modify <number>"
 msgstr "\tsnapper modify <number>"
@@ -197,6 +232,19 @@ msgstr "    Επιλογές για την εντολή 'create':"
 msgid "    Options for 'diff' command:"
 msgstr "    Επιλογές για την εντολή 'diff' (διαφορές):"
 
+#, fuzzy
+msgid "    Options for 'get-config' command:"
+msgstr "    Επιλογές για την εντολή 'create-config':"
+
+msgid "    Options for 'list' command:"
+msgstr "    Επιλογές για την εντολή 'list':"
+
+msgid ""
+"    Options for 'list-configs' command:\n"
+"\t--columns <columns>\t\tColumns to show separated by comma.\n"
+"\t\t\t\t\tPossible columns: config, subvolume.\n"
+msgstr ""
+
 msgid "    Options for 'modify' command:"
 msgstr "    Επιλογές για την εντολή 'modify':"
 
@@ -230,6 +278,15 @@ msgstr "  Διαγραφή ρυθμίσεων:"
 msgid "  Delete snapshot:"
 msgstr "  Διαγραφή στιγμιοτύπου:"
 
+msgid "  Get config:"
+msgstr "  Λήψη ρυθμίσεων:"
+
+msgid "  List configs:"
+msgstr "  Εμφάνιση ρυθμίσεων:"
+
+msgid "  List snapshots:"
+msgstr "  Εμφάνιση στιγμιοτύπων:"
+
 msgid "  Modify snapshot:"
 msgstr "  Τροποποίηση στιγμιοτύπων:"
 
@@ -251,6 +308,9 @@ msgstr "  Αποπροσάρτηση στιγμιοτύπου:"
 msgid "  Undo changes:"
 msgstr "  Αναίρεση αλλαγών:"
 
+msgid "#"
+msgstr "#"
+
 #. TRANSLATORS: used to construct list of values
 #. %1$s is replaced by first value
 #. %2$s is replaced by second value
@@ -271,6 +331,9 @@ msgstr "(Στιγμιότυπο %d.)"
 
 msgid "ACL error."
 msgstr "Σφάλμα ACL."
+
+msgid "Active"
+msgstr ""
 
 msgid "Active snapshot is already default snapshot."
 msgstr ""
@@ -301,6 +364,9 @@ msgstr ""
 msgid "Cannot do rollback since default subvolume is unknown."
 msgstr ""
 
+msgid "Cleanup"
+msgstr "Εκκαθάριση"
+
 msgid "Command 'cleanup' needs one arguments."
 msgstr "Η εντολή 'cleanup' (εκκαθάριση) χρειάζεται μία παράμετρο."
 
@@ -322,8 +388,17 @@ msgstr "Η εντολή 'delete-config' δεν δέχεται παραμέτρο
 msgid "Command 'diff' needs at least one argument."
 msgstr "Η ενολή 'diff' χρειάζεται τουλάχιστον μια παράμετρο."
 
+msgid "Command 'get-config' does not take arguments."
+msgstr "Η εντολή 'get-config' δεν δέχεται παραμέτρους."
+
 msgid "Command 'help' does not take arguments."
 msgstr "Η εντολή 'help' δεν δέχεται παραμέτρους."
+
+msgid "Command 'list' does not take arguments."
+msgstr "Η εντολή 'list' δεν δέχεται παραμέτρους."
+
+msgid "Command 'list-configs' does not take arguments."
+msgstr "Η εντολή 'list-configs' δεν δέχεται παραμέτρους."
 
 msgid "Command 'modify' needs at least one argument."
 msgstr "Η εντολή 'modify' χρειάζεται τουλάχιστον μία παράμετρο."
@@ -358,6 +433,9 @@ msgstr "Η εντολή 'undochange' χρειάζεται τουλάχιστον
 
 msgid "Command 'xadiff' needs at least one argument."
 msgstr "Η εντολή 'xadiff' χρειάζεται τουλάχιστον μια παράμετρο."
+
+msgid "Config"
+msgstr "Ρύθμιση"
 
 #, c-format
 msgid "Config '%s' is invalid."
@@ -408,6 +486,12 @@ msgstr "Δημιουργία στιγμιοτύπου μόνο για ανάγν
 msgid "Creating snapshot failed."
 msgstr "Αποτυχία δημιουργίας στιγμιοτύπου."
 
+msgid "Date"
+msgstr "Ημερομηνία"
+
+msgid "Default"
+msgstr ""
+
 #, c-format
 msgid "Deleting config failed (%s)."
 msgstr "Αποτυχία διαγραφής ρυθμίσεων (%s)."
@@ -421,6 +505,9 @@ msgid "Deleting snapshot from %s:"
 msgid_plural "Deleting snapshots from %s:"
 msgstr[0] "Αποτυχία διαγραφής στιγμιοτύπου."
 msgstr[1] "Αποτυχία διαγραφής στιγμιοτύπου."
+
+msgid "Description"
+msgstr "Περιγραφή"
 
 msgid "Detecting filesystem type failed."
 msgstr "Απέτυχε ο εντοπισμός του τύπου συστήματος αρχείων."
@@ -516,6 +603,10 @@ msgstr "Αντικανονικό στιγμιότυπο."
 msgid "Invalid ambit '%s'."
 msgstr "Μη έγκυρο στιγμιότυπο '%s'."
 
+#, fuzzy, c-format
+msgid "Invalid column '%s'."
+msgstr "Μη έγκυρο στιγμιότυπο '%s'."
+
 msgid "Invalid configdata."
 msgstr "Μη έγκυρα δεδομένα ρυθμίσεων."
 
@@ -553,6 +644,9 @@ msgstr "Μη έγκυρος χρήστης."
 
 msgid "Invalid userdata."
 msgstr "Μη έγκυρο userdata"
+
+msgid "Key"
+msgstr "Κλειδί"
 
 #. TRANSLATORS: symbol for "kibi bytes" (best keep untranslated)
 msgid "KiB"
@@ -624,6 +718,18 @@ msgstr "PiB"
 msgid "PiB"
 msgstr "PiB"
 
+msgid "Post #"
+msgstr "Μετά #"
+
+msgid "Post Date"
+msgstr "Ημερομηνία μετά-στιγμιοτύπου"
+
+msgid "Pre #"
+msgstr "Προ #"
+
+msgid "Pre Date"
+msgstr "Ημερομηνία προ-στιγμιοτύπου"
+
 # error box title
 #, fuzzy, c-format
 msgid "Quota error (%s)."
@@ -642,6 +748,9 @@ msgstr "Δεν βρέθηκε στιγμιότυπο '%u'."
 
 msgid "Snapshot is in use."
 msgstr "Το στιγμιότυπο είναι σε χρήση."
+
+msgid "Subvolume"
+msgstr "Υποτόμος"
 
 #. TRANSLATORS: symbol for "tera" (best keep untranslated)
 msgid "T"
@@ -667,6 +776,9 @@ msgstr "TiB"
 
 msgid "Try 'snapper --help' for more information."
 msgstr "Για περισσότερες πληροφορίες δοκιμάστε 'snapper --help'."
+
+msgid "Type"
+msgstr "Τύπος"
 
 #, c-format
 msgid "Unknown cleanup algorithm '%s'."
@@ -701,6 +813,15 @@ msgstr ""
 msgid "Use an integer number from %d to %d."
 msgstr "Χρησιμοποιήστε ακαίρεο αριθμό από %d έως %d."
 
+msgid "Used Space"
+msgstr ""
+
+msgid "User"
+msgstr "Χρήστης"
+
+msgid "Userdata"
+msgstr "Δεδομένα χρήστη"
+
 #, c-format
 msgid "Userdata '%s' does not include '=' sign."
 msgstr "Δεν περιλαμβάνεται το κλειδί '=' στα δεδομένα χρήστη '%s'."
@@ -708,6 +829,9 @@ msgstr "Δεν περιλαμβάνεται το κλειδί '=' στα δεδ�
 #, c-format
 msgid "Userdata '%s' has empty key."
 msgstr "Κενό κλειδί στα δεδομένα χρήστη '%s'."
+
+msgid "Value"
+msgstr "Τιμή"
 
 #, c-format
 msgid "create:%d modify:%d delete:%d"
@@ -745,6 +869,9 @@ msgstr ""
 msgid "modifying %s"
 msgstr "τροποποίηση %s"
 
+msgid "no"
+msgstr ""
+
 msgid "nothing to do"
 msgstr "τίποτα για να γίνει"
 
@@ -754,6 +881,9 @@ msgstr "Για περισσότερες πληροφορίες δοκιμάστ�
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr "χρήση: snapper [--global-options] <command> [--command-options] [command-arguments]"
+
+msgid "yes"
+msgstr ""
 
 #, c-format
 #~ msgid "Use %s, %s or %s."
@@ -766,93 +896,8 @@ msgstr "χρήση: snapper [--global-options] <command> [--command-options] [co
 #~ msgid "Unknown type of snapshot."
 #~ msgstr "Άγνωστος τύπος στιγμιοτύπου."
 
-#~ msgid "\t--all-configs, -a\t\tList snapshots from all accessible configs."
-#~ msgstr "\t--all-configs, -a\t\tΕμφανίζει τα στιγμιότυπα από όλες τις προσβάσιμες ρυθμίσεις."
-
-#, fuzzy
-#~ msgid "\t--disable-used-space\t\tDisable showing used space."
-#~ msgstr "\t--disable-filters\t\tΑπενεργοποίηση φίλτρων."
-
-#~ msgid "\t--type, -t <type>\t\tType of snapshots to list."
-#~ msgstr "\t--type, -t <type>\t\tΤύπος στιγμιοτύπου για εμφάνιση."
-
-#~ msgid "\tsnapper get-config"
-#~ msgstr "\tsnapper get-config"
-
-#~ msgid "\tsnapper list"
-#~ msgstr "\tsnapper list"
-
-#~ msgid "\tsnapper list-configs"
-#~ msgstr "\tsnapper list-configs"
-
-#~ msgid "    Options for 'list' command:"
-#~ msgstr "    Επιλογές για την εντολή 'list':"
-
-#~ msgid "  Get config:"
-#~ msgstr "  Λήψη ρυθμίσεων:"
-
-#~ msgid "  List configs:"
-#~ msgstr "  Εμφάνιση ρυθμίσεων:"
-
-#~ msgid "  List snapshots:"
-#~ msgstr "  Εμφάνιση στιγμιοτύπων:"
-
-#~ msgid "#"
-#~ msgstr "#"
-
-#~ msgid "Cleanup"
-#~ msgstr "Εκκαθάριση"
-
-#~ msgid "Command 'get-config' does not take arguments."
-#~ msgstr "Η εντολή 'get-config' δεν δέχεται παραμέτρους."
-
-#~ msgid "Command 'list' does not take arguments."
-#~ msgstr "Η εντολή 'list' δεν δέχεται παραμέτρους."
-
-#~ msgid "Command 'list-configs' does not take arguments."
-#~ msgstr "Η εντολή 'list-configs' δεν δέχεται παραμέτρους."
-
-#~ msgid "Config"
-#~ msgstr "Ρύθμιση"
-
-#~ msgid "Date"
-#~ msgstr "Ημερομηνία"
-
-#~ msgid "Description"
-#~ msgstr "Περιγραφή"
-
-#~ msgid "Key"
-#~ msgstr "Κλειδί"
-
-#~ msgid "Post #"
-#~ msgstr "Μετά #"
-
-#~ msgid "Post Date"
-#~ msgstr "Ημερομηνία μετά-στιγμιοτύπου"
-
-#~ msgid "Pre #"
-#~ msgstr "Προ #"
-
-#~ msgid "Pre Date"
-#~ msgstr "Ημερομηνία προ-στιγμιοτύπου"
-
-#~ msgid "Subvolume"
-#~ msgstr "Υποτόμος"
-
-#~ msgid "Type"
-#~ msgstr "Τύπος"
-
 #~ msgid "Unknown type of snapshots."
 #~ msgstr "Άγνωστος τύπος στιγμιοτύπων."
-
-#~ msgid "User"
-#~ msgstr "Χρήστης"
-
-#~ msgid "Userdata"
-#~ msgstr "Δεδομένα χρήστη"
-
-#~ msgid "Value"
-#~ msgstr "Τιμή"
 
 #, fuzzy
 #~ msgid "Quota failure (%s)."

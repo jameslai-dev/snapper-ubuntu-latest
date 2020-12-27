@@ -1,5 +1,5 @@
 /*
- * Copyright (c) [2019] SUSE LLC
+ * Copyright (c) 2020 SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -19,38 +19,37 @@
  * find current contact information at www.novell.com.
  */
 
-#ifndef SNAPPER_CLI_COMMAND_LIST_CONFIGS_SNAPPERS_DATA_JSON_H
-#define SNAPPER_CLI_COMMAND_LIST_CONFIGS_SNAPPERS_DATA_JSON_H
 
-#include <vector>
+// This tiny file is separated from AppUtil.cc to allow setting specific
+// defines. Unsetting _GNU_SOURCE in AppUtil.cc causes may errors. See
+// https://github.com/openSUSE/snapper/pull/581.
+
+// Defines to get the XSI-compliant strerror_r.
+#define _POSIX_C_SOURCE 200809L
+#undef _GNU_SOURCE
+
+#include <string.h>
 #include <string>
 
-#include "client/Command/ListConfigs/SnappersData.h"
-#include "client/proxy.h"
 
 namespace snapper
 {
-    namespace cli
+    using namespace std;
+
+
+    string
+    stringerror(int errnum)
     {
+	char buf[128];
 
-	class Command::ListConfigs::SnappersData::Json : public Command::ListConfigs::SnappersData
-	{
+	// The assignment to int is a safety net that breaks with the GNU version of
+	// strerror_r (which returns char*).
 
-	public:
+	int r = strerror_r(errnum, buf, sizeof(buf) - 1);
+	if (r != 0)
+	    return string("strerror_r failed");
 
-	    using Command::ListConfigs::SnappersData::SnappersData;
-
-	    virtual std::string output() const override;
-
-	private:
-
-	    std::string snappers_json() const;
-
-	    std::string snapper_json(ProxySnapper* snapper) const;
-
-	};
-
+	return string(buf);
     }
-}
 
-#endif
+}

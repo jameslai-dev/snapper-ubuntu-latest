@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-23 10:33+0200\n"
+"POT-Creation-Date: 2020-12-17 13:34+0100\n"
 "PO-Revision-Date: 2017-10-29 20:52+0000\n"
 "Last-Translator: strahil nikolov <hunter86_bg@yahoo.com>\n"
 "Language-Team: Bulgarian <https://l10n.opensuse.org/projects/snapper/master/bg/>\n"
@@ -13,6 +13,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.13.1\n"
 
+msgid "\t--abbreviate\t\t\tAllow to abbreviate table columns."
+msgstr ""
+
+msgid "\t--all-configs, -a\t\tList snapshots from all accessible configs."
+msgstr "\t--all-configs, -a Покажи всички снапшоти от всички достъпни конфигурационни файлове."
+
 msgid "\t--ambit, -a ambit\t\tOperate in the specified ambit."
 msgstr ""
 
@@ -20,6 +26,19 @@ msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshot."
 msgstr ""
 
 msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshots."
+msgstr ""
+
+msgid ""
+"\t--columns <columns>\t\tColumns to show separated by comma.\n"
+"\t\t\t\t\tPossible columns: config, subvolume, number, default, active,\n"
+"\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
+"\t\t\t\t\tpre-number, post-number, post-date."
+msgstr ""
+
+msgid ""
+"\t--columns <columns>\t\tColumns to show separated by comma.\n"
+"\t\t\t\t\tPossible columns: key, value.\n"
+"\t\t\t\t\tColumns are not selected when JSON format is used."
 msgstr ""
 
 msgid "\t--command <command>\t\tRun command and create pre and post snapshots."
@@ -38,6 +57,9 @@ msgid "\t--description, -d <description>\tDescription for snapshots."
 msgstr ""
 
 msgid "\t--diff-cmd <command>\t\tCommand used for comparing files."
+msgstr ""
+
+msgid "\t--disable-used-space\t\tDisable showing used space."
 msgstr ""
 
 msgid "\t--extensions, -x <options>\tExtra options passed to the diff command."
@@ -112,6 +134,9 @@ msgstr ""
 msgid "\t--type, -t <type>\t\tType for snapshot."
 msgstr ""
 
+msgid "\t--type, -t <type>\t\tType of snapshots to list."
+msgstr ""
+
 msgid "\t--userdata, -u <userdata>\tUserdata for snapshot."
 msgstr ""
 
@@ -143,6 +168,15 @@ msgid "\tsnapper delete-config"
 msgstr ""
 
 msgid "\tsnapper diff <number1>..<number2> [files]"
+msgstr ""
+
+msgid "\tsnapper get-config"
+msgstr ""
+
+msgid "\tsnapper list"
+msgstr ""
+
+msgid "\tsnapper list-configs"
 msgstr ""
 
 msgid "\tsnapper modify <number>"
@@ -191,6 +225,18 @@ msgstr ""
 msgid "    Options for 'diff' command:"
 msgstr ""
 
+msgid "    Options for 'get-config' command:"
+msgstr ""
+
+msgid "    Options for 'list' command:"
+msgstr ""
+
+msgid ""
+"    Options for 'list-configs' command:\n"
+"\t--columns <columns>\t\tColumns to show separated by comma.\n"
+"\t\t\t\t\tPossible columns: config, subvolume.\n"
+msgstr ""
+
 msgid "    Options for 'modify' command:"
 msgstr ""
 
@@ -230,6 +276,21 @@ msgstr ""
 msgid "  Delete snapshot:"
 msgstr ""
 
+#, fuzzy
+msgid "  Get config:"
+msgstr ""
+"%s - създаване на файлове с настройки за PAM\n"
+"\n"
+
+#, fuzzy
+msgid "  List configs:"
+msgstr ""
+"%s - създаване на файлове с настройки за PAM\n"
+"\n"
+
+msgid "  List snapshots:"
+msgstr ""
+
 msgid "  Modify snapshot:"
 msgstr ""
 
@@ -254,6 +315,9 @@ msgstr ""
 msgid "  Undo changes:"
 msgstr ""
 
+msgid "#"
+msgstr ""
+
 #. TRANSLATORS: used to construct list of values
 #. %1$s is replaced by first value
 #. %2$s is replaced by second value
@@ -276,6 +340,9 @@ msgstr "Хостът %s не бе открит."
 #, fuzzy
 msgid "ACL error."
 msgstr "Входно/Изходна грешка"
+
+msgid "Active"
+msgstr ""
 
 msgid "Active snapshot is already default snapshot."
 msgstr ""
@@ -307,6 +374,9 @@ msgstr ""
 msgid "Cannot do rollback since default subvolume is unknown."
 msgstr ""
 
+msgid "Cleanup"
+msgstr ""
+
 msgid "Command 'cleanup' needs one arguments."
 msgstr ""
 
@@ -328,7 +398,16 @@ msgstr ""
 msgid "Command 'diff' needs at least one argument."
 msgstr ""
 
+msgid "Command 'get-config' does not take arguments."
+msgstr ""
+
 msgid "Command 'help' does not take arguments."
+msgstr ""
+
+msgid "Command 'list' does not take arguments."
+msgstr ""
+
+msgid "Command 'list-configs' does not take arguments."
 msgstr ""
 
 msgid "Command 'modify' needs at least one argument."
@@ -364,6 +443,10 @@ msgstr ""
 
 msgid "Command 'xadiff' needs at least one argument."
 msgstr ""
+
+#, fuzzy
+msgid "Config"
+msgstr "kdmconfig"
 
 #, fuzzy, c-format
 msgid "Config '%s' is invalid."
@@ -416,6 +499,13 @@ msgstr ""
 msgid "Creating snapshot failed."
 msgstr ""
 
+#, fuzzy
+msgid "Date"
+msgstr "Имена на машините"
+
+msgid "Default"
+msgstr ""
+
 # %s is either BOOTP or DHCP
 #, fuzzy, c-format
 msgid "Deleting config failed (%s)."
@@ -432,6 +522,9 @@ msgid "Deleting snapshot from %s:"
 msgid_plural "Deleting snapshots from %s:"
 msgstr[0] "Настройването чрез %s бе неуспешно."
 msgstr[1] "Настройването чрез %s бе неуспешно."
+
+msgid "Description"
+msgstr "Описание"
 
 msgid "Detecting filesystem type failed."
 msgstr ""
@@ -530,6 +623,10 @@ msgstr "Настройването чрез %s бе неуспешно."
 msgid "Invalid ambit '%s'."
 msgstr "Невалиден вход."
 
+#, fuzzy, c-format
+msgid "Invalid column '%s'."
+msgstr "Невалиден вход."
+
 #, fuzzy
 msgid "Invalid configdata."
 msgstr "Невалиден вход."
@@ -569,6 +666,11 @@ msgstr "Невалиден вход."
 
 msgid "Invalid userdata."
 msgstr ""
+
+# KE
+#, fuzzy
+msgid "Key"
+msgstr "Кения"
 
 #. TRANSLATORS: symbol for "kibi bytes" (best keep untranslated)
 msgid "KiB"
@@ -642,6 +744,21 @@ msgstr ""
 msgid "PiB"
 msgstr ""
 
+#, fuzzy
+msgid "Post #"
+msgstr "Имена на машините"
+
+#, fuzzy
+msgid "Post Date"
+msgstr "Имена на машините"
+
+msgid "Pre #"
+msgstr ""
+
+#, fuzzy
+msgid "Pre Date"
+msgstr "Имена на машините"
+
 # error box title
 #, fuzzy, c-format
 msgid "Quota error (%s)."
@@ -662,6 +779,9 @@ msgstr "Хостът %s не бе открит."
 #, fuzzy
 msgid "Snapshot is in use."
 msgstr "Хостът %s не бе открит."
+
+msgid "Subvolume"
+msgstr ""
 
 #. TRANSLATORS: symbol for "tera" (best keep untranslated)
 msgid "T"
@@ -687,6 +807,9 @@ msgstr ""
 #, fuzzy
 msgid "Try 'snapper --help' for more information."
 msgstr "За повече информация опитайте  `%s --help' или`%s --usage'.\n"
+
+msgid "Type"
+msgstr "Тип"
 
 #, fuzzy, c-format
 msgid "Unknown cleanup algorithm '%s'."
@@ -722,6 +845,16 @@ msgstr ""
 msgid "Use an integer number from %d to %d."
 msgstr ""
 
+msgid "Used Space"
+msgstr ""
+
+msgid "User"
+msgstr ""
+
+#, fuzzy
+msgid "Userdata"
+msgstr " "
+
 #, c-format
 msgid "Userdata '%s' does not include '=' sign."
 msgstr ""
@@ -729,6 +862,9 @@ msgstr ""
 #, c-format
 msgid "Userdata '%s' has empty key."
 msgstr ""
+
+msgid "Value"
+msgstr "Стойност"
 
 #, c-format
 msgid "create:%d modify:%d delete:%d"
@@ -766,6 +902,9 @@ msgstr ""
 msgid "modifying %s"
 msgstr ""
 
+msgid "no"
+msgstr ""
+
 #, fuzzy
 msgid "nothing to do"
 msgstr "без действие"
@@ -777,40 +916,12 @@ msgstr "За повече информация опитайте  `%s --help' и�
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr ""
 
-#~ msgid "\t--all-configs, -a\t\tList snapshots from all accessible configs."
-#~ msgstr "\t--all-configs, -a Покажи всички снапшоти от всички достъпни конфигурационни файлове."
-
-#, fuzzy
-#~ msgid "  Get config:"
-#~ msgstr ""
-#~ "%s - създаване на файлове с настройки за PAM\n"
-#~ "\n"
-
-#, fuzzy
-#~ msgid "Config"
-#~ msgstr "kdmconfig"
-
-#~ msgid "Description"
-#~ msgstr "Описание"
-
-# KE
-#, fuzzy
-#~ msgid "Key"
-#~ msgstr "Кения"
-
-#, fuzzy
-#~ msgid "Post Date"
-#~ msgstr "Имена на машините"
-
-#~ msgid "Type"
-#~ msgstr "Тип"
+msgid "yes"
+msgstr ""
 
 #, fuzzy
 #~ msgid "Unknown type of snapshots."
 #~ msgstr "Неизвестно мрежово състояние"
-
-#~ msgid "Value"
-#~ msgstr "Стойност"
 
 #, fuzzy
 #~ msgid "Quota failure (%s)."
