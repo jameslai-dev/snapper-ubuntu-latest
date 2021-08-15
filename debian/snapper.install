@@ -1,4 +1,3 @@
-etc/dbus-1/
 etc/default/snapper
 etc/logrotate.d/snapper
 etc/snapper

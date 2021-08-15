@@ -1,3 +1,18 @@
+snapper (0.9.0-1) unstable; urgency=medium
+
+  * New upstream release
+  * debian/watch
+    - update to new pattern format for github
+  * debian/control
+    - Set Standards-Version: 4.5.1
+  * debian/patches
+    - Delete: 0006-Run-check-for-JSONC-whether-with_zypp-is-enable-or-n.patch
+    - Refresh it
+  * debian/rules
+    - Drop unnecessary override_dh_missing
+
+ -- Hideki Yamane <henrich@debian.org>  Sun, 15 Aug 2021 13:44:28 +0900
+
 snapper (0.8.15-1) unstable; urgency=medium
 
   * New upstream release

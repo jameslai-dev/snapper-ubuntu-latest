@@ -1,4 +1,42 @@
 -------------------------------------------------------------------
+Fri Apr 09 15:23:14 CEST 2021 - aschnell@suse.com
+
+- improved error handling (see gh#openSUSE/snapper#626)
+- version 0.9.0
+
+-------------------------------------------------------------------
+Thu Apr 08 14:05:19 CEST 2021 - aschnell@suse.com
+
+- move org.opensuse.Snapper.conf from /etc to /usr (bsc#1183398 and
+  gh#openSUSE/snapper#492)
+- run boot.service iff root config exists (gh#openSUSE/snapper#630)
+
+-------------------------------------------------------------------
+Wed Apr 07 10:24:33 CEST 2021 - aschnell@suse.com
+
+- avoid redundant quota rescans for same btrfs (see
+  gh#openSUSE/snapper#507)
+- allow absolute sizes for SPACE_LIMIT and FREE_LIMIT
+  (gh#openSUSE/snapper#507)
+
+-------------------------------------------------------------------
+Fri Mar 19 10:30:06 CET 2021 - aschnell@suse.com
+
+- fixed creating root config (root prefix handling)
+  (gh#openSUSE/snapper#627)
+- version 0.8.16
+
+-------------------------------------------------------------------
+Wed Mar 10 09:53:11 CET 2021 - aschnell@suse.com
+
+- updated translations (bsc#1149754)
+
+-------------------------------------------------------------------
+Mon Jan 25 11:29:45 CET 2021 - aschnell@suse.com
+
+- fixed testsuite for equal-date (gh#openSUSE/snapper#526)
+
+-------------------------------------------------------------------
 Thu Dec 17 12:20:59 CET 2020 - aschnell@suse.com
 
 - added option to abbreviate columns in table (see

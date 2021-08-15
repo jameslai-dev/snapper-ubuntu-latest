@@ -7,11 +7,11 @@ Already sent PR to upstream
  doc/snapper-configs.xml.in | 6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/doc/snapper-configs.xml.in b/doc/snapper-configs.xml.in
-index e81f101..3ea959c 100644
---- a/doc/snapper-configs.xml.in
-+++ b/doc/snapper-configs.xml.in
-@@ -134,7 +134,7 @@
+Index: snapper/doc/snapper-configs.xml.in
+===================================================================
+--- snapper.orig/doc/snapper-configs.xml.in
++++ snapper/doc/snapper-configs.xml.in
+@@ -137,7 +137,7 @@
  	<listitem>
  	  <para>Defines whether the number cleanup algorithm should be run for
  	  the config.</para>
@@ -20,7 +20,7 @@ index e81f101..3ea959c 100644
  	</listitem>
        </varlistentry>
  
-@@ -178,7 +178,7 @@
+@@ -181,7 +181,7 @@
  	  <para>Together with the timeline cleanup algorithm this will create
  	  a collection of snapshots with more snapshots is the near past and
  	  less snapshots in the far past.</para>
@@ -29,7 +29,7 @@ index e81f101..3ea959c 100644
  	</listitem>
        </varlistentry>
  
-@@ -187,7 +187,7 @@
+@@ -190,7 +190,7 @@
  	<listitem>
  	  <para>Defines whether the timeline cleanup algorithm should be run for
  	  the config.</para>
