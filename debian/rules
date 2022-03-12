@@ -27,10 +27,6 @@ override_dh_auto_install:
 	# temporary workaround: remove cronjob
 	rm -rf $(CURDIR)/debian/tmp/etc/cron*
 
-	# Move the pam library to /lib
-	mkdir -p $(CURDIR)/debian/tmp/lib
-	mv $(CURDIR)/debian/tmp/$(DEB_HOST_MULTIARCH) $(CURDIR)/debian/tmp/lib
-
 	# Purge the la files
 	find $(CURDIR)/debian/tmp -name *.la -delete
 

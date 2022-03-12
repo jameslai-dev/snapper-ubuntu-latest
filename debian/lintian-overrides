@@ -1,0 +1,3 @@
+snapper: package-contains-documentation-outside-usr-share-doc usr/share/snapper/filters/base.txt
+snapper: package-contains-documentation-outside-usr-share-doc usr/share/snapper/filters/lvm.txt
+snapper: package-contains-documentation-outside-usr-share-doc usr/share/snapper/filters/x11.txt

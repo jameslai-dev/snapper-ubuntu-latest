@@ -7,10 +7,10 @@ Subject: Add some missing systemd unit directives
  data/snapperd.service | 3 +++
  2 files changed, 4 insertions(+)
 
-diff --git a/data/boot.service b/data/boot.service
-index da5966e..3d9fc75 100644
---- a/data/boot.service
-+++ b/data/boot.service
+Index: snapper/data/boot.service
+===================================================================
+--- snapper.orig/data/boot.service
++++ snapper/data/boot.service
 @@ -1,6 +1,7 @@
  [Unit]
  Description=Take snapper snapshot of root on boot
@@ -19,14 +19,14 @@ index da5966e..3d9fc75 100644
  
  [Service]
  Type=oneshot
-diff --git a/data/snapperd.service b/data/snapperd.service
-index cad1620..15f5db8 100644
---- a/data/snapperd.service
-+++ b/data/snapperd.service
-@@ -6,3 +6,6 @@ Documentation=man:snapperd(8)
- Type=dbus
- BusName=org.opensuse.Snapper
- ExecStart=/usr/sbin/snapperd
+Index: snapper/data/snapperd.service
+===================================================================
+--- snapper.orig/data/snapperd.service
++++ snapper/data/snapperd.service
+@@ -14,3 +14,6 @@ PrivateNetwork=true
+ ProtectHostname=true
+ RestrictAddressFamilies=AF_UNIX
+ RestrictRealtime=true
 +
 +[Install]
 +WantedBy=sysinit.target
