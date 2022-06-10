@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2012-2015] Novell, Inc.
- * Copyright (c) [2016,2018] SUSE LLC
+ * Copyright (c) [2016-2022] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -38,6 +38,7 @@
 #include <dbus/DBusMessage.h>
 
 #include "MetaSnapper.h"
+#include "FilesTransferTask.h"
 
 
 using namespace std;
@@ -111,6 +112,7 @@ public:
     void create_comparison(DBus::Connection& conn, DBus::Message& msg);
     void delete_comparison(DBus::Connection& conn, DBus::Message& msg);
     void get_files(DBus::Connection& conn, DBus::Message& msg);
+    void get_files_by_pipe(DBus::Connection& conn, DBus::Message& msg);
     void setup_quota(DBus::Connection& conn, DBus::Message& msg);
     void prepare_quota(DBus::Connection& conn, DBus::Message& msg);
     void query_quota(DBus::Connection& conn, DBus::Message& msg);
@@ -120,7 +122,7 @@ public:
 
     void dispatch(DBus::Connection& conn, DBus::Message& msg);
 
-    Client(const string& name, const Clients& clients);
+    Client(const string& name, uid_t uid, const Clients& clients);
     ~Client();
 
     list<Comparison*>::iterator find_comparison(Snapper* snapper, unsigned int number1,
@@ -140,6 +142,7 @@ public:
     void remove_mount(const string& config_name, unsigned int number);
 
     const string name;
+    const uid_t uid;
 
     list<Comparison*> comparisons;
 
@@ -147,26 +150,32 @@ public:
 
     map<pair<string, unsigned int>, unsigned int> mounts;
 
-    struct Task
+    struct MethodCallTask
     {
-	Task(DBus::Connection& conn, DBus::Message& msg) : conn(conn), msg(msg) {}
+	MethodCallTask(DBus::Connection& conn, DBus::Message& msg) : conn(conn), msg(msg) {}
 
 	DBus::Connection& conn;
 	DBus::Message msg;
     };
 
-    boost::condition_variable condition;
-    boost::mutex mutex;
-    boost::thread thread;
-    queue<Task> tasks;
+    boost::condition_variable method_call_condition;
+    boost::mutex method_call_mutex;
+    boost::thread method_call_thread;
+    queue<MethodCallTask> method_call_tasks;
+    void add_method_call_task(DBus::Connection& conn, DBus::Message& msg);
+
+    boost::condition_variable files_transfer_condition;
+    boost::mutex files_transfer_mutex;
+    boost::thread files_transfer_thread;
+    queue<shared_ptr<FilesTransferTask>> files_transfer_tasks;
+    void add_files_transfer_task(shared_ptr<FilesTransferTask> files_transfer_task);
 
     bool zombie = false;
 
-    void add_task(DBus::Connection& conn, DBus::Message& msg);
-
 private:
 
-    void worker();
+    void method_call_worker();
+    void files_transfer_worker();
 
     const Clients& clients;
 
@@ -192,7 +201,8 @@ public:
 
     iterator find(const string& name);
 
-    iterator add(const string& name);
+    iterator add(const string& name, uid_t uid);
+
     void remove_zombies();
 
     bool has_zombies() const;

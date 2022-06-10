@@ -1,3 +1,14 @@
+snapper (0.10.2-1) unstable; urgency=medium
+
+   * New upstream release
+     - Built fine with updated libbtrfs-dev 5.18.1 (Closes: #1012055)
+   * debian/control
+     - Set Standards-Version: 4.6.1 with no changes
+  * Drop libsnapper5 and introduce libsnapper6
+  * Drop debian/bash-completion/snapper: merged upstream
+
+ -- Hideki Yamane <henrich@debian.org>  Fri, 10 Jun 2022 11:10:51 +0900
+
 snapper (0.9.1-1) unstable; urgency=medium
 
   * New upstream release

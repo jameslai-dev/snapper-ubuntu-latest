@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2012-2015] Novell, Inc.
- * Copyright (c) 2018 SUSE LLC
+ * Copyright (c) [2018-2022] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -35,65 +35,6 @@
 MetaSnappers meta_snappers;
 
 
-RefCounter::RefCounter()
-    : last_used(steady_clock::now())
-{
-}
-
-
-int
-RefCounter::inc_use_count()
-{
-    boost::lock_guard<boost::mutex> lock(mutex);
-
-    return ++counter;
-}
-
-
-int
-RefCounter::dec_use_count()
-{
-    boost::lock_guard<boost::mutex> lock(mutex);
-
-    assert(counter > 0);
-
-    if (--counter == 0)
-	last_used = steady_clock::now();
-
-    return counter;
-}
-
-
-void
-RefCounter::update_use_time()
-{
-    boost::lock_guard<boost::mutex> lock(mutex);
-
-    last_used = steady_clock::now();
-}
-
-
-int
-RefCounter::use_count() const
-{
-    boost::lock_guard<boost::mutex> lock(mutex);
-
-    return counter;
-}
-
-
-milliseconds
-RefCounter::unused_for() const
-{
-    boost::lock_guard<boost::mutex> lock(mutex);
-
-    if (counter != 0)
-	return milliseconds(0);
-
-    return duration_cast<milliseconds>(steady_clock::now() - last_used);
-}
-
-
 MetaSnapper::MetaSnapper(ConfigInfo& config_info)
     : config_info(config_info)
 {
@@ -112,7 +53,7 @@ void
 MetaSnapper::setConfigInfo(const map<string, string>& raw)
 {
     for (map<string, string>::const_iterator it = raw.begin(); it != raw.end(); ++it)
-	config_info.setValue(it->first, it->second);
+	config_info.set_value(it->first, it->second);
 
     getSnapper()->setConfigInfo(raw);
 
@@ -124,37 +65,37 @@ MetaSnapper::setConfigInfo(const map<string, string>& raw)
 void
 MetaSnapper::set_permissions()
 {
-    uids.clear();
+    allowed_uids.clear();
 
     vector<string> users;
-    if (config_info.getValue(KEY_ALLOW_USERS, users))
+    if (config_info.get_value(KEY_ALLOW_USERS, users))
     {
-	for (vector<string>::const_iterator it = users.begin(); it != users.end(); ++it)
+	for (const string& user : users)
 	{
 	    uid_t tmp;
-	    if (get_user_uid(it->c_str(), tmp))
-		uids.push_back(tmp);
+	    if (get_user_uid(user.c_str(), tmp))
+		allowed_uids.push_back(tmp);
 	}
     }
 
-    sort(uids.begin(), uids.end());
-    uids.erase(unique(uids.begin(), uids.end()), uids.end());
+    sort(allowed_uids.begin(), allowed_uids.end());
+    allowed_uids.erase(unique(allowed_uids.begin(), allowed_uids.end()), allowed_uids.end());
 
-    gids.clear();
+    allowed_gids.clear();
 
     vector<string> groups;
-    if (config_info.getValue(KEY_ALLOW_GROUPS, groups))
+    if (config_info.get_value(KEY_ALLOW_GROUPS, groups))
     {
-	for (vector<string>::const_iterator it = groups.begin(); it != groups.end(); ++it)
+	for (const string& group : groups)
 	{
 	    gid_t tmp;
-	    if (get_group_gid(it->c_str(), tmp))
-		gids.push_back(tmp);
+	    if (get_group_gid(group.c_str(), tmp))
+		allowed_gids.push_back(tmp);
 	}
     }
 
-    sort(gids.begin(), gids.end());
-    gids.erase(unique(gids.begin(), gids.end()), gids.end());
+    sort(allowed_gids.begin(), allowed_gids.end());
+    allowed_gids.erase(unique(allowed_gids.begin(), allowed_gids.end()), allowed_gids.end());
 }
 
 
@@ -162,7 +103,7 @@ Snapper*
 MetaSnapper::getSnapper()
 {
     if (!snapper)
-	snapper = new Snapper(config_info.getConfigName(), "/");
+	snapper = new Snapper(config_info.get_config_name(), "/");
 
     update_use_time();
 

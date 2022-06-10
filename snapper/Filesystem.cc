@@ -57,7 +57,7 @@ namespace snapper
     vector<string>
     Filesystem::filter_mount_options(const vector<string>& options)
     {
-	static const char* ign_opt[] = {
+	static const char* ign_opts[] = {
 	    "ro", "rw",
 	    "exec", "noexec", "suid", "nosuid", "dev", "nodev",
 	    "atime", "noatime", "diratime", "nodiratime",
@@ -66,8 +66,8 @@ namespace snapper
 
 	vector<string> ret = options;
 
-	for (size_t i = 0; i < lengthof(ign_opt); ++i)
-	    ret.erase(remove(ret.begin(), ret.end(), ign_opt[i]), ret.end());
+	for (const char* ign_opt : ign_opts)
+	    ret.erase(remove(ret.begin(), ret.end(), ign_opt), ret.end());
 
 	return ret;
     }
@@ -127,9 +127,9 @@ namespace snapper
     Filesystem::create(const ConfigInfo& config_info, const string& root_prefix)
     {
 	string fstype = "btrfs";
-	config_info.getValue(KEY_FSTYPE, fstype);
+	config_info.get_value(KEY_FSTYPE, fstype);
 
-	Filesystem* fs = create(fstype, config_info.getSubvolume(), root_prefix);
+	Filesystem* fs = create(fstype, config_info.get_subvolume(), root_prefix);
 
 	fs->evalConfigInfo(config_info);
 

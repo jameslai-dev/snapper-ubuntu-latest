@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2012-2015] Novell, Inc.
- * Copyright (c) [2018-2021] SUSE LLC
+ * Copyright (c) [2018-2022] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -23,6 +23,7 @@
 
 #include <stdlib.h>
 #include <getopt.h>
+#include <signal.h>
 #include <iostream>
 #include <string>
 
@@ -93,16 +94,18 @@ MyMainLoop::method_call(DBus::Message& msg)
     {
 	boost::unique_lock<boost::shared_mutex> lock(big_mutex);
 
-	Clients::iterator client = clients.find(msg.get_sender());
+	const string name = msg.get_sender();
+
+	Clients::iterator client = clients.find(name);
 	if (client == clients.end())
 	{
-	    y2deb("client connected invisible '" << msg.get_sender() << "'");
-	    add_client_match(msg.get_sender());
-	    client = clients.add(msg.get_sender());
+	    y2deb("client connected invisible '" << name << "'");
+	    add_client_match(name);
+	    client = clients.add(name, get_unix_userid(msg));
 	    set_idle_timeout(seconds(-1));
 	}
 
-	client->add_task(*this, msg);
+	client->add_method_call_task(*this, msg);
     }
 }
 
@@ -128,8 +131,10 @@ MyMainLoop::client_disconnected(const string& name)
     if (client != clients.end())
     {
 	client->zombie = true;
-	client->thread.interrupt();
+	client->method_call_thread.interrupt();
+	client->files_transfer_thread.interrupt();
     }
+
     reset_idle_count();
 }
 
@@ -266,6 +271,8 @@ main(int argc, char** argv)
 	setLogDo(&log_do);
 	setLogQuery(&log_query);
     }
+
+    signal(SIGPIPE, SIG_IGN);
 
     dbus_threads_init_default();
 

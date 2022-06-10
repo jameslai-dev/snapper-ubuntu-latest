@@ -11,7 +11,9 @@ snapperd_SOURCES =					\
 	Client.cc		Client.h		\
 	MetaSnapper.cc		MetaSnapper.h		\
 	Background.cc		Background.h		\
-	Types.cc		Types.h
+	Types.cc		Types.h			\
+	RefCounter.cc 		RefCounter.h		\
+	FilesTransferTask.cc	FilesTransferTask.h
 
 snapperd_LDADD = ../snapper/libsnapper.la ../dbus/libdbus.la -lrt
 snapperd_LDFLAGS = -lboost_system -lboost_thread -lpthread

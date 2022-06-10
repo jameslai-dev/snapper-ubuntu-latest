@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2011-2015] Novell, Inc.
- * Copyright (c) [2016-2021] SUSE LLC
+ * Copyright (c) [2016-2022] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -46,6 +46,7 @@
 #include "snapper/AsciiFile.h"
 #include "snapper/Exception.h"
 #include "snapper/Hooks.h"
+#include "snapper/ComparisonImpl.h"
 #ifdef ENABLE_BTRFS
 #include "snapper/Btrfs.h"
 #include "snapper/BtrfsUtils.h"
@@ -64,30 +65,32 @@ namespace snapper
 	: SysconfigFile(prepend_root_prefix(root_prefix, CONFIGS_DIR "/" + config_name)),
 	  config_name(config_name), subvolume("/")
     {
-	if (!getValue(KEY_SUBVOLUME, subvolume))
+	if (!get_value(KEY_SUBVOLUME, subvolume))
 	    SN_THROW(InvalidConfigException());
     }
 
 
     void
-    ConfigInfo::checkKey(const string& key) const
+    ConfigInfo::check_key(const string& key) const
     {
 	if (key == KEY_SUBVOLUME || key == KEY_FSTYPE)
 	    SN_THROW(InvalidConfigdataException());
 
 	try
 	{
-	    SysconfigFile::checkKey(key);
+	    SysconfigFile::check_key(key);
 	}
 	catch (const InvalidKeyException& e)
 	{
+	    SN_CAUGHT(e);
+
 	    SN_THROW(InvalidConfigdataException());
 	}
     }
 
 
     Snapper::Snapper(const string& config_name, const string& root_prefix, bool disable_filters)
-	: config_info(NULL), filesystem(NULL), snapshots(this), selabel_handle(NULL)
+	: snapshots(this)
     {
 	y2mil("Snapper constructor");
 	y2mil("libsnapper version " VERSION);
@@ -108,8 +111,10 @@ namespace snapper
 	{
 	    config_info = new ConfigInfo(config_name, root_prefix);
 	}
-	catch (const FileNotFoundException& e)
+	catch (const Exception& e)
 	{
+	    SN_CAUGHT(e);
+
 	    SN_THROW(ConfigNotFoundException());
 	}
 
@@ -119,10 +124,10 @@ namespace snapper
 	syncSelinuxContexts(filesystem->fstype() == "btrfs");
 
 	bool sync_acl;
-	if (config_info->getValue(KEY_SYNC_ACL, sync_acl) && sync_acl == true)
+	if (config_info->get_value(KEY_SYNC_ACL, sync_acl) && sync_acl == true)
 	    syncAcl();
 
-	y2mil("subvolume:" << config_info->getSubvolume() << " filesystem:" <<
+	y2mil("subvolume:" << config_info->get_subvolume() << " filesystem:" <<
 	      filesystem->fstype());
 
 	if (!disable_filters)
@@ -144,6 +149,7 @@ namespace snapper
 	    }
 	    catch (const UmountSnapshotFailedException& e)
 	    {
+		SN_CAUGHT(e);
 	    }
 	}
 
@@ -180,15 +186,18 @@ namespace snapper
 	{
 	    try
 	    {
-		AsciiFileReader asciifile(file);
+		AsciiFileReader ascii_file_reader(file, Compression::NONE);
 
 		string line;
-		while (asciifile.getline(line))
+		while (ascii_file_reader.read_line(line))
 		    if (!line.empty())
 			ignore_patterns.push_back(line);
+
+		ascii_file_reader.close();
 	    }
-	    catch (const FileNotFoundException& e)
+	    catch (const Exception& e)
 	    {
+		SN_CAUGHT(e);
 	    }
 	}
 
@@ -200,7 +209,7 @@ namespace snapper
     string
     Snapper::subvolumeDir() const
     {
-	return config_info->getSubvolume();
+	return config_info->get_subvolume();
     }
 
 
@@ -296,27 +305,27 @@ namespace snapper
 	{
 	    SysconfigFile sysconfig(prepend_root_prefix(root_prefix, SYSCONFIG_FILE));
 	    vector<string> config_names;
-	    sysconfig.getValue("SNAPPER_CONFIGS", config_names);
+	    sysconfig.get_value("SNAPPER_CONFIGS", config_names);
 
-	    for (vector<string>::const_iterator it = config_names.begin(); it != config_names.end(); ++it)
+	    for (const string& config_name : config_names)
 	    {
 		try
 		{
-		    config_infos.push_back(getConfig(*it, root_prefix));
+		    config_infos.push_back(getConfig(config_name, root_prefix));
 		}
-		catch (const FileNotFoundException& e)
+		catch (const Exception& e)
 		{
-		    y2err("config '" << *it << "' not found");
-		}
-		catch (const InvalidConfigException& e)
-		{
-		    y2err("config '" << *it << "' is invalid");
+		    SN_CAUGHT(e);
+
+		    y2err("reading config '" << config_name << "' failed");
 		}
 	    }
 	}
-	catch (const FileNotFoundException& e)
+	catch (const Exception& e)
 	{
-	    SN_THROW(ListConfigsFailedException("sysconfig-file not found"));
+	    SN_CAUGHT(e);
+
+	    SN_THROW(ListConfigsFailedException("reading sysconfig-file failed"));
 	}
 
 	return config_infos;
@@ -346,7 +355,7 @@ namespace snapper
 	list<ConfigInfo> configs = getConfigs(root_prefix);
 	for (list<ConfigInfo>::const_iterator it = configs.begin(); it != configs.end(); ++it)
 	{
-	    if (it->getSubvolume() == subvolume)
+	    if (it->get_subvolume() == subvolume)
 	    {
 		SN_THROW(CreateConfigFailedException("subvolume already covered"));
 	    }
@@ -370,10 +379,14 @@ namespace snapper
 	}
 	catch (const InvalidConfigException& e)
 	{
+	    SN_CAUGHT(e);
+
 	    SN_THROW(CreateConfigFailedException("invalid filesystem type"));
 	}
 	catch (const ProgramNotInstalledException& e)
 	{
+	    SN_CAUGHT(e);
+
 	    SN_THROW(CreateConfigFailedException(e.what()));
 	}
 
@@ -381,17 +394,21 @@ namespace snapper
 	{
 	    SysconfigFile sysconfig(SYSCONFIG_FILE);
 	    vector<string> config_names;
-	    sysconfig.getValue("SNAPPER_CONFIGS", config_names);
+	    sysconfig.get_value("SNAPPER_CONFIGS", config_names);
 	    if (find(config_names.begin(), config_names.end(), config_name) != config_names.end())
 	    {
 		SN_THROW(CreateConfigFailedException("config already exists"));
 	    }
 
 	    config_names.push_back(config_name);
-	    sysconfig.setValue("SNAPPER_CONFIGS", config_names);
+	    sysconfig.set_value("SNAPPER_CONFIGS", config_names);
+
+	    sysconfig.save();
 	}
-	catch (const FileNotFoundException& e)
+	catch (const Exception& e)
 	{
+	    SN_CAUGHT(e);
+
 	    SN_THROW(CreateConfigFailedException("sysconfig-file not found"));
 	}
 
@@ -399,13 +416,17 @@ namespace snapper
 	{
 	    SysconfigFile config(template_file);
 
-	    config.setName(CONFIGS_DIR "/" + config_name);
+	    config.set_name(CONFIGS_DIR "/" + config_name);
 
-	    config.setValue(KEY_SUBVOLUME, subvolume);
-	    config.setValue(KEY_FSTYPE, filesystem->fstype());
+	    config.set_value(KEY_SUBVOLUME, subvolume);
+	    config.set_value(KEY_FSTYPE, filesystem->fstype());
+
+	    config.save();
 	}
-	catch (const FileNotFoundException& e)
+	catch (const Exception& e)
 	{
+	    SN_CAUGHT(e);
+
 	    SN_THROW(CreateConfigFailedException("modifying config failed"));
 	}
 
@@ -419,10 +440,12 @@ namespace snapper
 
 	    SysconfigFile sysconfig(SYSCONFIG_FILE);
 	    vector<string> config_names;
-	    sysconfig.getValue("SNAPPER_CONFIGS", config_names);
+	    sysconfig.get_value("SNAPPER_CONFIGS", config_names);
 	    config_names.erase(remove(config_names.begin(), config_names.end(), config_name),
 			       config_names.end());
-	    sysconfig.setValue("SNAPPER_CONFIGS", config_names);
+	    sysconfig.set_value("SNAPPER_CONFIGS", config_names);
+
+	    sysconfig.save();
 
 	    SystemCmd cmd(RMBIN " " + quote(CONFIGS_DIR "/" + config_name));
 
@@ -461,6 +484,8 @@ namespace snapper
 	    }
 	    catch (const DeleteSnapshotFailedException& e)
 	    {
+		SN_CAUGHT(e);
+
 		// ignore, Filesystem->deleteConfig will fail anyway
 	    }
 	}
@@ -471,6 +496,8 @@ namespace snapper
 	}
 	catch (const DeleteConfigFailedException& e)
 	{
+	    SN_CAUGHT(e);
+
 	    SN_THROW(DeleteConfigFailedException("deleting snapshot failed"));
 	}
 
@@ -484,14 +511,18 @@ namespace snapper
 	{
 	    SysconfigFile sysconfig(SYSCONFIG_FILE);
 	    vector<string> config_names;
-	    sysconfig.getValue("SNAPPER_CONFIGS", config_names);
+	    sysconfig.get_value("SNAPPER_CONFIGS", config_names);
 	    config_names.erase(remove(config_names.begin(), config_names.end(), config_name),
 			       config_names.end());
-	    sysconfig.setValue("SNAPPER_CONFIGS", config_names);
+	    sysconfig.set_value("SNAPPER_CONFIGS", config_names);
+
+	    sysconfig.save();
 	}
-	catch (const FileNotFoundException& e)
+	catch (const Exception& e)
 	{
-	    SN_THROW(DeleteConfigFailedException("sysconfig-file not found"));
+	    SN_CAUGHT(e);
+
+	    SN_THROW(DeleteConfigFailedException("modifying sysconfig-file failed"));
 	}
     }
 
@@ -500,7 +531,7 @@ namespace snapper
     Snapper::setConfigInfo(const map<string, string>& raw)
     {
 	for (map<string, string>::const_iterator it = raw.begin(); it != raw.end(); ++it)
-	    config_info->setValue(it->first, it->second);
+	    config_info->set_value(it->first, it->second);
 
 	config_info->save();
 
@@ -510,7 +541,7 @@ namespace snapper
 	    raw.find(KEY_SYNC_ACL) != raw.end())
 	{
 	    bool sync_acl;
-	    if (config_info->getValue(KEY_SYNC_ACL, sync_acl) && sync_acl == true)
+	    if (config_info->get_value(KEY_SYNC_ACL, sync_acl) && sync_acl == true)
 		syncAcl();
 	}
     }
@@ -521,7 +552,7 @@ namespace snapper
     {
 	vector<uid_t> uids;
 	vector<string> users;
-	if (config_info->getValue(KEY_ALLOW_USERS, users))
+	if (config_info->get_value(KEY_ALLOW_USERS, users))
 	{
 	    for (vector<string>::const_iterator it = users.begin(); it != users.end(); ++it)
 	    {
@@ -534,7 +565,7 @@ namespace snapper
 
 	vector<gid_t> gids;
 	vector<string> groups;
-	if (config_info->getValue(KEY_ALLOW_GROUPS, groups))
+	if (config_info->get_value(KEY_ALLOW_GROUPS, groups))
 	{
 	    for (vector<string>::const_iterator it = groups.begin(); it != groups.end(); ++it)
 	    {
@@ -853,7 +884,14 @@ namespace snapper
 
 	SDir general_dir = btrfs->openGeneralDir();
 
-	filesystem->sync();
+	try
+	{
+	    filesystem->sync();
+	}
+	catch (...)
+	{
+	    SN_THROW(FreeSpaceException("filesystem sync failed"));
+	}
 
 	FreeSpaceData free_space_data;
 	std::tie(free_space_data.size, free_space_data.free) = general_dir.statvfs();
@@ -909,7 +947,6 @@ namespace snapper
     {
 #ifdef ENABLE_SELINUX
 	static const regex rx("[0-9]+", regex::extended);
-	static const regex rx_filelist("filelist-[0-9]+.txt", regex::extended);
 
 	y2deb("Syncing Selinux contexts in infos dir");
 
@@ -933,12 +970,9 @@ namespace snapper
 		snapshot_dir.restorecon(selabel_handle);
 	    }
 
-	    vector<string> info_content = info_dir.entries();
+	    vector<string> info_content = info_dir.entries(is_filelist_file);
 	    for (vector<string>::const_iterator it2 = info_content.begin(); it2 != info_content.end(); ++it2)
 	    {
-		if (!regex_match(*it2, rx_filelist))
-		    continue;
-
 		SFile fl(info_dir, *it2);
 		fl.restorecon(selabel_handle);
 	    }
@@ -1002,6 +1036,30 @@ namespace snapper
 	y2mil("fstype:" << fstype);
 
 	return !best_match.empty();
+    }
+
+
+    Compression
+    Snapper::get_compression() const
+    {
+	Compression compression = Compression::GZIP;
+
+	string tmp;
+
+	if (config_info->get_value(KEY_COMPRESSION, tmp))
+	{
+	    if (tmp == "none")
+		compression = Compression::NONE;
+	    else if (tmp == "gzip")
+		compression = Compression::GZIP;
+	    else if (tmp == "zstd")
+		compression = Compression::ZSTD;
+	}
+
+	if (!is_available(compression))
+	    compression = Compression::NONE;
+
+	return compression;
     }
 
 

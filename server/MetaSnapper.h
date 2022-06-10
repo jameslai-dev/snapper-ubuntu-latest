@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2012-2015] Novell, Inc.
- * Copyright (c) 2018 SUSE LLC
+ * Copyright (c) [2018-2022] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -25,55 +25,15 @@
 #define SNAPPER_META_SNAPPER_H
 
 
-#include <chrono>
 #include <boost/thread.hpp>
 
 #include <snapper/Snapper.h>
 
+#include "RefCounter.h"
+
 
 using namespace std;
-using namespace std::chrono;
 using namespace snapper;
-
-
-class RefCounter : private boost::noncopyable
-{
-public:
-
-    RefCounter();
-
-    int inc_use_count();
-    int dec_use_count();
-    void update_use_time();
-
-    int use_count() const;
-    milliseconds unused_for() const;
-
-private:
-
-    mutable boost::mutex mutex;
-
-    int counter = 0;
-
-    steady_clock::time_point last_used;
-
-};
-
-
-class RefHolder
-{
-public:
-
-    RefHolder(RefCounter& ref) : ref(ref)
-	{ ref.inc_use_count(); }
-    ~RefHolder()
-	{ ref.dec_use_count(); }
-
-private:
-
-    RefCounter& ref;
-
-};
 
 
 struct UnknownConfig : public Exception
@@ -89,13 +49,13 @@ public:
     MetaSnapper(ConfigInfo& config_info);
     ~MetaSnapper();
 
-    const string& configName() const { return config_info.getConfigName(); }
+    const string& configName() const { return config_info.get_config_name(); }
 
     const ConfigInfo& getConfigInfo() const { return config_info; }
     void setConfigInfo(const map<string, string>& raw);
 
-    vector<uid_t> uids;
-    vector<gid_t> gids;
+    const vector<uid_t>& get_allowed_uids() const { return allowed_uids; }
+    const vector<gid_t>& get_allowed_gids() const { return allowed_gids; }
 
     Snapper* getSnapper();
 
@@ -110,6 +70,9 @@ private:
     ConfigInfo config_info;
 
     Snapper* snapper = nullptr;
+
+    vector<uid_t> allowed_uids;
+    vector<gid_t> allowed_gids;
 
 };
 

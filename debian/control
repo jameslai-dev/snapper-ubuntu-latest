@@ -48,13 +48,13 @@ Description: Linux filesystem snapshot management tool
    * D-Bus interface
    * PAM module to create snapshots during login and logout (libpam-snapper)
 
-Package: libsnapper5
+Package: libsnapper6
 Section: libs
 Architecture: linux-any
 Multi-Arch: same
 Depends: ${misc:Depends}, ${shlibs:Depends}
-Breaks: libsnapper4
-Replaces: libsnapper4
+Breaks: libsnapper5
+Replaces: libsnapper5
 Description: Library for Linux filesystem snapshot management tool
  Snapper is a tool for Linux filesystem snapshot management. Apart from the
  obvious creation and deletion of snapshots, it can compare snapshots and revert
@@ -67,7 +67,7 @@ Description: Library for Linux filesystem snapshot management tool
 Package: libsnapper-dev
 Section: libdevel
 Architecture: linux-any
-Depends: ${misc:Depends}, libsnapper5 (= ${binary:Version})
+Depends: ${misc:Depends}, libsnapper6 (= ${binary:Version})
 Description: Library for Linux filesystem snapshot management tool (header files)
  Snapper is a tool for Linux filesystem snapshot management. Apart from the
  obvious creation and deletion of snapshots, it can compare snapshots and revert

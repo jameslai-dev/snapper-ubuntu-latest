@@ -1,5 +1,6 @@
 /*
  * Copyright (c) [2011-2015] Novell, Inc.
+ * Copyright (c) 2022 SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -41,10 +42,9 @@ namespace snapper
 	CREATED = 1,		// created
 	DELETED = 2,		// deleted
 	TYPE = 4,		// type has changed
-	CONTENT = 8, 		// content has changed
+	CONTENT = 8,		// content has changed
 	PERMISSIONS = 16,	// permissions have changed, see chmod(2)
 	OWNER = 32,		// owner has changed, see chown(2)
-	USER = 32,		// deprecated - alias for OWNER
 	GROUP = 64,		// group has changed, see chown(2)
 	XATTRS = 128,		// extended attributes changed, see attr(5)
 	ACL = 256		// access control list changed, see acl(5)
@@ -68,13 +68,11 @@ namespace snapper
 
     struct UndoStatistic
     {
-	UndoStatistic() : numCreate(0), numModify(0), numDelete(0) {}
-
 	bool empty() const { return numCreate == 0 && numModify == 0 && numDelete == 0; }
 
-	unsigned int numCreate;
-	unsigned int numModify;
-	unsigned int numDelete;
+	unsigned int numCreate = 0;
+	unsigned int numModify = 0;
+	unsigned int numDelete = 0;
 
 	friend std::ostream& operator<<(std::ostream& s, const UndoStatistic& rs);
     };
@@ -82,13 +80,13 @@ namespace snapper
 
     struct XAUndoStatistic
     {
-        XAUndoStatistic(): numCreate(0), numReplace(0), numDelete(0) {}
+	bool empty() const { return numCreate == 0 && numReplace == 0 && numDelete == 0; }
 
-        unsigned int numCreate;
-        unsigned int numReplace;
-        unsigned int numDelete;
+	unsigned int numCreate = 0;
+	unsigned int numReplace = 0;
+	unsigned int numDelete = 0;
 
-        friend XAUndoStatistic& operator+=(XAUndoStatistic&, const XAUndoStatistic&);
+	friend XAUndoStatistic& operator+=(XAUndoStatistic&, const XAUndoStatistic&);
     };
 
 
@@ -115,9 +113,7 @@ namespace snapper
     public:
 
 	File(const FilePaths* file_paths, const string& name, unsigned int pre_to_post_status)
-	    : file_paths(file_paths), name(name), pre_to_post_status(pre_to_post_status),
-	      pre_to_system_status(-1), post_to_system_status(-1), undo(false),
-	      xaCreated(0), xaDeleted(0), xaReplaced(0)
+	    : file_paths(file_paths), name(name), pre_to_post_status(pre_to_post_status)
 	{}
 
 	const string& getName() const { return name; }
@@ -140,9 +136,6 @@ namespace snapper
 
 	XAUndoStatistic getXAUndoStatistic() const;
 
-	// C++ locale aware less-than comparison
-	static bool cmp_lt(const string& lhs, const string& rhs);
-
     private:
 
 	bool createParentDirectories(const string& path) const;
@@ -160,33 +153,36 @@ namespace snapper
 
 	string name;
 
-	unsigned int pre_to_post_status;
-	unsigned int pre_to_system_status; // -1 if invalid
-	unsigned int post_to_system_status; // -1 if invalid
+	unsigned int pre_to_post_status = -1;
+	unsigned int pre_to_system_status = -1; // -1 if invalid
+	unsigned int post_to_system_status = -1; // -1 if invalid
 
-	bool undo;
+	bool undo = false;
 
 	bool modifyXattributes();
 	bool modifyAcls();
 
-	unsigned int xaCreated;
-	unsigned int xaDeleted;
-	unsigned int xaReplaced;
+	unsigned int xaCreated = 0;
+	unsigned int xaDeleted = 0;
+	unsigned int xaReplaced = 0;
 
     };
 
 
+    /**
+     * Container class for files.
+     *
+     * The Files class keeps the files sorted, which is required for the find functions.
+     */
     class Files
     {
     public:
 
 	friend class Comparison;
 
-	Files(const FilePaths* file_paths)
-	    : file_paths(file_paths) {}
-
-	Files(const FilePaths* file_paths, const vector<File>& entries)
-	    : file_paths(file_paths), entries(entries) {}
+	Files(const FilePaths* file_paths);
+	Files(const FilePaths* file_paths, const vector<File>& entries);
+	~Files();
 
 	typedef vector<File>::iterator iterator;
 	typedef vector<File>::const_iterator const_iterator;
@@ -201,6 +197,8 @@ namespace snapper
 	size_type size() const { return entries.size(); }
 	bool empty() const { return entries.empty(); }
 
+	void clear();
+
 	iterator find(const string& name);
 	const_iterator find(const string& name) const;
 
@@ -213,18 +211,20 @@ namespace snapper
 
 	bool doUndoStep(const UndoStep& undo_step);
 
-        XAUndoStatistic getXAUndoStatistic() const;
-
-    protected:
-
-	void push_back(File file) { entries.push_back(file); }
-
-	void filter(const vector<string>& ignore_patterns);
-	void sort();
-
-	const FilePaths* file_paths;
+	XAUndoStatistic getXAUndoStatistic() const;
 
     private:
+
+	/**
+	 * After using push_back, sort must be called before using any find function.
+	 */
+	void push_back(const File& file) { entries.push_back(file); }
+
+	void sort();
+
+	void filter(const vector<string>& ignore_patterns);
+
+	const FilePaths* file_paths;
 
 	vector<File> entries;
 

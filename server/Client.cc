@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2012-2015] Novell, Inc.
- * Copyright (c) [2016-2021] SUSE LLC
+ * Copyright (c) [2016-2022] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -38,17 +38,22 @@
 boost::shared_mutex big_mutex;
 
 
-Client::Client(const string& name, const Clients& clients)
-    : name(name), clients(clients)
+Client::Client(const string& name, uid_t uid, const Clients& clients)
+    : name(name), uid(uid), clients(clients)
 {
 }
 
 
 Client::~Client()
 {
-    thread.interrupt();
-    if (thread.joinable())
-	thread.join();
+    method_call_thread.interrupt();
+    files_transfer_thread.interrupt();
+
+    if (method_call_thread.joinable())
+	method_call_thread.join();
+
+    if (files_transfer_thread.joinable())
+	files_transfer_thread.join();
 
     for (list<Comparison*>::iterator it = comparisons.begin(); it != comparisons.end(); ++it)
     {
@@ -369,6 +374,13 @@ Client::introspect(DBus::Connection& conn, DBus::Message& msg)
 	"      <arg name='files' type='a(su)' direction='out'/>\n"
 	"    </method>\n"
 
+	"    <method name='GetFilesByPipe'>\n"
+	"      <arg name='config-name' type='s' direction='in'/>\n"
+	"      <arg name='number1' type='u' direction='in'/>\n"
+	"      <arg name='number2' type='u' direction='in'/>\n"
+	"      <arg name='fd' type='h' direction='out'/>\n"
+	"    </method>\n"
+
 	"    <method name='Sync'>\n"
 	"      <arg name='config-name' type='s' direction='in'/>\n"
 	"    </method>\n"
@@ -394,7 +406,7 @@ struct Permissions : public Exception
 void
 Client::check_permission(DBus::Connection& conn, DBus::Message& msg) const
 {
-    unsigned long uid = conn.get_unix_userid(msg);
+    // Check if the uid of the dbus-user is root.
     if (uid == 0)
 	return;
 
@@ -406,14 +418,12 @@ void
 Client::check_permission(DBus::Connection& conn, DBus::Message& msg,
 			 const MetaSnapper& meta_snapper) const
 {
-    unsigned long uid = conn.get_unix_userid(msg);
-
     // Check if the uid of the dbus-user is root.
     if (uid == 0)
 	return;
 
     // Check if the uid of the dbus-user is included in the allowed uids.
-    if (contains(meta_snapper.uids, uid))
+    if (contains(meta_snapper.get_allowed_uids(), uid))
 	return;
 
     string username;
@@ -422,7 +432,7 @@ Client::check_permission(DBus::Connection& conn, DBus::Message& msg,
     if (get_uid_username_gid(uid, username, gid))
     {
 	// Check if the primary gid of the dbus-user is included in the allowed gids.
-	if (contains(meta_snapper.gids, gid))
+	if (contains(meta_snapper.get_allowed_gids(), gid))
 	    return;
 
 	vector<gid_t> gids = getgrouplist(username.c_str(), gid);
@@ -430,7 +440,7 @@ Client::check_permission(DBus::Connection& conn, DBus::Message& msg,
 	// Check if any (primary or secondary) gid of the dbus-user is included in the allowed
 	// gids.
 	for (vector<gid_t>::const_iterator it = gids.begin(); it != gids.end(); ++it)
-	    if (contains(meta_snapper.gids, *it))
+	    if (contains(meta_snapper.get_allowed_gids(), *it))
 		return;
     }
 
@@ -892,7 +902,7 @@ Client::create_single_snapshot(DBus::Connection& conn, DBus::Message& msg)
     MetaSnappers::iterator it = meta_snappers.find(config_name);
 
     check_permission(conn, msg, *it);
-    scd.uid = conn.get_unix_userid(msg);
+    scd.uid = uid;
 
     Snapper* snapper = it->getSnapper();
 
@@ -927,7 +937,7 @@ Client::create_single_snapshot_v2(DBus::Connection& conn, DBus::Message& msg)
     MetaSnappers::iterator it = meta_snappers.find(config_name);
 
     check_permission(conn, msg, *it);
-    scd.uid = conn.get_unix_userid(msg);
+    scd.uid = uid;
 
     Snapper* snapper = it->getSnapper();
 
@@ -965,7 +975,7 @@ Client::create_single_snapshot_of_default(DBus::Connection& conn, DBus::Message&
     MetaSnappers::iterator it = meta_snappers.find(config_name);
 
     check_permission(conn, msg, *it);
-    scd.uid = conn.get_unix_userid(msg);
+    scd.uid = uid;
 
     Snapper* snapper = it->getSnapper();
 
@@ -999,7 +1009,7 @@ Client::create_pre_snapshot(DBus::Connection& conn, DBus::Message& msg)
     MetaSnappers::iterator it = meta_snappers.find(config_name);
 
     check_permission(conn, msg, *it);
-    scd.uid = conn.get_unix_userid(msg);
+    scd.uid = uid;
 
     Snapper* snapper = it->getSnapper();
 
@@ -1034,7 +1044,7 @@ Client::create_post_snapshot(DBus::Connection& conn, DBus::Message& msg)
     MetaSnappers::iterator it = meta_snappers.find(config_name);
 
     check_permission(conn, msg, *it);
-    scd.uid = conn.get_unix_userid(msg);
+    scd.uid = uid;
 
     Snapper* snapper = it->getSnapper();
     Snapshots& snapshots = snapper->getSnapshots();
@@ -1044,7 +1054,7 @@ Client::create_post_snapshot(DBus::Connection& conn, DBus::Message& msg)
     Snapshots::iterator snap2 = snapper->createPostSnapshot(snap1, scd);
 
     bool background_comparison = true;
-    it->getConfigInfo().getValue("BACKGROUND_COMPARISON", background_comparison);
+    it->getConfigInfo().get_value("BACKGROUND_COMPARISON", background_comparison);
     if (background_comparison)
 	clients.backgrounds().add_task(it, snap1, snap2);
 
@@ -1444,6 +1454,42 @@ Client::get_files(DBus::Connection& conn, DBus::Message& msg)
 
 
 void
+Client::get_files_by_pipe(DBus::Connection& conn, DBus::Message& msg)
+{
+    string config_name;
+    dbus_uint32_t num1, num2;
+
+    DBus::Hihi hihi(msg);
+    hihi >> config_name >> num1 >> num2;
+
+    y2deb("GetFilesByPipe config_name:" << config_name << " num1:" << num1 << " num2:" << num2);
+
+    boost::unique_lock<boost::shared_mutex> lock(big_mutex);
+
+    MetaSnappers::iterator it = meta_snappers.find(config_name);
+
+    check_permission(conn, msg, *it);
+
+    list<Comparison*>::iterator it2 = find_comparison(it->getSnapper(), num1, num2);
+
+    const Files& files = (*it2)->getFiles();
+
+    DBus::MessageMethodReturn reply(msg);
+
+    DBus::Hoho hoho(reply);
+
+    shared_ptr<FilesTransferTask> files_transfer_task = make_shared<FilesTransferTask>(files);
+
+    hoho << files_transfer_task->get_read_end();
+    conn.send(reply);
+
+    files_transfer_task->get_read_end().close();
+
+    add_files_transfer_task(files_transfer_task);
+}
+
+
+void
 Client::setup_quota(DBus::Connection& conn, DBus::Message& msg)
 {
     string config_name;
@@ -1592,11 +1638,18 @@ Client::debug(DBus::Connection& conn, DBus::Message& msg) const
 
     hoho.open_array("s");
 
+    hoho << "server:";
+    {
+	std::ostringstream s;
+	s << "    pid:" << getpid();
+	hoho << s.str();
+    }
+
     hoho << "clients:";
     for (Clients::const_iterator it = clients.begin(); it != clients.end(); ++it)
     {
 	std::ostringstream s;
-	s << "    name:'" << it->name << "'";
+	s << "    name:'" << it->name << "', uid:" << it->uid;
 	if (&*it == this)
 	    s << ", myself";
 	if (it->zombie)
@@ -1701,6 +1754,8 @@ Client::dispatch(DBus::Connection& conn, DBus::Message& msg)
 	    delete_comparison(conn, msg);
 	else if (msg.is_method_call(INTERFACE, "GetFiles"))
 	    get_files(conn, msg);
+	else if (msg.is_method_call(INTERFACE, "GetFilesByPipe"))
+	    get_files_by_pipe(conn, msg);
 	else if (msg.is_method_call(INTERFACE, "SetupQuota"))
 	    setup_quota(conn, msg);
 	else if (msg.is_method_call(INTERFACE, "PrepareQuota"))
@@ -1879,6 +1934,12 @@ Client::dispatch(DBus::Connection& conn, DBus::Message& msg)
 	DBus::MessageError reply(msg, "error.unsupported", e.what());
 	conn.send(reply);
     }
+    catch (const StreamException& e)
+    {
+	SN_CAUGHT(e);
+	DBus::MessageError reply(msg, "error.stream", DBUS_ERROR_FAILED);
+	conn.send(reply);
+    }
     catch (const Exception& e)
     {
 	SN_CAUGHT(e);
@@ -1895,34 +1956,48 @@ Client::dispatch(DBus::Connection& conn, DBus::Message& msg)
 
 
 void
-Client::add_task(DBus::Connection& conn, DBus::Message& msg)
+Client::add_method_call_task(DBus::Connection& conn, DBus::Message& msg)
 {
-    if (thread.get_id() == boost::thread::id())
-	thread = boost::thread(boost::bind(&Client::worker, this));
+    if (method_call_thread.get_id() == boost::thread::id())
+	method_call_thread = boost::thread(boost::bind(&Client::method_call_worker, this));
 
-    boost::unique_lock<boost::mutex> lock(mutex);
-    tasks.push(Task(conn, msg));
+    boost::unique_lock<boost::mutex> lock(method_call_mutex);
+    method_call_tasks.push(MethodCallTask(conn, msg));
     lock.unlock();
 
-    condition.notify_one();
+    method_call_condition.notify_one();
 }
 
 
 void
-Client::worker()
+Client::add_files_transfer_task(shared_ptr<FilesTransferTask> files_transfer_task)
+{
+    if (files_transfer_thread.get_id() == boost::thread::id())
+	files_transfer_thread = boost::thread(boost::bind(&Client::files_transfer_worker, this));
+
+    boost::unique_lock<boost::mutex> lock(files_transfer_mutex);
+    files_transfer_tasks.push(files_transfer_task);
+    lock.unlock();
+
+    files_transfer_condition.notify_one();
+}
+
+
+void
+Client::method_call_worker()
 {
     try
     {
 	while (true)
 	{
-	    boost::unique_lock<boost::mutex> lock(mutex);
-	    while (tasks.empty())
-		condition.wait(lock);
-	    Task task = tasks.front();
-	    tasks.pop();
+	    boost::unique_lock<boost::mutex> lock(method_call_mutex);
+	    while (method_call_tasks.empty())
+		method_call_condition.wait(lock);
+	    MethodCallTask method_call_task = method_call_tasks.front();
+	    method_call_tasks.pop();
 	    lock.unlock();
 
-	    dispatch(task.conn, task.msg);
+	    dispatch(method_call_task.conn, method_call_task.msg);
 	}
     }
     catch (const boost::thread_interrupted&)
@@ -1957,11 +2032,11 @@ Clients::find(const string& name)
 
 
 Clients::iterator
-Clients::add(const string& name)
+Clients::add(const string& name, uid_t uid)
 {
     assert(find(name) == entries.end());
 
-    entries.emplace_back(name, *this);
+    entries.emplace_back(name, uid, *this);
 
     return --entries.end();
 }
@@ -1972,7 +2047,7 @@ Clients::remove_zombies()
 {
     for (iterator it = begin(); it != end();)
     {
-	if (it->zombie && it->thread.timed_join(boost::posix_time::seconds(0)))
+	if (it->zombie && it->method_call_thread.timed_join(boost::posix_time::seconds(0)))
 	    it = entries.erase(it);
 	else
 	    ++it;
@@ -1988,4 +2063,37 @@ Clients::has_zombies() const
 	    return true;
 
     return false;
+}
+
+
+void
+Client::files_transfer_worker()
+{
+    try
+    {
+	while (true)
+	{
+	    boost::unique_lock<boost::mutex> lock(files_transfer_mutex);
+	    while (files_transfer_tasks.empty())
+		files_transfer_condition.wait(lock);
+
+	    shared_ptr<FilesTransferTask> ptr(files_transfer_tasks.front());
+	    files_transfer_tasks.pop();
+	    lock.unlock();
+
+	    try
+	    {
+		ptr->run();
+	    }
+	    catch (const StreamException& e)
+	    {
+		SN_CAUGHT(e);
+		y2err("error occured during files transfer");
+	    }
+	}
+    }
+    catch (const boost::thread_interrupted&)
+    {
+	y2deb("files transfer worker interrupted");
+    }
 }

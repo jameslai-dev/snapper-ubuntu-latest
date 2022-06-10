@@ -1,25 +1,33 @@
+# snapper(8) autocompletion
+
 _snapper()
 {
     local configdir="/etc/snapper/configs"
     local cur prev words cword
     _init_completion || return
 
-    local GLOGAL_SNAPPER_OPTIONS='
+    local GLOBAL_SNAPPER_OPTIONS='
         -q --quiet
         -v --verbose
         --utc
         --iso
         -t --table-style
+        --abbreviate
+        --machine-readable
+        --csvout
+        --jsonout
+        --separator
         -c --config
-        -r --root
         --no-dbus
+        -r --root
+        -a --ambit
         --version
         --help
     '
 
     # see if the user selected a command already
     local COMMANDS=(
-        "list-configs" "create-config" "delete-config" "set-config"
+        "list-configs" "create-config" "delete-config" "get-config" "set-config"
         "list" "ls"
         "create" "modify" "delete" "remove" "rm"
         "mount" "umount"
@@ -30,14 +38,34 @@ _snapper()
 
     local command i
     for (( i=0; i < ${#words[@]}-1; i++ )); do
-        if [[ ${COMMANDS[@]} =~ ${words[i]} ]]; then
+        # Match word only either from start of string or after space to prevent options
+        # like -c from matching commands that have -c in them, like list-configs
+        if [[ ${COMMANDS[@]} =~ (^| )"${words[i]}" ]]; then
             command=${words[i]}
             break
         fi
     done
 
+    # Global options autocomplete
     case $prev in
         --version|--help)
+            return 0
+            ;;
+        --config|-c)
+            local configs=()
+            # Get basenames of config files in "$configdir"
+            for configfile in "$configdir"/*; do
+                configs+=("${configfile##*/}")
+            done
+            COMPREPLY=( $( compgen -W "${configs[*]}" -- "$cur" ) )
+            return 0
+            ;;
+        --machine-readable)
+            COMPREPLY=( $( compgen -W 'csv json' -- "$cur" ) )
+            return 0
+            ;;
+        --root|-r)
+            COMPREPLY=( $( compgen -f -- "$cur" ) )
             return 0
             ;;
     esac
@@ -45,14 +73,22 @@ _snapper()
     # supported options per command
     if [[ "$cur" == -* ]]; then
         case $command in
+            list-configs)
+                # --columns completion not implemented
+                COMPREPLY=( $( compgen -W '--columns
+                    ' -- "$cur" ))
+                return 0
+                ;;
             create-config)
                 COMPREPLY=( $( compgen -W '--fstype -f
-                  --templete -t' -- "$cur" ) )
+                  --template -t' -- "$cur" ) )
                 return 0
                 ;;
             list|ls)
                 COMPREPLY=( $( compgen -W '--type -t
-                  --all-configs -a' -- "$cur" ) )
+                  --disable-used-space
+                  --all-configs -a
+                  --columns' -- "$cur" ) )
                 return 0
                 ;;
             create)
@@ -62,7 +98,10 @@ _snapper()
                   --description -d
                   --cleanup-algorithm -c
                   --userdata -u
-                  --command' -- "$cur" ) )
+                  --command
+                  --read-only
+                  --read-write
+                  --from' -- "$cur" ) )
                 return 0
                 ;;
             modify)
@@ -99,8 +138,13 @@ _snapper()
                     --userdata -u' -- "$cur" ) )
                 return 0
                 ;;
+            cleanup)
+                COMPREPLY=( $( compgen -W '--path --free-space
+                   ' -- "$cur" ) )
+                return 0
+                ;;
             *)
-                COMPREPLY=( $( compgen -W "$GLOGAL_SNAPPER_OPTIONS" -- "$cur" ) )
+                COMPREPLY=( $( compgen -W "$GLOBAL_SNAPPER_OPTIONS" -- "$cur" ) )
                 return 0
                 ;;
         esac
@@ -109,19 +153,40 @@ _snapper()
     # specific command arguments
     if [[ -n $command ]]; then
         case $command in
+            list-configs)
+                case "$prev" in
+                    --columns)
+                        COMPREPLY=( $( compgen -W 'config subvolume
+                        ' -- "$cur" ) )
+                        ;;
+                esac
+                return 0
+                ;;
             create-config)
                 case "$prev" in
-                     --fstype|-f)
+                    --fstype|-f)
                         COMPREPLY=( $( compgen -W 'btrfs ext4 lvm(xfs) lvm(ext4)
                         ' -- "$cur" ) )
+                        ;;
+                    --template|-t)
+                        ;;
+                    *)
+                        COMPREPLY=( $( compgen -f -- "$cur" ) )
                         ;;
                 esac
                 return 0
                 ;;
             list)
                 case "$prev" in
-                    --type|-t)
+                    --type|-t)  
                         COMPREPLY=( $( compgen -W 'all single pre-post
+                        ' -- "$cur" ) )
+                        ;;
+                    --columns)
+                        COMPREPLY=( $( compgen -W 'config subvolume number
+                            default active type date user used-space cleanup
+                            description userdata pre-number post-number
+                            post-date
                         ' -- "$cur" ) )
                         ;;
                 esac
@@ -164,11 +229,14 @@ _snapper()
             cleanup)
                 case "$prev" in
                     empty-pre-post|timeline|number)
-                    ;;
+                        ;;
+                    --path)
+                        COMPREPLY=( $( compgen -f -- "$cur" ) ) 
+                        ;;
                     *)
-                    COMPREPLY=( $( compgen -W 'empty-pre-post timeline number
-                    ' -- "$cur" ) )
-                    ;;
+                        COMPREPLY=( $( compgen -W 'empty-pre-post timeline number
+                        ' -- "$cur" ) )
+                        ;;
                 esac
                 return 0
                 ;;
@@ -192,7 +260,8 @@ _snapper()
 
     # no command yet, show what commands we have
     if [ "$command" = "" ]; then
-        COMPREPLY=( $( compgen -W '${COMMANDS[@]} ${GLOGAL_SNAPPER_OPTIONS[@]}' -- "$cur" ) )
+        #COMPREPLY=( $( compgen -W '${COMMANDS[@]} ${GLOBAL_SNAPPER_OPTIONS[@]}' -- "$cur" ) )
+        COMPREPLY=( $( compgen -W "${COMMANDS[*]}" -- "$cur" ) )
     fi
 
     return 0
