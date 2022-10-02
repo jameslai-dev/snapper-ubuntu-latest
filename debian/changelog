@@ -1,3 +1,14 @@
+snapper (0.10.3-1) unstable; urgency=medium
+
+  * New upstream release
+  * debian/control
+    - Set Standards-Version: 4.6.1
+  * debian/watch
+    - Use GitHub /tags rather than /releases page.
+  * Drop unnecessary lintian-overrides
+
+ -- Hideki Yamane <henrich@debian.org>  Sun, 02 Oct 2022 15:02:55 +0900
+
 snapper (0.10.2-1) unstable; urgency=medium
 
    * New upstream release

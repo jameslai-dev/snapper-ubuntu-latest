@@ -1,5 +1,6 @@
 /*
  * Copyright (c) [2011-2015] Novell, Inc.
+ * Copyright (c) 2022 SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -40,16 +41,21 @@ namespace snapper
 	static void create_config(const string& subvolume, const Filesystem* filesystem);
 	static void delete_config(const string& subvolume, const Filesystem* filesystem);
 
-	static void create_snapshot(const string& subvolume, const Filesystem* filesystem);
-	static void modify_snapshot(const string& subvolume, const Filesystem* filesystem);
-	static void delete_snapshot(const string& subvolume, const Filesystem* filesystem);
+	static void create_snapshot(const string& subvolume, const Filesystem* filesystem, const Snapshot& snapshot);
+	static void modify_snapshot(const string& subvolume, const Filesystem* filesystem, const Snapshot& snapshot);
+	static void delete_snapshot(const string& subvolume, const Filesystem* filesystem, const Snapshot& snapshot);
+
+	static void set_default_snapshot(const string& subvolume, const Filesystem* filesystem, unsigned int num);
 
 	static void rollback(const string& old_root, const string& new_root);
+	static void rollback(const string& subvolume, const Filesystem* filesystem, unsigned int old_num, unsigned int new_num);
 
     private:
 
 	static void grub(const string& subvolume, const Filesystem* filesystem,
 			 const char* option);
+
+	static void run_scripts(const vector<string>& args);
 
     };
 

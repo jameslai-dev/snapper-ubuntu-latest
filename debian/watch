@@ -1,2 +1,2 @@
 version=4
-https://github.com/openSUSE/snapper/releases /openSUSE/@PACKAGE@/archive/refs/tags/v@ANY_VERSION@@ARCHIVE_EXT@
+https://github.com/openSUSE/snapper/tags /openSUSE/@PACKAGE@/archive/refs/tags/v@ANY_VERSION@@ARCHIVE_EXT@
