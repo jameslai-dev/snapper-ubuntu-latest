@@ -1,3 +1,13 @@
+snapper (0.10.4-1) unstable; urgency=medium
+
+  * New upstream release
+  * debian/control
+    - Set Standards-Version: 4.6.2
+  * debian/upstream/metadata
+    - Set upstream metadata fields: Bug-Database.
+
+ -- Hideki Yamane <henrich@debian.org>  Sat, 17 Dec 2022 22:06:19 +0900
+
 snapper (0.10.3-1) unstable; urgency=medium
 
   * New upstream release

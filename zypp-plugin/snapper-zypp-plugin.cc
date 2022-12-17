@@ -30,6 +30,7 @@
 
 #include <iostream>
 #include <map>
+#include <set>
 #include <string>
 #include <regex>
 
@@ -251,7 +252,6 @@ private:
 
     void match_solvables(const set<string>& solvables, bool& found, bool& important);
 
-    unsigned int create_pre_snapshot(string config_name, string description, string cleanup, map<string, string> userdata);
 };
 
 
