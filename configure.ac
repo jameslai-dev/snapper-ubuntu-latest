@@ -179,6 +179,12 @@ PKG_CHECK_MODULES(XML2, libxml-2.0)
 PKG_CHECK_MODULES(JSONC, json-c, [], [AC_MSG_WARN([Cannot find json-c. Please install libjson-c-devel])])
 PKG_CHECK_MODULES(ZLIB, zlib)
 
+# Conditional support for libbtrfsutil based on existence of pkg-config file
+PKG_CHECK_MODULES([LIBBTRFSUTIL], [libbtrfsutil], [have_libbtrfsutil=yes], [have_libbtrfsutil=no])
+if test "x$have_libbtrfsutil" = "xyes"; then
+	AC_DEFINE(HAVE_LIBBTRFSUTIL, 1, [Define to 1 if you have the libbtrfsutil.pc file.])
+fi
+
 AC_CHECK_HEADER(acl/libacl.h,[],[AC_MSG_ERROR([Cannout find libacl headers. Please install libacl-devel])])
 
 AC_SUBST(VERSION)

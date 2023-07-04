@@ -19,15 +19,14 @@
  * find current contact information at www.suse.com.
  */
 
+
 #include <string>
-
-using namespace std;
-
 #include <boost/process.hpp>
 
-namespace bp = boost::process;
-
 #include "zypp-plugin.h"
+
+using namespace std;
+namespace bp = boost::process;
 
 
 /**
@@ -78,8 +77,7 @@ ZyppPlugin::Message
 ForwardingZyppPlugin::dispatch(const Message& msg)
 {
     write_message(childs_in, msg);
-    Message reply = read_message(childs_out);
-    return reply;
+    return read_message(childs_out);
 }
 
 
@@ -88,6 +86,7 @@ main(int argc, char** argv)
 {
     if (argc != 2)
 	throw runtime_error("Usage: forwarding-zypp-plugin ANOTHER_ZYPP_PLUGIN");
+
     ForwardingZyppPlugin plugin(argv[1]);
     return plugin.main();
 }

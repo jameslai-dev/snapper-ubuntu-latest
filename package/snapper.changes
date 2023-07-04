@@ -1,7 +1,92 @@
 -------------------------------------------------------------------
+Fri Apr 21 09:47:57 CEST 2023 - aschnell@suse.com
+
+- fixed deleting configs (bsc#1210716)
+- version 0.10.5
+
+-------------------------------------------------------------------
+Wed Apr 19 09:19:04 CEST 2023 - aschnell@suse.com
+
+- allow to show read-only state in list output and allow to
+  change read-only state (gh#openSUSE/snapper#804)
+- support read-only options for LVM
+- allow to set a snapshot as default (gh#openSUSE/snapper#803)
+
+-------------------------------------------------------------------
+Thu Apr 13 09:25:42 CEST 2023 - aschnell@suse.com
+
+- avoid stale btrfs qgroups on transactional systems (bsc#1210151)
+
+-------------------------------------------------------------------
+Wed Apr 12 13:32:34 CEST 2023 - aschnell@suse.com
+
+- fixed error message (gh#openSUSE/snapper#801)
+
+-------------------------------------------------------------------
+Fri Mar 31 09:15:31 CEST 2023 - aschnell@suse.com
+
+- use xz compression instead of bzip2 for source tar
+  (gh#openSUSE/snapper#277)
+
+-------------------------------------------------------------------
+Tue Mar 21 08:51:05 CET 2023 - aschnell@suse.com
+
+- enable SELinux (and allow to disable via conditional build)
+  (bsc#1209515)
+- avoid some extra checks if SELinux is compile-time disabled
+
+-------------------------------------------------------------------
+Thu Feb 23 11:14:58 CET 2023 - aschnell@suse.com
+
+- wait for existing btrfs quota rescans to finish (bsc#1206814)
+
+-------------------------------------------------------------------
+Mon Feb 06 10:43:33 CET 2023 - aschnell@suse.com
+
+- fix use of does_subvolume_exist() (bsc#1207901)
+
+-------------------------------------------------------------------
+Wed Jan 25 12:25:23 CET 2023 - aschnell@suse.com
+
+- suppress debug logging in zypp-plugin per default
+
+-------------------------------------------------------------------
+Tue Jan 24 10:56:29 CET 2023 - aschnell@suse.com
+
+- enable SELinux on Fedora and RHEL (gh#openSUSE/snapper#772)
+
+-------------------------------------------------------------------
+Thu Jan 19 12:00:00 PM CET 2023 - David Sterba <dsterba@suse.cz>
+
+- Use libbtrfsutil implementation for BtrfsUtil::get_subvolume
+
+-------------------------------------------------------------------
+Thu Jan 12 12:00:00 PM CET 2023 - David Sterba <dsterba@suse.cz>
+
+- Add build support for libbtrfsutil
+- Use libbtrfsutil implementation for the following methods:
+  - check if a subvolume exists
+  - create subvolume, snapshot
+  - subvolume read-only check
+  - delete subvolume
+  - set/get default subvolume
+  - filesystem sync
+
+-------------------------------------------------------------------
+Tue Dec 27 13:20:38 UTC 2022 - Ludwig Nussel <lnussel@suse.com>
+
+- Replace transitional %usrmerged macro with regular version check
+  (boo#1206798)
+
+-------------------------------------------------------------------
+Thu Dec 22 09:03:33 CET 2022 - aschnell@suse.com
+
+- call generic plugins before and after the action
+
+-------------------------------------------------------------------
 Mon Dec 05 08:13:07 CET 2022 - aschnell@suse.com
 
-- fix build with upcoming selinux
+- fix build with upcoming SELinux
 - version 0.10.4
 
 -------------------------------------------------------------------

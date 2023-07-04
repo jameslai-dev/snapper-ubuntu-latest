@@ -1,5 +1,5 @@
 /*
- * Copyright (c) [2019-2020] SUSE LLC
+ * Copyright (c) [2019-2023] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -47,6 +47,7 @@ namespace snapper
 
 	bool quiet() const { return _quiet; }
 	bool verbose() const { return _verbose; }
+	bool debug() const { return _debug; }
 	bool utc() const { return _utc; }
 	bool iso() const { return _iso; }
 	bool no_dbus() const { return _no_dbus; }
@@ -56,6 +57,7 @@ namespace snapper
 	bool abbreviate() const { return _abbreviate; }
 	OutputFormat output_format() const { return _output_format; }
 	string separator() const { return _separator; }
+	bool headers() const { return _headers; }
 	string config() const { return _config; }
 	string root() const { return _root; }
 	Ambit ambit() const { return _ambit; }
@@ -75,6 +77,7 @@ namespace snapper
 
 	bool _quiet;
 	bool _verbose;
+	bool _debug;
 	bool _utc;
 	bool _iso;
 	bool _no_dbus;
@@ -84,6 +87,7 @@ namespace snapper
 	bool _abbreviate;
 	OutputFormat _output_format;
 	string _separator;
+	bool _headers;
 	string _config;
 	string _root;
 	Ambit _ambit;

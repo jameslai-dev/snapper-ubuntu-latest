@@ -6,16 +6,16 @@ Subject: drop testsuite-real to avoid to be installed into package
  Makefile.am | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Makefile.am b/Makefile.am
-index 9d7fb3a..e080721 100644
---- a/Makefile.am
-+++ b/Makefile.am
+Index: snapper/Makefile.am
+===================================================================
+--- snapper.orig/Makefile.am
++++ snapper/Makefile.am
 @@ -3,7 +3,7 @@
  #
  
- SUBDIRS = snapper examples dbus server client scripts pam data doc po		\
+ SUBDIRS = snapper dbus server client scripts pam data doc po examples		\
 -	testsuite testsuite-real testsuite-cmp zypp-plugin
 +	testsuite testsuite-cmp zypp-plugin
  
- AUTOMAKE_OPTIONS = foreign dist-bzip2 no-dist-gzip
+ AUTOMAKE_OPTIONS = foreign dist-xz no-dist-gzip
  

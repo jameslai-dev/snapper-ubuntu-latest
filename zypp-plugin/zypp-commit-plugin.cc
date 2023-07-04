@@ -23,20 +23,20 @@
 #include "zypp-commit-plugin.h"
 
 
-ZyppPlugin::Message ZyppCommitPlugin::dispatch(const Message& msg)
+ZyppPlugin::Message
+ZyppCommitPlugin::dispatch(const Message& msg)
 {
-    if (msg.command == "PLUGINBEGIN") {
+    if (msg.command == "PLUGINBEGIN")
 	return plugin_begin(msg);
-    }
-    if (msg.command == "PLUGINEND") {
+
+    if (msg.command == "PLUGINEND")
 	return plugin_end(msg);
-    }
-    if (msg.command == "COMMITBEGIN") {
+
+    if (msg.command == "COMMITBEGIN")
 	return commit_begin(msg);
-    }
-    if (msg.command == "COMMITEND") {
+
+    if (msg.command == "COMMITEND")
 	return commit_end(msg);
-    }
 
     return ZyppPlugin::dispatch(msg);
 }

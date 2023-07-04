@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2011-2015] Novell, Inc.
- * Copyright (c) [2016-2022] SUSE LLC
+ * Copyright (c) [2016-2023] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -26,7 +26,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <glob.h>
-#include <string.h>
+#include <cstring>
 #include <mntent.h>
 #include <sys/acl.h>
 #include <acl/libacl.h>
@@ -96,17 +96,6 @@ namespace snapper
 	y2mil("libsnapper version " VERSION);
 	y2mil("config_name:" << config_name << " disable_filters:" << disable_filters);
 
-#ifdef ENABLE_SELINUX
-	try
-	{
-	    selabel_handle = SelinuxLabelHandle::get_selinux_handle();
-	}
-	catch (const SelinuxException& e)
-	{
-	    SN_RETHROW(e);
-	}
-#endif
-
 	try
 	{
 	    config_info = new ConfigInfo(config_name, root_prefix);
@@ -120,8 +109,15 @@ namespace snapper
 
 	filesystem = Filesystem::create(*config_info, root_prefix);
 
-	// With btrfs backend, it's useless try syncing snapshot RO subvolumes
-	syncSelinuxContexts(filesystem->fstype() == "btrfs");
+#ifdef ENABLE_SELINUX
+	if (_is_selinux_enabled())
+	{
+	    SelinuxLabelHandle* selabel_handle = SelinuxLabelHandle::get_selinux_handle();
+
+	    // With btrfs backend, it's useless try syncing snapshot RO subvolumes
+	    syncSelinuxContexts(selabel_handle, filesystem->fstype() == "btrfs");
+	}
+#endif
 
 	bool sync_acl;
 	if (config_info->get_value(KEY_SYNC_ACL, sync_acl) && sync_acl == true)
@@ -390,6 +386,8 @@ namespace snapper
 	    SN_THROW(CreateConfigFailedException(e.what()));
 	}
 
+	Hooks::create_config(Hooks::Stage::PRE_ACTION, subvolume, filesystem.get());
+
 	try
 	{
 	    SysconfigFile sysconfig(SYSCONFIG_FILE);
@@ -409,7 +407,7 @@ namespace snapper
 	{
 	    SN_CAUGHT(e);
 
-	    SN_THROW(CreateConfigFailedException("sysconfig-file not found"));
+	    SN_THROW(CreateConfigFailedException(e.what()));
 	}
 
 	try
@@ -452,7 +450,7 @@ namespace snapper
 	    SN_RETHROW(e);
 	}
 
-	Hooks::create_config(subvolume, filesystem.get());
+	Hooks::create_config(Hooks::Stage::POST_ACTION, subvolume, filesystem.get());
     }
 
 
@@ -464,7 +462,7 @@ namespace snapper
 
 	unique_ptr<Snapper> snapper(new Snapper(config_name, root_prefix));
 
-	Hooks::delete_config(snapper->subvolumeDir(), snapper->getFilesystem());
+	Hooks::delete_config(Hooks::Stage::PRE_ACTION, snapper->subvolumeDir(), snapper->getFilesystem());
 
 	Snapshots& snapshots = snapper->getSnapshots();
 
@@ -524,6 +522,8 @@ namespace snapper
 
 	    SN_THROW(DeleteConfigFailedException("modifying sysconfig-file failed"));
 	}
+
+	Hooks::delete_config(Hooks::Stage::POST_ACTION, snapper->subvolumeDir(), snapper->getFilesystem());
     }
 
 
@@ -847,8 +847,15 @@ namespace snapper
 	// Tests have shown that without a rescan and sync here the quota data
 	// is incorrect.
 
-	quota_rescan(general_dir.fd());
-	sync(general_dir.fd());
+	try
+	{
+	    quota_rescan(general_dir.fd());
+	    sync(general_dir.fd());
+	}
+	catch (...)
+	{
+	    SN_THROW(QuotaException("quota rescan or sync failed"));
+	}
 
 	QuotaData quota_data;
 
@@ -913,7 +920,7 @@ namespace snapper
 
 
     void
-    Snapper::syncSelinuxContexts(bool skip_snapshot_dir) const
+    Snapper::syncSelinuxContexts(SelinuxLabelHandle* selabel_handle, bool skip_snapshot_dir) const
     {
 #ifdef ENABLE_SELINUX
 	try
@@ -923,14 +930,14 @@ namespace snapper
 
 	    if (infos_dir.restorecon(selabel_handle))
 	    {
-		syncSelinuxContextsInInfosDir(skip_snapshot_dir);
+		syncSelinuxContextsInInfosDir(selabel_handle, skip_snapshot_dir);
 	    }
 	    else
 	    {
 		SnapperContexts scons;
 
 		if (infos_dir.fsetfilecon(scons.subvolume_context()))
-		    syncSelinuxContextsInInfosDir(skip_snapshot_dir);
+		    syncSelinuxContextsInInfosDir(selabel_handle, skip_snapshot_dir);
 	    }
 	}
 	catch (const SelinuxException& e)
@@ -943,7 +950,7 @@ namespace snapper
 
 
     void
-    Snapper::syncSelinuxContextsInInfosDir(bool skip_snapshot_dir) const
+    Snapper::syncSelinuxContextsInInfosDir(SelinuxLabelHandle* selabel_handle, bool skip_snapshot_dir) const
     {
 #ifdef ENABLE_SELINUX
 	static const regex rx("[0-9]+", regex::extended);

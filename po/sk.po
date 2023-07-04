@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 12:54+0100\n"
-"PO-Revision-Date: 2022-03-23 18:12+0000\n"
+"POT-Creation-Date: 2023-04-25 09:55+0200\n"
+"PO-Revision-Date: 2023-04-25 17:14+0000\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <https://l10n.opensuse.org/projects/snapper/master/sk/>"
 "\n"
@@ -37,12 +37,12 @@ msgid ""
 "\t--columns <columns>\t\tColumns to show separated by comma.\n"
 "\t\t\t\t\tPossible columns: config, subvolume, number, default, active,\n"
 "\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
-"\t\t\t\t\tpre-number, post-number, post-date."
+"\t\t\t\t\tpre-number, post-number, post-date, read-only."
 msgstr ""
 "\t--columns <stĺpce>\t\tStĺpce na zobrazenie oddelené čiarkou.\n"
 "\t\t\t\t\tMožné stĺpce: config, subvolume, number, default, active,\n"
 "\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
-"\t\t\t\t\tpre-number, post-number, post-date."
+"\t\t\t\t\tpre-number, post-number, post-date, read-only."
 
 msgid ""
 "\t--columns <columns>\t\tColumns to show separated by comma.\n"
@@ -62,6 +62,12 @@ msgstr "\t--config, -c <name>\t\tNastaví názov konfigurácie, ktorá sa použi
 msgid "\t--csvout\t\t\tSet CSV output format."
 msgstr "\t--csvout\t\t\tNastaví výstupný formát CSV."
 
+msgid "\t--debug\t\t\t\tTurn on debugging."
+msgstr "\t--debug\t\t\t\tZapne sa ladenie."
+
+msgid "\t--default\t\t\tSet snapshot as default snapshot."
+msgstr "\t--default\t\t\tNastaví snímku ako predvolenú snímku."
+
 msgid "\t--description, -d <description>\tDescription for snapshot."
 msgstr "\t--description, -d <popis>\tPopis pre snímku."
 
@@ -80,8 +86,8 @@ msgstr "\t--extensions, -x <voľby>\tĎalšie voľby odovzdané príkazu diff."
 msgid "\t--free-space <space>\t\tTry to make space available."
 msgstr "\t--free-space <miesto>\t\tSkúsi sprístupniť miesto."
 
-msgid "\t--from\t\t\t\tCreate a snapshot from the specified snapshot."
-msgstr "\t--from\t\t\t\tVytvorí snímku zo zadanej snímky."
+msgid "\t--from <number>\t\t\tCreate a snapshot from the specified snapshot."
+msgstr "\t--from <číslo>\t\t\tVytvorí snímku zo zadanej snímky."
 
 msgid "\t--fstype, -f <fstype>\t\tManually set filesystem type."
 msgstr "\t--fstype, -f <typ_súborového_systému>\t\tRučne nastaví typ súborového systému."
@@ -104,6 +110,9 @@ msgstr "\t--machine-readable <formát>\tNastaví výstupný formát čitateľný
 msgid "\t--no-dbus\t\t\tOperate without DBus."
 msgstr "\t--no-dbus\t\t\tBeží bez DBus."
 
+msgid "\t--no-headers\t\t\tNo headers for CSV output format."
+msgstr "\t--no-headers\t\t\tŽiadne hlavičky pre výstupný formát CSV."
+
 msgid "\t--output, -o <file>\t\tSave status to file."
 msgstr "\t--output, -o <súbor>\t\tUloží stav do súboru."
 
@@ -125,8 +134,14 @@ msgstr "\t--quiet, -q\t\t\tPotlačí normálny výstup."
 msgid "\t--read-only\t\t\tCreate read-only snapshot."
 msgstr "\t--read-only\t\t\tVytvorí snímku len na čítanie."
 
+msgid "\t--read-only\t\t\tSet snapshot read-only."
+msgstr "\t--read-only\t\t\tNastaví snímku len na čítanie."
+
 msgid "\t--read-write\t\t\tCreate read-write snapshot."
 msgstr "\t--read-write\t\t\tVytvorí snímku na čítanie a zápis."
+
+msgid "\t--read-write\t\t\tSet snapshot read-write."
+msgstr "\t--read-write\t\t\tNastaví snímku na čítanie a zápis."
 
 msgid "\t--root, -r <path>\t\tOperate on target root (works only without DBus)."
 msgstr "\t--root, -r <cesta>\t\tBeží na cieľovom správcovi systému root (funguje len bez DBus)."
@@ -705,6 +720,7 @@ msgstr "Otvorenie súboru '%s' zlyhalo."
 msgid "Option --from only supported for snapshots of type single."
 msgstr "Voľba --from podporovaná iba pre snímky typu single."
 
+#. DBus versions of CreatePreSnapshot and CreatePostSnapshot do not pass read-only flag
 msgid "Option --read-write only supported for snapshots of type single."
 msgstr "Voľba --read-write podporovaná iba pre snímky typu single."
 
@@ -736,6 +752,9 @@ msgstr "Dátum pred"
 #, c-format
 msgid "Quota error (%s)."
 msgstr "Chyba kvóty (%s)."
+
+msgid "Read-Only"
+msgstr "Len na čítanie"
 
 msgid "See 'man snapper' for further instructions."
 msgstr "Viac informácií nájdete na 'man snapper'."

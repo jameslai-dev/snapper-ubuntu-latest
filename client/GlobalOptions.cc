@@ -1,5 +1,5 @@
 /*
- * Copyright (c) [2019-2020] SUSE LLC
+ * Copyright (c) [2019-2023] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -40,6 +40,7 @@ namespace snapper
 	return string(_("    Global options:")) + '\n'
 	    + _("\t--quiet, -q\t\t\tSuppress normal output.") + '\n'
 	    + _("\t--verbose, -v\t\t\tIncrease verbosity.") + '\n'
+	    + _("\t--debug\t\t\t\tTurn on debugging.") + '\n'
 	    + _("\t--utc\t\t\t\tDisplay dates and times in UTC.") + '\n'
 	    + _("\t--iso\t\t\t\tDisplay dates and times in ISO format.") + '\n'
 	    + _("\t--table-style, -t <style>\tTable style (integer).") + '\n'
@@ -48,6 +49,7 @@ namespace snapper
 	    + _("\t--csvout\t\t\tSet CSV output format.") + '\n'
 	    + _("\t--jsonout\t\t\tSet JSON output format.") + '\n'
 	    + _("\t--separator <separator>\t\tCharacter separator for CSV output format.") + '\n'
+	    + _("\t--no-headers\t\t\tNo headers for CSV output format.") + '\n'
 	    + _("\t--config, -c <name>\t\tSet name of config to use.") + '\n'
 	    + _("\t--no-dbus\t\t\tOperate without DBus.") + '\n'
 	    + _("\t--root, -r <path>\t\tOperate on target root (works only without DBus).") + '\n'
@@ -62,6 +64,7 @@ namespace snapper
 	const vector<Option> options = {
 	    Option("quiet",		no_argument,		'q'),
 	    Option("verbose",		no_argument,		'v'),
+	    Option("debug",		no_argument),
 	    Option("utc",		no_argument),
 	    Option("iso",		no_argument),
 	    Option("table-style",	required_argument,	't'),
@@ -70,6 +73,7 @@ namespace snapper
 	    Option("csvout",		no_argument),
 	    Option("jsonout",		no_argument),
 	    Option("separator",		required_argument),
+	    Option("no-headers",	no_argument),
 	    Option("config",		required_argument,	'c'),
 	    Option("no-dbus",		no_argument),
 	    Option("root",		required_argument,	'r'),
@@ -84,6 +88,7 @@ namespace snapper
 
 	_quiet = opts.has_option("quiet");
 	_verbose = opts.has_option("verbose");
+	_debug = opts.has_option("debug");
 	_utc = opts.has_option("utc");
 	_iso = opts.has_option("iso");
 	_no_dbus = opts.has_option("no-dbus");
@@ -92,6 +97,7 @@ namespace snapper
 	_table_style = table_style_value(opts);
 	_abbreviate = opts.has_option("abbreviate");
 	_output_format = output_format_value(opts);
+	_headers = !opts.has_option("no-headers");
 	_separator = separator_value(opts);
 	_config = config_value(opts);
 	_root = root_value(opts);

@@ -156,7 +156,8 @@ MetaSnappers::find(const string& config_name)
 	if (it->configName() == config_name)
 	    return it;
 
-    throw UnknownConfig();
+    SN_THROW(UnknownConfig());
+    __builtin_unreachable();
 }
 
 

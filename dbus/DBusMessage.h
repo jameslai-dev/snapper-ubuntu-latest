@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2012 Novell, Inc.
- * Copyright (c) 2016 SUSE LLC
+ * Copyright (c) [2016-2023] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -30,17 +30,18 @@
 #include <ctime>
 #include <string>
 #include <vector>
-#include <list>
 #include <map>
 
 #include "snapper/Exception.h"
+
+
+using namespace snapper;
 
 
 namespace DBus
 {
     using std::string;
     using std::vector;
-    using std::list;
     using std::map;
 
 
@@ -53,12 +54,17 @@ namespace DBus
 
     struct ErrorException : public Exception
     {
-	explicit ErrorException(const DBusError err)
-	    : Exception("dbus error exception"), err(err) {}
-	virtual ~ErrorException() throw() { dbus_error_free(&err); }
-	virtual const char* name() const throw() { return err.name; }
-	virtual const char* message() const throw() { return err.message; }
-	DBusError err;
+	explicit ErrorException(DBusError* err)
+	    : Exception("dbus error exception"), err_name(err->name), err_message(err->message)
+	{
+	    dbus_error_free(err);
+	}
+
+	const char* name() const { return err_name.c_str(); }
+	const char* message() const { return err_message.c_str(); }
+
+	const string err_name;
+	const string err_message;
     };
 
 
@@ -131,7 +137,7 @@ namespace DBus
 	    : Message(dbus_message_new_method_return(m.get_message()), false)
 	{
 	    if (m.get_type() != DBUS_MESSAGE_TYPE_METHOD_CALL)
-		throw FatalException();
+		SN_THROW(FatalException());
 	}
 
     };
@@ -145,7 +151,7 @@ namespace DBus
 	    : Message(dbus_message_new_error(m.get_message(), error_msg, error_code), false)
 	{
 	    if (m.get_type() != DBUS_MESSAGE_TYPE_METHOD_CALL)
-		throw FatalException();
+		SN_THROW(FatalException());
 	}
 
     };
@@ -192,8 +198,8 @@ namespace DBus
 
     public:
 
-    Unmarshaller(Message& msg);
-    ~Unmarshaller();
+	Unmarshaller(Message& msg);
+	~Unmarshaller();
 
 	void open_recurse();
 	void close_recurse();
@@ -208,8 +214,8 @@ namespace DBus
 
     public:
 
-    Marshaller(Message& msg);
-    ~Marshaller();
+	Marshaller(Message& msg);
+	~Marshaller();
 
 	void open_struct();
 	void close_struct();
@@ -252,80 +258,40 @@ namespace DBus
     template <typename Type>
     Unmarshaller& operator>>(Unmarshaller& unmarshaller, vector<Type>& data)
     {
-    if (unmarshaller.get_type() != DBUS_TYPE_ARRAY)
-	    throw MarshallingException();
+	if (unmarshaller.get_type() != DBUS_TYPE_ARRAY)
+	    SN_THROW(MarshallingException());
 
-    unmarshaller.open_recurse();
+	unmarshaller.open_recurse();
 
-    while (unmarshaller.get_type() != DBUS_TYPE_INVALID)
+	while (unmarshaller.get_type() != DBUS_TYPE_INVALID)
 	{
-        if (unmarshaller.get_signature() != TypeInfo<Type>::signature)
-		throw MarshallingException();
+	    if (unmarshaller.get_signature() != TypeInfo<Type>::signature)
+		SN_THROW(MarshallingException());
 
 	    Type tmp;
-        unmarshaller >> tmp;
+	    unmarshaller >> tmp;
 	    data.push_back(tmp);
 	}
 
-    unmarshaller.close_recurse();
+	unmarshaller.close_recurse();
 
-    return unmarshaller;
+	return unmarshaller;
     }
 
 
     template <typename Type>
     Marshaller& operator<<(Marshaller& marshaller, const vector<Type>& data)
     {
-    marshaller.open_array(TypeInfo<Type>::signature);
+	marshaller.open_array(TypeInfo<Type>::signature);
 
 	for (typename vector<Type>::const_iterator it = data.begin(); it != data.end(); ++it)
 	{
-        marshaller << *it;
+	    marshaller << *it;
 	}
 
-    marshaller.close_array();
+	marshaller.close_array();
 
-    return marshaller;
-    }
-
-
-    template <typename Type>
-    Unmarshaller& operator>>(Unmarshaller& unmarshaller, list<Type>& data)
-    {
-    if (unmarshaller.get_type() != DBUS_TYPE_ARRAY)
-	    throw MarshallingException();
-
-    unmarshaller.open_recurse();
-
-    while (unmarshaller.get_type() != DBUS_TYPE_INVALID)
-	{
-        if (unmarshaller.get_signature() != TypeInfo<Type>::signature)
-		throw MarshallingException();
-
-	    Type tmp;
-        unmarshaller >> tmp;
-	    data.push_back(tmp);
-	}
-
-    unmarshaller.close_recurse();
-
-    return unmarshaller;
-    }
-
-
-    template <typename Type>
-    Marshaller& operator<<(Marshaller& marshaller, const list<Type>& data)
-    {
-    marshaller.open_array(TypeInfo<Type>::signature);
-
-	for (typename list<Type>::const_iterator it = data.begin(); it != data.end(); ++it)
-	{
-        marshaller << *it;
-	}
-
-    marshaller.close_array();
-
-    return marshaller;
+	return marshaller;
     }
 
 }

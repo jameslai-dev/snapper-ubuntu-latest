@@ -1,3 +1,15 @@
+snapper (0.10.5-1) experimental; urgency=medium
+
+  * New upstream release
+  * debian/patches
+    - Refresh patches
+  * debian/{control,libsnapper7.install}
+    - SONAME bump, ship libsnapper7 as well
+  * debian/snapper.install
+    - Add /usr/share/zsh/site-functions/_snapper
+
+ -- Hideki Yamane <henrich@debian.org>  Tue, 04 Jul 2023 21:49:36 +0900
+
 snapper (0.10.4-1) unstable; urgency=medium
 
   * New upstream release

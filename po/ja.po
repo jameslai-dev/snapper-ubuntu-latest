@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: snapper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 12:54+0100\n"
-"PO-Revision-Date: 2022-03-23 18:12+0000\n"
+"POT-Creation-Date: 2023-04-25 09:55+0200\n"
+"PO-Revision-Date: 2023-04-25 13:14+0000\n"
 "Last-Translator: Yasuhiko Kamata <belphegor@belbel.or.jp>\n"
 "Language-Team: Japanese <https://l10n.opensuse.org/projects/snapper/master/"
 "ja/>\n"
@@ -39,12 +39,12 @@ msgid ""
 "\t--columns <columns>\t\tColumns to show separated by comma.\n"
 "\t\t\t\t\tPossible columns: config, subvolume, number, default, active,\n"
 "\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
-"\t\t\t\t\tpre-number, post-number, post-date."
+"\t\t\t\t\tpre-number, post-number, post-date, read-only."
 msgstr ""
 "\t--columns <列>\t\t表示する列を指定する (カンマ区切り)\n"
 "\t\t\t\t\t指定可能な列: config, subvolume, number, default, active,\n"
 "\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
-"\t\t\t\t\tpre-number, post-number, post-date."
+"\t\t\t\t\tpre-number, post-number, post-date, read-only."
 
 msgid ""
 "\t--columns <columns>\t\tColumns to show separated by comma.\n"
@@ -64,6 +64,12 @@ msgstr "\t--config, -c <名前>\t\t使用する設定ファイル名を指定す
 msgid "\t--csvout\t\t\tSet CSV output format."
 msgstr "\t--csvout\t\t\tCSV 形式の出力を行なう。"
 
+msgid "\t--debug\t\t\t\tTurn on debugging."
+msgstr "\t--debug\t\t\t\tデバッグを有効化する。"
+
+msgid "\t--default\t\t\tSet snapshot as default snapshot."
+msgstr "\t--default\t\t\t既定のスナップショットとして設定する。"
+
 msgid "\t--description, -d <description>\tDescription for snapshot."
 msgstr "\t--description, -d <説明>\tスナップショットの説明を指定する。"
 
@@ -82,8 +88,8 @@ msgstr "\t--extensions, -x <オプション>\tdiffコマンドに渡される追
 msgid "\t--free-space <space>\t\tTry to make space available."
 msgstr "\t--free-space <サイズ>\t\t指定した空き容量になるようにする。"
 
-msgid "\t--from\t\t\t\tCreate a snapshot from the specified snapshot."
-msgstr "\t--from\t\t\t\t指定したスナップショットから新しいスナップショットを作成する。"
+msgid "\t--from <number>\t\t\tCreate a snapshot from the specified snapshot."
+msgstr "\t--from <番号>\t\t\t指定したスナップショットから新しいスナップショットを作成する。"
 
 msgid "\t--fstype, -f <fstype>\t\tManually set filesystem type."
 msgstr "\t--fstype, -f <種類>\t\t手動でファイルシステムの種類を指定する。"
@@ -106,6 +112,9 @@ msgstr "\t--machine-readable <書式>\t機械処理可能な出力形式 (csv, j
 msgid "\t--no-dbus\t\t\tOperate without DBus."
 msgstr "\t--no-dbus\t\t\tDBus 無しで処理を行なう。"
 
+msgid "\t--no-headers\t\t\tNo headers for CSV output format."
+msgstr "\t--no-headers\t\t\tCSV 形式での出力時、ヘッダを出力しない。"
+
 msgid "\t--output, -o <file>\t\tSave status to file."
 msgstr "\t--output, -o <ファイル>\t\t状態をファイルに保存する。"
 
@@ -127,8 +136,14 @@ msgstr "\t--quiet, -q\t\t\t通常出力される項目を省略する。"
 msgid "\t--read-only\t\t\tCreate read-only snapshot."
 msgstr "\t--read-only\t\t\t読み込み専用のスナップショットを作成する。"
 
+msgid "\t--read-only\t\t\tSet snapshot read-only."
+msgstr "\t--read-only\t\t\tスナップショットを読み込み専用に設定する。"
+
 msgid "\t--read-write\t\t\tCreate read-write snapshot."
 msgstr "\t--read-write\t\t\t読み書き可能なスナップショットを作成する。"
+
+msgid "\t--read-write\t\t\tSet snapshot read-write."
+msgstr "\t--read-write\t\t\tスナップショットを読み書き可能にする。"
 
 msgid "\t--root, -r <path>\t\tOperate on target root (works only without DBus)."
 msgstr "\t--root, -r <パス>\t\t指定したルートに対して操作を行なう　(DBus を使用しない場合にのみ動作します)。"
@@ -699,6 +714,7 @@ msgstr "ファイル '%s' を開けませんでした。"
 msgid "Option --from only supported for snapshots of type single."
 msgstr "--from オプションは、種類が single (単一) であるスナップショットにのみ対応しています。"
 
+#. DBus versions of CreatePreSnapshot and CreatePostSnapshot do not pass read-only flag
 msgid "Option --read-write only supported for snapshots of type single."
 msgstr "--read-write オプションは、種類が single (単一) であるスナップショットにのみ対応しています。"
 
@@ -729,6 +745,9 @@ msgstr "前日付"
 #, c-format
 msgid "Quota error (%s)."
 msgstr "クォータエラー (%s) 。"
+
+msgid "Read-Only"
+msgstr "読み込み専用"
 
 msgid "See 'man snapper' for further instructions."
 msgstr "詳しい手順については、「man snapper」を参照してください。"

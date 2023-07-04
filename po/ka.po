@@ -2,15 +2,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 12:54+0100\n"
-"PO-Revision-Date: 2005-05-18 10:33+0200\n"
-"Last-Translator: Aiet Kolkhi <aiet@qartuli.net>\n"
-"Language-Team: Georgian <i18n@suse.de>\n"
+"POT-Creation-Date: 2023-04-25 09:55+0200\n"
+"PO-Revision-Date: 2023-02-04 20:14+0000\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"Language-Team: Georgian <https://l10n.opensuse.org/projects/snapper/master/ka/>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.9.1\n"
 
 msgid "\t--abbreviate\t\t\tAllow to abbreviate table columns."
 msgstr ""
@@ -31,7 +32,7 @@ msgid ""
 "\t--columns <columns>\t\tColumns to show separated by comma.\n"
 "\t\t\t\t\tPossible columns: config, subvolume, number, default, active,\n"
 "\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
-"\t\t\t\t\tpre-number, post-number, post-date."
+"\t\t\t\t\tpre-number, post-number, post-date, read-only."
 msgstr ""
 
 msgid ""
@@ -47,6 +48,12 @@ msgid "\t--config, -c <name>\t\tSet name of config to use."
 msgstr ""
 
 msgid "\t--csvout\t\t\tSet CSV output format."
+msgstr ""
+
+msgid "\t--debug\t\t\t\tTurn on debugging."
+msgstr ""
+
+msgid "\t--default\t\t\tSet snapshot as default snapshot."
 msgstr ""
 
 msgid "\t--description, -d <description>\tDescription for snapshot."
@@ -67,7 +74,7 @@ msgstr ""
 msgid "\t--free-space <space>\t\tTry to make space available."
 msgstr ""
 
-msgid "\t--from\t\t\t\tCreate a snapshot from the specified snapshot."
+msgid "\t--from <number>\t\t\tCreate a snapshot from the specified snapshot."
 msgstr ""
 
 msgid "\t--fstype, -f <fstype>\t\tManually set filesystem type."
@@ -91,6 +98,9 @@ msgstr ""
 msgid "\t--no-dbus\t\t\tOperate without DBus."
 msgstr ""
 
+msgid "\t--no-headers\t\t\tNo headers for CSV output format."
+msgstr ""
+
 msgid "\t--output, -o <file>\t\tSave status to file."
 msgstr ""
 
@@ -112,7 +122,13 @@ msgstr ""
 msgid "\t--read-only\t\t\tCreate read-only snapshot."
 msgstr ""
 
+msgid "\t--read-only\t\t\tSet snapshot read-only."
+msgstr ""
+
 msgid "\t--read-write\t\t\tCreate read-write snapshot."
+msgstr ""
+
+msgid "\t--read-write\t\t\tSet snapshot read-write."
 msgstr ""
 
 msgid "\t--root, -r <path>\t\tOperate on target root (works only without DBus)."
@@ -155,7 +171,7 @@ msgid "\tsnapper cleanup <cleanup-algorithm>"
 msgstr ""
 
 msgid "\tsnapper create"
-msgstr ""
+msgstr "\tsnapper create"
 
 msgid "\tsnapper create-config <subvolume>"
 msgstr ""
@@ -164,19 +180,19 @@ msgid "\tsnapper delete <number>"
 msgstr ""
 
 msgid "\tsnapper delete-config"
-msgstr ""
+msgstr "\tsnapper delete-config"
 
 msgid "\tsnapper diff <number1>..<number2> [files]"
 msgstr ""
 
 msgid "\tsnapper get-config"
-msgstr ""
+msgstr "\tsnapper get-config"
 
 msgid "\tsnapper list"
-msgstr ""
+msgstr "\tsnapper list"
 
 msgid "\tsnapper list-configs"
-msgstr ""
+msgstr "\tsnapper list-configs"
 
 msgid "\tsnapper modify <number>"
 msgstr ""
@@ -191,7 +207,7 @@ msgid "\tsnapper set-config <configdata>"
 msgstr ""
 
 msgid "\tsnapper setup-quota"
-msgstr ""
+msgstr "\tsnapper setup-quota"
 
 msgid "\tsnapper status <number1>..<number2>"
 msgstr ""
@@ -206,7 +222,7 @@ msgid "\tsnapper xadiff <number1>..<number2> [files]"
 msgstr ""
 
 msgid "    Global options:"
-msgstr ""
+msgstr "    გლობალური პარამეტრები:"
 
 msgid "    Options for 'cleanup' command:"
 msgstr ""
@@ -299,7 +315,7 @@ msgid "  Undo changes:"
 msgstr ""
 
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #. TRANSLATORS: used to construct list of values
 #. %1$s is replaced by first value
@@ -313,7 +329,7 @@ msgstr ""
 #. %2$s is replaced by second value
 #, c-format
 msgid "%1$s, %2$s"
-msgstr ""
+msgstr "%1$s, %2$s"
 
 #, c-format
 msgid "(Snapshot %d.)"
@@ -323,7 +339,7 @@ msgid "ACL error."
 msgstr ""
 
 msgid "Active"
-msgstr ""
+msgstr "აქტიური"
 
 msgid "Active snapshot is already default snapshot."
 msgstr ""
@@ -334,11 +350,11 @@ msgstr ""
 
 #. TRANSLATORS: symbol for "bytes" (best keep untranslated)
 msgid "B"
-msgstr ""
+msgstr "ბ"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot delete snapshot %d since it is the current system."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
 #, c-format
 msgid "Cannot delete snapshot %d since it is the currently mounted snapshot."
@@ -355,7 +371,7 @@ msgid "Cannot do rollback since default subvolume is unknown."
 msgstr ""
 
 msgid "Cleanup"
-msgstr ""
+msgstr "გასუფთავება"
 
 msgid "Command 'cleanup' needs one arguments."
 msgstr ""
@@ -425,7 +441,7 @@ msgid "Command 'xadiff' needs at least one argument."
 msgstr ""
 
 msgid "Config"
-msgstr ""
+msgstr "კონფიგურაცია"
 
 #, c-format
 msgid "Config '%s' is invalid."
@@ -456,9 +472,9 @@ msgstr ""
 msgid "Could not make enough free space available."
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Creating config failed (%s)."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
 msgid "Creating read-only snapshot of current system."
 msgstr ""
@@ -473,46 +489,44 @@ msgstr ""
 msgid "Creating read-write snapshot of snapshot %d."
 msgstr ""
 
-#, fuzzy
 msgid "Creating snapshot failed."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
 msgid "Date"
-msgstr ""
+msgstr "თარიღი"
 
 msgid "Default"
+msgstr "ნაგულისხმები"
+
+#, c-format
+msgid "Deleting config failed (%s)."
 msgstr ""
 
-#, fuzzy, c-format
-msgid "Deleting config failed (%s)."
-msgstr "DBI Execution failed: %s."
-
-#, fuzzy
 msgid "Deleting snapshot failed."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Deleting snapshot from %s:"
 msgid_plural "Deleting snapshots from %s:"
-msgstr[0] "DBI Execution failed: %s."
+msgstr[0] ""
 
 msgid "Description"
-msgstr ""
+msgstr "აღწერა"
 
 msgid "Detecting filesystem type failed."
 msgstr ""
 
 #. TRANSLATORS: symbol for "exa" (best keep untranslated)
 msgid "E"
-msgstr ""
+msgstr "ად"
 
 #. TRANSLATORS: symbol for "exa bytes" (best keep untranslated)
 msgid "EB"
-msgstr ""
+msgstr "ებ"
 
 #. TRANSLATORS: symbol for "exbi bytes" (best keep untranslated)
 msgid "EiB"
-msgstr ""
+msgstr "ეიბ"
 
 msgid "Empty configdata."
 msgstr ""
@@ -521,31 +535,29 @@ msgid "Empty userdata."
 msgstr ""
 
 # error box title
-#, fuzzy, c-format
+#, c-format
 msgid "Error (%s)."
-msgstr "I/O შეცდომა"
+msgstr ""
 
 msgid "Failed to initialize filesystem handler."
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to parse '%s'."
-msgstr "Failed to parse: %s."
+msgstr ""
 
 #, c-format
 msgid "Failed to query free space for path '%s'."
 msgstr ""
 
-#, fuzzy
 msgid "Failed to query free space."
-msgstr "Failed to parse: %s."
+msgstr ""
 
-#, fuzzy
 msgid "Failed to set locale."
-msgstr "Failed to parse: %s."
+msgstr ""
 
 msgid "Failure"
-msgstr ""
+msgstr "წარუმატებელი"
 
 #, c-format
 msgid "Failure (%s)."
@@ -556,38 +568,37 @@ msgid "File '%s' not found."
 msgstr ""
 
 # error box title
-#, fuzzy, c-format
+#, c-format
 msgid "Free space error (%s)."
-msgstr "I/O შეცდომა"
+msgstr ""
 
 #. TRANSLATORS: symbol for "giga" (best keep untranslated)
 msgid "G"
-msgstr ""
+msgstr "გ"
 
 #. TRANSLATORS: symbol for "giga bytes" (best keep untranslated)
 msgid "GB"
-msgstr ""
+msgstr "გბ"
 
 #. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
 msgid "GiB"
+msgstr "გიბ"
+
+# error box title
+#, c-format
+msgid "IO Error (%s)."
 msgstr ""
 
 # error box title
-#, fuzzy, c-format
-msgid "IO Error (%s)."
-msgstr "I/O შეცდომა"
-
-# error box title
-#, fuzzy, c-format
+#, c-format
 msgid "IO error (%s)."
-msgstr "I/O შეცდომა"
+msgstr ""
 
 msgid "Identical snapshots."
 msgstr ""
 
-#, fuzzy
 msgid "Illegal snapshot."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
 #, c-format
 msgid "Invalid ambit '%s'."
@@ -604,7 +615,7 @@ msgid "Invalid free-space value."
 msgstr ""
 
 msgid "Invalid group."
-msgstr ""
+msgstr "არასწორი ჯგუფი."
 
 #, c-format
 msgid "Invalid machine readable format '%s'."
@@ -629,36 +640,36 @@ msgid "Invalid table style '%s'."
 msgstr ""
 
 msgid "Invalid user."
-msgstr ""
+msgstr "არასწორი მომხმარებელი."
 
 msgid "Invalid userdata."
 msgstr ""
 
 msgid "Key"
-msgstr ""
+msgstr "გასაღები"
 
 #. TRANSLATORS: symbol for "kibi bytes" (best keep untranslated)
 msgid "KiB"
-msgstr ""
+msgstr "კიბ"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Listing configs failed (%s)."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
 #. TRANSLATORS: symbol for "mega" (best keep untranslated)
 msgid "M"
-msgstr ""
+msgstr "თ"
 
 #. TRANSLATORS: symbol for "mega bytes" (best keep untranslated)
 msgid "MB"
-msgstr ""
+msgstr "მბ"
 
 msgid "Maybe you forgot the delimiter '..' between the snapshot numbers."
 msgstr ""
 
 #. TRANSLATORS: symbol for "mebi bytes" (best keep untranslated)
 msgid "MiB"
-msgstr ""
+msgstr "მიბ"
 
 #, c-format
 msgid "Missing argument for command option '%s'."
@@ -690,37 +701,41 @@ msgstr ""
 msgid "Option --from only supported for snapshots of type single."
 msgstr ""
 
+#. DBus versions of CreatePreSnapshot and CreatePostSnapshot do not pass read-only flag
 msgid "Option --read-write only supported for snapshots of type single."
 msgstr ""
 
 #. TRANSLATORS: symbol for "peta" (best keep untranslated)
 msgid "P"
-msgstr ""
+msgstr "პ"
 
 #. TRANSLATORS: symbol for "peta bytes" (best keep untranslated)
 msgid "PB"
-msgstr ""
+msgstr "პბ"
 
 #. TRANSLATORS: symbol for "pebi bytes" (best keep untranslated)
 msgid "PiB"
-msgstr ""
+msgstr "პიბ"
 
 msgid "Post #"
-msgstr ""
+msgstr "პოსტ #"
 
 msgid "Post Date"
 msgstr ""
 
 msgid "Pre #"
-msgstr ""
+msgstr "პრე #"
 
 msgid "Pre Date"
 msgstr ""
 
 # error box title
-#, fuzzy, c-format
+#, c-format
 msgid "Quota error (%s)."
-msgstr "I/O შეცდომა"
+msgstr ""
+
+msgid "Read-Only"
+msgstr ""
 
 msgid "See 'man snapper' for further instructions."
 msgstr ""
@@ -737,15 +752,15 @@ msgid "Snapshot is in use."
 msgstr ""
 
 msgid "Subvolume"
-msgstr ""
+msgstr "ქვეტომი"
 
 #. TRANSLATORS: symbol for "tera" (best keep untranslated)
 msgid "T"
-msgstr ""
+msgstr "ტერა"
 
 #. TRANSLATORS: symbol for "tera bytes" (best keep untranslated)
 msgid "TB"
-msgstr ""
+msgstr "ტბ"
 
 msgid "The ambit can be specified manually using the --ambit option."
 msgstr ""
@@ -758,13 +773,13 @@ msgstr ""
 
 #. TRANSLATORS: symbol for "tebi bytes" (best keep untranslated)
 msgid "TiB"
-msgstr ""
+msgstr "ტიბ"
 
 msgid "Try 'snapper --help' for more information."
 msgstr ""
 
 msgid "Type"
-msgstr ""
+msgstr "ტიპი"
 
 #, c-format
 msgid "Unknown cleanup algorithm '%s'."
@@ -774,9 +789,8 @@ msgstr ""
 msgid "Unknown command '%s'."
 msgstr ""
 
-#, fuzzy
 msgid "Unknown config."
-msgstr "უცნობი"
+msgstr "უცნობი კონფიგურაცია."
 
 #, c-format
 msgid "Unknown global option '%s'."
@@ -786,9 +800,9 @@ msgstr ""
 msgid "Unknown option '%s' for command '%s'."
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown type '%s'."
-msgstr "უცნობი"
+msgstr ""
 
 #. TRANSLATORS: a list of possible values
 #. %1$s is replaced by list of possible values
@@ -801,10 +815,10 @@ msgid "Use an integer number from %d to %d."
 msgstr ""
 
 msgid "Used Space"
-msgstr ""
+msgstr "გამოყენებული ადგილი დისკზე"
 
 msgid "User"
-msgstr ""
+msgstr "მომხმარებელი"
 
 msgid "Userdata"
 msgstr ""
@@ -818,7 +832,7 @@ msgid "Userdata '%s' has empty key."
 msgstr ""
 
 msgid "Value"
-msgstr ""
+msgstr "მნიშვნელობა"
 
 #, c-format
 msgid "create:%d modify:%d delete:%d"
@@ -832,35 +846,35 @@ msgstr ""
 msgid "deleting %s"
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "failed to create %s"
-msgstr "Failed to parse: %s."
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "failed to delete %s"
-msgstr "Failed to parse: %s."
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "failed to modify %s"
-msgstr "Failed to parse: %s."
+msgstr ""
 
 #. TRANSLATORS: symbol for "kilo" (best keep untranslated)
 msgid "k"
-msgstr ""
+msgstr "k"
 
 #. TRANSLATORS: symbol for "kilo bytes" (best keep untranslated)
 msgid "kB"
-msgstr ""
+msgstr "კბ"
 
 #, c-format
 msgid "modifying %s"
 msgstr ""
 
 msgid "no"
-msgstr ""
+msgstr "არა"
 
 msgid "nothing to do"
-msgstr ""
+msgstr "გასაკეთებელი არაფერია"
 
 msgid "root argument can be used only together with no-dbus.\n"
 msgstr ""
@@ -869,4 +883,4 @@ msgid "usage: snapper [--global-options] <command> [--command-options] [command-
 msgstr ""
 
 msgid "yes"
-msgstr ""
+msgstr "yes"

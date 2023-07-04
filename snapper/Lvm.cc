@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2011-2014] Novell, Inc.
- * Copyright (c) [2020-2022] SUSE LLC
+ * Copyright (c) [2020-2023] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -23,10 +23,10 @@
 
 #include "config.h"
 
-#include <string.h>
+#include <cstring>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <errno.h>
+#include <cerrno>
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/ioctl.h>
@@ -68,8 +68,7 @@ namespace snapper
 
     Lvm::Lvm(const string& subvolume, const string& root_prefix, const string& mount_type)
 	: Filesystem(subvolume, root_prefix), mount_type(mount_type),
-	  caps(LvmCapabilities::get_lvm_capabilities()),
-	  cache(LvmCache::get_lvm_cache()), sh(NULL)
+	  cache(LvmCache::get_lvm_cache())
     {
 	if (access(LVCREATEBIN, X_OK) != 0)
 	{
@@ -104,18 +103,6 @@ namespace snapper
 	    mount_options.push_back("nouuid");
 	    mount_options.push_back("norecovery");
 	}
-
-#ifdef ENABLE_SELINUX
-	try
-	{
-	    sh = SelinuxLabelHandle::get_selinux_handle();
-	}
-	catch (const SelinuxException& e)
-	{
-	    SN_RETHROW(e);
-	}
-#endif
-
     }
 
 
@@ -140,7 +127,7 @@ namespace snapper
 #ifdef ENABLE_SELINUX
 	if (_is_selinux_enabled())
 	{
-	    assert(sh);
+	    SelinuxLabelHandle* selabel_handle = SelinuxLabelHandle::get_selinux_handle();
 
 	    char* con = NULL;
 
@@ -148,7 +135,7 @@ namespace snapper
 	    {
 		string path(subvolume_dir.fullname() + "/.snapshots");
 
-		con = sh->selabel_lookup(path, mode);
+		con = selabel_handle->selabel_lookup(path, mode);
 		if (con)
 		{
 		    // race free mkdir with correct Selinux context preset
@@ -179,11 +166,13 @@ namespace snapper
 	    }
 	    catch (const CreateConfigFailedException& e)
 	    {
+		SN_CAUGHT(e);
 		freecon(con);
 		SN_RETHROW(e);
 	    }
 	}
 #endif
+
 	createLvmConfig(subvolume_dir, mode);
     }
 
@@ -265,8 +254,8 @@ namespace snapper
     Lvm::createSnapshot(unsigned int num, unsigned int num_parent, bool read_only, bool quota,
 			bool empty) const
     {
-	if (num_parent != 0 || !read_only)
-	    throw std::logic_error("not implemented");
+	if (num_parent != 0)
+	    SN_THROW(UnsupportedException());
 
 	SDir info_dir = openInfoDir(num);
 	int r1 = info_dir.mkdir("snapshot", 0755);
@@ -278,10 +267,11 @@ namespace snapper
 
 	try
 	{
-	    cache->create_snapshot(vg_name, lv_name, snapshotLvName(num));
+	    cache->create_snapshot(vg_name, lv_name, snapshotLvName(num), read_only);
 	}
 	catch (const LvmCacheException& e)
 	{
+	    SN_CAUGHT(e);
 	    y2deb(cache);
 	    SN_THROW(CreateSnapshotFailedException());
 	}
@@ -297,6 +287,7 @@ namespace snapper
 	}
 	catch (const LvmCacheException& e)
 	{
+	    SN_CAUGHT(e);
 	    y2deb(cache);
 	    SN_THROW(DeleteSnapshotFailedException());
 	}
@@ -336,6 +327,7 @@ namespace snapper
 	}
 	catch (const LvmActivationException& e)
 	{
+	    SN_CAUGHT(e);
 	    SN_THROW(MountSnapshotFailedException());
 	}
 
@@ -365,6 +357,7 @@ namespace snapper
 	}
 	catch (const LvmDeactivatationException& e)
 	{
+	    SN_CAUGHT(e);
 	    y2war("Couldn't deactivate: " << vg_name << "/" << lv_name);
 	}
     }
@@ -373,9 +366,33 @@ namespace snapper
     bool
     Lvm::isSnapshotReadOnly(unsigned int num) const
     {
-	// TODO
+	try
+	{
+	    return cache->is_read_only(vg_name, snapshotLvName(num));
+	}
+	catch (const LvmCacheException& e)
+	{
+	    SN_CAUGHT(e);
+	    y2deb(cache);
+	    SN_THROW(IOErrorException("query read-only failed"));
+	    __builtin_unreachable();
+	}
+    }
 
-	return true;
+
+    void
+    Lvm::setSnapshotReadOnly(unsigned int num, bool read_only) const
+    {
+	try
+	{
+	    cache->set_read_only(vg_name, snapshotLvName(num), read_only);
+	}
+	catch (const LvmCacheException& e)
+	{
+	    SN_CAUGHT(e);
+	    y2deb(cache);
+	    SN_THROW(IOErrorException("set read-only failed"));
+	}
     }
 
 
@@ -408,6 +425,7 @@ namespace snapper
 	}
 	catch (const LvmCacheException& e)
 	{
+	    SN_CAUGHT(e);
 	    y2deb(cache);
 	    return false;
 	}
@@ -433,8 +451,9 @@ namespace snapper
 	}
 	catch (const LvmCacheException& e)
 	{
+	    SN_CAUGHT(e);
 	    y2deb(cache);
-	    throw LvmActivationException();
+	    SN_THROW(LvmActivationException());
 	}
     }
 
@@ -448,8 +467,9 @@ namespace snapper
 	}
 	catch (const LvmCacheException& e)
 	{
+	    SN_CAUGHT(e);
 	    y2deb(cache);
-	    throw LvmDeactivatationException();
+	    SN_THROW(LvmDeactivatationException());
 	}
     }
 
@@ -462,7 +482,6 @@ namespace snapper
 
 
     LvmCapabilities::LvmCapabilities()
-	: ignoreactivationskip(), time_support(false)
     {
 	SystemCmd cmd(string(LVMBIN " version"));
 
@@ -490,12 +509,8 @@ namespace snapper
 
 		lvm_version version(maj, min, rev);
 
-		if (version >= lvm_version(2,2,99))
-		{
+		if (version >= lvm_version(2, 2, 99))
 		    ignoreactivationskip = " -K";
-		}
-
-		time_support = (version >= lvm_version(2,2,88));
 	    }
 	}
     }
@@ -518,20 +533,6 @@ namespace snapper
 	static LvmCapabilities caps;
 
 	return &caps;
-    }
-
-
-    string
-    LvmCapabilities::get_ignoreactivationskip() const
-    {
-	return ignoreactivationskip;
-    }
-
-
-    bool
-    LvmCapabilities::get_time_support() const
-    {
-	return time_support;
     }
 
 }

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: snapper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 12:54+0100\n"
+"POT-Creation-Date: 2023-04-25 09:55+0200\n"
 "PO-Revision-Date: 2019-10-15 22:53+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <https://l10n.opensuse.org/projects/snapper/master/da/>\n"
@@ -36,7 +36,7 @@ msgid ""
 "\t--columns <columns>\t\tColumns to show separated by comma.\n"
 "\t\t\t\t\tPossible columns: config, subvolume, number, default, active,\n"
 "\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
-"\t\t\t\t\tpre-number, post-number, post-date."
+"\t\t\t\t\tpre-number, post-number, post-date, read-only."
 msgstr ""
 
 msgid ""
@@ -52,6 +52,12 @@ msgid "\t--config, -c <name>\t\tSet name of config to use."
 msgstr "\t--config, -c <navn>\t\tAngiv navn på konfiguration der skal bruges."
 
 msgid "\t--csvout\t\t\tSet CSV output format."
+msgstr ""
+
+msgid "\t--debug\t\t\t\tTurn on debugging."
+msgstr ""
+
+msgid "\t--default\t\t\tSet snapshot as default snapshot."
 msgstr ""
 
 msgid "\t--description, -d <description>\tDescription for snapshot."
@@ -72,7 +78,8 @@ msgstr "\t--extensions, -x <tilvalg>\tEkstra tilvalg som sendes til diff-kommand
 msgid "\t--free-space <space>\t\tTry to make space available."
 msgstr ""
 
-msgid "\t--from\t\t\t\tCreate a snapshot from the specified snapshot."
+#, fuzzy
+msgid "\t--from <number>\t\t\tCreate a snapshot from the specified snapshot."
 msgstr "\t--from\t\t\t\tOpret et øjebliksbillede fra det angivne øjebliksbillede."
 
 msgid "\t--fstype, -f <fstype>\t\tManually set filesystem type."
@@ -96,6 +103,9 @@ msgstr ""
 msgid "\t--no-dbus\t\t\tOperate without DBus."
 msgstr "\t--no-dbus\t\t\tArbejd uden DBus."
 
+msgid "\t--no-headers\t\t\tNo headers for CSV output format."
+msgstr ""
+
 msgid "\t--output, -o <file>\t\tSave status to file."
 msgstr "\t--output, -o <file>\t\tGem status til fil."
 
@@ -117,7 +127,15 @@ msgstr "\t--quiet, -q\t\t\tTilbagehold normalt output."
 msgid "\t--read-only\t\t\tCreate read-only snapshot."
 msgstr "\t--read-only\t\t\tOpret skrivebeskyttet øjebliksbillede."
 
+#, fuzzy
+msgid "\t--read-only\t\t\tSet snapshot read-only."
+msgstr "\t--read-only\t\t\tOpret skrivebeskyttet øjebliksbillede."
+
 msgid "\t--read-write\t\t\tCreate read-write snapshot."
+msgstr "\t--read-write\t\t\tOpret skrive-læse-øjebliksbillede."
+
+#, fuzzy
+msgid "\t--read-write\t\t\tSet snapshot read-write."
 msgstr "\t--read-write\t\t\tOpret skrive-læse-øjebliksbillede."
 
 msgid "\t--root, -r <path>\t\tOperate on target root (works only without DBus)."
@@ -700,6 +718,7 @@ msgstr "Åbning af filen \"%s\" mislykkedes."
 msgid "Option --from only supported for snapshots of type single."
 msgstr "Tilvalget --from understøttes kun af øjebliksbilleder af typen enkelt."
 
+#. DBus versions of CreatePreSnapshot and CreatePostSnapshot do not pass read-only flag
 msgid "Option --read-write only supported for snapshots of type single."
 msgstr "Tilvalget --read-write understøttes kun af øjebliksbilleder af typen enkelt."
 
@@ -732,6 +751,9 @@ msgstr "Præ-dato"
 #, c-format
 msgid "Quota error (%s)."
 msgstr "Fejl i kvote (%s)."
+
+msgid "Read-Only"
+msgstr ""
 
 msgid "See 'man snapper' for further instructions."
 msgstr "Se \"man snapper\" for yderligere vejledning."

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2011-2015] Novell, Inc.
- * Copyright (c) [2016-2020] SUSE LLC
+ * Copyright (c) [2016-2023] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -23,8 +23,8 @@
 
 #include "config.h"
 
-#include <string.h>
-#include <errno.h>
+#include <cstring>
+#include <cerrno>
 #include <fcntl.h>
 #include <sys/ioctl.h>
 #include <asm/types.h>
@@ -36,6 +36,9 @@
 #include <btrfs/send-utils.h>
 #else
 #include <linux/btrfs.h>
+#endif
+#ifdef HAVE_LIBBTRFSUTIL
+#include <btrfsutil.h>
 #endif
 #include <algorithm>
 #include <functional>
@@ -67,17 +70,60 @@ namespace snapper
 	bool
 	is_subvolume_read_only(int fd)
 	{
+#ifdef HAVE_LIBBTRFSUTIL
+	    enum btrfs_util_error err;
+	    bool read_only;
+
+	    err = btrfs_util_get_subvolume_read_only_fd(fd, &read_only);
+	    if (err)
+		throw runtime_error_with_errno("btrfs_util_get_subvolume_read_only_fd() failed", errno);
+
+	    return read_only;
+#else
 	    __u64 flags;
 	    if (ioctl(fd, BTRFS_IOC_SUBVOL_GETFLAGS, &flags) < 0)
 		throw runtime_error_with_errno("ioctl(BTRFS_IOC_SUBVOL_GETFLAGS) failed", errno);
 
 	    return flags & BTRFS_SUBVOL_RDONLY;
+#endif
+	}
+
+
+	void
+	set_subvolume_read_only(int fd, bool read_only)
+	{
+#ifdef HAVE_LIBBTRFSUTIL
+	    enum btrfs_util_error err;
+
+	    err = btrfs_util_set_subvolume_read_only_fd(fd, read_only);
+	    if (err)
+		throw runtime_error_with_errno("btrfs_util_set_subvolume_read_only_fd() failed", errno);
+#else
+	    __u64 flags;
+	    if (ioctl(fd, BTRFS_IOC_SUBVOL_GETFLAGS, &flags) < 0)
+		throw runtime_error_with_errno("ioctl(BTRFS_IOC_SUBVOL_GETFLAGS) failed", errno);
+
+	    if (read_only)
+		flags |= BTRFS_SUBVOL_RDONLY;
+	    else
+		flags &= ~BTRFS_SUBVOL_RDONLY;
+
+	    if (ioctl(fd, BTRFS_IOC_SUBVOL_SETFLAGS, &flags) < 0)
+		throw runtime_error_with_errno("ioctl(BTRFS_IOC_SUBVOL_SETFLAGS) failed", errno);
+#endif
 	}
 
 
 	void
 	create_subvolume(int fddst, const string& name)
 	{
+#ifdef HAVE_LIBBTRFSUTIL
+	    enum btrfs_util_error err;
+
+	    err = btrfs_util_create_subvolume_fd(fddst, name.c_str(), 0, NULL, NULL);
+	    if (err)
+		throw runtime_error_with_errno("btrfs_util_create_subvolume_fd() failed", errno);
+#else
 	    struct btrfs_ioctl_vol_args args;
 	    memset(&args, 0, sizeof(args));
 
@@ -85,12 +131,44 @@ namespace snapper
 
 	    if (ioctl(fddst, BTRFS_IOC_SUBVOL_CREATE, &args) < 0)
 		throw runtime_error_with_errno("ioctl(BTRFS_IOC_SUBVOL_CREATE) failed", errno);
+#endif
 	}
 
 
 	void
 	create_snapshot(int fd, int fddst, const string& name, bool read_only, qgroup_t qgroup)
 	{
+#ifdef HAVE_LIBBTRFSUTIL
+	    struct btrfs_util_qgroup_inherit *util_inherit = NULL;
+	    int flags = 0;
+
+	    if (read_only)
+		flags |= BTRFS_UTIL_CREATE_SNAPSHOT_READ_ONLY;
+
+#ifdef ENABLE_BTRFS_QUOTA
+	    size_t size = sizeof(btrfs_qgroup_inherit) + sizeof(((btrfs_qgroup_inherit*) 0)->qgroups[0]);
+	    vector<char> buffer(size, 0);
+
+	    if (qgroup != no_qgroup)
+	    {
+		struct btrfs_qgroup_inherit *inherit;
+
+		inherit = (btrfs_qgroup_inherit*) &buffer[0];
+		inherit->num_qgroups = 1;
+		inherit->num_ref_copies = 0;
+		inherit->num_excl_copies = 0;
+		inherit->qgroups[0] = qgroup;
+		util_inherit = (struct btrfs_util_qgroup_inherit *)inherit;
+	    }
+#endif
+	    enum btrfs_util_error err = btrfs_util_create_snapshot_fd2(fd, fddst, name.c_str(), flags, NULL,
+								       util_inherit);
+	    if (!err)
+		return;
+	    else if (errno != ENOTTY && errno != EINVAL)
+		throw runtime_error_with_errno("btrfs_util_create_snapshot_fd2() failed", errno);
+
+#else
 	    struct btrfs_ioctl_vol_args_v2 args_v2;
 	    memset(&args_v2, 0, sizeof(args_v2));
 
@@ -124,6 +202,8 @@ namespace snapper
 	    else if (errno != ENOTTY && errno != EINVAL)
 		throw runtime_error_with_errno("ioctl(BTRFS_IOC_SNAP_CREATE_V2) failed", errno);
 
+#endif
+
 	    struct btrfs_ioctl_vol_args args;
 	    memset(&args, 0, sizeof(args));
 
@@ -138,6 +218,13 @@ namespace snapper
 	void
 	delete_subvolume(int fd, const string& name)
 	{
+#ifdef HAVE_LIBBTRFSUTIL
+	    enum btrfs_util_error err;
+
+	    err = btrfs_util_delete_subvolume_fd(fd, name.c_str(), 0);
+	    if (err)
+		throw runtime_error_with_errno("btrfs_util_delete_subvolume_fd() failed", errno);
+#else
 	    struct btrfs_ioctl_vol_args args;
 	    memset(&args, 0, sizeof(args));
 
@@ -145,6 +232,7 @@ namespace snapper
 
 	    if (ioctl(fd, BTRFS_IOC_SNAP_DESTROY, &args) < 0)
 		throw runtime_error_with_errno("ioctl(BTRFS_IOC_SNAP_DESTROY) failed", errno);
+#endif
 	}
 
 
@@ -153,14 +241,32 @@ namespace snapper
 	void
 	set_default_id(int fd, subvolid_t id)
 	{
+#ifdef HAVE_LIBBTRFSUTIL
+	    enum btrfs_util_error err;
+
+	    err = btrfs_util_set_default_subvolume_fd(fd, id);
+	    if (err)
+		throw runtime_error_with_errno("btrfs_util_set_default_subvolume_fd() failed", errno);
+#else
 	    if (ioctl(fd, BTRFS_IOC_DEFAULT_SUBVOL, &id) < 0)
 		throw runtime_error_with_errno("ioctl(BTRFS_IOC_DEFAULT_SUBVOL) failed", errno);
+#endif
 	}
 
 
 	subvolid_t
 	get_default_id(int fd)
 	{
+#ifdef HAVE_LIBBTRFSUTIL
+	    enum btrfs_util_error err;
+	    uint64_t id;
+
+	    err = btrfs_util_get_default_subvolume_fd(fd, &id);
+	    if (err)
+		throw runtime_error_with_errno("btrfs_util_get_default_subvolume_fd() failed", errno);
+
+	    return id;
+#else
 	    struct btrfs_ioctl_search_args args;
 	    memset(&args, 0, sizeof(args));
 
@@ -191,12 +297,59 @@ namespace snapper
 		throw std::runtime_error("name != default");
 
 	    return btrfs_disk_key_objectid(&di->location);
+#endif
 	}
 
 
 	string
 	get_subvolume(int fd, subvolid_t id)
 	{
+#ifdef HAVE_LIBBTRFSUTIL
+	    enum btrfs_util_error err;
+	    char *tmp;
+	    string path;
+
+	    /* This requires CAP_SYS_ADMIN as it uses the TREE_SEARCH ioctl but is fast. */
+	    err = btrfs_util_subvolume_path_fd(fd, id, &tmp);
+	    if (err == BTRFS_UTIL_ERROR_SUBVOLUME_NOT_FOUND)
+		throw runtime_error_with_errno("btrfs_util_subvolume_path_fd() failed", errno);
+
+	    /* Try slower iterative search but without restrictions. */
+	    if (err == BTRFS_UTIL_OK) {
+		path = tmp;
+		free(tmp);
+	    } else if (err == BTRFS_UTIL_ERROR_SEARCH_FAILED || err == BTRFS_UTIL_ERROR_NO_MEMORY) {
+		struct btrfs_util_subvolume_iterator *iter;
+
+		err = btrfs_util_create_subvolume_iterator_fd(fd, 0, 0, &iter);
+		if (err)
+		    throw runtime_error_with_errno("btrfs_util_subvolume_path_fd() failed", errno);
+
+		while (1) {
+		    struct btrfs_util_subvolume_info subvol;
+
+		    err = btrfs_util_subvolume_iterator_next_info(iter, &tmp, &subvol);
+		    if (err != BTRFS_UTIL_OK) {
+			/* Nothing found or other error */
+			btrfs_util_destroy_subvolume_iterator(iter);
+			throw std::runtime_error("get_subvolume() failed");
+		    }
+
+		    if (subvol.id == id) {
+			btrfs_util_destroy_subvolume_iterator(iter);
+			path = tmp;
+			free(tmp);
+			break;
+		    }
+		    free(tmp);
+		}
+	    } else {
+		/* Unknown error */
+		throw std::runtime_error("get_subvolume() failed");
+	    }
+
+	    return path;
+#else
 	    char path[BTRFS_PATH_NAME_MAX + 1];
 
 	    if (btrfs_subvolid_resolve(fd, path, sizeof(path), id) != 0)
@@ -204,6 +357,7 @@ namespace snapper
 
 	    path[BTRFS_PATH_NAME_MAX] = '\0';
 	    return path;
+#endif
 	}
 
 #endif
@@ -229,6 +383,18 @@ namespace snapper
 	bool
 	does_subvolume_exist(int fd, subvolid_t subvolid)
 	{
+#ifdef HAVE_LIBBTRFSUTIL
+	    enum btrfs_util_error err;
+	    struct btrfs_util_subvolume_info subvol_info;
+
+	    err = btrfs_util_subvolume_info_fd(fd, subvolid, &subvol_info);
+	    if (err == BTRFS_UTIL_ERROR_SUBVOLUME_NOT_FOUND)
+		return false;
+	    else if (err)
+		throw runtime_error_with_errno("btrfs_util_subvolume_info_fd() failed", errno);
+
+	    return true;
+#else
 	    struct btrfs_ioctl_search_args args;
 	    struct btrfs_ioctl_search_key* sk = &args.key;
 
@@ -246,7 +412,8 @@ namespace snapper
 	    if (ioctl(fd, BTRFS_IOC_TREE_SEARCH, &args) < 0)
 		throw runtime_error_with_errno("ioctl(BTRFS_IOC_TREE_SEARCH) failed", errno);
 
-	    return sk->nr_items == 0;
+	    return sk->nr_items > 0;
+#endif
 	}
 
 #endif
@@ -284,8 +451,22 @@ namespace snapper
 	    struct btrfs_ioctl_quota_rescan_args args;
 	    memset(&args, 0, sizeof(args));
 
-	    if (ioctl(fd, BTRFS_IOC_QUOTA_RESCAN, &args) < 0)
+	    for (int i = 0;; ++i)
+	    {
+		if (ioctl(fd, BTRFS_IOC_QUOTA_RESCAN, &args) == 0)
+		    break;
+
+		if (errno == EINPROGRESS)
+		{
+		    if (i == 0)
+			y2war("waiting for old quota rescan to finish");
+
+		    sleep(1);
+		    continue;
+		}
+
 		throw runtime_error_with_errno("ioctl(BTRFS_IOC_QUOTA_RESCAN) failed", errno);
+	    }
 
 	    if (ioctl(fd, BTRFS_IOC_QUOTA_RESCAN_WAIT, &args) < 0)
 		throw runtime_error_with_errno("ioctl(BTRFS_IOC_QUOTA_WAIT_RESCAN) failed", errno);
@@ -567,8 +748,16 @@ namespace snapper
 	void
 	sync(int fd)
 	{
+#ifdef HAVE_LIBBTRFSUTIL
+	    enum btrfs_util_error err;
+
+	    err = btrfs_util_sync_fd(fd);
+	    if (err)
+		throw runtime_error_with_errno("(btrfs_util_sync_fd() failed", errno);
+#else
 	    if (ioctl(fd, BTRFS_IOC_SYNC) < 0)
 		throw runtime_error_with_errno("ioctl(BTRFS_IOC_SYNC) failed", errno);
+#endif
 	}
 
 

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YaST (@memory@)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 12:54+0100\n"
+"POT-Creation-Date: 2023-04-25 09:55+0200\n"
 "PO-Revision-Date: 2008-01-04 08:58+0100\n"
 "Last-Translator: i18n@suse.de\n"
 "Language-Team: Thai <i18n@suse.de>\n"
@@ -34,7 +34,7 @@ msgid ""
 "\t--columns <columns>\t\tColumns to show separated by comma.\n"
 "\t\t\t\t\tPossible columns: config, subvolume, number, default, active,\n"
 "\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
-"\t\t\t\t\tpre-number, post-number, post-date."
+"\t\t\t\t\tpre-number, post-number, post-date, read-only."
 msgstr ""
 
 msgid ""
@@ -50,6 +50,12 @@ msgid "\t--config, -c <name>\t\tSet name of config to use."
 msgstr ""
 
 msgid "\t--csvout\t\t\tSet CSV output format."
+msgstr ""
+
+msgid "\t--debug\t\t\t\tTurn on debugging."
+msgstr ""
+
+msgid "\t--default\t\t\tSet snapshot as default snapshot."
 msgstr ""
 
 msgid "\t--description, -d <description>\tDescription for snapshot."
@@ -70,7 +76,7 @@ msgstr ""
 msgid "\t--free-space <space>\t\tTry to make space available."
 msgstr ""
 
-msgid "\t--from\t\t\t\tCreate a snapshot from the specified snapshot."
+msgid "\t--from <number>\t\t\tCreate a snapshot from the specified snapshot."
 msgstr ""
 
 msgid "\t--fstype, -f <fstype>\t\tManually set filesystem type."
@@ -94,6 +100,9 @@ msgstr ""
 msgid "\t--no-dbus\t\t\tOperate without DBus."
 msgstr ""
 
+msgid "\t--no-headers\t\t\tNo headers for CSV output format."
+msgstr ""
+
 msgid "\t--output, -o <file>\t\tSave status to file."
 msgstr ""
 
@@ -115,7 +124,13 @@ msgstr ""
 msgid "\t--read-only\t\t\tCreate read-only snapshot."
 msgstr ""
 
+msgid "\t--read-only\t\t\tSet snapshot read-only."
+msgstr ""
+
 msgid "\t--read-write\t\t\tCreate read-write snapshot."
+msgstr ""
+
+msgid "\t--read-write\t\t\tSet snapshot read-write."
 msgstr ""
 
 msgid "\t--root, -r <path>\t\tOperate on target root (works only without DBus)."
@@ -726,6 +741,7 @@ msgstr "การสร้างระบบแฟ้มล้มเหลว"
 msgid "Option --from only supported for snapshots of type single."
 msgstr ""
 
+#. DBus versions of CreatePreSnapshot and CreatePostSnapshot do not pass read-only flag
 msgid "Option --read-write only supported for snapshots of type single."
 msgstr ""
 
@@ -760,6 +776,9 @@ msgstr "วันที่ปัจจุบัน"
 #, fuzzy, c-format
 msgid "Quota error (%s)."
 msgstr "ผิดพลาด"
+
+msgid "Read-Only"
+msgstr ""
 
 #, fuzzy
 msgid "See 'man snapper' for further instructions."

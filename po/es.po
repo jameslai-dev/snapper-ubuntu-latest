@@ -3,10 +3,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: snapper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 12:54+0100\n"
-"PO-Revision-Date: 2022-06-27 00:13+0000\n"
-"Last-Translator: Jaime Marquínez Ferrándiz <jaime.marquinez."
-"ferrandiz@fastmail.net>\n"
+"POT-Creation-Date: 2023-04-25 09:55+0200\n"
+"PO-Revision-Date: 2023-05-22 00:14+0000\n"
+"Last-Translator: Javier Llorente <javier@opensuse.org>\n"
 "Language-Team: Spanish <https://l10n.opensuse.org/projects/snapper/master/es/"
 ">\n"
 "Language: es\n"
@@ -32,11 +31,12 @@ msgstr "\t--cleanup-algorithm, -c <algo>\tAlgoritmo de limpieza para la instant�
 msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshots."
 msgstr "\t--cleanup-algorithm, -c <algoritmo>\tAlgoritmo de limpieza para las instantáneas."
 
+#, fuzzy
 msgid ""
 "\t--columns <columns>\t\tColumns to show separated by comma.\n"
 "\t\t\t\t\tPossible columns: config, subvolume, number, default, active,\n"
 "\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
-"\t\t\t\t\tpre-number, post-number, post-date."
+"\t\t\t\t\tpre-number, post-number, post-date, read-only."
 msgstr ""
 "\t--columns <columns>\t\tColumnas a mostrar, separadas por una coma.\n"
 "\t\t\t\t\tColumnas posibles: config, subvolume, number, default, active,\n"
@@ -61,6 +61,13 @@ msgstr "\t--config, -c <name>\t\tEstablecer el nombre a usar por la configuraci�
 msgid "\t--csvout\t\t\tSet CSV output format."
 msgstr "\t--csvout\t\t\tEstablecer el formato de salida como CSV."
 
+msgid "\t--debug\t\t\t\tTurn on debugging."
+msgstr "\t--debug\t\t\t\tActiva la depuración."
+
+#, fuzzy
+msgid "\t--default\t\t\tSet snapshot as default snapshot."
+msgstr "La instantánea activa ya es la instantánea por defecto."
+
 msgid "\t--description, -d <description>\tDescription for snapshot."
 msgstr "\t--description, -d <description>\tDescripción de la imagen."
 
@@ -80,8 +87,8 @@ msgstr "\t--extensions, -x <opciones>\tOpciones adicionales que se pasan al coma
 msgid "\t--free-space <space>\t\tTry to make space available."
 msgstr "\t--free-space <space>\t\tIntentar liberar espacio."
 
-msgid "\t--from\t\t\t\tCreate a snapshot from the specified snapshot."
-msgstr "\t--from\t\t\t\tCrea una instantánea a partir de la instantánea especificada."
+msgid "\t--from <number>\t\t\tCreate a snapshot from the specified snapshot."
+msgstr "\t--from <número>\t\t\tCrea una instantánea a partir de la instantánea especificada."
 
 msgid "\t--fstype, -f <fstype>\t\tManually set filesystem type."
 msgstr "\t--fstype, -f <fstype>\t\tConfigurar manualmente el sistema de ficheros."
@@ -105,6 +112,9 @@ msgstr "\t--machine-readable <formato>\tDefine un formato de salida que puede le
 msgid "\t--no-dbus\t\t\tOperate without DBus."
 msgstr "\t--no-dbus\t\t\tTrabajar sin DBus."
 
+msgid "\t--no-headers\t\t\tNo headers for CSV output format."
+msgstr "\t--no-headers\t\t\tNo se usarán encabezados en el formato de salida CSV."
+
 msgid "\t--output, -o <file>\t\tSave status to file."
 msgstr "\t--output, -o <file>\t\tGuardar estado a archivo."
 
@@ -127,7 +137,15 @@ msgstr "\t--quiet, -q\t\t\tEliminar la salida normal."
 msgid "\t--read-only\t\t\tCreate read-only snapshot."
 msgstr "\t--read-only\t\t\tCrea una instantánea de solo lectura."
 
+#, fuzzy
+msgid "\t--read-only\t\t\tSet snapshot read-only."
+msgstr "\t--read-only\t\t\tCrea una instantánea de solo lectura."
+
 msgid "\t--read-write\t\t\tCreate read-write snapshot."
+msgstr "\t--read-write\t\t\tCrea una instantánea de lectura-escritura."
+
+#, fuzzy
+msgid "\t--read-write\t\t\tSet snapshot read-write."
 msgstr "\t--read-write\t\t\tCrea una instantánea de lectura-escritura."
 
 msgid "\t--root, -r <path>\t\tOperate on target root (works only without DBus)."
@@ -580,7 +598,6 @@ msgstr "Error al consultar el espacio disponible para la vía \"%s\"."
 msgid "Failed to query free space."
 msgstr "Error al consultar el espacio libre."
 
-#, fuzzy
 msgid "Failed to set locale."
 msgstr "Error al establecer la configuración regional."
 
@@ -682,7 +699,7 @@ msgstr "KiB"
 
 #, c-format
 msgid "Listing configs failed (%s)."
-msgstr "Falló el listado de configuraciones (%s)."
+msgstr "Error al listar las configuraciones (%s)."
 
 #. TRANSLATORS: symbol for "mega" (best keep untranslated)
 msgid "M"
@@ -724,11 +741,12 @@ msgstr "Sin permisos."
 
 #, c-format
 msgid "Opening file '%s' failed."
-msgstr "Falló la apertura del archivo '%s'."
+msgstr "Error al abrir el archivo '%s'."
 
 msgid "Option --from only supported for snapshots of type single."
 msgstr "La opción --from solo se admite para instantáneas de tipo single."
 
+#. DBus versions of CreatePreSnapshot and CreatePostSnapshot do not pass read-only flag
 msgid "Option --read-write only supported for snapshots of type single."
 msgstr "La opción --read-write solo se admite para instantáneas de tipo single."
 
@@ -759,6 +777,9 @@ msgstr "Fecha previa"
 #, c-format
 msgid "Quota error (%s)."
 msgstr "Error de cuota (%s)."
+
+msgid "Read-Only"
+msgstr "De sólo lectura"
 
 msgid "See 'man snapper' for further instructions."
 msgstr "Consulte la página man snapper para obtener más instrucciones."

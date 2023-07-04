@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2011-2015] Novell, Inc.
- * Copyright (c) [2016-2020] SUSE LLC
+ * Copyright (c) [2016-2023] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -23,10 +23,10 @@
 
 #include "config.h"
 
-#include <string.h>
+#include <cstring>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <errno.h>
+#include <cerrno>
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/ioctl.h>
@@ -131,7 +131,7 @@ namespace snapper
 		case EEXIST:
 		    SN_THROW(CreateConfigFailedException("creating btrfs subvolume .snapshots failed "
 							 "since it already exists"));
-                    break;
+		    break;
 
 		default:
 		    SN_THROW(CreateConfigFailedException("creating btrfs subvolume .snapshots failed"));
@@ -420,13 +420,13 @@ namespace snapper
 
 	    try
 	    {
-		SDir subvolume_dir = openSubvolumeDir();
-		qgroup_destroy(subvolume_dir.fd(), calc_qgroup(0, subvolid));
+		SDir general_dir = openGeneralDir();
+		qgroup_destroy(general_dir.fd(), calc_qgroup(0, subvolid));
 	    }
 	    catch (const runtime_error& e)
 	    {
 		// Ignore that the qgroup could not be destroyed. Should not
-		// cause problems except of having unused qgroups.
+		// cause problems except of having stale qgroups.
 	    }
 
 #endif
@@ -463,6 +463,14 @@ namespace snapper
     {
 	SDir snapshot_dir = openSnapshotDir(num);
 	return is_subvolume_read_only(snapshot_dir.fd());
+    }
+
+
+    void
+    Btrfs::setSnapshotReadOnly(unsigned int num, bool read_only) const
+    {
+	SDir snapshot_dir = openSnapshotDir(num);
+	set_subvolume_read_only(snapshot_dir.fd(), read_only);
     }
 
 
@@ -680,10 +688,6 @@ namespace snapper
 	bool get_root_id(const string& path, u64* root_id);
 
 	bool dumper(int fd);
-
-#if BOOST_VERSION < 104100
-	bool dumper_ret;
-#endif
 
 	void do_send(u64 parent_root_id, const vector<u64>& clone_sources);
 
@@ -1267,19 +1271,11 @@ namespace snapper
 	    {
 		y2err("btrfs_read_and_process_send_stream failed " << r);
 
-#if BOOST_VERSION < 104100
-		dumper_ret = false;
-#endif
-
 		return false;
 	    }
 
 	    if (r)
 	    {
-#if BOOST_VERSION < 104100
-		dumper_ret = true;
-#endif
-
 		return true;
 	    }
 
@@ -1311,8 +1307,6 @@ namespace snapper
 	io_send.parent_root = parent_root_id;
 	io_send.flags = BTRFS_SEND_FLAG_NO_FILE_DATA;
 
-#if BOOST_VERSION >= 104100
-
 	boost::packaged_task<bool> pt(boost::bind(&StreamProcessor::dumper, this, pipefd[0]));
 	boost::unique_future<bool> uf = pt.get_future();
 
@@ -1334,42 +1328,6 @@ namespace snapper
 	{
 	    SN_THROW(BtrfsSendReceiveException());
 	}
-
-#else
-
-	boost::thread dumper_thread(boost::bind(&StreamProcessor::dumper, this, pipefd[0]));
-
-	fd0_closer.reset();
-
-	int r2 = ioctl(dir2.fd(), BTRFS_IOC_SEND, &io_send);
-	if (r2 < 0)
-	{
-	    y2err("send ioctl failed errno:" << errno << " (" << stringerror(errno) << ")");
-	}
-
-	fd1_closer.close();
-
-	dumper_thread.join();
-
-	if (r2 < 0 || !dumper_ret)
-	{
-	    SN_THROW(BtrfsSendReceiveException());
-	}
-
-#endif
-    }
-
-
-    static bool
-    is_subvolume_ro(const SDir& dir)
-    {
-	u64 flags;
-	if (ioctl(dir.fd(), BTRFS_IOC_SUBVOL_GETFLAGS, &flags) < 0)
-	{
-	    SN_THROW(IOErrorException("ioctl BTRFS_IOC_SUBVOL_GETFLAGS failed"));
-	}
-
-	return flags & BTRFS_SUBVOL_RDONLY;
     }
 
 
@@ -1378,7 +1336,7 @@ namespace snapper
     {
 	y2mil("dir1:'" << dir1.fullname() << "' dir2:'" << dir2.fullname() << "'");
 
-	if (!is_subvolume_ro(dir1) || !is_subvolume_ro(dir2))
+	if (!is_subvolume_read_only(dir1.fd()) || !is_subvolume_read_only(dir2.fd()))
 	{
 	    y2err("not read-only snapshots");
 	    SN_THROW(BtrfsSendReceiveException());
@@ -1518,6 +1476,8 @@ namespace snapper
     {
 	try
 	{
+	    Hooks::set_default_snapshot(Hooks::Stage::PRE_ACTION, subvolume, this, num);
+
 	    SDir general_dir = openGeneralDir();
 
 	    if (num == 0)
@@ -1533,7 +1493,7 @@ namespace snapper
 		set_default_id(general_dir.fd(), id);
 	    }
 
-	    Hooks::set_default_snapshot(subvolume, this, num);
+	    Hooks::set_default_snapshot(Hooks::Stage::POST_ACTION, subvolume, this, num);
 	}
 	catch (const runtime_error& e)
 	{
@@ -1625,7 +1585,7 @@ namespace snapper
 #ifdef HAVE_LIBBTRFS
 	    for (subvolid_t subvolid : deleted_subvolids)
 	    {
-		while (!does_subvolume_exist(subvolume_dir.fd(), subvolid))
+		while (does_subvolume_exist(subvolume_dir.fd(), subvolid))
 		    sleep(1);
 	    }
 #endif

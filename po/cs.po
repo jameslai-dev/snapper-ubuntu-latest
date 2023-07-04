@@ -3,9 +3,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 12:54+0100\n"
-"PO-Revision-Date: 2022-04-06 23:12+0000\n"
-"Last-Translator: Jan Papež <honyczek@centrum.cz>\n"
+"POT-Creation-Date: 2023-04-25 09:55+0200\n"
+"PO-Revision-Date: 2023-05-14 19:14+0000\n"
+"Last-Translator: Aleš Kastner <alkas@volny.cz>\n"
 "Language-Team: Czech <https://l10n.opensuse.org/projects/snapper/master/cs/>"
 "\n"
 "Language: cs\n"
@@ -35,12 +35,12 @@ msgid ""
 "\t--columns <columns>\t\tColumns to show separated by comma.\n"
 "\t\t\t\t\tPossible columns: config, subvolume, number, default, active,\n"
 "\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
-"\t\t\t\t\tpre-number, post-number, post-date."
+"\t\t\t\t\tpre-number, post-number, post-date, read-only."
 msgstr ""
 "\t--columns <sloupce>\t\tSloupce ke zobrazení, oddělené čárkami.\n"
 "\t\t\t\t\tLze zvolit sloupce: config, subvolume, number, default, active,\n"
 "\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
-"\t\t\t\t\tpre-number, post-number, post-date."
+"\t\t\t\t\tpre-number, post-number, post-date, read-only."
 
 msgid ""
 "\t--columns <columns>\t\tColumns to show separated by comma.\n"
@@ -59,6 +59,12 @@ msgstr "\t--config, -c <jméno>\t\tNastavení jméno konfigurace, která se pou�
 
 msgid "\t--csvout\t\t\tSet CSV output format."
 msgstr "\t--csvout\t\t\tNastaví výstupní formát CSV."
+
+msgid "\t--debug\t\t\t\tTurn on debugging."
+msgstr "\t--debug\t\t\t\tZapne se režim ladění."
+
+msgid "\t--default\t\t\tSet snapshot as default snapshot."
+msgstr "\t--default\t\t\tNastaví snímek jako výchozí snímek."
 
 msgid "\t--description, -d <description>\tDescription for snapshot."
 msgstr "\t--description, -d <popis>\tPopis snímku."
@@ -79,7 +85,7 @@ msgstr "\t--extensions, -x <možnosti>\tJedná se o další možnosti předané 
 msgid "\t--free-space <space>\t\tTry to make space available."
 msgstr "\t--free-space <prostor>\t\tZkusí zpřístupnit prostor."
 
-msgid "\t--from\t\t\t\tCreate a snapshot from the specified snapshot."
+msgid "\t--from <number>\t\t\tCreate a snapshot from the specified snapshot."
 msgstr "\t--from\t\t\t\tVytvoří snímek ze zadaného snímku."
 
 msgid "\t--fstype, -f <fstype>\t\tManually set filesystem type."
@@ -104,6 +110,9 @@ msgstr "\t--machine-readable <formát>\tNastaví strojově čitelný výstupní 
 msgid "\t--no-dbus\t\t\tOperate without DBus."
 msgstr "\t--no-dbus\t\t\tPracovat bez DBusu."
 
+msgid "\t--no-headers\t\t\tNo headers for CSV output format."
+msgstr "\t--csvout\t\t\tNastaví výstupní formát CSV bez hlavičkového řádku."
+
 msgid "\t--output, -o <file>\t\tSave status to file."
 msgstr "\t--output, -o <soubor>\t\tUloží stav do souboru."
 
@@ -126,8 +135,14 @@ msgstr "\t--quiet, -q\t\t\tPotlačit normální výstup."
 msgid "\t--read-only\t\t\tCreate read-only snapshot."
 msgstr "\t--read-only\t\t\tVytvoří snímek jen pro čtení."
 
+msgid "\t--read-only\t\t\tSet snapshot read-only."
+msgstr "\t--read-only\t\t\tNastaví snímek jen pro čtení."
+
 msgid "\t--read-write\t\t\tCreate read-write snapshot."
 msgstr "\t--read-write\t\t\tVytvoří snímek pro čtení i zápis."
+
+msgid "\t--read-write\t\t\tSet snapshot read-write."
+msgstr "\t--read-write\t\t\tNastaví snímek pro čtení i zápis."
 
 msgid "\t--root, -r <path>\t\tOperate on target root (works only without DBus)."
 msgstr "\t--root, -r <cesta>\t\tUmožňuje pracovat v cílovém účtu root (funguje pouze bez technologie DBus)."
@@ -721,6 +736,7 @@ msgstr "Otevírání souboru '%s' selhalo."
 msgid "Option --from only supported for snapshots of type single."
 msgstr "Volba --from je podporována jen u snímků typu single."
 
+#. DBus versions of CreatePreSnapshot and CreatePostSnapshot do not pass read-only flag
 msgid "Option --read-write only supported for snapshots of type single."
 msgstr "Volba --read-write je podporována jen pro snímky typu single."
 
@@ -751,6 +767,9 @@ msgstr "Před datem"
 #, c-format
 msgid "Quota error (%s)."
 msgstr "Chyba kvóty (%s)."
+
+msgid "Read-Only"
+msgstr "Pouze pro čtení"
 
 msgid "See 'man snapper' for further instructions."
 msgstr "Další informace naleznete v popisu příkazu man snapper."
@@ -899,8 +918,7 @@ msgid "root argument can be used only together with no-dbus.\n"
 msgstr "Argument root lze použít pouze společně s argumentem no-dbus.\n"
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
-msgstr ""
-"Použití: snapper [--obecné-volby] <příkaz> [--volby-příkazu] [argumenty]"
+msgstr "Použití: snapper [--obecné-volby] <příkaz> [--volby-příkazu] [argumenty]"
 
 msgid "yes"
 msgstr "ano"

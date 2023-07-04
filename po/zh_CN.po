@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 12:54+0100\n"
-"PO-Revision-Date: 2022-02-17 11:12+0000\n"
+"POT-Creation-Date: 2023-04-25 09:55+0200\n"
+"PO-Revision-Date: 2023-02-10 04:14+0000\n"
 "Last-Translator: Grace Yu <grace.yu@excel-gits.com>\n"
 "Language-Team: Chinese (China) <https://l10n.opensuse.org/projects/snapper/master/zh_CN/>\n"
 "Language: zh_CN\n"
@@ -35,11 +35,12 @@ msgstr "\t--cleanup-algorithm, -c <算法> \t快照的清理算法。选项：nu
 msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshots."
 msgstr "\t--cleanup-algorithm, -c <算法>\t快照的清理算法。选项：number, timeline, empty-pre-post。"
 
+#, fuzzy
 msgid ""
 "\t--columns <columns>\t\tColumns to show separated by comma.\n"
 "\t\t\t\t\tPossible columns: config, subvolume, number, default, active,\n"
 "\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
-"\t\t\t\t\tpre-number, post-number, post-date."
+"\t\t\t\t\tpre-number, post-number, post-date, read-only."
 msgstr ""
 "\t--columns <列>\t\t要显示的列（以逗号分隔）。\n"
 "\t\t\t\t\t可能的列：config、subvolume、number、default、active、\n"
@@ -64,6 +65,13 @@ msgstr "\t--config, -c <配置名称> \t\t设置要使用的配置名称。"
 msgid "\t--csvout\t\t\tSet CSV output format."
 msgstr "\t--csvout\t\t\t设定 CSV 输出格式。"
 
+msgid "\t--debug\t\t\t\tTurn on debugging."
+msgstr ""
+
+#, fuzzy
+msgid "\t--default\t\t\tSet snapshot as default snapshot."
+msgstr "激活的快照已经是默认快照。"
+
 msgid "\t--description, -d <description>\tDescription for snapshot."
 msgstr "\t--description, -d <描述> \t快照描述。"
 
@@ -82,8 +90,8 @@ msgstr "\t--extensions, -x <选项>\t传递到 diff 命令的额外选项。"
 msgid "\t--free-space <space>\t\tTry to make space available."
 msgstr "\t--free-space <空间>\t\t尝试释放空间。"
 
-msgid "\t--from\t\t\t\tCreate a snapshot from the specified snapshot."
-msgstr "\t--from\t\t\t\t基于指定的快照创建快照。"
+msgid "\t--from <number>\t\t\tCreate a snapshot from the specified snapshot."
+msgstr "\t--from <编号>\t\t\t基于指定的快照创建快照。"
 
 msgid "\t--fstype, -f <fstype>\t\tManually set filesystem type."
 msgstr "\t--fstype, -f <文件系统类型> \t\t手动设置文件系统类型。"
@@ -106,6 +114,9 @@ msgstr "\t--machine-readable <格式>\t设定机器可读的输出格式（csv�
 msgid "\t--no-dbus\t\t\tOperate without DBus."
 msgstr "\t--no-dbus\t\t\t不是用 DBus。"
 
+msgid "\t--no-headers\t\t\tNo headers for CSV output format."
+msgstr "\t--no-headers\t\t\tCSV 输出格式不含标题。"
+
 msgid "\t--output, -o <file>\t\tSave status to file."
 msgstr "\t--output, -o <文件> \t\t保存状态到文件。"
 
@@ -127,7 +138,15 @@ msgstr "\t--quiet, -q\t\t\t静默正常输出。"
 msgid "\t--read-only\t\t\tCreate read-only snapshot."
 msgstr "\t--read-only\t\t\t创建只读快照。"
 
+#, fuzzy
+msgid "\t--read-only\t\t\tSet snapshot read-only."
+msgstr "\t--read-only\t\t\t创建只读快照。"
+
 msgid "\t--read-write\t\t\tCreate read-write snapshot."
+msgstr "\t--read-write\t\t\t创建读写快照。"
+
+#, fuzzy
+msgid "\t--read-write\t\t\tSet snapshot read-write."
 msgstr "\t--read-write\t\t\t创建读写快照。"
 
 msgid "\t--root, -r <path>\t\tOperate on target root (works only without DBus)."
@@ -555,9 +574,8 @@ msgstr "查询路径 \"%s\" 的可用空间失败。"
 msgid "Failed to query free space."
 msgstr "查询可用空间失败。"
 
-#, fuzzy
 msgid "Failed to set locale."
-msgstr "无法设置区域设置。请修复您的系统。"
+msgstr "无法设置区域设置。"
 
 msgid "Failure"
 msgstr "失败"
@@ -701,6 +719,7 @@ msgstr "打开文件 '%s' 失败。"
 msgid "Option --from only supported for snapshots of type single."
 msgstr "选项 --from 仅适用于单一类型的快照。"
 
+#. DBus versions of CreatePreSnapshot and CreatePostSnapshot do not pass read-only flag
 msgid "Option --read-write only supported for snapshots of type single."
 msgstr "选项 --read-write 仅适用于单一类型的快照。"
 
@@ -731,6 +750,9 @@ msgstr "前期快照日期"
 #, c-format
 msgid "Quota error (%s)."
 msgstr "定额错误 (%s)。"
+
+msgid "Read-Only"
+msgstr ""
 
 msgid "See 'man snapper' for further instructions."
 msgstr "有关更多指导，请参见“man snapper”。"
