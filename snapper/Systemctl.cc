@@ -1,5 +1,4 @@
 /*
- * Copyright (c) 2013 Novell, Inc.
  * Copyright (c) 2023 SUSE LLC
  *
  * All Rights Reserved.
@@ -21,31 +20,28 @@
  */
 
 
-#ifndef SNAPPER_VERSION_H
-#define SNAPPER_VERSION_H
-
-
-#define LIBSNAPPER_VERSION_STRING "@LIBVERSION@"
-
-#define LIBSNAPPER_MAJOR "@LIBVERSION_MAJOR@"
-#define LIBSNAPPER_MINOR "@LIBVERSION_MINOR@"
-#define LIBSNAPPER_PATCHLEVEL "@LIBVERSION_PATCHLEVEL@"
-
-#define LIBSNAPPER_VERSION_AT_LEAST(major, minor)                                            \
-    ((LIBSNAPPER_VERSION_MAJOR > (major)) ||                                                 \
-     (LIBSNAPPER_VERSION_MAJOR == (major) && LIBSNAPPER_VERSION_MINOR >= (minor)))
+#include "snapper/SystemCmd.h"
+#include "snapper/SnapperDefines.h"
 
 
 namespace snapper
 {
 
-    /**
-     * Return LIBSNAPPER_VERSION_STRING libsnapper was compiled with. May differ
-     * from the define (compile time vs. link time).
-     */
-    const char* get_libversion_string();
+    void
+    systemctl_enable_unit(bool enable, bool now, const string& name)
+    {
+	// When run in a chroot system the enable command works but the start command
+	// fails (which is likely what we want).
+
+	SystemCmd cmd(SYSTEMCTL_BIN " " + string(enable ? "enable " : "disable ") +
+		      string(now ? "--now " : "") + name);
+    }
+
+
+    void
+    systemctl_enable_timeline(bool enable, bool now)
+    {
+	systemctl_enable_unit(enable, now, "snapper-timeline.timer");
+    }
 
 }
-
-
-#endif

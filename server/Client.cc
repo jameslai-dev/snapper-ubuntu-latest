@@ -26,6 +26,7 @@
 #include <snapper/Log.h>
 #include <snapper/SnapperTmpl.h>
 #include <snapper/AsciiFile.h>
+#include <snapper/Version.h>
 #include <dbus/DBusMessage.h>
 #include <dbus/DBusConnection.h>
 
@@ -1093,7 +1094,7 @@ Client::delete_snapshots(DBus::Connection& conn, DBus::Message& msg)
     DBus::Unmarshaller unmarshaller(msg);
     unmarshaller >> config_name >> nums;
 
-    y2mil("DeleteSnapshots config_name:" << config_name << " nums:" << nums);
+    y2deb("DeleteSnapshots config_name:" << config_name << " nums:" << nums);
 
     boost::unique_lock<boost::shared_mutex> lock(big_mutex);
 
@@ -1279,7 +1280,13 @@ Client::calculate_used_space(DBus::Connection& conn, DBus::Message& msg)
 
     Snapper* snapper = it->getSnapper();
 
+    RefHolder ref_holder(*it);
+
+    lock.unlock();
+
     snapper->calculateUsedSpace();
+
+    lock.lock();
 
     DBus::MessageMethodReturn reply(msg);
 
@@ -1593,6 +1600,7 @@ Client::setup_quota(DBus::Connection& conn, DBus::Message& msg)
     Snapper* snapper = it->getSnapper();
 
     snapper->setupQuota();
+    it->updateConfigInfo("QGROUP");
 
     DBus::MessageMethodReturn reply(msg);
 
@@ -1644,7 +1652,13 @@ Client::query_quota(DBus::Connection& conn, DBus::Message& msg)
 
     Snapper* snapper = it->getSnapper();
 
+    RefHolder ref_holder(*it);
+
+    lock.unlock();
+
     QuotaData quota_data = snapper->queryQuotaData();
+
+    lock.lock();
 
     DBus::MessageMethodReturn reply(msg);
 
@@ -1772,6 +1786,7 @@ Client::debug(DBus::Connection& conn, DBus::Message& msg)
 
     marshaller << "compile options:";
     marshaller << "    version " + string(Snapper::compileVersion());
+    marshaller << "    libversion " LIBSNAPPER_MAJOR "." LIBSNAPPER_MINOR "." LIBSNAPPER_PATCHLEVEL;
     marshaller << "    flags " + string(Snapper::compileFlags());
 
     marshaller.close_array();
@@ -1972,13 +1987,13 @@ Client::dispatch(DBus::Connection& conn, DBus::Message& msg)
     catch (const InvalidUserException& e)
     {
 	SN_CAUGHT(e);
-	DBus::MessageError reply(msg, "error.invalid_user", DBUS_ERROR_FAILED);
+	DBus::MessageError reply(msg, "error.invalid_user", e.what());
 	conn.send(reply);
     }
     catch (const InvalidGroupException& e)
     {
 	SN_CAUGHT(e);
-	DBus::MessageError reply(msg, "error.invalid_group", DBUS_ERROR_FAILED);
+	DBus::MessageError reply(msg, "error.invalid_group", e.what());
 	conn.send(reply);
     }
     catch (const QuotaException& e)

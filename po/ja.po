@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: snapper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-25 09:55+0200\n"
-"PO-Revision-Date: 2023-04-25 13:14+0000\n"
+"POT-Creation-Date: 2023-07-12 09:40+0200\n"
+"PO-Revision-Date: 2023-07-12 13:15+0000\n"
 "Last-Translator: Yasuhiko Kamata <belphegor@belbel.or.jp>\n"
 "Language-Team: Japanese <https://l10n.opensuse.org/projects/snapper/master/"
 "ja/>\n"
@@ -627,8 +627,9 @@ msgstr "設定データが正しくありません。"
 msgid "Invalid free-space value."
 msgstr "空き容量の値が正しくありません。"
 
-msgid "Invalid group."
-msgstr "グループが正しくありません。"
+#, c-format
+msgid "Invalid group (%s)."
+msgstr "グループ (%s) が正しくありません。"
 
 #, c-format
 msgid "Invalid machine readable format '%s'."
@@ -652,8 +653,9 @@ msgstr "サブボリュームが正しくありません。"
 msgid "Invalid table style '%s'."
 msgstr "表のスタイル '%s' が正しくありません。"
 
-msgid "Invalid user."
-msgstr "ユーザが正しくありません。"
+#, c-format
+msgid "Invalid user (%s)."
+msgstr "ユーザ (%s) が正しくありません。"
 
 msgid "Invalid userdata."
 msgstr "ユーザデータが正しくありません。"

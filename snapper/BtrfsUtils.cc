@@ -362,9 +362,20 @@ namespace snapper
 
 #endif
 
+#ifdef HAVE_LIBBTRFSUTIL
+	subvolid_t
+	get_id(int fd)
+	{
+	    enum btrfs_util_error err;
+	    subvolid_t id;
 
-#ifdef HAVE_LIBBTRFS
+	    err = btrfs_util_subvolume_id_fd(fd, &id);
+	    if (err)
+		throw runtime_error_with_errno("btrfs_util_subvolume_id_fd() failed", errno);
 
+	    return id;
+	}
+#elif defined(HAVE_LIBBTRFS)
 	subvolid_t
 	get_id(int fd)
 	{
@@ -378,8 +389,10 @@ namespace snapper
 
 	    return args.treeid;
 	}
+#endif
 
 
+#ifdef HAVE_LIBBTRFS
 	bool
 	does_subvolume_exist(int fd, subvolid_t subvolid)
 	{
@@ -451,17 +464,18 @@ namespace snapper
 	    struct btrfs_ioctl_quota_rescan_args args;
 	    memset(&args, 0, sizeof(args));
 
-	    for (int i = 0;; ++i)
+	    while (true)
 	    {
 		if (ioctl(fd, BTRFS_IOC_QUOTA_RESCAN, &args) == 0)
 		    break;
 
 		if (errno == EINPROGRESS)
 		{
-		    if (i == 0)
-			y2war("waiting for old quota rescan to finish");
+		    y2war("waiting for old quota rescan to finish");
 
-		    sleep(1);
+		    if (ioctl(fd, BTRFS_IOC_QUOTA_RESCAN_WAIT, &args) < 0)
+			throw runtime_error_with_errno("ioctl(BTRFS_IOC_QUOTA_WAIT_RESCAN) failed", errno);
+
 		    continue;
 		}
 

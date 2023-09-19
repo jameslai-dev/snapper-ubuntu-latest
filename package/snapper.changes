@@ -1,4 +1,39 @@
 -------------------------------------------------------------------
+Thu Sep 14 15:45:53 CEST 2023 - aschnell@suse.com
+
+- fixed creating files in root dir (gh#openSUSE/snapper#168)
+- version 0.10.6
+
+-------------------------------------------------------------------
+Thu Aug 10 09:20:42 CEST 2023 - aschnell@suse.com
+
+- relax access to info.xml files (gh#openSUSE/snapper#279)
+
+-------------------------------------------------------------------
+Fri Jul 14 14:05:56 CEST 2023 - aschnell@suse.com
+
+- enable snapper-timeline.timer when adjusting config using
+  snapper (gh#openSUSE/snapper#788)
+
+-------------------------------------------------------------------
+Wed Jul 12 09:03:42 CEST 2023 - aschnell@suse.com
+
+- document disadvantage of using network users and order services
+  after nss-user-lookup (gh#openSUSE/snapper#823)
+
+-------------------------------------------------------------------
+Fri Jun 16 15:38:59 CEST 2023 - aschnell@suse.com
+
+- improved responsiveness of snapperd when a btrfs quota rescan
+  is running (see bsc#1211459)
+
+-------------------------------------------------------------------
+Tue Jun 13 12:08:55 CEST 2023 - aschnell@suse.com
+
+- update qgroup in config info in snapperd when running setup-quota
+- improved waiting for btrfs quota rescan (see bsc #1211459)
+
+-------------------------------------------------------------------
 Fri Apr 21 09:47:57 CEST 2023 - aschnell@suse.com
 
 - fixed deleting configs (bsc#1210716)

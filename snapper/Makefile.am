@@ -26,11 +26,12 @@ libsnapper_la_SOURCES =					\
 	AsciiFile.cc		AsciiFile.h		\
 	Acls.cc			Acls.h			\
 	Hooks.cc		Hooks.h			\
+	Systemctl.cc		Systemctl.h		\
 	Exception.cc		Exception.h		\
 	SnapperTmpl.h					\
 	SnapperTypes.h					\
 	SnapperDefines.h				\
-	Version.h
+	Version.cc		Version.h
 
 if ENABLE_BTRFS
 libsnapper_la_SOURCES +=				\

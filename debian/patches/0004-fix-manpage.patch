@@ -11,7 +11,7 @@ Index: snapper/doc/snapper-configs.xml.in
 ===================================================================
 --- snapper.orig/doc/snapper-configs.xml.in
 +++ snapper/doc/snapper-configs.xml.in
-@@ -151,7 +151,7 @@
+@@ -155,7 +155,7 @@
  	<listitem>
  	  <para>Defines whether the number cleanup algorithm should be run for
  	  the config.</para>
@@ -20,7 +20,7 @@ Index: snapper/doc/snapper-configs.xml.in
  	</listitem>
        </varlistentry>
  
-@@ -195,7 +195,7 @@
+@@ -199,7 +199,7 @@
  	  <para>Together with the timeline cleanup algorithm this will create
  	  a collection of snapshots with more snapshots is the near past and
  	  less snapshots in the far past.</para>
@@ -29,7 +29,7 @@ Index: snapper/doc/snapper-configs.xml.in
  	</listitem>
        </varlistentry>
  
-@@ -204,7 +204,7 @@
+@@ -208,7 +208,7 @@
  	<listitem>
  	  <para>Defines whether the timeline cleanup algorithm should be run for
  	  the config.</para>

@@ -11,10 +11,10 @@ Index: snapper/data/boot.service
 ===================================================================
 --- snapper.orig/data/boot.service
 +++ snapper/data/boot.service
-@@ -1,6 +1,7 @@
- [Unit]
+@@ -2,6 +2,7 @@
  Description=Take snapper snapshot of root on boot
  ConditionPathExists=/etc/snapper/configs/root
+ After=nss-user-lookup.target
 +Documentation=man:snapper(8)
  
  [Service]

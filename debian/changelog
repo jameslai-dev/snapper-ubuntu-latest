@@ -1,3 +1,11 @@
+snapper (0.10.6-1) unstable; urgency=medium
+
+  * New upstream release
+  * debian/patches
+    - Refresh patches
+
+ -- Hideki Yamane <henrich@debian.org>  Tue, 19 Sep 2023 21:56:59 +0900
+
 snapper (0.10.5-2) unstable; urgency=medium
 
   * Upload to unstable
