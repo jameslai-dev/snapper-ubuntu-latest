@@ -1,3 +1,10 @@
+snapper (0.10.6-1.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Rename libraries for 64-bit time_t transition.  Closes: #1062906
+
+ -- Benjamin Drung <bdrung@debian.org>  Thu, 29 Feb 2024 16:55:43 +0000
+
 snapper (0.10.6-1) unstable; urgency=medium
 
   * New upstream release
