@@ -9,7 +9,7 @@ etc/snapper
 /usr/share/snapper
 usr/lib/snapper/installation-helper 
 usr/lib/snapper/systemd-helper 
-usr/lib/systemd/system/*	lib/systemd/system/
+usr/lib/systemd/system
 debian/80snapper		etc/apt/apt.conf.d/
 usr/share/bash-completion/completions/snapper
 usr/share/zsh/site-functions/_snapper

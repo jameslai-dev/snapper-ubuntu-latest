@@ -1,3 +1,10 @@
+snapper (0.10.6-1.2) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Install systemd units into /usr. (Closes: #1073699)
+
+ -- Michael Biebl <biebl@debian.org>  Tue, 10 Sep 2024 08:48:47 +0200
+
 snapper (0.10.6-1.1) unstable; urgency=medium
 
   * Non-maintainer upload.
