@@ -1,3 +1,9 @@
+snapper (0.10.6-1.2build1) questing; urgency=medium
+
+  * No-change rebuild for libxml2 soname change.
+
+ -- Matthias Klose <doko@ubuntu.com>  Wed, 21 May 2025 08:19:19 +0200
+
 snapper (0.10.6-1.2) unstable; urgency=medium
 
   * Non-maintainer upload.
