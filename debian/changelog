@@ -1,3 +1,9 @@
+snapper (0.10.6-1.2build2) questing; urgency=medium
+
+  * No-change rebuild for boost 1.88.
+
+ -- Matthias Klose <doko@ubuntu.com>  Mon, 11 Aug 2025 08:29:00 +0200
+
 snapper (0.10.6-1.2build1) questing; urgency=medium
 
   * No-change rebuild for libxml2 soname change.
