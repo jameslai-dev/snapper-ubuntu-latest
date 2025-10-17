@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2011-2014] Novell, Inc.
- * Copyright (c) [2016-2021] SUSE LLC
+ * Copyright (c) [2016-2024] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -33,8 +33,12 @@
 #include "utils/Limit.h"
 #include "utils/equal-date.h"
 #include "utils/HumanString.h"
+#include "proxy/locker.h"
 #include "cleanup.h"
 
+
+namespace snapper
+{
 
 using namespace std;
 
@@ -46,9 +50,9 @@ struct Parameters
 
     virtual bool is_degenerated() const { return true; }
 
-    time_t min_age;
-    MaxUsedLimit space_limit;
-    MinFreeLimit free_limit;
+    time_t min_age = 3600;
+    MaxUsedLimit space_limit = 0.5;
+    MinFreeLimit free_limit = 0.2;
 
 
     void read(const ProxyConfig& config, const char* name, time_t& value)
@@ -92,7 +96,6 @@ operator<<(ostream& s, const Parameters& parameters)
 
 
 Parameters::Parameters(const ProxySnapper* snapper)
-    : min_age(1800), space_limit(0.5), free_limit(0.2)
 {
     ProxyConfig config = snapper->getConfig();
 
@@ -106,12 +109,12 @@ class Cleaner
 public:
 
     Cleaner(ProxySnapper* snapper, bool verbose, const Parameters& parameters)
-	: snapper(snapper), verbose(verbose), parameters(parameters) {}
+	: snapper(snapper), locker(snapper), verbose(verbose), parameters(parameters) {}
 
     virtual ~Cleaner() {}
 
-    void cleanup();
-    void cleanup(std::function<bool()> condition);
+    void cleanup(Plugins::Report& report);
+    void cleanup(std::function<bool()> condition, Plugins::Report& report);
 
 protected:
 
@@ -139,7 +142,7 @@ protected:
     // snapshot but which is not included in tmp.
     void filter_pre_post(ProxySnapshots& snapshots, list<ProxySnapshots::iterator>& tmp) const;
 
-    void remove(const list<ProxySnapshots::iterator>& tmp);
+    void remove(const list<ProxySnapshots::iterator>& tmp, Plugins::Report& report);
 
     // Should the cleanup with quota space be run?
     bool is_quota_aware() const;
@@ -153,10 +156,12 @@ protected:
     // Is the free space condition satisfied?
     bool is_free_satisfied() const;
 
-    void cleanup(ProxySnapshots& snapshots);
-    void cleanup(ProxySnapshots& snapshots, std::function<bool()> condition);
+    void cleanup(ProxySnapshots& snapshots, Plugins::Report& report);
+    void cleanup(ProxySnapshots& snapshots, std::function<bool()> condition, Plugins::Report& report);
 
     ProxySnapper* snapper;
+
+    Locker locker;
 
     const bool verbose;
     const Parameters& parameters;
@@ -240,11 +245,11 @@ Cleaner::filter_pre_post(ProxySnapshots& snapshots, list<ProxySnapshots::iterato
 
 
 void
-Cleaner::remove(const list<ProxySnapshots::iterator>& tmp)
+Cleaner::remove(const list<ProxySnapshots::iterator>& tmp, Plugins::Report& report)
 {
     for (list<ProxySnapshots::iterator>::const_iterator it = tmp.begin(); it != tmp.end(); ++it)
     {
-	snapper->deleteSnapshots({ *it }, verbose);
+	snapper->deleteSnapshots({ *it }, verbose, report);
     }
 }
 
@@ -334,18 +339,18 @@ Cleaner::is_free_satisfied() const
 
 
 void
-Cleaner::cleanup(ProxySnapshots& snapshots)
+Cleaner::cleanup(ProxySnapshots& snapshots, Plugins::Report& report)
 {
     list<ProxySnapshots::iterator> candidates = calculate_candidates(snapshots, Range::MAX);
 
     filter(snapshots, candidates);
 
-    remove(candidates);
+    remove(candidates, report);
 }
 
 
 void
-Cleaner::cleanup(ProxySnapshots& snapshots, std::function<bool()> condition)
+Cleaner::cleanup(ProxySnapshots& snapshots, std::function<bool()> condition, Plugins::Report& report)
 {
     while (!condition())
     {
@@ -374,7 +379,7 @@ Cleaner::cleanup(ProxySnapshots& snapshots, std::function<bool()> condition)
 
 	    if (!tmp.empty())
 	    {
-		remove(tmp);
+		remove(tmp, report);
 
 		// after removing snapshots the condition must be reevaluated
 		break;
@@ -400,7 +405,7 @@ Cleaner::cleanup(ProxySnapshots& snapshots, std::function<bool()> condition)
 
 
 void
-Cleaner::cleanup()
+Cleaner::cleanup(Plugins::Report& report)
 {
     ProxySnapshots& snapshots = snapper->getSnapshots();
 
@@ -408,7 +413,7 @@ Cleaner::cleanup()
     cout << "cleanup without condition" << '\n';
 #endif
 
-    cleanup(snapshots);
+    cleanup(snapshots, report);
 
     if (is_quota_aware())
     {
@@ -416,7 +421,7 @@ Cleaner::cleanup()
 	cout << "cleanup with quota condition" << '\n';
 #endif
 
-	cleanup(snapshots, std::bind(&Cleaner::is_quota_satisfied, this));
+	cleanup(snapshots, std::bind(&Cleaner::is_quota_satisfied, this), report);
     }
     else
     {
@@ -431,7 +436,7 @@ Cleaner::cleanup()
 	cout << "cleanup with free condition" << '\n';
 #endif
 
-	cleanup(snapshots, std::bind(&Cleaner::is_free_satisfied, this));
+	cleanup(snapshots, std::bind(&Cleaner::is_free_satisfied, this), report);
     }
     else
     {
@@ -443,7 +448,7 @@ Cleaner::cleanup()
 
 
 void
-Cleaner::cleanup(std::function<bool()> condition)
+Cleaner::cleanup(std::function<bool()> condition, Plugins::Report& report)
 {
     ProxySnapshots& snapshots = snapper->getSnapshots();
 
@@ -451,7 +456,7 @@ Cleaner::cleanup(std::function<bool()> condition)
     cout << "cleanup with user condition" << '\n';
 #endif
 
-    cleanup(snapshots, condition);
+    cleanup(snapshots, condition, report);
 }
 
 
@@ -562,20 +567,20 @@ private:
 
 
 void
-do_cleanup_number(ProxySnapper* snapper, bool verbose)
+do_cleanup_number(ProxySnapper* snapper, bool verbose, Plugins::Report& report)
 {
     NumberParameters parameters(snapper);
     NumberCleaner cleaner(snapper, verbose, parameters);
-    cleaner.cleanup();
+    cleaner.cleanup(report);
 }
 
 
 void
-do_cleanup_number(ProxySnapper* snapper, bool verbose, std::function<bool()> condition)
+do_cleanup_number(ProxySnapper* snapper, bool verbose, std::function<bool()> condition, Plugins::Report& report)
 {
     NumberParameters parameters(snapper);
     NumberCleaner cleaner(snapper, verbose, parameters);
-    cleaner.cleanup(condition);
+    cleaner.cleanup(condition, report);
 }
 
 
@@ -589,6 +594,7 @@ struct TimelineParameters : public Parameters
     Range limit_daily;
     Range limit_monthly;
     Range limit_weekly;
+    Range limit_quarterly;
     Range limit_yearly;
 };
 
@@ -601,13 +607,14 @@ operator<<(ostream& s, const TimelineParameters& parameters)
 	     << "limit-daily:" << parameters.limit_daily << '\n'
 	     << "limit-weekly:" << parameters.limit_weekly << '\n'
 	     << "limit-monthly:" << parameters.limit_monthly << '\n'
+	     << "limit-quarterly:" << parameters.limit_quarterly << '\n'
 	     << "limit-yearly:" << parameters.limit_yearly;
 }
 
 
 TimelineParameters::TimelineParameters(const ProxySnapper* snapper)
     : Parameters(snapper), limit_hourly(10), limit_daily(10), limit_monthly(10),
-      limit_weekly(0), limit_yearly(10)
+      limit_weekly(0), limit_quarterly(0), limit_yearly(10)
 {
     ProxyConfig config = snapper->getConfig();
 
@@ -617,6 +624,7 @@ TimelineParameters::TimelineParameters(const ProxySnapper* snapper)
     read(config, "TIMELINE_LIMIT_DAILY", limit_daily);
     read(config, "TIMELINE_LIMIT_WEEKLY", limit_weekly);
     read(config, "TIMELINE_LIMIT_MONTHLY", limit_monthly);
+    read(config, "TIMELINE_LIMIT_QUARTERLY", limit_quarterly);
     read(config, "TIMELINE_LIMIT_YEARLY", limit_yearly);
 
 #ifdef VERBOSE_LOGGING
@@ -630,7 +638,7 @@ TimelineParameters::is_degenerated() const
 {
     return limit_hourly.is_degenerated() && limit_daily.is_degenerated() &&
 	limit_monthly.is_degenerated() && limit_weekly.is_degenerated() &&
-	limit_yearly.is_degenerated();
+	limit_quarterly.is_degenerated() && limit_yearly.is_degenerated();
 }
 
 
@@ -679,6 +687,14 @@ private:
 		    ProxySnapshots::const_iterator it1)
     {
 	return is_first(first, last, it1, equal_year);
+    }
+
+    bool
+    is_first_quarterly(list<ProxySnapshots::iterator>::const_iterator first,
+		    list<ProxySnapshots::iterator>::const_iterator last,
+		    ProxySnapshots::const_iterator it1)
+    {
+	return is_first(first, last, it1, equal_quarter);
     }
 
     bool
@@ -731,6 +747,7 @@ private:
 	size_t num_daily = 0;
 	size_t num_weekly = 0;
 	size_t num_monthly = 0;
+	size_t num_quarterly = 0;
 	size_t num_yearly = 0;
 
 	list<ProxySnapshots::iterator>::iterator it = ret.begin();
@@ -758,6 +775,11 @@ private:
 		++num_monthly;
 		keep = true;
 	    }
+	    if (num_quarterly < parameters.limit_quarterly.value(value) && is_first_quarterly(it, ret.end(), *it))
+	    {
+		++num_quarterly;
+		keep = true;
+	    }
 	    if (num_yearly < parameters.limit_yearly.value(value) && is_first_yearly(it, ret.end(), *it))
 	    {
 		++num_yearly;
@@ -778,20 +800,20 @@ private:
 
 
 void
-do_cleanup_timeline(ProxySnapper* snapper, bool verbose)
+do_cleanup_timeline(ProxySnapper* snapper, bool verbose, Plugins::Report& report)
 {
     TimelineParameters parameters(snapper);
     TimelineCleaner cleaner(snapper, verbose, parameters);
-    cleaner.cleanup();
+    cleaner.cleanup(report);
 }
 
 
 void
-do_cleanup_timeline(ProxySnapper* snapper, bool verbose, std::function<bool()> condition)
+do_cleanup_timeline(ProxySnapper* snapper, bool verbose, std::function<bool()> condition, Plugins::Report& report)
 {
     TimelineParameters parameters(snapper);
     TimelineCleaner cleaner(snapper, verbose, parameters);
-    cleaner.cleanup(condition);
+    cleaner.cleanup(condition, report);
 }
 
 
@@ -852,18 +874,21 @@ private:
 
 
 void
-do_cleanup_empty_pre_post(ProxySnapper* snapper, bool verbose)
+do_cleanup_empty_pre_post(ProxySnapper* snapper, bool verbose, Plugins::Report& report)
 {
     EmptyPrePostParameters parameters(snapper);
     EmptyPrePostCleaner cleaner(snapper, verbose, parameters);
-    cleaner.cleanup();
+    cleaner.cleanup(report);
 }
 
 
 void
-do_cleanup_empty_pre_post(ProxySnapper* snapper, bool verbose, std::function<bool()> condition)
+do_cleanup_empty_pre_post(ProxySnapper* snapper, bool verbose, std::function<bool()> condition,
+			  Plugins::Report& report)
 {
     EmptyPrePostParameters parameters(snapper);
     EmptyPrePostCleaner cleaner(snapper, verbose, parameters);
-    cleaner.cleanup(condition);
+    cleaner.cleanup(condition, report);
+}
+
 }

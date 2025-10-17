@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2012-2015] Novell, Inc.
- * Copyright (c) [2018-2023] SUSE LLC
+ * Copyright (c) [2018-2025] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -21,21 +21,21 @@
  */
 
 
-#include <string.h>
+#include <cstring>
 #include <sys/types.h>
-#include <boost/algorithm/string.hpp>
 
-#include <snapper/Log.h>
+#include <snapper/LoggerImpl.h>
 #include <snapper/AppUtil.h>
 #include <snapper/SnapperDefines.h>
 
 #include "MetaSnapper.h"
+#include "Client.h"
 
 
 MetaSnappers meta_snappers;
 
 
-MetaSnapper::MetaSnapper(ConfigInfo& config_info)
+MetaSnapper::MetaSnapper(const ConfigInfo& config_info)
     : config_info(config_info)
 {
     set_permissions();
@@ -44,8 +44,6 @@ MetaSnapper::MetaSnapper(ConfigInfo& config_info)
 
 MetaSnapper::~MetaSnapper()
 {
-    delete snapper;
-    snapper = nullptr;
 }
 
 
@@ -113,19 +111,29 @@ Snapper*
 MetaSnapper::getSnapper()
 {
     if (!snapper)
-	snapper = new Snapper(config_info.get_config_name(), "/");
+	snapper = make_unique<Snapper>(config_info.get_config_name(), "/");
 
     update_use_time();
 
-    return snapper;
+    return snapper.get();
 }
 
 
 void
 MetaSnapper::unload()
 {
-    delete snapper;
-    snapper = nullptr;
+    snapper.reset();
+}
+
+
+bool
+MetaSnapper::is_locked(const Clients& clients) const
+{
+    for (const Client& client : clients)
+	if (client.has_lock(configName()))
+	    return true;
+
+    return false;
 }
 
 
@@ -144,10 +152,8 @@ MetaSnappers::init()
 {
     list<ConfigInfo> config_infos = Snapper::getConfigs("/");
 
-    for (list<ConfigInfo>::iterator it = config_infos.begin(); it != config_infos.end(); ++it)
-    {
-	entries.emplace_back(*it);
-    }
+    for (const ConfigInfo& config_info : config_infos)
+	entries.emplace_back(config_info);
 }
 
 
@@ -172,10 +178,10 @@ MetaSnappers::find(const string& config_name)
 
 
 void
-MetaSnappers::createConfig(const string& config_name, const string& subvolume,
-			   const string& fstype, const string& template_name)
+MetaSnappers::createConfig(const string& config_name, const string& subvolume, const string& fstype,
+			   const string& template_name, Plugins::Report& report)
 {
-    Snapper::createConfig(config_name, "/", subvolume, fstype, template_name);
+    Snapper::createConfig(config_name, "/", subvolume, fstype, template_name, report);
 
     ConfigInfo config_info = Snapper::getConfig(config_name, "/");
 
@@ -184,9 +190,9 @@ MetaSnappers::createConfig(const string& config_name, const string& subvolume,
 
 
 void
-MetaSnappers::deleteConfig(iterator it)
+MetaSnappers::deleteConfig(iterator it, Plugins::Report& report)
 {
-    Snapper::deleteConfig(it->configName(), "/");
+    Snapper::deleteConfig(it->configName(), "/", report);
 
     entries.erase(it);
 }

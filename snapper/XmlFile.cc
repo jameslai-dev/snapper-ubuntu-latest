@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2010-2012] Novell, Inc.
- * Copyright (c) [2020-2023] SUSE LLC
+ * Copyright (c) [2020-2025] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -23,6 +23,8 @@
 
 #include <cstring>
 #include <unistd.h>
+#include <libxml/parser.h>
+#include <libxml/xmlerror.h>
 
 #include "snapper/Exception.h"
 #include "snapper/XmlFile.h"
@@ -30,6 +32,24 @@
 
 namespace snapper
 {
+
+    void
+    xml_error_func(void* ctx, const char* msg, ...)
+    {
+    }
+
+    xmlGenericErrorFunc xml_error_func_ptr = &xml_error_func;
+
+    struct XmlErrorSetup
+    {
+	XmlErrorSetup()
+	{
+	    xmlSetGenericErrorFunc(strdup("snapper"), xml_error_func_ptr);
+	}
+    };
+
+    XmlErrorSetup xml_error_setup;
+
 
     XmlFile::XmlFile()
 	: doc(xmlNewDoc((const xmlChar*) "1.0"))
@@ -74,10 +94,13 @@ namespace snapper
 	    SN_THROW(IOErrorException("fdopen"));
 	}
 
+	errno = 0;
+
 	if (xmlDocFormatDump(f, doc, 1) == -1)
 	{
 	    fclose(f);
-	    SN_THROW(IOErrorException("xmlDocFormatDump failed"));
+	    SN_THROW(IOErrorException(sformat("xmlDocFormatDump failed, errno:%d (%s)", errno,
+					      stringerror(errno).c_str())));
 	}
 
 	fflush(f);

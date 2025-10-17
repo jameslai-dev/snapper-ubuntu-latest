@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2011-2014] Novell, Inc.
- * Copyright (c) [2020-2023] SUSE LLC
+ * Copyright (c) [2020-2025] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -34,7 +34,7 @@
 #include <regex>
 #include <boost/algorithm/string.hpp>
 
-#include "snapper/Log.h"
+#include "snapper/LoggerImpl.h"
 #include "snapper/Filesystem.h"
 #include "snapper/Lvm.h"
 #include "snapper/LvmUtils.h"
@@ -43,6 +43,7 @@
 #include "snapper/SystemCmd.h"
 #include "snapper/SnapperDefines.h"
 #include "snapper/LvmCache.h"
+#include "snapper/PluginsImpl.h"
 #ifdef ENABLE_SELINUX
 #include "snapper/Selinux.h"
 #endif
@@ -53,16 +54,16 @@ namespace snapper
     using namespace std;
 
 
-    Filesystem*
+    std::unique_ptr<Filesystem>
     Lvm::create(const string& fstype, const string& subvolume, const string& root_prefix)
     {
 	static const regex rx("lvm\\(([_a-z0-9]+)\\)", regex::extended);
 	smatch match;
 
 	if (regex_match(fstype, match, rx))
-	    return new Lvm(subvolume, root_prefix, match[1]);
+	    return std::make_unique<Lvm>(subvolume, root_prefix, match[1]);
 
-	return NULL;
+	return nullptr;
     }
 
 
@@ -70,19 +71,19 @@ namespace snapper
 	: Filesystem(subvolume, root_prefix), mount_type(mount_type),
 	  cache(LvmCache::get_lvm_cache())
     {
-	if (access(LVCREATEBIN, X_OK) != 0)
+	if (access(LVCREATE_BIN, X_OK) != 0)
 	{
-	    SN_THROW(ProgramNotInstalledException(LVCREATEBIN " not installed"));
+	    SN_THROW(ProgramNotInstalledException(LVCREATE_BIN " not installed"));
 	}
 
-	if (access(LVSBIN, X_OK) != 0)
+	if (access(LVS_BIN, X_OK) != 0)
 	{
-	    SN_THROW(ProgramNotInstalledException(LVSBIN " not installed"));
+	    SN_THROW(ProgramNotInstalledException(LVS_BIN " not installed"));
 	}
 
-	if (access(LVCHANGEBIN, X_OK) != 0)
+	if (access(LVCHANGE_BIN, X_OK) != 0)
 	{
-	    SN_THROW(ProgramNotInstalledException(LVCHANGEBIN " not installed"));
+	    SN_THROW(ProgramNotInstalledException(LVCHANGE_BIN " not installed"));
 	}
 
 	bool found = false;
@@ -109,7 +110,7 @@ namespace snapper
     void
     Lvm::createLvmConfig(const SDir& subvolume_dir, int mode) const
     {
-	int r1 = subvolume_dir.mkdir(".snapshots", mode);
+	int r1 = subvolume_dir.mkdir(SNAPSHOTS_NAME, mode);
 	if (r1 != 0 && errno != EEXIST)
 	{
 	    y2err("mkdir failed errno:" << errno << " (" << strerror(errno) << ")");
@@ -133,7 +134,7 @@ namespace snapper
 
 	    try
 	    {
-		string path(subvolume_dir.fullname() + "/.snapshots");
+		string path(subvolume_dir.fullname() + "/" SNAPSHOTS_NAME);
 
 		con = selabel_handle->selabel_lookup(path, mode);
 		if (con)
@@ -182,10 +183,10 @@ namespace snapper
     {
 	SDir subvolume_dir = openSubvolumeDir();
 
-	int r1 = subvolume_dir.unlink(".snapshots", AT_REMOVEDIR);
+	int r1 = subvolume_dir.rmdir(SNAPSHOTS_NAME);
 	if (r1 != 0)
 	{
-	    y2err("rmdir failed errno:" << errno << " (" << strerror(errno) << ")");
+	    y2err("rmdir '" SNAPSHOTS_NAME "' failed errno:" << errno << " (" << strerror(errno) << ")");
 	    SN_THROW(DeleteConfigFailedException("rmdir failed"));
 	}
     }
@@ -194,8 +195,8 @@ namespace snapper
     string
     Lvm::snapshotDir(unsigned int num) const
     {
-	return (subvolume == "/" ? "" : subvolume) + "/.snapshots/" + decString(num) +
-	    "/snapshot";
+	return (subvolume == "/" ? "" : subvolume) + "/" SNAPSHOTS_NAME "/" + decString(num) +
+	    "/" SNAPSHOT_NAME;
     }
 
 
@@ -203,7 +204,7 @@ namespace snapper
     Lvm::openInfosDir() const
     {
 	SDir subvolume_dir = openSubvolumeDir();
-	SDir infos_dir(subvolume_dir, ".snapshots");
+	SDir infos_dir(subvolume_dir, SNAPSHOTS_NAME);
 
 	struct stat stat;
 	if (infos_dir.stat(&stat) != 0)
@@ -237,7 +238,7 @@ namespace snapper
     Lvm::openSnapshotDir(unsigned int num) const
     {
 	SDir info_dir = openInfoDir(num);
-	SDir snapshot_dir(info_dir, "snapshot");
+	SDir snapshot_dir(info_dir, SNAPSHOT_NAME);
 
 	return snapshot_dir;
     }
@@ -258,7 +259,7 @@ namespace snapper
 	    SN_THROW(UnsupportedException());
 
 	SDir info_dir = openInfoDir(num);
-	int r1 = info_dir.mkdir("snapshot", 0755);
+	int r1 = info_dir.mkdir(SNAPSHOT_NAME, 0755);
 	if (r1 != 0 && errno != EEXIST)
 	{
 	    y2err("mkdir failed errno:" << errno << " (" << strerror(errno) << ")");
@@ -293,10 +294,12 @@ namespace snapper
 	}
 
 	SDir info_dir = openInfoDir(num);
-	info_dir.unlink("snapshot", AT_REMOVEDIR);
+	if (info_dir.rmdir(SNAPSHOT_NAME) < 0)
+	     y2err("rmdir '" SNAPSHOT_NAME "' failed errno: " << errno << " (" << stringerror(errno) << ")");
 
 	SDir infos_dir = openInfosDir();
-	infos_dir.unlink(decString(num), AT_REMOVEDIR);
+	if (infos_dir.rmdir(decString(num)) < 0)
+	     y2err("rmdir '" << num << "' failed errno: " << errno << " (" << stringerror(errno) << ")");
     }
 
 
@@ -347,7 +350,7 @@ namespace snapper
 	{
 	    SDir info_dir = openInfoDir(num);
 
-	    if (!umount(info_dir, "snapshot"))
+	    if (!umount(info_dir, SNAPSHOT_NAME))
 		SN_THROW(UmountSnapshotFailedException());
 	}
 
@@ -381,11 +384,15 @@ namespace snapper
 
 
     void
-    Lvm::setSnapshotReadOnly(unsigned int num, bool read_only) const
+    Lvm::setSnapshotReadOnly(unsigned int num, bool read_only, Plugins::Report& report) const
     {
 	try
 	{
+	    Plugins::set_read_only(Plugins::Stage::PRE_ACTION, subvolume, this, num, report);
+
 	    cache->set_read_only(vg_name, snapshotLvName(num), read_only);
+
+	    Plugins::set_read_only(Plugins::Stage::POST_ACTION, subvolume, this, num, report);
 	}
 	catch (const LvmCacheException& e)
 	{
@@ -483,7 +490,7 @@ namespace snapper
 
     LvmCapabilities::LvmCapabilities()
     {
-	SystemCmd cmd(string(LVMBIN " version"));
+	SystemCmd cmd({ LVM_BIN, "version" });
 
 	if (cmd.retcode() != 0 || cmd.get_stdout().empty())
 	{
@@ -510,7 +517,7 @@ namespace snapper
 		lvm_version version(maj, min, rev);
 
 		if (version >= lvm_version(2, 2, 99))
-		    ignoreactivationskip = " -K";
+		    ignoreactivationskip = "--ignoreactivationskip";
 	    }
 	}
     }

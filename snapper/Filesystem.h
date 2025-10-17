@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2011-2015] Novell, Inc.
- * Copyright (c) [2016-2023] SUSE LLC
+ * Copyright (c) [2016-2025] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -28,9 +28,11 @@
 #include <string>
 #include <vector>
 #include <utility>
+#include <memory>
 
 #include "snapper/FileUtils.h"
 #include "snapper/Compare.h"
+#include "snapper/Plugins.h"
 
 
 namespace snapper
@@ -51,8 +53,9 @@ namespace snapper
 	    : subvolume(subvolume), root_prefix(root_prefix) {}
 	virtual ~Filesystem() {}
 
-	static Filesystem* create(const string& fstype, const string& subvolume, const string& root_prefix);
-	static Filesystem* create(const ConfigInfo& config_info, const string& root_prefix);
+	static std::unique_ptr<Filesystem> create(const string& fstype, const string& subvolume,
+						  const string& root_prefix);
+	static std::unique_ptr<Filesystem> create(const ConfigInfo& config_info, const string& root_prefix);
 
 	virtual void evalConfigInfo(const ConfigInfo& config_info) {}
 
@@ -78,7 +81,7 @@ namespace snapper
 	virtual void umountSnapshot(unsigned int num) const = 0;
 
 	virtual bool isSnapshotReadOnly(unsigned int num) const = 0;
-	virtual void setSnapshotReadOnly(unsigned int num, bool read_only) const = 0;
+	virtual void setSnapshotReadOnly(unsigned int num, bool read_only, Plugins::Report& report) const = 0;
 
 	virtual bool checkSnapshot(unsigned int num) const = 0;
 
@@ -94,7 +97,7 @@ namespace snapper
 	 */
 	virtual std::pair<bool, unsigned int> getDefault() const;
 
-	virtual void setDefault(unsigned int num) const;
+	virtual void setDefault(unsigned int num, Plugins::Report& report) const;
 
 	virtual std::pair<bool, unsigned int> getActive() const;
 

@@ -24,7 +24,7 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 
-#include <snapper/Log.h>
+#include <snapper/LoggerImpl.h>
 #include <snapper/Comparison.h>
 
 #include "MetaSnapper.h"
@@ -112,7 +112,7 @@ Backgrounds::worker()
 	    Task task = tasks.front();
 	    lock.unlock();
 
-	    Snapper* snapper = task.meta_snapper->getSnapper();
+	    const Snapper* snapper = task.meta_snapper->getSnapper();
 	    Comparison comparison(snapper, task.snapshot1, task.snapshot2, false);
 	    task.meta_snapper->dec_use_count();
 

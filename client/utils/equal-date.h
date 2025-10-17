@@ -19,16 +19,15 @@
  * find current contact information at www.novell.com.
  */
 
-#if !defined(__isleap)
-/* Nonzero if YEAR is a leap year (every 4 years,
-   except every 100th isn't, and every 400th is).  */
-# define __isleap(year)	\
-  ((year) % 4 == 0 && ((year) % 100 != 0 || (year) % 400 == 0))
-#endif
 
+namespace snapper
+{
 
 bool
 equal_year(const struct tm& tmp1, const struct tm& tmp2);
+
+bool
+equal_quarter(const struct tm& tmp1, const struct tm& tmp2);
 
 bool
 equal_month(const struct tm& tmp1, const struct tm& tmp2);
@@ -42,3 +41,4 @@ equal_day(const struct tm& tmp1, const struct tm& tmp2);
 bool
 equal_hour(const struct tm& tmp1, const struct tm& tmp2);
 
+}

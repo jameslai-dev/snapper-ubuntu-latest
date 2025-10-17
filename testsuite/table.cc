@@ -12,13 +12,14 @@
 
 
 using namespace std;
+using namespace snapper;
 
 
 void
 check(const Table& table, const vector<string>& output)
 {
     ostringstream tmp;
-    tmp << setw(42) << table;
+    tmp << table;
     string lhs = tmp.str();
 
     string rhs = accumulate(output.begin(), output.end(), (string)(""),
@@ -30,34 +31,61 @@ check(const Table& table, const vector<string>& output)
 
 BOOST_AUTO_TEST_CASE(test1)
 {
-    locale::global(locale("en_GB.UTF-8"));
+    Table table({ "A", "B" });
 
-    Table table;
+    table.set_style(Style::LIGHT);
 
-    TableHeader header;
-    header.add("Number", TableAlign::RIGHT);
-    header.add("Name EN");
-    header.add("Name DE");
-    header.add("Square", TableAlign::RIGHT);
-    table.setHeader(header);
-
-    TableRow row1;
-    row1.add("0");
-    row1.add("zero");
-    row1.add("Null");
-    row1.add("0");
+    Table::Row row1(table, { "a" });
     table.add(row1);
 
-    TableRow row2;
-    row2 << "1" << "one" << "Eins" << "1";
+    Table::Row row2(table, { "a", "b" });
     table.add(row2);
 
-    TableRow row3;
-    row3 << "5" << "five" << "Fünf" << "25";
+    vector<string> output = {
+	"A │ B",
+	"──┼──",
+	"a │",
+	"a │ b"
+    };
+
+    check(table, output);
+}
+
+
+BOOST_AUTO_TEST_CASE(test2)
+{
+    Table table({ "A", "B" });
+
+    Table::Row row1(table, { "a", "b", "c" });
+    table.add(row1);
+
+    BOOST_CHECK_EXCEPTION({ ostringstream tmp; tmp << table; }, runtime_error, [](const exception& e) {
+        return strcmp(e.what(), "too many columns") == 0;
+    });
+}
+
+
+BOOST_AUTO_TEST_CASE(test3)
+{
+    locale::global(locale("en_GB.UTF-8"));
+
+    Table table({
+	Cell("Number", Id::NUMBER, Align::RIGHT), Cell("Name EN"), Cell("Name DE"),
+	Cell("Square", Align::RIGHT)
+    });
+
+    table.set_style(Style::ASCII);
+
+    Table::Row row1(table, { "0", "zero", "Null", "0" });
+    table.add(row1);
+
+    Table::Row row2(table, { "1", "one", "Eins", "1" });
+    table.add(row2);
+
+    Table::Row row3(table, { "5", "five", "Fünf", "25" });
     table.add(row3);
 
-    TableRow row4;
-    row4 << "12" << "twelve" << "Zwölf" << "144";
+    Table::Row row4(table, { "12", "twelve", "Zwölf", "144" });
     table.add(row4);
 
     vector<string> output = {
@@ -67,6 +95,132 @@ BOOST_AUTO_TEST_CASE(test1)
 	"     1 | one     | Eins    |      1",
 	"     5 | five    | Fünf    |     25",
 	"    12 | twelve  | Zwölf   |    144"
+    };
+
+    check(table, output);
+}
+
+
+BOOST_AUTO_TEST_CASE(test4)
+{
+    Table table({ Cell("Number", Align::RIGHT), Cell("Description", Id::DESCRIPTION) });
+
+    table.set_style(Style::LIGHT);
+    table.set_screen_width(25);
+    table.set_abbreviate(Id::DESCRIPTION, true);
+
+    Table::Row row1(table, { "1", "boot" });
+    table.add(row1);
+
+    Table::Row row2(table, { "2", "before the system update" });
+    table.add(row2);
+
+    Table::Row row3(table, { "3", "läuft schön rund" });
+    table.add(row3);
+
+    vector<string> output = {
+	"Number │ Description",
+	"───────┼─────────────────",
+	"     1 │ boot",
+	"     2 │ before the syst…",
+	"     3 │ läuft schön rund"
+    };
+
+    check(table, output);
+}
+
+
+BOOST_AUTO_TEST_CASE(test5)
+{
+    Table table({ Cell("#", Id::NUMBER, Align::RIGHT), Cell("Description", Id::DESCRIPTION) });
+
+    table.set_style(Style::LIGHT);
+    table.set_trim(Id::NUMBER, true);
+
+    Table::Row row1(table, { "1 ", "boot" });
+    table.add(row1);
+
+    Table::Row row2(table, { "2 " });
+    table.add(row2);
+
+    Table::Row row3(table, { "3 " });
+    table.add(row3);
+
+    vector<string> output = {
+	"# │ Description",
+	"──┼────────────",
+	"1 │ boot",
+	"2 │",
+	"3 │"
+    };
+
+    check(table, output);
+}
+
+
+BOOST_AUTO_TEST_CASE(test6)
+{
+    Table table({ Cell("#", Id::NUMBER, Align::RIGHT), Cell("Description", Id::DESCRIPTION) });
+
+    table.set_style(Style::LIGHT);
+    table.set_trim(Id::NUMBER, true);
+
+    Table::Row row1(table, { "1 ", "boot" });
+    table.add(row1);
+
+    Table::Row row2(table, { "2+" });
+    table.add(row2);
+
+    Table::Row row3(table, { "3 " });
+    table.add(row3);
+
+    vector<string> output = {
+	" # │ Description",
+	"───┼────────────",
+	"1  │ boot",
+	"2+ │",
+	"3  │"
+    };
+
+    check(table, output);
+}
+
+
+BOOST_AUTO_TEST_CASE(test7)
+{
+    Table table({ Cell("#", Id::NUMBER, Align::RIGHT), Cell("Description", Id::DESCRIPTION) });
+
+    table.set_style(Style::LIGHT);
+    table.set_trim(Id::NUMBER, true);
+    table.set_trim(Id::DESCRIPTION, true);
+
+    Table::Row row1(table, { "" });
+    table.add(row1);
+
+    vector<string> output = {
+	"# │ Description",
+	"──┼────────────",
+	"  │",
+    };
+
+    check(table, output);
+}
+
+
+BOOST_AUTO_TEST_CASE(test8)
+{
+    Table table({ "A", "B", Cell("Number", Id::NUMBER, Align::RIGHT) });
+
+    table.set_style(Style::LIGHT);
+    table.set_visibility(Id::NUMBER, Visibility::AUTO);
+
+    Table::Row row1(table, { "a", "b", "" });
+    table.add(row1);
+
+    vector<string> output = {
+	"A │ B",
+	"──┼──",
+	"a │ b"
     };
 
     check(table, output);

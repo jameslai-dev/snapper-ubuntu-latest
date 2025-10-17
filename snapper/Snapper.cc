@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2011-2015] Novell, Inc.
- * Copyright (c) [2016-2023] SUSE LLC
+ * Copyright (c) [2016-2025] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -45,7 +45,7 @@
 #include "snapper/File.h"
 #include "snapper/AsciiFile.h"
 #include "snapper/Exception.h"
-#include "snapper/Hooks.h"
+#include "snapper/PluginsImpl.h"
 #include "snapper/ComparisonImpl.h"
 #include "snapper/Systemctl.h"
 #include "snapper/Version.h"
@@ -63,46 +63,17 @@ namespace snapper
     using namespace std;
 
 
-    ConfigInfo::ConfigInfo(const string& config_name, const string& root_prefix)
-	: SysconfigFile(prepend_root_prefix(root_prefix, CONFIGS_DIR "/" + config_name)),
-	  config_name(config_name), subvolume("/")
-    {
-	if (!get_value(KEY_SUBVOLUME, subvolume))
-	    SN_THROW(InvalidConfigException());
-    }
-
-
-    void
-    ConfigInfo::check_key(const string& key) const
-    {
-	if (key == KEY_SUBVOLUME || key == KEY_FSTYPE)
-	    SN_THROW(InvalidConfigdataException());
-
-	try
-	{
-	    SysconfigFile::check_key(key);
-	}
-	catch (const InvalidKeyException& e)
-	{
-	    SN_CAUGHT(e);
-
-	    SN_THROW(InvalidConfigdataException());
-	}
-    }
-
-
     Snapper::Snapper(const string& config_name, const string& root_prefix, bool disable_filters)
-	: snapshots(this)
+	: config_name(config_name), root_prefix(root_prefix), snapshots(this)
     {
-	y2mil("Snapper constructor");
+	y2mil("Snapper constructor '" << config_name << "'");
 	y2mil("snapper version " VERSION);
 	y2mil("libsnapper version " LIBSNAPPER_VERSION_STRING);
-	y2mil("config_name:" << config_name << " root_prefix:" << root_prefix <<
-	      " disable_filters:" << disable_filters);
+	y2mil("root-prefix:" << root_prefix << " disable-filters:" << disable_filters);
 
 	try
 	{
-	    config_info = new ConfigInfo(config_name, root_prefix);
+	    config_info = make_unique<ConfigInfo>(config_name, root_prefix);
 	}
 	catch (const Exception& e)
 	{
@@ -139,25 +110,19 @@ namespace snapper
 
     Snapper::~Snapper()
     {
-	y2mil("Snapper destructor");
+	y2mil("Snapper destructor '" << config_name << "'");
 
-	for (Snapshots::iterator it = snapshots.begin(); it != snapshots.end(); ++it)
+	for (const Snapshot& snapshot : snapshots)
 	{
 	    try
 	    {
-		it->handleUmountFilesystemSnapshot();
+		snapshot.handleUmountFilesystemSnapshot();
 	    }
 	    catch (const UmountSnapshotFailedException& e)
 	    {
 		SN_CAUGHT(e);
 	    }
 	}
-
-	delete filesystem;
-	filesystem = nullptr;
-
-	delete config_info;
-	config_info = nullptr;
     }
 
 
@@ -235,54 +200,54 @@ namespace snapper
 
 
     Snapshots::iterator
-    Snapper::createSingleSnapshot(const SCD& scd)
+    Snapper::createSingleSnapshot(const SCD& scd, Plugins::Report& report)
     {
-	return snapshots.createSingleSnapshot(scd);
+	return snapshots.createSingleSnapshot(scd, report);
     }
 
 
     Snapshots::iterator
-    Snapper::createSingleSnapshot(Snapshots::const_iterator parent, const SCD& scd)
+    Snapper::createSingleSnapshot(Snapshots::const_iterator parent, const SCD& scd, Plugins::Report& report)
     {
 	if (parent == snapshots.end())
 	    SN_THROW(IllegalSnapshotException());
 
-	return snapshots.createSingleSnapshot(parent, scd);
+	return snapshots.createSingleSnapshot(parent, scd, report);
     }
 
 
     Snapshots::iterator
-    Snapper::createSingleSnapshotOfDefault(const SCD& scd)
+    Snapper::createSingleSnapshotOfDefault(const SCD& scd, Plugins::Report& report)
     {
-	return snapshots.createSingleSnapshotOfDefault(scd);
+	return snapshots.createSingleSnapshotOfDefault(scd, report);
     }
 
 
     Snapshots::iterator
-    Snapper::createPreSnapshot(const SCD& scd)
+    Snapper::createPreSnapshot(const SCD& scd, Plugins::Report& report)
     {
-	return snapshots.createPreSnapshot(scd);
+	return snapshots.createPreSnapshot(scd, report);
     }
 
 
     Snapshots::iterator
-    Snapper::createPostSnapshot(Snapshots::const_iterator pre, const SCD& scd)
+    Snapper::createPostSnapshot(Snapshots::const_iterator pre, const SCD& scd, Plugins::Report& report)
     {
-	return snapshots.createPostSnapshot(pre, scd);
+	return snapshots.createPostSnapshot(pre, scd, report);
     }
 
 
     void
-    Snapper::modifySnapshot(Snapshots::iterator snapshot, const SMD& smd)
+    Snapper::modifySnapshot(Snapshots::iterator snapshot, const SMD& smd, Plugins::Report& report)
     {
-	snapshots.modifySnapshot(snapshot, smd);
+	snapshots.modifySnapshot(snapshot, smd, report);
     }
 
 
     void
-    Snapper::deleteSnapshot(Snapshots::iterator snapshot)
+    Snapper::deleteSnapshot(Snapshots::iterator snapshot, Plugins::Report& report)
     {
-	snapshots.deleteSnapshot(snapshot);
+	snapshots.deleteSnapshot(snapshot, report);
     }
 
 
@@ -335,7 +300,7 @@ namespace snapper
     void
     Snapper::createConfig(const string& config_name, const string& root_prefix,
 			  const string& subvolume, const string& fstype,
-			  const string& template_name)
+			  const string& template_name, Plugins::Report& report)
     {
 	y2mil("Snapper create-config");
 	y2mil("libsnapper version " VERSION);
@@ -352,10 +317,10 @@ namespace snapper
 	    SN_THROW(CreateConfigFailedException("illegal subvolume"));
 	}
 
-	list<ConfigInfo> configs = getConfigs(root_prefix);
-	for (list<ConfigInfo>::const_iterator it = configs.begin(); it != configs.end(); ++it)
+	list<ConfigInfo> config_infos = getConfigs(root_prefix);
+	for (const ConfigInfo& config_info : config_infos)
 	{
-	    if (it->get_subvolume() == subvolume)
+	    if (config_info.get_subvolume() == subvolume)
 	    {
 		SN_THROW(CreateConfigFailedException("subvolume already covered"));
 	    }
@@ -375,7 +340,7 @@ namespace snapper
 	unique_ptr<Filesystem> filesystem;
 	try
 	{
-	    filesystem.reset(Filesystem::create(fstype, subvolume, ""));
+	    filesystem = Filesystem::create(fstype, subvolume, "");
 	}
 	catch (const InvalidConfigException& e)
 	{
@@ -390,7 +355,7 @@ namespace snapper
 	    SN_THROW(CreateConfigFailedException(e.what()));
 	}
 
-	Hooks::create_config(Hooks::Stage::PRE_ACTION, subvolume, filesystem.get());
+	Plugins::create_config(Plugins::Stage::PRE_ACTION, subvolume, filesystem.get(), report);
 
 	try
 	{
@@ -453,7 +418,7 @@ namespace snapper
 
 	    sysconfig.save();
 
-	    SystemCmd cmd(RMBIN " " + quote(CONFIGS_DIR "/" + config_name));
+	    SystemCmd cmd({ RM_BIN, "--", CONFIGS_DIR "/" + config_name });
 
 	    SN_RETHROW(e);
 	}
@@ -463,19 +428,20 @@ namespace snapper
 	    systemctl_enable_timeline(true);
 	}
 
-	Hooks::create_config(Hooks::Stage::POST_ACTION, subvolume, filesystem.get());
+	Plugins::create_config(Plugins::Stage::POST_ACTION, subvolume, filesystem.get(), report);
     }
 
 
     void
-    Snapper::deleteConfig(const string& config_name, const string& root_prefix)
+    Snapper::deleteConfig(const string& config_name, const string& root_prefix, Plugins::Report& report)
     {
 	y2mil("Snapper delete-config");
 	y2mil("libsnapper version " VERSION);
 
-	unique_ptr<Snapper> snapper(new Snapper(config_name, root_prefix));
+	unique_ptr<Snapper> snapper = make_unique<Snapper>(config_name, root_prefix);
 
-	Hooks::delete_config(Hooks::Stage::PRE_ACTION, snapper->subvolumeDir(), snapper->getFilesystem());
+	Plugins::delete_config(Plugins::Stage::PRE_ACTION, snapper->subvolumeDir(), snapper->getFilesystem(),
+			       report);
 
 	Snapshots& snapshots = snapper->getSnapshots();
 
@@ -491,7 +457,7 @@ namespace snapper
 
 	    try
 	    {
-		snapper->deleteSnapshot(tmp);
+		snapper->deleteSnapshot(tmp, report);
 	    }
 	    catch (const DeleteSnapshotFailedException& e)
 	    {
@@ -512,7 +478,7 @@ namespace snapper
 	    SN_THROW(DeleteConfigFailedException("deleting snapshot failed"));
 	}
 
-	SystemCmd cmd1(RMBIN " " + quote(CONFIGS_DIR "/" + config_name));
+	SystemCmd cmd1({ RM_BIN, "--", CONFIGS_DIR "/" + config_name });
 	if (cmd1.retcode() != 0)
 	{
 	    SN_THROW(DeleteConfigFailedException("deleting config-file failed"));
@@ -538,7 +504,8 @@ namespace snapper
 
 	// TODO potentially disable snapper-timeline.timer
 
-	Hooks::delete_config(Hooks::Stage::POST_ACTION, snapper->subvolumeDir(), snapper->getFilesystem());
+	Plugins::delete_config(Plugins::Stage::POST_ACTION, snapper->subvolumeDir(), snapper->getFilesystem(),
+			       report);
     }
 
 
@@ -943,8 +910,8 @@ namespace snapper
 
 #else
 
-        SN_THROW(QuotaException("not implemented"));
-        __builtin_unreachable();
+	SN_THROW(QuotaException("not implemented"));
+	__builtin_unreachable();
 
 #endif
     }
@@ -957,7 +924,7 @@ namespace snapper
 	try
 	{
 	    SDir subvol_dir = openSubvolumeDir();
-	    SDir infos_dir(subvol_dir, ".snapshots");
+	    SDir infos_dir(subvol_dir, SNAPSHOTS_NAME);
 
 	    if (infos_dir.restorecon(selabel_handle))
 	    {
@@ -1004,7 +971,7 @@ namespace snapper
 
 	    if (!skip_snapshot_dir)
 	    {
-		SFile snapshot_dir(info_dir, "snapshot");
+		SFile snapshot_dir(info_dir, SNAPSHOT_NAME);
 		snapshot_dir.restorecon(selabel_handle);
 	    }
 
@@ -1117,6 +1084,11 @@ namespace snapper
 	    "no-"
 #endif
 	    "btrfs,"
+
+#ifndef ENABLE_BCACHEFS
+	    "no-"
+#endif
+	    "bcachefs,"
 
 #ifndef ENABLE_LVM
 	    "no-"

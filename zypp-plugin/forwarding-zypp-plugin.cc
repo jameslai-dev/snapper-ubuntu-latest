@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 SUSE LLC
+ * Copyright (c) [2020-2025] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -21,7 +21,15 @@
 
 
 #include <string>
+
+#include <boost/version.hpp>
+#if BOOST_VERSION < 108800
 #include <boost/process.hpp>
+#else
+#define BOOST_PROCESS_VERSION 1
+#include <boost/process/v1/child.hpp>
+#include <boost/process/v1/io.hpp>
+#endif
 
 #include "zypp-plugin.h"
 
@@ -46,9 +54,8 @@ public:
     virtual Message dispatch(const Message&) override;
 private:
     string child_program;
-    bp::ipstream childs_out; // we read this
-    // bp::ipstream childs_err; // we read this
-    bp::opstream childs_in; // we write this
+    bp::ipstream child_out;	// we read this
+    bp::opstream child_in;	// we write this
 };
 
 
@@ -61,23 +68,18 @@ ForwardingZyppPlugin::ForwardingZyppPlugin(const string& another_plugin)
 int
 ForwardingZyppPlugin::main()
 {
-    bp::child c(child_program,
-		bp::std_out > childs_out,
-		// bp::std_err > childs_err,
-		bp::std_in < childs_in);
+    bp::child child(child_program, bp::std_out > child_out, bp::std_in < child_in);
 
-    int result = ZyppPlugin::main();
-
-    //    c.wait();
-    return result;
+    return ZyppPlugin::main();
 }
 
 
 ZyppPlugin::Message
 ForwardingZyppPlugin::dispatch(const Message& msg)
 {
-    write_message(childs_in, msg);
-    return read_message(childs_out);
+    write_message(child_in, msg);
+
+    return read_message(child_out);
 }
 
 
@@ -88,5 +90,6 @@ main(int argc, char** argv)
 	throw runtime_error("Usage: forwarding-zypp-plugin ANOTHER_ZYPP_PLUGIN");
 
     ForwardingZyppPlugin plugin(argv[1]);
+
     return plugin.main();
 }

@@ -34,8 +34,8 @@ namespace snapper
     {
     public:
 
-	static Filesystem* create(const string& fstype, const string& subvolume,
-				  const string& root_prefix);
+	static std::unique_ptr<Filesystem> create(const string& fstype, const string& subvolume,
+						  const string& root_prefix);
 
 	Ext4(const string& subvolume, const string& root_prefix);
 
@@ -59,7 +59,7 @@ namespace snapper
 	virtual void umountSnapshot(unsigned int num) const override;
 
 	virtual bool isSnapshotReadOnly(unsigned int num) const override;
-	virtual void setSnapshotReadOnly(unsigned int num, bool read_only) const override;
+	virtual void setSnapshotReadOnly(unsigned int num, bool read_only, Plugins::Report& report) const override;
 
 	virtual bool checkSnapshot(unsigned int num) const override;
 

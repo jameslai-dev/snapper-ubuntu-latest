@@ -27,7 +27,7 @@
 #include <regex>
 #include <boost/algorithm/string.hpp>
 
-#include "snapper/Log.h"
+#include "snapper/LoggerImpl.h"
 #include "snapper/AppUtil.h"
 #include "snapper/AsciiFile.h"
 #include "snapper/Exception.h"
@@ -365,10 +365,10 @@ namespace snapper
 	switch (compression)
 	{
 	    case Compression::NONE:
-		return unique_ptr<Impl::None>(new Impl::None(t));
+		return make_unique<Impl::None>(t);
 
 	    case Compression::GZIP:
-		return unique_ptr<Impl::Gzip>(new Impl::Gzip(t));
+		return make_unique<Impl::Gzip>(t);
 
 	    case Compression::ZSTD:
 		break;
@@ -397,9 +397,7 @@ namespace snapper
     }
 
 
-    AsciiFileReader::~AsciiFileReader()
-    {
-    }
+    AsciiFileReader::~AsciiFileReader() = default;
 
 
     bool
@@ -853,10 +851,10 @@ namespace snapper
 	switch (compression)
 	{
 	    case Compression::NONE:
-		return unique_ptr<Impl::None>(new Impl::None(t));
+		return make_unique<Impl::None>(t);
 
 	    case Compression::GZIP:
-		return unique_ptr<Impl::Gzip>(new Impl::Gzip(t));
+		return make_unique<Impl::Gzip>(t);
 
 	    case Compression::ZSTD:
 		break;

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2011-2015] Novell, Inc.
- * Copyright (c) [2016-2023] SUSE LLC
+ * Copyright (c) [2016-2025] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -41,17 +41,16 @@
 #include <btrfs/send.h>
 #include <btrfs/send-stream.h>
 #include <btrfs/send-utils.h>
-#include <boost/version.hpp>
 #include <boost/thread.hpp>
 #endif
 #include <regex>
 #include <boost/algorithm/string.hpp>
 
-#include "snapper/Log.h"
+#include "snapper/LoggerImpl.h"
 #include "snapper/Btrfs.h"
 #include "snapper/BtrfsUtils.h"
 #include "snapper/File.h"
-#include "snapper/Hooks.h"
+#include "snapper/PluginsImpl.h"
 #include "snapper/Snapper.h"
 #include "snapper/SnapperTmpl.h"
 #include "snapper/SnapperDefines.h"
@@ -70,13 +69,13 @@ namespace snapper
     using namespace std;
 
 
-    Filesystem*
+    std::unique_ptr<Filesystem>
     Btrfs::create(const string& fstype, const string& subvolume, const string& root_prefix)
     {
 	if (fstype == "btrfs")
-	    return new Btrfs(subvolume, root_prefix);
+	    return std::make_unique<Btrfs>(subvolume, root_prefix);
 
-	return NULL;
+	return nullptr;
     }
 
 
@@ -103,6 +102,19 @@ namespace snapper
 		y2err("failed to parse qgroup '" << qgroup_str << "'");
 		SN_THROW(InvalidConfigException());
 	    }
+
+	    if (get_level(qgroup) == 0)
+	    {
+		y2err("invalid level of qgroup '" << qgroup_str << "'");
+		SN_THROW(InvalidConfigException());
+	    }
+
+	    SDir general_dir = openGeneralDir();
+	    if (!does_qgroup_exist(general_dir.fd(), qgroup))
+	    {
+		y2err("qgroup '" << qgroup_str << "' does not exist");
+		qgroup = no_qgroup;
+	    }
 	}
 	else
 	{
@@ -120,7 +132,7 @@ namespace snapper
 
 	try
 	{
-	    create_subvolume(subvolume_dir.fd(), ".snapshots");
+	    create_subvolume(subvolume_dir.fd(), SNAPSHOTS_NAME);
 	}
 	catch (const runtime_error_with_errno& e)
 	{
@@ -138,7 +150,7 @@ namespace snapper
 	    }
 	}
 
-	SFile x(subvolume_dir, ".snapshots");
+	SFile x(subvolume_dir, SNAPSHOTS_NAME);
 #ifdef ENABLE_SELINUX
 	try
 	{
@@ -166,7 +178,7 @@ namespace snapper
 #ifdef ENABLE_ROLLBACK
 	if (subvolume == "/")
 	{
-	    subvolume_dir.umount(".snapshots");
+	    subvolume_dir.umount(SNAPSHOTS_NAME);
 
 	    removeFromFstab();
 	}
@@ -174,7 +186,7 @@ namespace snapper
 
 	try
 	{
-	    delete_subvolume(subvolume_dir.fd(), ".snapshots");
+	    delete_subvolume(subvolume_dir.fd(), SNAPSHOTS_NAME);
 	}
 	catch (const runtime_error& e)
 	{
@@ -225,8 +237,8 @@ namespace snapper
     string
     Btrfs::snapshotDir(unsigned int num) const
     {
-	return (subvolume == "/" ? "" : subvolume) + "/.snapshots/" + decString(num) +
-	    "/snapshot";
+	return (subvolume == "/" ? "" : subvolume) + "/" SNAPSHOTS_NAME "/" + decString(num) +
+	    "/" SNAPSHOT_NAME;
     }
 
 
@@ -254,7 +266,7 @@ namespace snapper
     Btrfs::openInfosDir() const
     {
 	SDir subvolume_dir = openSubvolumeDir();
-	SDir infos_dir(subvolume_dir, ".snapshots");
+	SDir infos_dir(subvolume_dir, SNAPSHOTS_NAME);
 
 	struct stat stat;
 	if (infos_dir.stat(&stat) != 0)
@@ -293,7 +305,7 @@ namespace snapper
     Btrfs::openSnapshotDir(unsigned int num) const
     {
 	SDir info_dir = openInfoDir(num);
-	SDir snapshot_dir(info_dir, "snapshot");
+	SDir snapshot_dir(info_dir, SNAPSHOT_NAME);
 
 	return snapshot_dir;
     }
@@ -318,9 +330,9 @@ namespace snapper
 	    try
 	    {
 		if (empty)
-		    create_subvolume(info_dir.fd(), "snapshot");
+		    create_subvolume(info_dir.fd(), SNAPSHOT_NAME);
 		else
-		    create_snapshot(subvolume_dir.fd(), info_dir.fd(), "snapshot", read_only,
+		    create_snapshot(subvolume_dir.fd(), info_dir.fd(), SNAPSHOT_NAME, read_only,
 				    quota ? qgroup : no_qgroup);
 	    }
 	    catch (const runtime_error& e)
@@ -336,7 +348,7 @@ namespace snapper
 
 	    try
 	    {
-		create_snapshot(snapshot_dir.fd(), info_dir.fd(), "snapshot", read_only,
+		create_snapshot(snapshot_dir.fd(), info_dir.fd(), SNAPSHOT_NAME, read_only,
 				quota ? qgroup : no_qgroup);
 	    }
 	    catch (const runtime_error& e)
@@ -374,7 +386,7 @@ namespace snapper
 
 	try
 	{
-	    create_snapshot(tmp_mount_dir.fd(), info_dir.fd(), "snapshot", read_only,
+	    create_snapshot(tmp_mount_dir.fd(), info_dir.fd(), SNAPSHOT_NAME, read_only,
 			    quota ? qgroup : no_qgroup);
 	}
 	catch (const runtime_error& e)
@@ -406,34 +418,15 @@ namespace snapper
 	    subvolid_t subvolid = get_id(openSnapshotDir(num).fd());
 #endif
 
-	    delete_subvolume(info_dir.fd(), "snapshot");
+	    delete_subvolume(info_dir.fd(), SNAPSHOT_NAME);
 
 #if defined(HAVE_LIBBTRFS) || defined(HAVE_LIBBTRFSUTIL)
 	    deleted_subvolids.push_back(subvolid);
 #endif
-
-#ifdef ENABLE_BTRFS_QUOTA
-
-	    // workaround for the kernel not deleting the qgroup of a
-	    // subvolume when deleting the subvolume, see
-	    // https://bugzilla.suse.com/show_bug.cgi?id=972511
-
-	    try
-	    {
-		SDir general_dir = openGeneralDir();
-		qgroup_destroy(general_dir.fd(), calc_qgroup(0, subvolid));
-	    }
-	    catch (const runtime_error& e)
-	    {
-		// Ignore that the qgroup could not be destroyed. Should not
-		// cause problems except of having stale qgroups.
-	    }
-
-#endif
 	}
 	catch (const runtime_error& e)
 	{
-	    y2err("delete snapshot failed, " << e.what());
+	    y2err("delete snapshot " << info_dir.fullname() << "/" SNAPSHOT_NAME " failed, " << e.what());
 	    SN_THROW(DeleteSnapshotFailedException());
 	}
     }
@@ -467,10 +460,14 @@ namespace snapper
 
 
     void
-    Btrfs::setSnapshotReadOnly(unsigned int num, bool read_only) const
+    Btrfs::setSnapshotReadOnly(unsigned int num, bool read_only, Plugins::Report& report) const
     {
+	Plugins::set_read_only(Plugins::Stage::PRE_ACTION, subvolume, this, num, report);
+
 	SDir snapshot_dir = openSnapshotDir(num);
 	set_subvolume_read_only(snapshot_dir.fd(), read_only);
+
+	Plugins::set_read_only(Plugins::Stage::POST_ACTION, subvolume, this, num, report);
     }
 
 
@@ -482,7 +479,7 @@ namespace snapper
 	    SDir info_dir = openInfoDir(num);
 
 	    struct stat stat;
-	    int r = info_dir.stat("snapshot", &stat, AT_SYMLINK_NOFOLLOW);
+	    int r = info_dir.stat(SNAPSHOT_NAME, &stat, AT_SYMLINK_NOFOLLOW);
 	    return r == 0 && is_subvolume(stat);
 	}
 	catch (const IOErrorException& e)
@@ -514,7 +511,7 @@ namespace snapper
 
 	int status;
 
-	map<string, tree_node> childs;
+	map<string, tree_node> children;
 
 	tree_node* find(const string& name);
 
@@ -540,8 +537,8 @@ namespace snapper
 	string::size_type pos = name.find('/');
 	if (pos == string::npos)
 	{
-	    iterator it = childs.find(name);
-	    if (it == childs.end())
+	    iterator it = children.find(name);
+	    if (it == children.end())
 		return NULL;
 
 	    return &it->second;
@@ -549,8 +546,8 @@ namespace snapper
 	else
 	{
 	    string a = name.substr(0, pos);
-	    iterator it = childs.find(a);
-	    if (it == childs.end())
+	    iterator it = children.find(a);
+	    if (it == children.end())
 		return NULL;
 
 	    string b = name.substr(pos + 1);
@@ -565,18 +562,18 @@ namespace snapper
 	string::size_type pos = name.find('/');
 	if (pos == string::npos)
 	{
-	    iterator it = childs.find(name);
-	    if (it == childs.end())
-		it = childs.insert(childs.end(), make_pair(name, tree_node()));
+	    iterator it = children.find(name);
+	    if (it == children.end())
+		it = children.insert(children.end(), make_pair(name, tree_node()));
 
 	    return &it->second;
 	}
 	else
 	{
 	    string a = name.substr(0, pos);
-	    iterator it = childs.find(a);
-	    if (it == childs.end())
-		it = childs.insert(childs.end(), make_pair(a, tree_node()));
+	    iterator it = children.find(a);
+	    if (it == children.end())
+		it = children.insert(children.end(), make_pair(a, tree_node()));
 
 	    string b = name.substr(pos + 1);
 	    return it->second.insert(b);
@@ -590,12 +587,12 @@ namespace snapper
 	string::size_type pos = name.find('/');
 	if (pos == string::npos)
 	{
-	    iterator it = childs.find(name);
-	    if (it == childs.end())
+	    iterator it = children.find(name);
+	    if (it == children.end())
 		return false;
 
-	    if (it->second.childs.empty())
-		childs.erase(it);
+	    if (it->second.children.empty())
+		children.erase(it);
 	    else
 		it->second.status = 0;
 
@@ -604,15 +601,15 @@ namespace snapper
 	else
 	{
 	    string a = name.substr(0, pos);
-	    iterator it = childs.find(a);
-	    if (it == childs.end())
+	    iterator it = children.find(a);
+	    if (it == children.end())
 		return false;
 
 	    string b = name.substr(pos + 1);
 	    it->second.erase(b);
 
-	    if (it->second.status == 0 && it->second.childs.empty())
-		childs.erase(it);
+	    if (it->second.status == 0 && it->second.children.empty())
+		children.erase(it);
 
 	    return true;
 	}
@@ -631,7 +628,7 @@ namespace snapper
 	    return false;
 
 	nn = insert(n);
-	swap(nn->childs, oo->childs);
+	swap(nn->children, oo->children);
 	nn->status = oo->status;
 	erase(o);
 
@@ -642,7 +639,7 @@ namespace snapper
     void
     tree_node::dump(const string& prefix) const
     {
-	for (const_iterator it = childs.begin(); it != childs.end(); ++it)
+	for (const_iterator it = children.begin(); it != children.end(); ++it)
 	{
 	    if (prefix.empty())
 	    {
@@ -721,7 +718,7 @@ namespace snapper
     void
     tree_node::check(StreamProcessor* processor, const string& prefix)
     {
-	for (iterator it = childs.begin(); it != childs.end(); ++it)
+	for (iterator it = children.begin(); it != children.end(); ++it)
 	{
 	    if (prefix.empty())
 	    {
@@ -740,7 +737,7 @@ namespace snapper
     void
     tree_node::result(cmpdirs_cb_t cb, const string& prefix) const
     {
-	for (const_iterator it = childs.begin(); it != childs.end(); ++it)
+	for (const_iterator it = children.begin(); it != children.end(); ++it)
 	{
 	    if (prefix.empty())
 	    {
@@ -774,12 +771,15 @@ namespace snapper
     bool
     StreamProcessor::get_root_id(const string& path, u64* root_id)
     {
-	struct subvol_info* si;
-	si = subvol_uuid_search(&sus, 0, NULL, 0, path.c_str(), subvol_search_by_path);
+	struct subvol_info* si = subvol_uuid_search(&sus, 0, NULL, 0, path.c_str(), subvol_search_by_path);
 	if (!si)
 	    return false;
 
 	*root_id = si->root_id;
+
+	free(si->path);
+	free(si);
+
 	return true;
     }
 
@@ -914,7 +914,7 @@ namespace snapper
     merge(StreamProcessor* processor, tree_node* tmp, const string& from, const string& to,
 	  const string& prefix = "")
     {
-	for (tree_node::iterator it = tmp->childs.begin(); it != tmp->childs.end(); ++it)
+	for (tree_node::iterator it = tmp->children.begin(); it != tmp->children.end(); ++it)
 	{
 	    if (prefix.empty())
 	    {
@@ -1001,7 +1001,7 @@ namespace snapper
 	    else
 	    {
 		tree_node tmp;
-		swap(it1->childs, tmp.childs);
+		swap(it1->children, tmp.children);
 
 		processor->deleted(from);
 		processor->created(to);
@@ -1367,7 +1367,7 @@ namespace snapper
 
 	try
 	{
-	    StopWatch stopwatch;
+	    Stopwatch stopwatch;
 
 	    const SDir subvolume(openSubvolumeDir());
 
@@ -1472,11 +1472,11 @@ namespace snapper
 
 
     void
-    Btrfs::setDefault(unsigned int num) const
+    Btrfs::setDefault(unsigned int num, Plugins::Report& report) const
     {
 	try
 	{
-	    Hooks::set_default_snapshot(Hooks::Stage::PRE_ACTION, subvolume, this, num);
+	    Plugins::set_default_snapshot(Plugins::Stage::PRE_ACTION, subvolume, this, num, report);
 
 	    SDir general_dir = openGeneralDir();
 
@@ -1493,7 +1493,7 @@ namespace snapper
 		set_default_id(general_dir.fd(), id);
 	    }
 
-	    Hooks::set_default_snapshot(Hooks::Stage::POST_ACTION, subvolume, this, num);
+	    Plugins::set_default_snapshot(Plugins::Stage::POST_ACTION, subvolume, this, num, report);
 	}
 	catch (const runtime_error& e)
 	{
@@ -1551,9 +1551,9 @@ namespace snapper
 
 
     void
-    Btrfs::setDefault(unsigned int num) const
+    Btrfs::setDefault(unsigned int num, Plugins::Report& report) const
     {
-	Filesystem::setDefault(num);
+	Filesystem::setDefault(num, report);
     }
 
 
@@ -1605,7 +1605,7 @@ namespace snapper
 	string subvol_option = default_subvolume_name;
 	if (!subvol_option.empty())
 	    subvol_option += "/";
-	subvol_option += ".snapshots";
+	subvol_option += SNAPSHOTS_NAME;
 
 	MntTable mnt_table(root_prefix);
 	mnt_table.parse_fstab();
@@ -1618,7 +1618,7 @@ namespace snapper
 	if (!snapshots)
 	    throw runtime_error("mnt_copy_fs failed");
 
-	mnt_fs_set_target(snapshots, "/.snapshots");
+	mnt_fs_set_target(snapshots, "/" SNAPSHOTS_NAME);
 
 	char* options = mnt_fs_strdup_options(snapshots);
 	mnt_optstr_remove_option(&options, "defaults");
@@ -1637,7 +1637,7 @@ namespace snapper
 	MntTable mnt_table(root_prefix);
 	mnt_table.parse_fstab();
 
-	string mountpoint = (subvolume == "/" ? "" : subvolume) +  "/.snapshots";
+	string mountpoint = (subvolume == "/" ? "" : subvolume) + "/" SNAPSHOTS_NAME;
 	libmnt_fs* snapshots = mnt_table.find_target(mountpoint, MNT_ITER_FORWARD);
 	if (!snapshots)
 	    return;

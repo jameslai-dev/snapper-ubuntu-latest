@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2011-2015] Novell, Inc.
- * Copyright (c) [2016-2023] SUSE LLC
+ * Copyright (c) [2016-2025] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -25,7 +25,7 @@
 #define SNAPPER_SNAPSHOT_H
 
 
-#include <time.h>
+#include <ctime>
 #include <sys/types.h>
 #include <cstdint>
 #include <string>
@@ -33,6 +33,7 @@
 #include <map>
 
 #include "snapper/Exception.h"
+#include "snapper/Plugins.h"
 
 
 namespace snapper
@@ -106,14 +107,14 @@ namespace snapper
 	SDir openSnapshotDir() const;
 
 	/**
-	 * Determine iff snapshot is read-only (only for btrfs).
+	 * Determine iff snapshot is read-only (may not be supported by all file system types).
 	 */
 	bool isReadOnly() const;
 
 	/**
-	 * Set snapshot read-only or read-write (only for btrfs).
+	 * Set snapshot read-only or read-write (may not be supported by all file system types).
 	 */
-	void setReadOnly(bool read_only);
+	void setReadOnly(bool read_only, Plugins::Report& report);
 
 	/**
 	 * Determine iff snapshot is default (will be activated on next boot time).
@@ -123,7 +124,7 @@ namespace snapper
 	/**
 	 * Change default snapshot (will be activated on next boot time).
 	 */
-	void setDefault() const;
+	void setDefault(Plugins::Report& report);
 
 	/**
 	 * Determine iff snapshot is active (activated on last boot time).
@@ -279,19 +280,19 @@ namespace snapper
 
 	void checkUserdata(const map<string, string>& userdata) const;
 
-	iterator createSingleSnapshot(const SCD& scd);
-	iterator createSingleSnapshot(const_iterator parent, const SCD& scd);
-	iterator createSingleSnapshotOfDefault(const SCD& scd);
-	iterator createPreSnapshot(const SCD& scd);
-	iterator createPostSnapshot(const_iterator pre, const SCD& scd);
+	iterator createSingleSnapshot(const SCD& scd, Plugins::Report& report);
+	iterator createSingleSnapshot(const_iterator parent, const SCD& scd, Plugins::Report& report);
+	iterator createSingleSnapshotOfDefault(const SCD& scd, Plugins::Report& report);
+	iterator createPreSnapshot(const SCD& scd, Plugins::Report& report);
+	iterator createPostSnapshot(const_iterator pre, const SCD& scd, Plugins::Report& report);
 
-	iterator createHelper(Snapshot& snapshot, const_iterator parent, bool empty = false);
+	iterator createHelper(Snapshot& snapshot, const_iterator parent, bool empty, Plugins::Report& report);
 
-	void modifySnapshot(iterator snapshot, const SMD& smd);
+	void modifySnapshot(iterator snapshot, const SMD& smd, Plugins::Report& report);
 
-	void deleteSnapshot(iterator snapshot);
+	void deleteSnapshot(iterator snapshot, Plugins::Report& report);
 
-	unsigned int nextNumber();
+	unsigned int nextNumber() const;
 
 	const Snapper* snapper;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) [2019-2020] SUSE LLC
+ * Copyright (c) [2019-2024] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -41,26 +41,30 @@ namespace snapper
 
     public:
 
-	static const TableStyle default_style;
+	static Style auto_style() { return Table::auto_style(); }
 
-	TableFormatter(TableStyle style) : style(style) {}
+	TableFormatter(Style style) : style(style) {}
 
 	TableFormatter(const TableFormatter&) = delete;
 
 	TableFormatter& operator=(const TableFormatter&) = delete;
 
-	vector<pair<string, TableAlign>>& header() { return _header; }
-	vector<bool>& abbrev() { return _abbrev; }
+	vector<Cell>& header() { return _header; }
+	vector<Id>& abbreviate() { return _abbreviate; }
+	vector<Id>& trim() { return _trim; }
+	vector<Id>& auto_visibility() { return _auto_visibility; }
 	vector<vector<string>>& rows() { return _rows; }
 
 	friend ostream& operator<<(ostream& stream, const TableFormatter& table_formatter);
 
     private:
 
-	const TableStyle style;
+	const Style style;
 
-	vector<pair<string, TableAlign>> _header;
-	vector<bool> _abbrev;
+	vector<Cell> _header;
+	vector<Id> _abbreviate;
+	vector<Id> _trim;
+	vector<Id> _auto_visibility;
 	vector<vector<string>> _rows;
 
     };

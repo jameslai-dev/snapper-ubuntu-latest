@@ -22,17 +22,17 @@
 
 #include "config.h"
 
-#include <string.h>
+#include <cstring>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <errno.h>
+#include <cerrno>
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/ioctl.h>
 #include <asm/types.h>
 #include <boost/algorithm/string.hpp>
 
-#include "snapper/Log.h"
+#include "snapper/LoggerImpl.h"
 #include "snapper/Filesystem.h"
 #include "snapper/Ext4.h"
 #include "snapper/Snapper.h"
@@ -44,27 +44,27 @@
 namespace snapper
 {
 
-    Filesystem*
+    std::unique_ptr<Filesystem>
     Ext4::create(const string& fstype, const string& subvolume, const string& root_prefix)
     {
 	if (fstype == "ext4")
-	    return new Ext4(subvolume, root_prefix);
+	    return std::make_unique<Ext4>(subvolume, root_prefix);
 
-	return NULL;
+	return nullptr;
     }
 
 
     Ext4::Ext4(const string& subvolume, const string& root_prefix)
 	: Filesystem(subvolume, root_prefix)
     {
-	if (access(CHSNAPBIN, X_OK) != 0)
+	if (access(CHSNAP_BIN, X_OK) != 0)
 	{
-	    throw ProgramNotInstalledException(CHSNAPBIN " not installed");
+	    throw ProgramNotInstalledException(CHSNAP_BIN " not installed");
 	}
 
-	if (access(CHATTRBIN, X_OK) != 0)
+	if (access(CHATTR_BIN, X_OK) != 0)
 	{
-	    throw ProgramNotInstalledException(CHATTRBIN " not installed");
+	    throw ProgramNotInstalledException(CHATTR_BIN " not installed");
 	}
 
 	bool found = false;
@@ -88,10 +88,10 @@ namespace snapper
     void
     Ext4::createConfig() const
     {
-	int r1 = mkdir((subvolume + "/.snapshots").c_str(), 0700);
+	int r1 = mkdir((subvolume + "/" SNAPSHOTS_NAME).c_str(), 0700);
 	if (r1 == 0)
 	{
-	    SystemCmd cmd1(CHATTRBIN " +x " + quote(subvolume + "/.snapshots"));
+	    SystemCmd cmd1({ CHATTR_BIN, "+x", subvolume + "/" SNAPSHOTS_NAME });
 	    if (cmd1.retcode() != 0)
 		throw CreateConfigFailedException("chattr failed");
 	}
@@ -101,10 +101,10 @@ namespace snapper
 	    throw CreateConfigFailedException("mkdir failed");
 	}
 
-	int r2 = mkdir((subvolume + "/.snapshots/.info").c_str(), 0700);
+	int r2 = mkdir((subvolume + "/" SNAPSHOTS_NAME "/.info").c_str(), 0700);
 	if (r2 == 0)
 	{
-	    SystemCmd cmd2(CHATTRBIN " -x " + quote(subvolume + "/.snapshots/.info"));
+	    SystemCmd cmd2({ CHATTR_BIN, "-x", subvolume + "/" SNAPSHOTS_NAME "/.info" });
 	    if (cmd2.retcode() != 0)
 		throw CreateConfigFailedException("chattr failed");
 	}
@@ -119,14 +119,14 @@ namespace snapper
     void
     Ext4::deleteConfig() const
     {
-	int r1 = rmdir((subvolume + "/.snapshots/.info").c_str());
+	int r1 = rmdir((subvolume + "/" SNAPSHOTS_NAME "/.info").c_str());
 	if (r1 != 0)
 	{
 	    y2err("rmdir failed errno:" << errno << " (" << stringerror(errno) << ")");
 	    throw DeleteConfigFailedException("rmdir failed");
 	}
 
-	int r2 = rmdir((subvolume + "/.snapshots").c_str());
+	int r2 = rmdir((subvolume + "/" SNAPSHOTS_NAME).c_str());
 	if (r2 != 0)
 	{
 	    y2err("rmdir failed errno:" << errno << " (" << stringerror(errno) << ")");
@@ -145,7 +145,7 @@ namespace snapper
     string
     Ext4::snapshotFile(unsigned int num) const
     {
-	return (subvolume == "/" ? "" : subvolume) + "/.snapshots/" + decString(num);
+	return (subvolume == "/" ? "" : subvolume) + "/" SNAPSHOTS_NAME "/" + decString(num);
     }
 
 
@@ -174,11 +174,11 @@ namespace snapper
 	if (num_parent != 0 || !read_only)
 	    throw std::logic_error("not implemented");
 
-	SystemCmd cmd1(TOUCHBIN " " + quote(snapshotFile(num)));
+	SystemCmd cmd1({ TOUCH_BIN, snapshotFile(num) });
 	if (cmd1.retcode() != 0)
 	    throw CreateSnapshotFailedException();
 
-	SystemCmd cmd2(CHSNAPBIN " +S " + quote(snapshotFile(num)));
+	SystemCmd cmd2({ CHSNAP_BIN, "+S", snapshotFile(num) });
 	if (cmd2.retcode() != 0)
 	    throw CreateSnapshotFailedException();
     }
@@ -187,7 +187,7 @@ namespace snapper
     void
     Ext4::deleteSnapshot(unsigned int num) const
     {
-	SystemCmd cmd(CHSNAPBIN " -S " + quote(snapshotFile(num)));
+	SystemCmd cmd({ CHSNAP_BIN, "-S", snapshotFile(num) });
 	if (cmd.retcode() != 0)
 	    throw DeleteSnapshotFailedException();
     }
@@ -212,7 +212,7 @@ namespace snapper
 	if (isSnapshotMounted(num))
 	    return;
 
-	SystemCmd cmd1(CHSNAPBIN " +n " + quote(snapshotFile(num)));
+	SystemCmd cmd1({ CHSNAP_BIN, "+n", snapshotFile(num) });
 	if (cmd1.retcode() != 0)
 	    throw MountSnapshotFailedException();
 
@@ -237,7 +237,7 @@ namespace snapper
 	// if (!umount(snapshotDir(num)))
 	// throw UmountSnapshotFailedException();
 
-	SystemCmd cmd1(CHSNAPBIN " -n " + quote(snapshotFile(num)));
+	SystemCmd cmd1({ CHSNAP_BIN, "-n", snapshotFile(num) });
 	if (cmd1.retcode() != 0)
 	    throw UmountSnapshotFailedException();
 
@@ -255,7 +255,7 @@ namespace snapper
 
 
     void
-    Ext4::setSnapshotReadOnly(unsigned int num, bool read_only) const
+    Ext4::setSnapshotReadOnly(unsigned int num, bool read_only, Plugins::Report& report) const
     {
 	// TODO
     }

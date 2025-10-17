@@ -13,9 +13,7 @@ CMD_BTRFS="/sbin/btrfs"
 CMD_SNAPPER="/usr/bin/snapper"
 CMD_EGREP="grep -E"
 CMD_PAM_CONFIG="/usr/sbin/pam-config"
-CMD_SED="sed"
-CMD_USERADD="useradd -m"
-CMD_USERDEL="userdel -r"
+CMD_USERDEL="userdel --remove"
 CMD_CHOWN="chown"
 #
 SNAPPERCFGDIR="/etc/snapper/configs"
@@ -29,7 +27,7 @@ if [ "0$MYUSER" == "0" ]; then
 	exit 1
 fi
 
-# Sanity-Check: ist $HOMEHOME a btrfs filesystem
+# Sanity-Check: is $HOMEHOME a btrfs filesystem
 ${CMD_BTRFS} filesystem df ${HOMEHOME} 2>&1 > /dev/null
 RETVAL=$?
 if [ ${RETVAL} != 0 ]; then

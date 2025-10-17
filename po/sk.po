@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-12 09:40+0200\n"
-"PO-Revision-Date: 2023-07-13 16:15+0000\n"
+"POT-Creation-Date: 2025-07-23 11:53+0200\n"
+"PO-Revision-Date: 2025-07-24 16:59+0000\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <https://l10n.opensuse.org/projects/snapper/master/sk/>"
 "\n"
@@ -16,168 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.9.1\n"
-
-msgid "\t--abbreviate\t\t\tAllow to abbreviate table columns."
-msgstr "\t--abbreviate\t\t\tUmožňuje skrátenie stĺpcov tabuľky."
-
-msgid "\t--all-configs, -a\t\tList snapshots from all accessible configs."
-msgstr "\t--all-configs, -a\t\tZoznam snímok zo všetkých dostupných konfigurácií."
-
-msgid "\t--ambit, -a ambit\t\tOperate in the specified ambit."
-msgstr "\t--ambit, -a oblasť\t\tPracujte v stanovenej oblasti."
-
-msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshot."
-msgstr "\t--cleanup-algorithm, -c <algo>\tUpratovací algoritmus pre snímku."
-
-msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshots."
-msgstr "\t--cleanup-algorithm, -c <algo>\t\tUpratovací algoritmus pre snímky."
-
-msgid ""
-"\t--columns <columns>\t\tColumns to show separated by comma.\n"
-"\t\t\t\t\tPossible columns: config, subvolume, number, default, active,\n"
-"\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
-"\t\t\t\t\tpre-number, post-number, post-date, read-only."
-msgstr ""
-"\t--columns <stĺpce>\t\tStĺpce na zobrazenie oddelené čiarkou.\n"
-"\t\t\t\t\tMožné stĺpce: config, subvolume, number, default, active,\n"
-"\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
-"\t\t\t\t\tpre-number, post-number, post-date, read-only."
-
-msgid ""
-"\t--columns <columns>\t\tColumns to show separated by comma.\n"
-"\t\t\t\t\tPossible columns: key, value.\n"
-"\t\t\t\t\tColumns are not selected when JSON format is used."
-msgstr ""
-"\t--columns <stĺpce>\t\tStĺpce na zobrazenie oddelené čiarkou.\n"
-"\t\t\t\t\tMožné stĺpce: key, value.\n"
-"\t\t\t\t\tPri použití formátu JSON nie sú stĺpce vybrané."
-
-msgid "\t--command <command>\t\tRun command and create pre and post snapshots."
-msgstr "\t--command <príkaz>\t\tSpustí príkaz a vytvorí snímky pred a po snímky."
-
-msgid "\t--config, -c <name>\t\tSet name of config to use."
-msgstr "\t--config, -c <name>\t\tNastaví názov konfigurácie, ktorá sa použije."
-
-msgid "\t--csvout\t\t\tSet CSV output format."
-msgstr "\t--csvout\t\t\tNastaví výstupný formát CSV."
-
-msgid "\t--debug\t\t\t\tTurn on debugging."
-msgstr "\t--debug\t\t\t\tZapne sa ladenie."
-
-msgid "\t--default\t\t\tSet snapshot as default snapshot."
-msgstr "\t--default\t\t\tNastaví snímku ako predvolenú snímku."
-
-msgid "\t--description, -d <description>\tDescription for snapshot."
-msgstr "\t--description, -d <popis>\tPopis pre snímku."
-
-msgid "\t--description, -d <description>\tDescription for snapshots."
-msgstr "\t--description, -d <popis>\tPopis pre snímky."
-
-msgid "\t--diff-cmd <command>\t\tCommand used for comparing files."
-msgstr "\t--diff-cmd <command>\tPríkaz slúži na porovnávanie súborov."
-
-msgid "\t--disable-used-space\t\tDisable showing used space."
-msgstr "\t--disable-used-space\t\tZakázať ukazovanie použitého miesta."
-
-msgid "\t--extensions, -x <options>\tExtra options passed to the diff command."
-msgstr "\t--extensions, -x <voľby>\tĎalšie voľby odovzdané príkazu diff."
-
-msgid "\t--free-space <space>\t\tTry to make space available."
-msgstr "\t--free-space <miesto>\t\tSkúsi sprístupniť miesto."
-
-msgid "\t--from <number>\t\t\tCreate a snapshot from the specified snapshot."
-msgstr "\t--from <číslo>\t\t\tVytvorí snímku zo zadanej snímky."
-
-msgid "\t--fstype, -f <fstype>\t\tManually set filesystem type."
-msgstr "\t--fstype, -f <typ_súborového_systému>\t\tRučne nastaví typ súborového systému."
-
-msgid "\t--input, -i <file>\t\tRead files for which to undo changes from file."
-msgstr "\t--input, -i <súbor>\t\tČíta súbory, pre ktoré vráti späť zmeny zo súboru."
-
-msgid "\t--input, -i <file>\t\tRead files to diff from file."
-msgstr "\t--input, -i <súbor>\t\tČíta súbory pre príkaz diff zo súboru."
-
-msgid "\t--iso\t\t\t\tDisplay dates and times in ISO format."
-msgstr "\t--iso\t\t\t\tZobrazí dátumy a časy vo formáte ISO."
-
-msgid "\t--jsonout\t\t\tSet JSON output format."
-msgstr "\t--jsonout\t\t\tNastaví výstupný formát JSON."
-
-msgid "\t--machine-readable <format>\tSet a machine-readable output format (csv, json)."
-msgstr "\t--machine-readable <formát>\tNastaví výstupný formát čitateľný strojom (csv, json)."
-
-msgid "\t--no-dbus\t\t\tOperate without DBus."
-msgstr "\t--no-dbus\t\t\tBeží bez DBus."
-
-msgid "\t--no-headers\t\t\tNo headers for CSV output format."
-msgstr "\t--no-headers\t\t\tŽiadne hlavičky pre výstupný formát CSV."
-
-msgid "\t--output, -o <file>\t\tSave status to file."
-msgstr "\t--output, -o <súbor>\t\tUloží stav do súboru."
-
-msgid "\t--path <path>\t\t\tCleanup all configs affecting path."
-msgstr "\t--path <cesta>\t\t\tVyčistí všetky konfigurácie ovplyvňujúce cestu."
-
-msgid "\t--pre-number <number>\t\tNumber of corresponding pre snapshot."
-msgstr "\t--pre-number <číslo>\t\tČíslo zodpovedajúce snímke pred."
-
-msgid "\t--print-number, -p\t\tPrint number of created snapshot."
-msgstr "\t--print-number, -p\t\tVypíše číslo vytvorenej snímky."
-
-msgid "\t--print-number, -p\t\tPrint number of second created snapshot."
-msgstr "\t--print-number, -p\t\tVypíše číslo druhej vytvorenej snímky."
-
-msgid "\t--quiet, -q\t\t\tSuppress normal output."
-msgstr "\t--quiet, -q\t\t\tPotlačí normálny výstup."
-
-msgid "\t--read-only\t\t\tCreate read-only snapshot."
-msgstr "\t--read-only\t\t\tVytvorí snímku len na čítanie."
-
-msgid "\t--read-only\t\t\tSet snapshot read-only."
-msgstr "\t--read-only\t\t\tNastaví snímku len na čítanie."
-
-msgid "\t--read-write\t\t\tCreate read-write snapshot."
-msgstr "\t--read-write\t\t\tVytvorí snímku na čítanie a zápis."
-
-msgid "\t--read-write\t\t\tSet snapshot read-write."
-msgstr "\t--read-write\t\t\tNastaví snímku na čítanie a zápis."
-
-msgid "\t--root, -r <path>\t\tOperate on target root (works only without DBus)."
-msgstr "\t--root, -r <cesta>\t\tBeží na cieľovom správcovi systému root (funguje len bez DBus)."
-
-msgid "\t--separator <separator>\t\tCharacter separator for CSV output format."
-msgstr "\t--separator <oddeľovač>\t\tOddeľovač znakov pre výstupný formát CSV."
-
-msgid "\t--sync, -s\t\t\tSync after deletion."
-msgstr "\t--sync, -s\t\t\tSynchronizácia po zmazaní."
-
-msgid "\t--table-style, -t <style>\tTable style (integer)."
-msgstr "\t--table-style, -t <štýl>\tŠtýl tabuľky (celé číslo)."
-
-msgid "\t--template, -t <name>\t\tName of config template to use."
-msgstr "\t--template, -t <name>\t\tNázov konfiguračnej šablóny, ktorá sa použije."
-
-msgid "\t--type, -t <type>\t\tType for snapshot."
-msgstr "\t--type, -t <typ>\t\t\t\tTyp pre snímku."
-
-msgid "\t--type, -t <type>\t\tType of snapshots to list."
-msgstr "\t--type, -t <typ>\t\tTyp snímok pre výpis."
-
-msgid "\t--userdata, -u <userdata>\tUserdata for snapshot."
-msgstr "\t--userdata, -u <používateľské-údaje>\tPoužívateľské údaje pre snímku."
-
-msgid "\t--userdata, -u <userdata>\tUserdata for snapshots."
-msgstr "\t--userdata, -u <používateľské-údaje>\tPoužívateľské údaje pre snímky."
-
-msgid "\t--utc\t\t\t\tDisplay dates and times in UTC."
-msgstr "\t--utc\t\t\t\tZobrazí dátumy a časy v UTC."
-
-msgid "\t--verbose, -v\t\t\tIncrease verbosity."
-msgstr "\t--verbose, -v\t\t\tZvýši podrobnosť."
-
-msgid "\t--version\t\t\tPrint version and exit."
-msgstr "\t--version\t\t\tVypíše verziu a skončí."
+"X-Generator: Weblate 5.12.2\n"
 
 msgid "\tsnapper cleanup <cleanup-algorithm>"
 msgstr "\tsnapper cleanup <upratovací-algoritmus>"
@@ -257,14 +96,8 @@ msgstr "    Voľby pre príkaz 'get-config':"
 msgid "    Options for 'list' command:"
 msgstr "    Voľby pre príkaz 'list':"
 
-msgid ""
-"    Options for 'list-configs' command:\n"
-"\t--columns <columns>\t\tColumns to show separated by comma.\n"
-"\t\t\t\t\tPossible columns: config, subvolume.\n"
-msgstr ""
-"    Voľby pre príkaz 'list-configs':\n"
-"\t--columns <stĺpce>\t\tStĺpce na zobrazenie oddelené čiarkou.\n"
-"\t\t\t\t\tMožné stĺpce: config, subvolume.\n"
+msgid "    Options for 'list-configs' command:"
+msgstr "    Voľby pre príkaz 'list-configs':"
 
 msgid "    Options for 'modify' command:"
 msgstr "    Voľby pre príkaz 'modify':"
@@ -346,9 +179,189 @@ msgstr "%1$s alebo %2$s"
 msgid "%1$s, %2$s"
 msgstr "%1$s, %2$s"
 
+msgid "'btrfs send | btrfs receive' failed."
+msgstr "'btrfs send | btrfs receive' zlyhalo."
+
+msgid "'btrfs subvolume delete' failed."
+msgstr "'btrfs subvolume delete' zlyhalo."
+
+msgid "'cp info.xml' failed."
+msgstr "'cp info.xml' zlyhalo."
+
+msgid "'mkdir' failed."
+msgstr "'mkdir' zlyhalo."
+
+msgid "'rm info.xml' failed."
+msgstr "'rm info.xml' zlyhalo."
+
+msgid "'rmdir' failed."
+msgstr "'rmdir' zlyhalo."
+
+msgid "'scp info.xml' failed."
+msgstr "'scp info.xml' zlyhalo."
+
 #, c-format
 msgid "(Snapshot %d.)"
 msgstr "(Snímka %d.)"
+
+msgid "(Source) Creation Time"
+msgstr "(Zdroj) Čas vytvorenia"
+
+msgid "(Source) Parent UUID"
+msgstr "(Zdroj) Nadradené UUID"
+
+msgid "(Source) Received UUID"
+msgstr "(Zdroj) Prijaté UUID"
+
+msgid "(Source) UUID"
+msgstr "(Zdroj) UUID"
+
+msgid "(Target) Creation Time"
+msgstr "(Cieľ) Čas vytvorenia"
+
+msgid "(Target) Parent UUID"
+msgstr "(Cieľ) Nadradené UUID"
+
+msgid "(Target) Received UUID"
+msgstr "(Cieľ) Prijaté UUID"
+
+msgid "(Target) UUID"
+msgstr "(Cieľ) UUID"
+
+msgid "--abbreviate"
+msgstr "--abbreviate"
+
+msgid "--all-configs, -a"
+msgstr "--all-configs, -a"
+
+msgid "--ambit, -a <ambit>"
+msgstr "--ambit, -a <ambit>"
+
+msgid "--automatic"
+msgstr "--automatic"
+
+msgid "--backup-config, -b <name>"
+msgstr "--backup-config, -b <názov>"
+
+msgid "--cleanup-algorithm, -c <algo>"
+msgstr "--cleanup-algorithm, -c <algo>"
+
+msgid "--columns <columns>"
+msgstr "--columns <stĺpce>"
+
+msgid "--command <command>"
+msgstr "--command <príkaz>"
+
+msgid "--config, -c <name>"
+msgstr "--config, -c <názov>"
+
+msgid "--csvout"
+msgstr "--csvout"
+
+msgid "--debug"
+msgstr "--debug"
+
+msgid "--default"
+msgstr "--default"
+
+msgid "--description, -d <description>"
+msgstr "--description, -d <popis>"
+
+msgid "--diff-cmd <command>"
+msgstr "--diff-cmd <príkaz>"
+
+msgid "--disable-used-space"
+msgstr "--disable-used-space"
+
+msgid "--empty"
+msgstr "--empty"
+
+msgid "--extensions, -x <options>"
+msgstr "--extensions, -x <voľby>"
+
+msgid "--free-space <space>"
+msgstr "--free-space <miesto>"
+
+msgid "--from <number>"
+msgstr "--from <číslo>"
+
+msgid "--fstype, -f <fstype>"
+msgstr "--fstype, -f <fstype>"
+
+msgid "--input, -i <file>"
+msgstr "--input, -i <súbor>"
+
+msgid "--iso"
+msgstr "--iso"
+
+msgid "--jsonout"
+msgstr "--jsonout"
+
+msgid "--logger-type <type>"
+msgstr "--logger-type <typ>"
+
+msgid "--machine-readable <format>"
+msgstr "--machine-readable <formát>"
+
+msgid "--no-dbus"
+msgstr "--no-dbus"
+
+msgid "--no-headers"
+msgstr "--no-headers"
+
+msgid "--output, -o <file>"
+msgstr "--output, -o <súbor>"
+
+msgid "--path <path>"
+msgstr "--path <cesta>"
+
+msgid "--pre-number <number>"
+msgstr "--pre-number <číslo>"
+
+msgid "--print-number, -p"
+msgstr "--print-number, -p"
+
+msgid "--quiet, -q"
+msgstr "--quiet, -q"
+
+msgid "--read-only"
+msgstr "--read-only"
+
+msgid "--read-write"
+msgstr "--read-write"
+
+msgid "--root, -r <path>"
+msgstr "--root, -r <cesta>"
+
+msgid "--separator <separator>"
+msgstr "--separator <oddeľovač>"
+
+msgid "--sync, -s"
+msgstr "--sync, -s"
+
+msgid "--table-style, -t <style>"
+msgstr "--table-style, -t <štýl>"
+
+msgid "--target-mode <target-mode>"
+msgstr "--target-mode <cieľový-režim>"
+
+msgid "--template, -t <name>"
+msgstr "--template, -t <názov>"
+
+msgid "--type, -t <type>"
+msgstr "--type, -t <type>"
+
+msgid "--userdata, -u <userdata>"
+msgstr "--userdata, -u <používateľské_údaje>"
+
+msgid "--utc"
+msgstr "--utc"
+
+msgid "--verbose, -v"
+msgstr "--verbose, -v"
+
+msgid "--version"
+msgstr "--version"
 
 msgid "ACL error."
 msgstr "ACL chyba."
@@ -359,9 +372,15 @@ msgstr "Aktívne"
 msgid "Active snapshot is already default snapshot."
 msgstr "Aktívna snímka je už predvolená snímka."
 
+msgid "Allow to abbreviate table columns."
+msgstr "Umožňuje skrátenie stĺpcov tabuľky."
+
 #, c-format
 msgid "Ambit is %s."
 msgstr "Oblasť je %s."
+
+msgid "Automatic"
+msgstr "Automatické"
 
 #. TRANSLATORS: symbol for "bytes" (best keep untranslated)
 msgid "B"
@@ -385,8 +404,27 @@ msgstr "Nie je možné zistiť oblasť, pretože predvolený podzväzok nie je z
 msgid "Cannot do rollback since default subvolume is unknown."
 msgstr "Nie je možné vykonať návrat späť, pretože predvolený podzväzok nie je známy."
 
+msgid "Character separator for CSV output format."
+msgstr "Oddeľovač znakov pre výstupný formát CSV."
+
 msgid "Cleanup"
 msgstr "Upratovanie"
+
+msgid "Cleanup algorithm for snapshot."
+msgstr "Upratovací algoritmus pre snímku."
+
+msgid "Cleanup algorithm for snapshots."
+msgstr "Upratovací algoritmus pre snímky."
+
+msgid "Cleanup all configs affecting path."
+msgstr "Vymaže všetky konfigurácie ovplyvňujúce cestu."
+
+#, c-format
+msgid "Client-side plugin '%s' failed."
+msgstr "Zásuvný modul '%s' na strane klienta zlyhal."
+
+msgid "Columns to show separated by comma."
+msgstr "Stĺpce na zobrazenie oddelené čiarkou."
 
 msgid "Command 'cleanup' needs one arguments."
 msgstr "Príkaz 'cleanup' potrebuje jeden argument."
@@ -446,6 +484,9 @@ msgstr "Príkaz 'setup-quota' nepodporuje argumenty."
 msgid "Command 'status' needs one argument."
 msgstr "Príkaz 'status' potrebuje jeden argument."
 
+msgid "Command 'transfer-and-delete' does not take arguments."
+msgstr "Príkaz 'transfer-and-delete' neprijíma argumenty."
+
 msgid "Command 'umount' needs at least one argument."
 msgstr "Príkaz 'umount' potrebuje aspoň jeden argument."
 
@@ -454,6 +495,9 @@ msgstr "Príkaz 'undochange' potrebuje aspoň jeden argument."
 
 msgid "Command 'xadiff' needs at least one argument."
 msgstr "Príkaz 'xadiff' potrebuje aspoň jeden argument."
+
+msgid "Command used for comparing files."
+msgstr "Príkaz slúži na porovnávanie súborov."
 
 msgid "Config"
 msgstr "Konfigurácia"
@@ -487,6 +531,18 @@ msgstr "Nepodarilo sa sprístupniť dostatok voľného miesta pre cestu '%s'."
 msgid "Could not make enough free space available."
 msgstr "Nepodarilo sa sprístupniť dostatok voľného miesta."
 
+msgid "Create a snapshot from the specified snapshot."
+msgstr "Vytvorí snímku zo zadanej snímky."
+
+msgid "Create an empty snapshot."
+msgstr "Vytvorí prázdnu snímku."
+
+msgid "Create read-only snapshot."
+msgstr "Vytvorí snímku len na čítanie."
+
+msgid "Create read-write snapshot."
+msgstr "Vytvorí snímku na čítanie a zápis."
+
 #, c-format
 msgid "Creating config failed (%s)."
 msgstr "Vytvorenie konfigurácie zlyhalo (%s)."
@@ -513,9 +569,16 @@ msgstr "Dátum"
 msgid "Default"
 msgstr "Predvolené"
 
+msgid "Delete:"
+msgstr "Vymazať:"
+
 #, c-format
 msgid "Deleting config failed (%s)."
 msgstr "Vymazanie konfigurácie zlyhalo (%s)."
+
+#, c-format
+msgid "Deleting snapshot %d."
+msgstr "Vymazanie snímky %d."
 
 msgid "Deleting snapshot failed."
 msgstr "Vymazanie snímky zlyhalo."
@@ -530,8 +593,23 @@ msgstr[2] "Vymazanie snímok z %s:"
 msgid "Description"
 msgstr "Popis"
 
+msgid "Description for snapshot."
+msgstr "Popis snímky."
+
+msgid "Description for snapshots."
+msgstr "Popis pre snímky."
+
 msgid "Detecting filesystem type failed."
 msgstr "Detekcia typu súborového systému zlyhala."
+
+msgid "Disable showing used space."
+msgstr "Zakázať ukazovanie použitého miesta."
+
+msgid "Display dates and times in ISO format."
+msgstr "Zobrazí dátumy a časy vo formáte ISO."
+
+msgid "Display dates and times in UTC."
+msgstr "Zobrazí dátumy a časy v UTC."
 
 #. TRANSLATORS: symbol for "exa" (best keep untranslated)
 msgid "E"
@@ -556,12 +634,18 @@ msgstr "Prázdne používateľské údaje."
 msgid "Error (%s)."
 msgstr "Chyba (%s)."
 
+msgid "Extra options passed to the diff command."
+msgstr "Ďalšie voľby odovzdané príkazu diff."
+
 msgid "Failed to initialize filesystem handler."
 msgstr "Zlyhala inicializácia obslužného programu systému súborov."
 
 #, c-format
 msgid "Failed to parse '%s'."
 msgstr "Nepodarilo sa analyzovať '%s'."
+
+msgid "Failed to parse number."
+msgstr "Nepodarilo sa analyzovať číslo."
 
 #, c-format
 msgid "Failed to query free space for path '%s'."
@@ -601,6 +685,9 @@ msgstr "GB"
 msgid "GiB"
 msgstr "GiB"
 
+msgid "Global options:"
+msgstr "Globálne možnosti:"
+
 # error box title
 #, c-format
 msgid "IO Error (%s)."
@@ -617,6 +704,9 @@ msgstr "Totožné snímky."
 msgid "Illegal snapshot."
 msgstr "Nepovolená snímka."
 
+msgid "Increase verbosity."
+msgstr "Zvýši podrobnosť."
+
 #, c-format
 msgid "Invalid ambit '%s'."
 msgstr "Neplatná oblasť '%s'."
@@ -624,6 +714,9 @@ msgstr "Neplatná oblasť '%s'."
 #, c-format
 msgid "Invalid column '%s'."
 msgstr "Neplatný stĺpec '%s'."
+
+msgid "Invalid config."
+msgstr "Neplatná konfigurácia."
 
 msgid "Invalid configdata."
 msgstr "Neplatné konfiguračné údaje."
@@ -634,6 +727,10 @@ msgstr "Neplatná hodnota voľného miesta."
 #, c-format
 msgid "Invalid group (%s)."
 msgstr "Neplatná skupina (%s)."
+
+#, c-format
+msgid "Invalid logger-type '%s'."
+msgstr "Neplatný logger-type '%s'."
 
 #, c-format
 msgid "Invalid machine readable format '%s'."
@@ -650,12 +747,20 @@ msgstr "Neplatná snímka '%s'."
 msgid "Invalid snapshots."
 msgstr "Neplatné snímky."
 
+#, c-format
+msgid "Invalid subvolume path '%s' on target."
+msgstr "Neplatná cesta k podzväzku '%s' na cieli."
+
 msgid "Invalid subvolume."
 msgstr "Neplatný podzväzok."
 
 #, c-format
 msgid "Invalid table style '%s'."
 msgstr "Neplatný štýl tabuľky '%s'."
+
+#, c-format
+msgid "Invalid target mode '%s'."
+msgstr "Neplatný cieľový režim '%s'."
 
 #, c-format
 msgid "Invalid user (%s)."
@@ -672,6 +777,15 @@ msgstr "Kľúč"
 msgid "KiB"
 msgstr "KiB"
 
+msgid "List configs:"
+msgstr "Zoznam konfigurácií:"
+
+msgid "List snapshots from all accessible configs."
+msgstr "Zoznam snímok zo všetkých dostupných konfigurácií."
+
+msgid "List:"
+msgstr "Zoznam:"
+
 # %s is either BOOTP or DHCP
 #, c-format
 msgid "Listing configs failed (%s)."
@@ -684,6 +798,9 @@ msgstr "M"
 #. TRANSLATORS: symbol for "mega bytes" (best keep untranslated)
 msgid "MB"
 msgstr "MB"
+
+msgid "Manually set filesystem type."
+msgstr "Ručne nastaví typ súborového systému."
 
 msgid "Maybe you forgot the delimiter '..' between the snapshot numbers."
 msgstr "Možno, že ste zabudli oddeľovač '..' medzi číslami snímok."
@@ -709,15 +826,45 @@ msgstr "Chýbajúci oddeľovač '..' medzi číslami snímok."
 msgid "Missing or invalid pre-number."
 msgstr "Chýbajúce alebo neplatné číslo pred."
 
+msgid "Name"
+msgstr "Názov"
+
+msgid "Name of config template to use."
+msgstr "Názov konfiguračnej šablóny, ktorá sa použije."
+
+msgid "No backup configs found."
+msgstr "Nenašli sa žiadne záložné konfigurácie."
+
 msgid "No command provided."
 msgstr "Nebol zadaný žiadny príkaz."
+
+msgid "No headers for CSV output format."
+msgstr "Žiadne hlavičky pre výstupný formát CSV."
 
 msgid "No permissions."
 msgstr "Žiadne práva."
 
+msgid "Number of corresponding pre snapshot."
+msgstr "Číslo zodpovedajúce snímke pred."
+
+msgid "Only use backup-config with automatic set."
+msgstr "Použiť záložnú konfiguráciu len s automatickým nastavením."
+
+msgid "Only use backup-config with specified target-mode."
+msgstr "Použiť záložnú konfiguráciu len so zadaným cieľovým režimom."
+
 #, c-format
 msgid "Opening file '%s' failed."
 msgstr "Otvorenie súboru '%s' zlyhalo."
+
+msgid "Operate in the specified ambit."
+msgstr "Pracujte v stanovenej oblasti."
+
+msgid "Operate on target root (works only without DBus)."
+msgstr "Pracuje na cieľovom root (funguje len bez DBus)."
+
+msgid "Operate without DBus."
+msgstr "Pracuje bez DBus."
 
 msgid "Option --from only supported for snapshots of type single."
 msgstr "Voľba --from podporovaná iba pre snímky typu single."
@@ -733,6 +880,10 @@ msgstr "P"
 #. TRANSLATORS: symbol for "peta bytes" (best keep untranslated)
 msgid "PB"
 msgstr "PB"
+
+#, c-format
+msgid "Path mismatch between source-path of backup-config and subvolume of snapper config ('%s' vs. '%s')."
+msgstr "Nesúlad ciest medzi zdrojovou cestou záložnej konfigurácie a podzväzkom konfigurácie snapper ('%s' vs. '%s')."
 
 #. TRANSLATORS: symbol for "pebi bytes" (best keep untranslated)
 msgid "PiB"
@@ -750,16 +901,144 @@ msgstr "Pred #"
 msgid "Pre Date"
 msgstr "Dátum pred"
 
+msgid "Print number of created snapshot."
+msgstr "Vypíše číslo vytvorenej snímky."
+
+msgid "Print number of second created snapshot."
+msgstr "Vypíše číslo druhej vytvorenej snímky."
+
+msgid "Print version and exit."
+msgstr "Vypíše verziu a skončí."
+
+msgid "Probing extra information for source snapshots."
+msgstr "Zisťovanie dodatočných informácií pre zdrojové snímky."
+
+msgid "Probing extra information for target snapshots."
+msgstr "Zisťovanie dodatočných informácií pre cieľové snímky."
+
+msgid "Probing source snapshots."
+msgstr "Zisťovanie zdrojových snímok."
+
+msgid "Probing target snapshots."
+msgstr "Zisťovanie cieľových snímok."
+
 # error box title
 #, c-format
 msgid "Quota error (%s)."
 msgstr "Chyba kvóty (%s)."
 
+msgid "Read files for which to undo changes from file."
+msgstr "Číta súbory, pre ktoré sa majú vrátiť späť zmeny zo súboru."
+
+msgid "Read files to diff from file."
+msgstr "Číta súbory pre diff zo súboru."
+
 msgid "Read-Only"
 msgstr "Len na čítanie"
 
+msgid "Run command and create pre and post snapshots."
+msgstr "Spustí príkaz a vytvorí snímky pred a po."
+
+#, c-format
+msgid "Running delete failed for %d of %ld backup config."
+msgid_plural "Running delete failed for %d of %ld backup configs."
+msgstr[0] "Spustenie vymazávania zlyhalo pre %d z %ld záložnej konfigurácie."
+msgstr[1] "Spustenie vymazávania zlyhalo pre %d zo %ld záložných konfigurácií."
+msgstr[2] "Spustenie vymazávania zlyhalo pre %d zo %ld záložných konfigurácií."
+
+#, c-format
+msgid "Running delete for backup config '%s' failed."
+msgstr "Spustenie vymazávania pre záložnú konfiguráciu '%s' zlyhalo."
+
+#, c-format
+msgid "Running delete for backup config '%s'."
+msgstr "Spustenie vymazávania pre záložnú konfiguráciu '%s'."
+
+#, c-format
+msgid "Running list failed for %d of %ld backup config."
+msgid_plural "Running list failed for %d of %ld backup configs."
+msgstr[0] "Spustenie výpisu zoznamu zlyhalo pre %d z %ld záložnej konfigurácie."
+msgstr[1] "Spustenie výpisu zoznamu zlyhalo pre %d z %ld záložných konfigurácií."
+msgstr[2] "Spustenie výpisu zoznamu zlyhalo pre %d z %ld záložných konfigurácií."
+
+#, c-format
+msgid "Running transfer and delete failed for %d of %ld backup config."
+msgid_plural "Running transfer and delete failed for %d of %ld backup configs."
+msgstr[0] "Spustenie prenosu a vymazania zlyhalo pre %d z %ld záložnej konfigurácie."
+msgstr[1] "Spustenie prenosu a vymazania zlyhalo pre %d z %ld záložných konfigurácií."
+msgstr[2] "Spustenie prenosu a vymazania zlyhalo pre %d z %ld záložných konfigurácií."
+
+#, c-format
+msgid "Running transfer and delete for backup config '%s' failed."
+msgstr "Spustenie prenosu a vymazania pre záložnú konfiguráciu '%s' zlyhalo."
+
+#, c-format
+msgid "Running transfer and delete for backup config '%s'."
+msgstr "Spustenie prenosu a vymazania pre záložnú konfiguráciu '%s'."
+
+#, c-format
+msgid "Running transfer failed for %d of %ld backup config."
+msgid_plural "Running transfer failed for %d of %ld backup configs."
+msgstr[0] "Spustenie prenosu zlyhalo pre %d z %ld záložnej konfigurácie."
+msgstr[1] "Spustenie prenosu zlyhalo pre %d z %ld záložných konfigurácií."
+msgstr[2] "Spustenie prenosu zlyhalo pre %d z %ld záložných konfigurácií."
+
+#, c-format
+msgid "Running transfer for backup config '%s' failed."
+msgstr "Spustenie prenosu pre záložnú konfiguráciu '%s' zlyhalo."
+
+#, c-format
+msgid "Running transfer for backup config '%s'."
+msgstr "Spustenie prenosu pre záložnú konfiguráciu '%s'."
+
+msgid "SSH Host"
+msgstr "SSH hostiteľ"
+
+msgid "SSH Identity"
+msgstr "SSH identita"
+
+msgid "SSH Port"
+msgstr "SSH port"
+
+msgid "SSH User"
+msgstr "SSH používateľ"
+
+msgid "Save status to file."
+msgstr "Uloží stav do súboru."
+
 msgid "See 'man snapper' for further instructions."
 msgstr "Viac informácií nájdete na 'man snapper'."
+
+#, c-format
+msgid "Server-side plugin '%s' failed."
+msgstr "Zásuvný modul '%s' na strane servera zlyhal."
+
+msgid "Set CSV output format."
+msgstr "Nastaví výstupný formát CSV."
+
+msgid "Set JSON output format."
+msgstr "Nastaví výstupný formát JSON."
+
+msgid "Set a machine-readable output format (csv, json)."
+msgstr "Nastaví strojovo čitateľný výstupný formát (csv, json)."
+
+msgid "Set logger type."
+msgstr "Nastaví logger typ."
+
+msgid "Set name of backup-config to use."
+msgstr "Nastaví názov konfigurácie zálohovania, ktorá sa použije."
+
+msgid "Set name of config to use."
+msgstr "Nastaví názov konfigurácie, ktorá sa použije."
+
+msgid "Set snapshot as default snapshot."
+msgstr "Nastaví snímku ako predvolenú snímku."
+
+msgid "Set snapshot read-only."
+msgstr "Nastaví snímku len na čítanie."
+
+msgid "Set snapshot read-write."
+msgstr "Nastaví snímku na čítanie a zápis."
 
 #, c-format
 msgid "Setting default subvolume to snapshot %d."
@@ -769,11 +1048,36 @@ msgstr "Nastavenie predvoleného podzväzku pre snímku %d."
 msgid "Snapshot '%u' not found."
 msgstr "Snímka '%u' nebola nájdená."
 
+msgid "Snapshot already on target."
+msgstr "Snímka je už na cieli."
+
 msgid "Snapshot is in use."
 msgstr "Snímka sa používa."
 
+msgid "Snapshot not on source."
+msgstr "Snímka nie je na zdroji."
+
+msgid "Snapshot not on target."
+msgstr "Snímka nie je na cieli."
+
+#, c-format
+msgid "Snapshot number %d not found."
+msgstr "Číslo snímky %d nebolo nájdené."
+
+msgid "Source Path"
+msgstr "Cesta zdroja"
+
+msgid "Source State"
+msgstr "Stav zdroja"
+
 msgid "Subvolume"
 msgstr "Podzväzok"
+
+msgid "Suppress normal output."
+msgstr "Potlačí normálny výstup."
+
+msgid "Sync after deletion."
+msgstr "Synchronizácia po zmazaní."
 
 #. TRANSLATORS: symbol for "tera" (best keep untranslated)
 msgid "T"
@@ -782,6 +1086,36 @@ msgstr "T"
 #. TRANSLATORS: symbol for "tera bytes" (best keep untranslated)
 msgid "TB"
 msgstr "TB"
+
+msgid "Table style (integer)."
+msgstr "Štýl tabuľky (celé číslo)."
+
+msgid "Target Mode"
+msgstr "Režim cieľa"
+
+msgid "Target Path"
+msgstr "Cesta cieľa"
+
+msgid "Target State"
+msgstr "Stav cieľa"
+
+msgid "Target btrfs bin"
+msgstr "Cieľový btrfs bin"
+
+msgid "Target findmnt Bin"
+msgstr "Cieľový findmnt Bin"
+
+msgid "Target mkdir bin"
+msgstr "Cieľový mkdir bin"
+
+msgid "Target realpath bin"
+msgstr "Cieľový realpath bin"
+
+msgid "Target rm bin"
+msgstr "Cieľový rm bin"
+
+msgid "Target rmdir bin"
+msgstr "Cieľový rmdir bin"
 
 msgid "The ambit can be specified manually using the --ambit option."
 msgstr "Oblasť je možné zadať manuálne pomocou voľby --ambit."
@@ -796,11 +1130,36 @@ msgstr "To sa môže stať, ak systém nebol nastavený na vrátenie sa späť."
 msgid "TiB"
 msgstr "TiB"
 
+msgid "Transfer and delete:"
+msgstr "Prenos a vymazanie:"
+
+msgid "Transfer:"
+msgstr "Prenos:"
+
+#, c-format
+msgid "Transferring snapshot %d."
+msgstr "Prenášanie snímky %d."
+
 msgid "Try 'snapper --help' for more information."
 msgstr "Skúste 'snapper --help' pre viac informácií."
 
+msgid "Try 'snbk --help' for more information."
+msgstr "Skúste 'snbk --help' pre viac informácií."
+
+msgid "Try to make space available."
+msgstr "Skúsi sprístupniť miesto."
+
+msgid "Turn on debugging."
+msgstr "Zapne sa ladenie."
+
 msgid "Type"
 msgstr "Typ"
+
+msgid "Type for snapshot."
+msgstr "Typ pre snímku."
+
+msgid "Type of snapshots to list."
+msgstr "Typ snímok pre výpis."
 
 #, c-format
 msgid "Unknown cleanup algorithm '%s'."
@@ -852,6 +1211,12 @@ msgstr "Používateľské údaje '%s' nezahŕňajú znamienko '='."
 msgid "Userdata '%s' has empty key."
 msgstr "Používateľské údaje '%s' majú prázdny kľúč."
 
+msgid "Userdata for snapshot."
+msgstr "Používateľské údaje pre snímku."
+
+msgid "Userdata for snapshots."
+msgstr "Používateľské údaje pre snímky."
+
 msgid "Value"
 msgstr "Hodnota"
 
@@ -900,22 +1265,65 @@ msgstr "nie je čo vykonať"
 msgid "root argument can be used only together with no-dbus.\n"
 msgstr "Argument root možno použiť len spoločne s no-dbus.\n"
 
+msgid "snbk delete [numbers]"
+msgstr "snbk delete [čísla]"
+
+msgid "snbk list"
+msgstr "snbk list"
+
+msgid "snbk list-configs"
+msgstr "snbk list-configs"
+
+msgid "snbk transfer [numbers]"
+msgstr "snbk transfer [čísla]"
+
+msgid "snbk transfer-and-delete"
+msgstr "snbk transfer-and-delete"
+
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr "použitie: snapper [--globálne-voľby] <príkaz> [--voľby-príkazu] [argumenty-príkazu]"
+
+msgid "usage: snbk [--global-options] <command> [command-arguments]"
+msgstr "použitie: snbk [--globálne-voľby] <príkaz> [--voľby-príkazu] [argumenty-príkazu]"
 
 msgid "yes"
 msgstr "áno"
 
-#, c-format
-#~ msgid "Invalid machine readable format %s."
-#~ msgstr "Neplatný formát čitateľný strojom %s."
+#~ msgid ""
+#~ "\t--columns <columns>\t\tColumns to show separated by comma.\n"
+#~ "\t\t\t\t\tPossible columns: config, subvolume, number, default, active,\n"
+#~ "\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
+#~ "\t\t\t\t\tpre-number, post-number, post-date, read-only."
+#~ msgstr ""
+#~ "\t--columns <stĺpce>\t\tStĺpce na zobrazenie oddelené čiarkou.\n"
+#~ "\t\t\t\t\tMožné stĺpce: config, subvolume, number, default, active,\n"
+#~ "\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
+#~ "\t\t\t\t\tpre-number, post-number, post-date, read-only."
+
+#~ msgid ""
+#~ "\t--columns <columns>\t\tColumns to show separated by comma.\n"
+#~ "\t\t\t\t\tPossible columns: key, value.\n"
+#~ "\t\t\t\t\tColumns are not selected when JSON format is used."
+#~ msgstr ""
+#~ "\t--columns <stĺpce>\t\tStĺpce na zobrazenie oddelené čiarkou.\n"
+#~ "\t\t\t\t\tMožné stĺpce: key, value.\n"
+#~ "\t\t\t\t\tPri použití formátu JSON nie sú stĺpce vybrané."
+
+#~ msgid "\t--userdata, -u <userdata>\tUserdata for snapshots."
+#~ msgstr "\t--userdata, -u <používateľské-údaje>\tPoužívateľské údaje pre snímky."
+
+#~ msgid ""
+#~ "    Options for 'list-configs' command:\n"
+#~ "\t--columns <columns>\t\tColumns to show separated by comma.\n"
+#~ "\t\t\t\t\tPossible columns: config, subvolume.\n"
+#~ msgstr ""
+#~ "    Voľby pre príkaz 'list-configs':\n"
+#~ "\t--columns <stĺpce>\t\tStĺpce na zobrazenie oddelené čiarkou.\n"
+#~ "\t\t\t\t\tMožné stĺpce: config, subvolume.\n"
 
 #, fuzzy, c-format
 #~ msgid "Use %s, %s, %s or %s."
 #~ msgstr "Použite %s, %s alebo %s."
-
-#~ msgid "Unknown type of snapshot."
-#~ msgstr "Neznámy typ snímky."
 
 #, c-format
 #~ msgid "Use %s, %s or %s."

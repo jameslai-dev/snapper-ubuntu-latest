@@ -18,15 +18,16 @@
  *
  */
 
+
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <errno.h>
+#include <cerrno>
 
 #include "snapper/Acls.h"
 #include "snapper/AppUtil.h"
 #include "snapper/Exception.h"
-#include "snapper/Log.h"
+#include "snapper/LoggerImpl.h"
 #include "snapper/SnapperTmpl.h"
 
 namespace snapper

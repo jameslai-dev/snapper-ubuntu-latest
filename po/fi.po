@@ -5,183 +5,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-12 09:40+0200\n"
-"PO-Revision-Date: 2022-04-03 22:12+0000\n"
-"Last-Translator: Tommi Nieminen <software@legisign.org>\n"
+"POT-Creation-Date: 2025-07-23 11:53+0200\n"
+"PO-Revision-Date: 2025-07-22 14:59+0000\n"
+"Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
 "Language-Team: Finnish <https://l10n.opensuse.org/projects/snapper/master/fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9.1\n"
-
-msgid "\t--abbreviate\t\t\tAllow to abbreviate table columns."
-msgstr "\t--abbreviate\t\t\tSalli lyhentää taulukon sarakkeita."
-
-msgid "\t--all-configs, -a\t\tList snapshots from all accessible configs."
-msgstr "\t--all-configs, -a\t\tLuettele tilannekuvia kaikista käytettävissä olevista kokoonpanoista."
-
-msgid "\t--ambit, -a ambit\t\tOperate in the specified ambit."
-msgstr "\t--ambit, -a ambit\t\tToimi ilmoitetulla tilalla."
-
-msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshot."
-msgstr "\t--cleanup-algorithm, -c <algo>\tTilannevedoksen puhdistusalgoritmi."
-
-msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshots."
-msgstr "\t--cleanup-algorithm, -c <algo>\tTilannevedoksen puhdistusalgoritmi."
-
-#, fuzzy
-msgid ""
-"\t--columns <columns>\t\tColumns to show separated by comma.\n"
-"\t\t\t\t\tPossible columns: config, subvolume, number, default, active,\n"
-"\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
-"\t\t\t\t\tpre-number, post-number, post-date, read-only."
-msgstr ""
-"\t--columns <sarakkeet>\t\tNäytettävät sarakkeet pilkuin erotettuna.\n"
-"\t\t\t\t\tMahdolliset sarakkeet: config, subvolume, number, default,\n"
-"\t\t\t\t\tactive, type, date, user, used-space, cleanup, description,\n"
-"\t\t\t\t\tuserdata, pre-number, post-number, post-date."
-
-msgid ""
-"\t--columns <columns>\t\tColumns to show separated by comma.\n"
-"\t\t\t\t\tPossible columns: key, value.\n"
-"\t\t\t\t\tColumns are not selected when JSON format is used."
-msgstr ""
-"\t--columns <sarakkeet>\t\tNäytettävät sarakkeet pilkuin erotettuna.\n"
-"\t\t\t\t\tMahdolliset sarakkeet: key, value.\n"
-"\t\t\t\t\tSarakkeita ei valita JSON-muotoa käytettäessä."
-
-msgid "\t--command <command>\t\tRun command and create pre and post snapshots."
-msgstr "\t--command <komento>\t\tSuorita komento ja luo ennen- ja jälkeen-tilannevedokset."
-
-msgid "\t--config, -c <name>\t\tSet name of config to use."
-msgstr "\t--config, -c <nimi>\t\tAseta käytettävän määrityksen nimi."
-
-msgid "\t--csvout\t\t\tSet CSV output format."
-msgstr "\t--csvout\t\t\tAsettaa CSV-tulosmuodon."
-
-msgid "\t--debug\t\t\t\tTurn on debugging."
-msgstr ""
-
-#, fuzzy
-msgid "\t--default\t\t\tSet snapshot as default snapshot."
-msgstr "Aktiivinen tilannekuva on jo oletus."
-
-msgid "\t--description, -d <description>\tDescription for snapshot."
-msgstr "\t--description, -d <kuvaus>\tTilannevedoksen kuvaus."
-
-msgid "\t--description, -d <description>\tDescription for snapshots."
-msgstr "\t--description, -d <kuvaus>\tTilannevedoksen kuvaus."
-
-msgid "\t--diff-cmd <command>\t\tCommand used for comparing files."
-msgstr "\t--diff-cmd <komento>\t\tKomento tiedostojen vertailemiseksi."
-
-msgid "\t--disable-used-space\t\tDisable showing used space."
-msgstr "\t--disable-used-space\t\tÄlä näytä tilankäyttöä."
-
-msgid "\t--extensions, -x <options>\tExtra options passed to the diff command."
-msgstr "\t--extensions, -x <valinnat>\tdiff-komennolle välitettävät lisävalinnat."
-
-msgid "\t--free-space <space>\t\tTry to make space available."
-msgstr "\t--free-space <tila>\t\tYritä vapauttaa tilaa."
-
-#, fuzzy
-msgid "\t--from <number>\t\t\tCreate a snapshot from the specified snapshot."
-msgstr "\t--from\t\t\t\tLuo tilannekuva määritetystä tilannekuvasta."
-
-msgid "\t--fstype, -f <fstype>\t\tManually set filesystem type."
-msgstr "\t--fstype, -f <tiedostojärjestelmä>\t\tAseta tiedostojärjestelmä käsin."
-
-msgid "\t--input, -i <file>\t\tRead files for which to undo changes from file."
-msgstr "\t--input, -i <tiedosto>\t\tLue tiedostot, joista tehdään peruutusmuutokset tiedostoon."
-
-msgid "\t--input, -i <file>\t\tRead files to diff from file."
-msgstr "\t--input, -i <tiedosto>\t\tLue tiedostot, joita tiedostoon verrataan."
-
-msgid "\t--iso\t\t\t\tDisplay dates and times in ISO format."
-msgstr "\t--iso\t\t\tNäytä päiväys ja aika ISO-muodossa."
-
-msgid "\t--jsonout\t\t\tSet JSON output format."
-msgstr "\t--jsonout\t\t\tAsettaa JSON-tulosmuodon."
-
-msgid "\t--machine-readable <format>\tSet a machine-readable output format (csv, json)."
-msgstr "\t--machine-readable <format>\tAsttaa koneluettavan tulosmuodon (CSV, JSON)."
-
-msgid "\t--no-dbus\t\t\tOperate without DBus."
-msgstr "\t--no-dbus\t\t\tToimi ilman DBusia."
-
-#, fuzzy
-msgid "\t--no-headers\t\t\tNo headers for CSV output format."
-msgstr "\t--csvout\t\t\tAsettaa CSV-tulosmuodon."
-
-msgid "\t--output, -o <file>\t\tSave status to file."
-msgstr "\t--output, -o <tiedosto>\t\tTallenna tilatieto tiedostoon."
-
-msgid "\t--path <path>\t\t\tCleanup all configs affecting path."
-msgstr "\t--path <sijainti>\t\t\tSiivoa kaikki sijaintiin vaikuttavat määritykset."
-
-msgid "\t--pre-number <number>\t\tNumber of corresponding pre snapshot."
-msgstr "\t--pre-number <numero>\t\tVastaavan ennen-tilannevedoksen numero."
-
-msgid "\t--print-number, -p\t\tPrint number of created snapshot."
-msgstr "\t--print-number, -p\t\tTulosta luodun tilannevedoksen numero."
-
-msgid "\t--print-number, -p\t\tPrint number of second created snapshot."
-msgstr "\t--print-number, -p\t\tTulosta luodun tilannevedoksen numero."
-
-msgid "\t--quiet, -q\t\t\tSuppress normal output."
-msgstr "\t--quiet, -q\t\t\tJätä pois tavallinen tuloste."
-
-msgid "\t--read-only\t\t\tCreate read-only snapshot."
-msgstr "\t--read-only\t\t\tLuo tilannekuva vain luku -muodossa."
-
-#, fuzzy
-msgid "\t--read-only\t\t\tSet snapshot read-only."
-msgstr "\t--read-only\t\t\tLuo tilannekuva vain luku -muodossa."
-
-msgid "\t--read-write\t\t\tCreate read-write snapshot."
-msgstr "\t--read-write\t\t\tLuo luku-ja kirjoitus tilannekuva."
-
-#, fuzzy
-msgid "\t--read-write\t\t\tSet snapshot read-write."
-msgstr "\t--read-write\t\t\tLuo luku-ja kirjoitus tilannekuva."
-
-msgid "\t--root, -r <path>\t\tOperate on target root (works only without DBus)."
-msgstr "\t--root, -r <sijainti>\t\tToimi asetetussa juuressa (toimii vain ilman DBusia)."
-
-msgid "\t--separator <separator>\t\tCharacter separator for CSV output format."
-msgstr "\t--separator <separator>\t\tCSV-tulosmuodon erotinmerkki."
-
-msgid "\t--sync, -s\t\t\tSync after deletion."
-msgstr "\t--sync, -s\t\t\tTahdista poistamisen jälkeen."
-
-msgid "\t--table-style, -t <style>\tTable style (integer)."
-msgstr "\t--table-style, -t <tyyli>\tTaulukon tyyli (kokonaisluku)."
-
-msgid "\t--template, -t <name>\t\tName of config template to use."
-msgstr "\t--template, -t <nimi>\t\tKäytettävän määritysmallin nimi."
-
-msgid "\t--type, -t <type>\t\tType for snapshot."
-msgstr "\t--type, -t <tyyppi>\t\tTilannevedoksen tyyppi."
-
-msgid "\t--type, -t <type>\t\tType of snapshots to list."
-msgstr "\t--type, -t <tyyppi>\t\tLueteltavien tilannevedosten tyyppi."
-
-msgid "\t--userdata, -u <userdata>\tUserdata for snapshot."
-msgstr "\t--userdata, -u <käyttäjätieto>\tTilannevedoksen käyttäjätiedot."
-
-msgid "\t--userdata, -u <userdata>\tUserdata for snapshots."
-msgstr "\t--userdata, -u <käyttäjätieto>\tTilannevedosten käyttäjätiedot."
-
-msgid "\t--utc\t\t\t\tDisplay dates and times in UTC."
-msgstr "\t--utc\t\t\t\tNäytä UTC-päiväys ja -aika."
-
-msgid "\t--verbose, -v\t\t\tIncrease verbosity."
-msgstr "\t--verbose, -v\t\t\tLisää tulostettavia tietoja."
-
-msgid "\t--version\t\t\tPrint version and exit."
-msgstr "\t--version\t\t\tTulosta versio ja lopeta."
+"X-Generator: Weblate 5.12.2\n"
 
 msgid "\tsnapper cleanup <cleanup-algorithm>"
 msgstr "\tsnapper puhdistus <puhdistus-algoritmi>"
@@ -261,14 +94,8 @@ msgstr "    Vaihtoehdot \"get-config\" komennolle:"
 msgid "    Options for 'list' command:"
 msgstr "    ”list”-komennon valitsimet:"
 
-msgid ""
-"    Options for 'list-configs' command:\n"
-"\t--columns <columns>\t\tColumns to show separated by comma.\n"
-"\t\t\t\t\tPossible columns: config, subvolume.\n"
-msgstr ""
-"    Valitsimet komennolle ”list-configs”:\n"
-"\t--columns <sarakkeet>\t\tNäytettävät sarakkeet pilkuin erotettuna.\n"
-"\t\t\t\t\tMahdolliset sarakkeet: config, subvolume.\n"
+msgid "    Options for 'list-configs' command:"
+msgstr "    Valitsimet komennolle ”list-configs”:"
 
 msgid "    Options for 'modify' command:"
 msgstr "    ”modify”-komennon valitsimet:"
@@ -283,25 +110,25 @@ msgid "    Options for 'undochange' command:"
 msgstr "    ”undochange”-komennon valitsimet:"
 
 msgid "  Cleanup snapshots:"
-msgstr "  Puhdista tilannevedokset:"
+msgstr "  Puhdista tilannekuvat:"
 
 msgid "  Comparing snapshots extended attributes:"
-msgstr "  Verrataan tilannevedosten lisämääritteitä:"
+msgstr "  Verrataan tilannekuvien lisämääritteitä:"
 
 msgid "  Comparing snapshots:"
-msgstr "  Verrataan tilannevedoksia:"
+msgstr "  Verrataan tilannekuvia:"
 
 msgid "  Create config:"
 msgstr "  Luo määritys:"
 
 msgid "  Create snapshot:"
-msgstr "  Luo tilannevedos:"
+msgstr "  Luo tilannekuva:"
 
 msgid "  Delete config:"
 msgstr "  Poista määritys:"
 
 msgid "  Delete snapshot:"
-msgstr "  Poista tilannevedos:"
+msgstr "  Poista tilannekuva:"
 
 msgid "  Get config:"
 msgstr "  Nouda määritys:"
@@ -310,13 +137,13 @@ msgid "  List configs:"
 msgstr "  Luettele määritykset:"
 
 msgid "  List snapshots:"
-msgstr "  Luettele tilannevedokset:"
+msgstr "  Luettele tilannekuvat:"
 
 msgid "  Modify snapshot:"
-msgstr "  Muokkaa tilannevedosta:"
+msgstr "  Muokkaa tilannekuvaa:"
 
 msgid "  Mount snapshot:"
-msgstr "  Liitä tilannevedos:"
+msgstr "  Liitä tilannekuva:"
 
 msgid "  Rollback:"
 msgstr "  Palaa:"
@@ -328,7 +155,7 @@ msgid "  Setup quota:"
 msgstr "  Aseta tilarajoitus:"
 
 msgid "  Umount snapshot:"
-msgstr "  Irrota tilannevedos:"
+msgstr "  Irrota tilannekuva:"
 
 msgid "  Undo changes:"
 msgstr "  Peru muutokset:"
@@ -350,9 +177,190 @@ msgstr "%1$s tai %2$s"
 msgid "%1$s, %2$s"
 msgstr "%1$s, %2$s"
 
+msgid "'btrfs send | btrfs receive' failed."
+msgstr "'btrfs lähetä | btrfs vastaanota' epäonnistui."
+
+msgid "'btrfs subvolume delete' failed."
+msgstr "”btrfs subvolume delete” epäonnistui."
+
+msgid "'cp info.xml' failed."
+msgstr "”cp info.xml” epäonnistui."
+
+msgid "'mkdir' failed."
+msgstr "'mkdir' epäonnistui."
+
+msgid "'rm info.xml' failed."
+msgstr "'rm info.xml' epäonnistui."
+
+msgid "'rmdir' failed."
+msgstr "'rmdir' epäonnistui."
+
+msgid "'scp info.xml' failed."
+msgstr "'scp info.xml' epäonnistui."
+
 #, c-format
 msgid "(Snapshot %d.)"
-msgstr "(Tilannevedos %d.)"
+msgstr "(Tilannekuva %d.)"
+
+msgid "(Source) Creation Time"
+msgstr "(Lähde) Luontiaika"
+
+msgid "(Source) Parent UUID"
+msgstr "(Lähde) Emo-UUID"
+
+msgid "(Source) Received UUID"
+msgstr "(Lähde) Vastaanotettu UUID"
+
+msgid "(Source) UUID"
+msgstr "(Lähde) UUID"
+
+msgid "(Target) Creation Time"
+msgstr "(Kohde) Luontiaika"
+
+msgid "(Target) Parent UUID"
+msgstr "(Kohde) Emo-UUID"
+
+msgid "(Target) Received UUID"
+msgstr "(Kohde) Vastaanotettu UUID"
+
+msgid "(Target) UUID"
+msgstr "(Kohde) UUID"
+
+msgid "--abbreviate"
+msgstr "--abbreviate"
+
+msgid "--all-configs, -a"
+msgstr "--all-configs, -a"
+
+msgid "--ambit, -a <ambit>"
+msgstr "--ambit, -a <ala>"
+
+msgid "--automatic"
+msgstr "--automaattinen"
+
+msgid "--backup-config, -b <name>"
+msgstr "--backup-config, -b <nimi>"
+
+msgid "--cleanup-algorithm, -c <algo>"
+msgstr "--cleanup-algorithm, -c <algoritmi>"
+
+msgid "--columns <columns>"
+msgstr "--columns <sarakkeita>"
+
+msgid "--command <command>"
+msgstr "--komento <komento>"
+
+msgid "--config, -c <name>"
+msgstr "--config, -c <nimi>"
+
+msgid "--csvout"
+msgstr "--csvout"
+
+msgid "--debug"
+msgstr "--debug"
+
+msgid "--default"
+msgstr "--default"
+
+msgid "--description, -d <description>"
+msgstr "--description, -d <kuvaus>"
+
+msgid "--diff-cmd <command>"
+msgstr "--diff-cmd <komento>"
+
+msgid "--disable-used-space"
+msgstr "--disable-used-space"
+
+msgid "--empty"
+msgstr "--tyhjä"
+
+msgid "--extensions, -x <options>"
+msgstr "--extensions, -x <valinnat>"
+
+msgid "--free-space <space>"
+msgstr "--free-space <tila>"
+
+msgid "--from <number>"
+msgstr "--from <luku>"
+
+msgid "--fstype, -f <fstype>"
+msgstr "--fstype, -f <tstojärjestelmä>"
+
+msgid "--input, -i <file>"
+msgstr "--input, -i <tsto>"
+
+msgid "--iso"
+msgstr "--iso"
+
+msgid "--jsonout"
+msgstr "--jsonout"
+
+#, fuzzy
+msgid "--logger-type <type>"
+msgstr "--type, -t <tyyppi>"
+
+msgid "--machine-readable <format>"
+msgstr "--machine-readable <muoto>"
+
+msgid "--no-dbus"
+msgstr "--no-dbus"
+
+msgid "--no-headers"
+msgstr "--no-headers"
+
+msgid "--output, -o <file>"
+msgstr "--output, -o <tsto>"
+
+msgid "--path <path>"
+msgstr "--path <sijainti>"
+
+msgid "--pre-number <number>"
+msgstr "--pre-number <luku>"
+
+msgid "--print-number, -p"
+msgstr "--print-number, -p"
+
+msgid "--quiet, -q"
+msgstr "--quiet, -q"
+
+msgid "--read-only"
+msgstr "--read-only"
+
+msgid "--read-write"
+msgstr "--read-write"
+
+msgid "--root, -r <path>"
+msgstr "--root, -r <sijainti>"
+
+msgid "--separator <separator>"
+msgstr "--separator <erotin>"
+
+msgid "--sync, -s"
+msgstr "--sync, -s"
+
+msgid "--table-style, -t <style>"
+msgstr "--table-style, -t <tyyli>"
+
+msgid "--target-mode <target-mode>"
+msgstr "--target-mode <kohdetila>"
+
+msgid "--template, -t <name>"
+msgstr "--template, -t <nimi>"
+
+msgid "--type, -t <type>"
+msgstr "--type, -t <tyyppi>"
+
+msgid "--userdata, -u <userdata>"
+msgstr "--userdata, -u <käyttäjätieto>"
+
+msgid "--utc"
+msgstr "--utc"
+
+msgid "--verbose, -v"
+msgstr "--verbose, -v"
+
+msgid "--version"
+msgstr "--version"
 
 # error box title
 msgid "ACL error."
@@ -364,9 +372,15 @@ msgstr "Aktiivinen"
 msgid "Active snapshot is already default snapshot."
 msgstr "Aktiivinen tilannekuva on jo oletus."
 
+msgid "Allow to abbreviate table columns."
+msgstr "Lyhentää taulukon sarakkeita."
+
 #, c-format
 msgid "Ambit is %s."
 msgstr "Alue on %s."
+
+msgid "Automatic"
+msgstr "Automaattinen"
 
 #. TRANSLATORS: symbol for "bytes" (best keep untranslated)
 msgid "B"
@@ -374,15 +388,15 @@ msgstr "B"
 
 #, c-format
 msgid "Cannot delete snapshot %d since it is the current system."
-msgstr "Tilannevedosta %d ei voi poistaa, koska se tarkoittaa nykyistä järjestelmää."
+msgstr "Tilannekuvaa %d ei voi poistaa, koska se on nykyinen järjestelmä."
 
 #, c-format
 msgid "Cannot delete snapshot %d since it is the currently mounted snapshot."
-msgstr "Tilannevedosta %d ei voi poistaa, koska se on tällä hetkellä liitettynä oleva tilannevedos."
+msgstr "Tilannekuvaa %d ei voi poistaa, koska se on tällä hetkellä liitettynä."
 
 #, c-format
 msgid "Cannot delete snapshot %d since it is the next to be mounted snapshot."
-msgstr "Tilannevedosta %d ei voi poistaa, koska se on seuraavaksi liitettävä tilannevedos."
+msgstr "Tilannekuvaa %d ei voi poistaa, koska se liitetään seuraavaksi."
 
 msgid "Cannot detect ambit since default subvolume is unknown."
 msgstr "Aluetta ei voi tunnistaa, koska oletusalitaltio on tuntematon."
@@ -390,8 +404,27 @@ msgstr "Aluetta ei voi tunnistaa, koska oletusalitaltio on tuntematon."
 msgid "Cannot do rollback since default subvolume is unknown."
 msgstr "Palautusta (rollback) ei voi tehdä, koska oletusalitaltio on tuntematon."
 
+msgid "Character separator for CSV output format."
+msgstr "CSV-tulosmuodon merkkierotin."
+
 msgid "Cleanup"
 msgstr "Puhdistus"
+
+msgid "Cleanup algorithm for snapshot."
+msgstr "Tilannekuvan puhdistusalgoritmi."
+
+msgid "Cleanup algorithm for snapshots."
+msgstr "Tilannekuvan puhdistusalgoritmi."
+
+msgid "Cleanup all configs affecting path."
+msgstr "Siivoa kaikki sijaintiin vaikuttavat määritykset."
+
+#, c-format
+msgid "Client-side plugin '%s' failed."
+msgstr "Asiakaspuolen liitännäinen ”%s” epäonnistui."
+
+msgid "Columns to show separated by comma."
+msgstr "Näytettävät sarakkeet pilkuin erotettuna."
 
 msgid "Command 'cleanup' needs one arguments."
 msgstr "\"cleanup\"-komento vaatii yhden parametrin."
@@ -451,6 +484,9 @@ msgstr "”setup-quota”-komento ei hyväksy parametreja."
 msgid "Command 'status' needs one argument."
 msgstr "”status”-komento vaatii yhden parametrin."
 
+msgid "Command 'transfer-and-delete' does not take arguments."
+msgstr "Komento ”transfer-and-delete” ei ota parametreja."
+
 msgid "Command 'umount' needs at least one argument."
 msgstr "”umount”-komento vaatii vähintään yhden parametrin."
 
@@ -459,6 +495,9 @@ msgstr "”undochange”-komento vaatii vähintään yhden parametrin."
 
 msgid "Command 'xadiff' needs at least one argument."
 msgstr "”xadiff”-komento vaatii vähintään yhden parametrin."
+
+msgid "Command used for comparing files."
+msgstr "Tiedostojen vertailukomento."
 
 msgid "Config"
 msgstr "Määritys"
@@ -492,25 +531,37 @@ msgstr "Ei voitu vapauttaa tarpeeksi tilaa sijainnille ”%s”."
 msgid "Could not make enough free space available."
 msgstr "Ei voitu vapauttaa tarpeeksi tilaa."
 
+msgid "Create a snapshot from the specified snapshot."
+msgstr "Luo uusi tilannekuva annetusta tilannekuvasta."
+
+msgid "Create an empty snapshot."
+msgstr "Luo tyhjä tilannekuva."
+
+msgid "Create read-only snapshot."
+msgstr "Luo vain luku -tilannekuva."
+
+msgid "Create read-write snapshot."
+msgstr "Luo luettava ja kirjoitettava tilannekuva."
+
 #, c-format
 msgid "Creating config failed (%s)."
 msgstr "Määrityksen luominen epäonnistui (%s)."
 
 msgid "Creating read-only snapshot of current system."
-msgstr "Luodaan järjestelmästä vain luettavaa tilannevedosta."
+msgstr "Luodaan järjestelmästä vain luettavaa tilannekuvaa."
 
 msgid "Creating read-only snapshot of default subvolume."
-msgstr "Luodaan oletusalitaltiosta vain luettavaa tilannevedosta."
+msgstr "Luodaan oletusalitaltiosta vain luettavaa tilannekuvaa."
 
 msgid "Creating read-write snapshot of current subvolume."
-msgstr "Luodaan nykyisestä alitaltiosta kirjoitettavissa olevaa tilannevedosta."
+msgstr "Luodaan nykyisestä alitaltiosta kirjoitettavissa olevaa tilannekuvaa."
 
 #, c-format
 msgid "Creating read-write snapshot of snapshot %d."
-msgstr "Luodaan tilannevedoksesta %d kirjoitettavissa olevaa tilannevedosta."
+msgstr "Luodaan tilannekuvasta %d kirjoitettavissa olevaa tilannekuvaa."
 
 msgid "Creating snapshot failed."
-msgstr "Tilannevedoksen luominen epäonnistui."
+msgstr "Tilannekuvan luominen epäonnistui."
 
 msgid "Date"
 msgstr "Päiväys"
@@ -518,24 +569,46 @@ msgstr "Päiväys"
 msgid "Default"
 msgstr "Oletus"
 
+msgid "Delete:"
+msgstr "Poista määritys:"
+
 #, c-format
 msgid "Deleting config failed (%s)."
 msgstr "Määrityksen poistaminen epäonnistui (%s)."
 
+#, c-format
+msgid "Deleting snapshot %d."
+msgstr "Tilannekuvan %d poistaminen epäonnistui."
+
 msgid "Deleting snapshot failed."
-msgstr "Tilannevedoksen poistaminen epäonnistui."
+msgstr "Tilannekuvan poistaminen epäonnistui."
 
 #, c-format
 msgid "Deleting snapshot from %s:"
 msgid_plural "Deleting snapshots from %s:"
-msgstr[0] "Poistetaan tilannevedosta taltiosta %s:"
-msgstr[1] "Poistetaan tilannevedoksia taltiosta %s:"
+msgstr[0] "Poistetaan tilannekuvaa taltiosta %s:"
+msgstr[1] "Poistetaan tilannekuvia taltiosta %s:"
 
 msgid "Description"
 msgstr "Kuvaus"
 
+msgid "Description for snapshot."
+msgstr "Tilannekuvan kuvaus."
+
+msgid "Description for snapshots."
+msgstr "Tilannekuvien kuvaus."
+
 msgid "Detecting filesystem type failed."
 msgstr "Tiedostojärjestelmän tyypin tunnistaminen epäonnistui."
+
+msgid "Disable showing used space."
+msgstr "Älä näytä tilankäyttöä."
+
+msgid "Display dates and times in ISO format."
+msgstr "Näytä päiväykset ja ajat ISO-muodossa."
+
+msgid "Display dates and times in UTC."
+msgstr "Näytä päiväykset ja ajat UTC:nä."
 
 #. TRANSLATORS: symbol for "exa" (best keep untranslated)
 msgid "E"
@@ -560,12 +633,18 @@ msgstr "Tyhjä käyttäjätieto."
 msgid "Error (%s)."
 msgstr "Virhe (%s)."
 
+msgid "Extra options passed to the diff command."
+msgstr "diff-komennolle välitettävät lisävalinnat."
+
 msgid "Failed to initialize filesystem handler."
 msgstr "Tiedostojärjestelmäkäsittelyn alustus epäonnistui."
 
 #, c-format
 msgid "Failed to parse '%s'."
 msgstr "\"%s\" luominen epäonnistui."
+
+msgid "Failed to parse number."
+msgstr "Lukua ei voitu jäsentää."
 
 #, c-format
 msgid "Failed to query free space for path '%s'."
@@ -605,6 +684,9 @@ msgstr "Gt"
 msgid "GiB"
 msgstr "GiB"
 
+msgid "Global options:"
+msgstr "Yleisvalitsimet:"
+
 # error box title
 #, c-format
 msgid "IO Error (%s)."
@@ -616,10 +698,13 @@ msgid "IO error (%s)."
 msgstr "I/O-virhe (%s)."
 
 msgid "Identical snapshots."
-msgstr "Identtinen tilannevedos."
+msgstr "Identtinen tilannekuva."
 
 msgid "Illegal snapshot."
-msgstr "Virheellinen tilannevedos."
+msgstr "Virheellinen tilannekuva."
+
+msgid "Increase verbosity."
+msgstr "Lisää yksityiskohtaisuutta."
 
 #, c-format
 msgid "Invalid ambit '%s'."
@@ -629,15 +714,22 @@ msgstr "Virheellinen alue \"%s\"."
 msgid "Invalid column '%s'."
 msgstr "Virheellinen sarake \"%s\"."
 
+msgid "Invalid config."
+msgstr "Virheellinen määritys."
+
 msgid "Invalid configdata."
 msgstr "Virheellinen määritystieto."
 
 msgid "Invalid free-space value."
 msgstr "Virheellinen vapaan tilan arvo."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid group (%s)."
-msgstr "Virheellinen ryhmä."
+msgstr "Virheellinen ryhmä (%s)."
+
+#, fuzzy, c-format
+msgid "Invalid logger-type '%s'."
+msgstr "Virheellinen taulukkotyyli \"%s\"."
 
 #, c-format
 msgid "Invalid machine readable format '%s'."
@@ -649,10 +741,14 @@ msgstr "Virheellinen polku \"%s\"."
 
 #, c-format
 msgid "Invalid snapshot '%s'."
-msgstr "Virheellinen tilannevedos \"%s\"."
+msgstr "Virheellinen tilannekuva \"%s\"."
 
 msgid "Invalid snapshots."
-msgstr "Virheellisiä tilannevedoksia."
+msgstr "Virheellisiä tilannekuvia."
+
+#, c-format
+msgid "Invalid subvolume path '%s' on target."
+msgstr "Virheellinen alitaltio '%s'."
 
 msgid "Invalid subvolume."
 msgstr "Virheellinen alitaltio."
@@ -661,9 +757,13 @@ msgstr "Virheellinen alitaltio."
 msgid "Invalid table style '%s'."
 msgstr "Virheellinen taulukkotyyli \"%s\"."
 
-#, fuzzy, c-format
+#, c-format
+msgid "Invalid target mode '%s'."
+msgstr "Virheellinen kohdetila ”%s”."
+
+#, c-format
 msgid "Invalid user (%s)."
-msgstr "Virheellinen käyttäjä."
+msgstr "Virheellinen käyttäjä (%s)."
 
 msgid "Invalid userdata."
 msgstr "Virheellinen käyttäjätieto."
@@ -674,6 +774,15 @@ msgstr "Avain"
 #. TRANSLATORS: symbol for "kibi bytes" (best keep untranslated)
 msgid "KiB"
 msgstr "KiB"
+
+msgid "List configs:"
+msgstr "Luettele määritykset:"
+
+msgid "List snapshots from all accessible configs."
+msgstr "Luettele kaikkien käytettävissä olevien määritysten tilannekuvat."
+
+msgid "List:"
+msgstr "Lista:"
 
 #, c-format
 msgid "Listing configs failed (%s)."
@@ -687,8 +796,11 @@ msgstr "M"
 msgid "MB"
 msgstr "Mt"
 
+msgid "Manually set filesystem type."
+msgstr "Aseta tiedostojärjestelmä itse."
+
 msgid "Maybe you forgot the delimiter '..' between the snapshot numbers."
-msgstr "Unohdit ehkä tilannevedosnumeroiden välistä erottimen ”..”."
+msgstr "Tilannekuvanumeroiden välistä unohtui ehkä erotin ”..”."
 
 #. TRANSLATORS: symbol for "mebi bytes" (best keep untranslated)
 msgid "MiB"
@@ -706,20 +818,50 @@ msgid "Missing command option."
 msgstr "Komennolta puuttuu parametri."
 
 msgid "Missing delimiter '..' between snapshot numbers."
-msgstr "Tilannevedosnumeroiden välistä puuttuu erotin ”..”."
+msgstr "Tilannekuvanumeroiden välistä puuttuu erotin ”..”."
 
 msgid "Missing or invalid pre-number."
 msgstr "Puuttuva tai virheellinen ennen-numero."
 
+msgid "Name"
+msgstr "Nimi"
+
+msgid "Name of config template to use."
+msgstr "Käytettävän määritysmallin nimi."
+
+msgid "No backup configs found."
+msgstr "Määritysten varmuuskopioita ei löytynyt."
+
 msgid "No command provided."
 msgstr "Komentoa ei annettu."
+
+msgid "No headers for CSV output format."
+msgstr "Otsakkeeton CSV-tulosmuoto."
 
 msgid "No permissions."
 msgstr "Ei käyttöoikeuksia."
 
+msgid "Number of corresponding pre snapshot."
+msgstr "Vastaavan ennen-tilannekuvan numero."
+
+msgid "Only use backup-config with automatic set."
+msgstr "Käytä backup-configia vain automaattisen joukon kanssa."
+
+msgid "Only use backup-config with specified target-mode."
+msgstr "Käytä backup-configia vain määritetyn kohdetavan kanssa."
+
 #, c-format
 msgid "Opening file '%s' failed."
 msgstr "Tiedoston \"%s\" avaaminen epäonnistui."
+
+msgid "Operate in the specified ambit."
+msgstr "Toimi määritetyllä alalla."
+
+msgid "Operate on target root (works only without DBus)."
+msgstr "Toimi kohdejuuressa (toimii vain DBusitta)."
+
+msgid "Operate without DBus."
+msgstr "Toimi DBusitta."
 
 msgid "Option --from only supported for snapshots of type single."
 msgstr "Vaihtoehto --tuettu vain yksittäisille tilannekuville."
@@ -735,6 +877,10 @@ msgstr "P"
 #. TRANSLATORS: symbol for "peta bytes" (best keep untranslated)
 msgid "PB"
 msgstr "Pt"
+
+#, fuzzy, c-format
+msgid "Path mismatch between source-path of backup-config and subvolume of snapper config ('%s' vs. '%s')."
+msgstr "Sijaintiristiriita backup-configin ja configin välillä."
 
 #. TRANSLATORS: symbol for "pebi bytes" (best keep untranslated)
 msgid "PiB"
@@ -752,30 +898,179 @@ msgstr "Ennen-#"
 msgid "Pre Date"
 msgstr "Ennen-päiväys"
 
+msgid "Print number of created snapshot."
+msgstr "Tulosta luodun tilannekuvan numero."
+
+msgid "Print number of second created snapshot."
+msgstr "Tulosta luoduista tilannekuvista jälkimmäisen numero."
+
+msgid "Print version and exit."
+msgstr "Tulosta versio ja lopeta."
+
+msgid "Probing extra information for source snapshots."
+msgstr "Etsitään lähdetilannekuville lisätietoa."
+
+msgid "Probing extra information for target snapshots."
+msgstr "Etsitään kohdetilannekuville lisätietoa."
+
+msgid "Probing source snapshots."
+msgstr "Etsitään lähdetilannekuvia."
+
+msgid "Probing target snapshots."
+msgstr "Etsitään kohdetilannekuvia."
+
 # error box title
 #, c-format
 msgid "Quota error (%s)."
 msgstr "Tilarajoitusvirhe (%s)."
 
+msgid "Read files for which to undo changes from file."
+msgstr "Lue tiedostosta tiedostot, joiden muutokset kumotaan."
+
+msgid "Read files to diff from file."
+msgstr "Lue tiedostosta verrattavat tiedostot."
+
 msgid "Read-Only"
-msgstr ""
+msgstr "Vain luku"
+
+msgid "Run command and create pre and post snapshots."
+msgstr "Suorita komento ja luo ennen- ja jälkeen-tilannekuvat."
+
+#, c-format
+msgid "Running delete failed for %d of %ld backup config."
+msgid_plural "Running delete failed for %d of %ld backup configs."
+msgstr[0] "Poistaminen epäonnistui %d/%ld varmuuskopiomääritykselle."
+msgstr[1] "Poistaminen epäonnistui %d/%ld varmuuskopiomääritykselle."
+
+#, c-format
+msgid "Running delete for backup config '%s' failed."
+msgstr "Poistaminen epäonnistui varmuuskopiomääritykselle ”%s”."
+
+#, c-format
+msgid "Running delete for backup config '%s'."
+msgstr "Suoritetaan poistoa varmuuskopiomääritykselle ”%s”."
+
+#, c-format
+msgid "Running list failed for %d of %ld backup config."
+msgid_plural "Running list failed for %d of %ld backup configs."
+msgstr[0] "Luettelointi epäonnistui %d/%ld varmuuskopiomääritykselle."
+msgstr[1] "Luettelointi epäonnistui %d/%ld varmuuskopiomääritykselle."
+
+#, c-format
+msgid "Running transfer and delete failed for %d of %ld backup config."
+msgid_plural "Running transfer and delete failed for %d of %ld backup configs."
+msgstr[0] "Siirto ja poisto epäonnistuivat %d/%ld varmuuskopiomäärityksellä."
+msgstr[1] "Siirto ja poisto epäonnistuivat %d/%ld varmuuskopiomäärityksellä."
+
+#, c-format
+msgid "Running transfer and delete for backup config '%s' failed."
+msgstr "Siirto ja poisto epäonnistuivat varmuuskopiomääritykselle ”%s”."
+
+#, c-format
+msgid "Running transfer and delete for backup config '%s'."
+msgstr "Suoritetaan siirtoa ja poistoa varmuuskopiomääritykselle ”%s”."
+
+#, c-format
+msgid "Running transfer failed for %d of %ld backup config."
+msgid_plural "Running transfer failed for %d of %ld backup configs."
+msgstr[0] "Siirto epäonnistui %d/%ld varmuuskopiomääritykselle."
+msgstr[1] "Siirto epäonnistui %d/%ld varmuuskopiomääritykselle."
+
+#, c-format
+msgid "Running transfer for backup config '%s' failed."
+msgstr "Siirto epäonnistui varmuuskopiomääritykselle ”%s”."
+
+#, c-format
+msgid "Running transfer for backup config '%s'."
+msgstr "Suoritetaan siirtoa varmuuskopiomääritykselle ”%s”."
+
+msgid "SSH Host"
+msgstr "SSH isäntä"
+
+msgid "SSH Identity"
+msgstr "SSH identiteetti"
+
+msgid "SSH Port"
+msgstr "SSH portti"
+
+msgid "SSH User"
+msgstr "SSH-käyttäjä"
+
+msgid "Save status to file."
+msgstr "Tallenna tila tiedostoon."
 
 msgid "See 'man snapper' for further instructions."
 msgstr "Lisää ohjeita: ”man snapper”."
 
 #, c-format
+msgid "Server-side plugin '%s' failed."
+msgstr "Palvelinpuolen liitännäinen ”%s” epäonnistui."
+
+msgid "Set CSV output format."
+msgstr "Aseta tulosmuodoksi CSV."
+
+msgid "Set JSON output format."
+msgstr "Aseta tulosmuodoksi JSON."
+
+msgid "Set a machine-readable output format (csv, json)."
+msgstr "Aseta koneluettava tulosmuoto (CSV, JSON)."
+
+msgid "Set logger type."
+msgstr ""
+
+msgid "Set name of backup-config to use."
+msgstr "Aseta käytettävän varmuuskopiomäärityksen nimi."
+
+msgid "Set name of config to use."
+msgstr "Aseta käytettävän määrityksen nimi."
+
+msgid "Set snapshot as default snapshot."
+msgstr "Aseta tilannekuva oletukseksi."
+
+msgid "Set snapshot read-only."
+msgstr "Aseta tilannekuva vain luettavaksi."
+
+msgid "Set snapshot read-write."
+msgstr "Aseta tilannekuva luettavaksi ja kirjoitettavaksi."
+
+#, c-format
 msgid "Setting default subvolume to snapshot %d."
-msgstr "Asetetaan oletusalitaltio tilannevedokselle %d."
+msgstr "Asetetaan oletusalitaltio tilannekuvalle %d."
 
 #, c-format
 msgid "Snapshot '%u' not found."
-msgstr "Tilannevedosta \"%u\" ei löytynyt."
+msgstr "Tilannekuvaa \"%u\" ei löytynyt."
+
+msgid "Snapshot already on target."
+msgstr "Tilannekuva on jo kohteessa."
 
 msgid "Snapshot is in use."
-msgstr "Tilannevedos on käytössä."
+msgstr "Tilannekuva on käytössä."
+
+msgid "Snapshot not on source."
+msgstr "Tilannekuvaa ei ole lähteessä."
+
+msgid "Snapshot not on target."
+msgstr "Tilannekuvaa ei ole kohteessa."
+
+#, c-format
+msgid "Snapshot number %d not found."
+msgstr "Tilannekuvaa %d ei löytynyt."
+
+msgid "Source Path"
+msgstr "Lähdepolku"
+
+msgid "Source State"
+msgstr "Lähteen tila"
 
 msgid "Subvolume"
 msgstr "Alitaltio"
+
+msgid "Suppress normal output."
+msgstr "Jätä pois tavallinen tuloste."
+
+msgid "Sync after deletion."
+msgstr "Tahdista poistamisen jälkeen."
 
 #. TRANSLATORS: symbol for "tera" (best keep untranslated)
 msgid "T"
@@ -784,6 +1079,37 @@ msgstr "T"
 #. TRANSLATORS: symbol for "tera bytes" (best keep untranslated)
 msgid "TB"
 msgstr "Tt"
+
+msgid "Table style (integer)."
+msgstr "Taulukon tyyli (kokonaisluku)."
+
+msgid "Target Mode"
+msgstr "Kohteen tila"
+
+msgid "Target Path"
+msgstr "Kohteen polku"
+
+msgid "Target State"
+msgstr "Kohteen tila"
+
+msgid "Target btrfs bin"
+msgstr ""
+
+msgid "Target findmnt Bin"
+msgstr ""
+
+msgid "Target mkdir bin"
+msgstr ""
+
+#, fuzzy
+msgid "Target realpath bin"
+msgstr "Kohteen polku"
+
+msgid "Target rm bin"
+msgstr ""
+
+msgid "Target rmdir bin"
+msgstr ""
 
 msgid "The ambit can be specified manually using the --ambit option."
 msgstr "Alueen voi määrittää itse --ambit-valitsimella."
@@ -798,11 +1124,36 @@ msgstr "Näin voi käydä, ellei järjestelmää ole asetettu palautusta varten.
 msgid "TiB"
 msgstr "TiB"
 
+msgid "Transfer and delete:"
+msgstr "Siirrä ja poista:"
+
+msgid "Transfer:"
+msgstr "Siirrä:"
+
+#, c-format
+msgid "Transferring snapshot %d."
+msgstr "Siirretään tilannekuvaa %d."
+
 msgid "Try 'snapper --help' for more information."
 msgstr "Kokeile ”snapper --help” saadaksesi lisätietoa."
 
+msgid "Try 'snbk --help' for more information."
+msgstr "Lisätietoa saa komennolla ”snbk --help”."
+
+msgid "Try to make space available."
+msgstr "Yritä vapauttaa tilaa."
+
+msgid "Turn on debugging."
+msgstr "Ota käyttöön vianjäljitys."
+
 msgid "Type"
 msgstr "Tyyppi"
+
+msgid "Type for snapshot."
+msgstr "Tilannekuvan tyyppi."
+
+msgid "Type of snapshots to list."
+msgstr "Lueteltavien tilannekuvien tyyppi."
 
 #, c-format
 msgid "Unknown cleanup algorithm '%s'."
@@ -854,6 +1205,12 @@ msgstr "Käyttäjätieto '%s' ei sisällä '=' merkkiä."
 msgid "Userdata '%s' has empty key."
 msgstr "Käyttäjätiedossa '%s' on tyhjä avain."
 
+msgid "Userdata for snapshot."
+msgstr "Tilannekuvan käyttäjätiedot."
+
+msgid "Userdata for snapshots."
+msgstr "Tilannekuvien käyttäjätiedot."
+
 msgid "Value"
 msgstr "Arvo"
 
@@ -902,14 +1259,64 @@ msgstr "ei mitään tehtävää"
 msgid "root argument can be used only together with no-dbus.\n"
 msgstr "root parametria voidaan käyttää vain yhdessä no-dbus-valitsimen kanssa.\n"
 
+msgid "snbk delete [numbers]"
+msgstr "snbk delete [numerot]"
+
+msgid "snbk list"
+msgstr "snbk list"
+
+msgid "snbk list-configs"
+msgstr "snbk list-configs"
+
+msgid "snbk transfer [numbers]"
+msgstr "snbk transfer [numerot]"
+
+msgid "snbk transfer-and-delete"
+msgstr "snbk transfer-and-delete"
+
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr "käyttö: snapper [--yleisvalitsimet] <komento> [--komennon-valitsimet] [komennon-parametrit]"
+
+msgid "usage: snbk [--global-options] <command> [command-arguments]"
+msgstr "käyttö: snbk [--global-options] <komento> [komennon-parametrit]"
 
 msgid "yes"
 msgstr "kyllä"
 
-#~ msgid "Unknown type of snapshot."
-#~ msgstr "Tuntematon tilannevedostyyppi."
+#~ msgid ""
+#~ "\t--columns <columns>\t\tColumns to show separated by comma.\n"
+#~ "\t\t\t\t\tPossible columns: config, subvolume, number, default, active,\n"
+#~ "\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
+#~ "\t\t\t\t\tpre-number, post-number, post-date, read-only."
+#~ msgstr ""
+#~ "\t--columns <sarakkeet>\t\tNäytettävät sarakkeet pilkuin erotettuna.\n"
+#~ "\t\t\t\t\tMahdolliset sarakkeet: config, subvolume, number, default,\n"
+#~ "\t\t\t\t\tactive, type, date, user, used-space, cleanup, description,\n"
+#~ "\t\t\t\t\tuserdata, pre-number, post-number, post-date, read-only."
+
+#~ msgid ""
+#~ "\t--columns <columns>\t\tColumns to show separated by comma.\n"
+#~ "\t\t\t\t\tPossible columns: key, value.\n"
+#~ "\t\t\t\t\tColumns are not selected when JSON format is used."
+#~ msgstr ""
+#~ "\t--columns <sarakkeet>\t\tNäytettävät sarakkeet pilkuin erotettuna.\n"
+#~ "\t\t\t\t\tMahdolliset sarakkeet: key, value.\n"
+#~ "\t\t\t\t\tSarakkeita ei valita JSON-muotoa käytettäessä."
+
+#~ msgid "\t--description, -d <description>\tDescription for snapshots."
+#~ msgstr "\t--description, -d <kuvaus>\tTilannekuvan kuvaus."
+
+#~ msgid "\t--userdata, -u <userdata>\tUserdata for snapshots."
+#~ msgstr "\t--userdata, -u <käyttäjätieto>\tTilannekuvien käyttäjätiedot."
+
+#~ msgid ""
+#~ "    Options for 'list-configs' command:\n"
+#~ "\t--columns <columns>\t\tColumns to show separated by comma.\n"
+#~ "\t\t\t\t\tPossible columns: config, subvolume.\n"
+#~ msgstr ""
+#~ "    Valitsimet komennolle ”list-configs”:\n"
+#~ "\t--columns <sarakkeet>\t\tNäytettävät sarakkeet pilkuin erotettuna.\n"
+#~ "\t\t\t\t\tMahdolliset sarakkeet: config, subvolume.\n"
 
 #, c-format
 #~ msgid "Use %s, %s or %s."
@@ -934,9 +1341,6 @@ msgstr "kyllä"
 
 #~ msgid "Command failed (%s). See log for more information."
 #~ msgstr "Komento epäonnistui (%s). Katso lokista lisätietoja."
-
-#~ msgid "comparing snapshots..."
-#~ msgstr "verrataan tilannevedoksia..."
 
 #~ msgid "done"
 #~ msgstr "valmis"

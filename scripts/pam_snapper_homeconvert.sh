@@ -13,7 +13,6 @@ CMD_BTRFS="/sbin/btrfs"
 CMD_SNAPPER="/usr/bin/snapper"
 CMD_EGREP="grep -E"
 CMD_PAM_CONFIG="/usr/sbin/pam-config"
-CMD_SED="sed"
 CMD_USERADD="useradd -m"
 CMD_USERDEL="userdel -r"
 CMD_CHOWN="chown"
@@ -41,7 +40,7 @@ if [ "0$MYUSER" == "0" ]; then
 fi
 
 function is_btrfs_homehome () {
-	# Sanity-Check: ist $HOMEHOME a btrfs filesystem
+	# Sanity-Check: is $HOMEHOME a btrfs filesystem
 	${CMD_BTRFS} filesystem df ${HOMEHOME} 2>&1 > /dev/null
 	RETVAL=$?
 	if [ ${RETVAL} != 0 ]; then
@@ -137,7 +136,7 @@ function createsnapperconfig () {
 		fi
 		echo "Create snapper configuration for user ${MYUSER}"
 		${CMD_SNAPPER} -c home_${MYUSER} create-config ${HOMEHOME}/${MYUSER}
-		${CMD_SED} -i -e "s/ALLOW_USERS=\"\"/ALLOW_USERS=\"${MYUSER}\"/g" ${SNAPPERCFGDIR}/home_${MYUSER}
+		${CMD_SNAPPER} -c home_${MYUSER} set-config ALLOW_USERS=${MYUSER}
 	fi
 	${CMD_CHMOD} 755 ${HOMEHOME}/${MYUSER}/.snapshots
 }

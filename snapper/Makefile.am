@@ -7,6 +7,7 @@ AM_CXXFLAGS = -D_FILE_OFFSET_BITS=64
 lib_LTLIBRARIES = libsnapper.la
 
 libsnapper_la_SOURCES =					\
+	ConfigInfo.cc		ConfigInfo.h		\
 	Snapper.cc		Snapper.h		\
 	Snapshot.cc		Snapshot.h		\
 	Comparison.cc		Comparison.h		\
@@ -19,13 +20,14 @@ libsnapper_la_SOURCES =					\
 	AppUtil2.cc					\
 	FileUtils.cc		FileUtils.h		\
 	XAttributes.cc		XAttributes.h		\
-	Log.cc			Log.h			\
 	Logger.cc		Logger.h		\
+	LoggerImpl.cc		LoggerImpl.h		\
 	Compare.cc		Compare.h		\
 	SystemCmd.cc		SystemCmd.h		\
 	AsciiFile.cc		AsciiFile.h		\
 	Acls.cc			Acls.h			\
-	Hooks.cc		Hooks.h			\
+	Plugins.cc		Plugins.h		\
+	PluginsImpl.cc		PluginsImpl.h		\
 	Systemctl.cc		Systemctl.h		\
 	Exception.cc		Exception.h		\
 	SnapperTmpl.h					\
@@ -37,6 +39,12 @@ if ENABLE_BTRFS
 libsnapper_la_SOURCES +=				\
 	Btrfs.cc		Btrfs.h			\
 	BtrfsUtils.cc		BtrfsUtils.h
+endif
+
+if ENABLE_BCACHEFS
+libsnapper_la_SOURCES +=				\
+	Bcachefs.cc		Bcachefs.h		\
+	BcachefsUtils.cc	BcachefsUtils.h
 endif
 
 if ENABLE_EXT4
@@ -63,7 +71,7 @@ endif
 
 libsnapper_la_CPPFLAGS = $(XML2_CFLAGS) $(ZLIB_CFLAGS)
 libsnapper_la_LDFLAGS = -version-info @LIBVERSION_INFO@
-libsnapper_la_LIBADD = -lboost_thread -lboost_system $(XML2_LIBS) -lacl $(ZLIB_LIBS)
+libsnapper_la_LIBADD = -lboost_thread $(XML2_LIBS) -lacl $(ZLIB_LIBS)
 if ENABLE_ROLLBACK
 libsnapper_la_LIBADD += -lmount
 endif
@@ -79,8 +87,10 @@ pkgincludedir = $(includedir)/snapper
 
 pkginclude_HEADERS =					\
 	Version.h					\
+	ConfigInfo.h					\
 	Snapper.h					\
 	Snapshot.h					\
+	Plugins.h					\
 	File.h						\
 	Comparison.h					\
 	AsciiFile.h					\

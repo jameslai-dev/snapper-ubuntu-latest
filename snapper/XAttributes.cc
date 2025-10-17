@@ -26,14 +26,14 @@
 #include <sys/types.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <errno.h>
+#include <cerrno>
 #include <iomanip>
 #include <boost/scoped_array.hpp>
 #include <algorithm>
 
 #include "snapper/AppUtil.h"
 #include "snapper/Exception.h"
-#include "snapper/Log.h"
+#include "snapper/LoggerImpl.h"
 #include "snapper/XAttributes.h"
 #include "snapper/Acls.h"
 #include "snapper/SnapperTmpl.h"

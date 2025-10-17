@@ -24,8 +24,13 @@
 
 #include "equal-date.h"
 
+
 #define isleapyear(year) \
     ((year) % 4 == 0 && ((year) % 100 != 0 || (year) % 400 == 0))
+
+
+namespace snapper
+{
 
 int
 yday_of_weeks_monday(const struct tm& tmp)
@@ -45,6 +50,13 @@ bool
 equal_year(const struct tm& tmp1, const struct tm& tmp2)
 {
     return tmp1.tm_year == tmp2.tm_year;
+}
+
+
+bool
+equal_quarter(const struct tm& tmp1, const struct tm& tmp2)
+{
+    return equal_year(tmp1, tmp2) && (tmp1.tm_mon / 3) == (tmp2.tm_mon / 3);
 }
 
 
@@ -82,4 +94,6 @@ bool
 equal_hour(const struct tm& tmp1, const struct tm& tmp2)
 {
     return equal_day(tmp1, tmp2) && tmp1.tm_hour == tmp2.tm_hour;
+}
+
 }

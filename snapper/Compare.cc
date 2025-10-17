@@ -22,23 +22,24 @@
 
 #include "config.h"
 
-#include <string.h>
+#include <cstring>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <dirent.h>
 #include <unistd.h>
-#include <errno.h>
+#include <cerrno>
 #include <algorithm>
 #include <boost/thread.hpp>
 
-#include "snapper/Log.h"
+#include "snapper/LoggerImpl.h"
 #include "snapper/AppUtil.h"
 #include "snapper/File.h"
 #include "snapper/Compare.h"
 #include "snapper/Exception.h"
 #include "snapper/XAttributes.h"
 #include "snapper/Acls.h"
+#include "snapper/SnapperDefines.h"
 
 
 namespace snapper
@@ -259,7 +260,7 @@ namespace snapper
     bool
     filter(const string& name)
     {
-	if (name == "/.snapshots")
+	if (name == "/" SNAPSHOTS_NAME)
 	    return true;
 
 	return false;
@@ -449,7 +450,7 @@ namespace snapper
 
 	y2mil("dev1:" << cmp_data.dev1 << " dev2:" << cmp_data.dev2);
 
-	StopWatch stopwatch;
+	Stopwatch stopwatch;
 	cmpDirsWorker(cmp_data, dir1, dir2, "");
 	y2mil("stopwatch " << stopwatch << " for comparing directories");
     }

@@ -21,12 +21,12 @@
  */
 
 
-#include <errno.h>
-#include <stdarg.h>
+#include <cerrno>
+#include <cstdarg>
 #include <unistd.h>
 #include <fcntl.h>
 #include <glob.h>
-#include <string.h>
+#include <cstring>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/utsname.h>
@@ -39,7 +39,7 @@
 #include <boost/io/ios_state.hpp>
 #include <boost/scoped_array.hpp>
 
-#include "snapper/Log.h"
+#include "snapper/LoggerImpl.h"
 #include "snapper/AppUtil.h"
 
 
@@ -411,14 +411,14 @@ namespace snapper
     }
 
 
-    StopWatch::StopWatch()
+    Stopwatch::Stopwatch()
 	: start_time(chrono::steady_clock::now())
     {
     }
 
 
     double
-    StopWatch::read() const
+    Stopwatch::read() const
     {
 	chrono::steady_clock::time_point stop_time = chrono::steady_clock::now();
 	chrono::steady_clock::duration duration = stop_time - start_time;
@@ -427,10 +427,10 @@ namespace snapper
 
 
     std::ostream&
-    operator<<(std::ostream& s, const StopWatch& sw)
+    operator<<(std::ostream& s, const Stopwatch& stopwatch)
     {
 	boost::io::ios_all_saver ias(s);
-	return s << fixed << sw.read() << "s";
+	return s << fixed << stopwatch.read() << "s";
     }
 
 

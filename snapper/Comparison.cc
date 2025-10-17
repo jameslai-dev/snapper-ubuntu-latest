@@ -26,13 +26,13 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <string.h>
-#include <errno.h>
+#include <cstring>
+#include <cerrno>
 #include <regex>
 
 #include "snapper/Comparison.h"
 #include "snapper/Snapper.h"
-#include "snapper/Log.h"
+#include "snapper/LoggerImpl.h"
 #include "snapper/File.h"
 #include "snapper/Exception.h"
 #include "snapper/Compare.h"
@@ -366,7 +366,7 @@ namespace snapper
 	{
 	    SN_CAUGHT(e);
 
-	    info_dir.unlink(tmp_name, 0);
+	    info_dir.unlink(tmp_name);
 
 	    return false;
 	}

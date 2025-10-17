@@ -14,173 +14,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenSUSE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-12 09:40+0200\n"
-"PO-Revision-Date: 2011-11-01 00:08-0700\n"
-"Last-Translator: Alexandru Szasz <alexxed@gmail.com>\n"
-"Language-Team: Romanian <LL@li.org>\n"
+"POT-Creation-Date: 2025-07-23 11:53+0200\n"
+"PO-Revision-Date: 2025-07-22 15:00+0000\n"
+"Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+"Language-Team: Romanian <https://l10n.opensuse.org/projects/snapper/master/ro/>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Narro 2.0 on http://tradu.softwareliber.ro\n"
-"Plural-Forms:  nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2;\n"
-
-msgid "\t--abbreviate\t\t\tAllow to abbreviate table columns."
-msgstr ""
-
-msgid "\t--all-configs, -a\t\tList snapshots from all accessible configs."
-msgstr ""
-
-msgid "\t--ambit, -a ambit\t\tOperate in the specified ambit."
-msgstr ""
-
-msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshot."
-msgstr ""
-
-msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshots."
-msgstr ""
-
-msgid ""
-"\t--columns <columns>\t\tColumns to show separated by comma.\n"
-"\t\t\t\t\tPossible columns: config, subvolume, number, default, active,\n"
-"\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
-"\t\t\t\t\tpre-number, post-number, post-date, read-only."
-msgstr ""
-
-msgid ""
-"\t--columns <columns>\t\tColumns to show separated by comma.\n"
-"\t\t\t\t\tPossible columns: key, value.\n"
-"\t\t\t\t\tColumns are not selected when JSON format is used."
-msgstr ""
-
-msgid "\t--command <command>\t\tRun command and create pre and post snapshots."
-msgstr ""
-
-msgid "\t--config, -c <name>\t\tSet name of config to use."
-msgstr ""
-
-msgid "\t--csvout\t\t\tSet CSV output format."
-msgstr ""
-
-msgid "\t--debug\t\t\t\tTurn on debugging."
-msgstr ""
-
-msgid "\t--default\t\t\tSet snapshot as default snapshot."
-msgstr ""
-
-msgid "\t--description, -d <description>\tDescription for snapshot."
-msgstr ""
-
-msgid "\t--description, -d <description>\tDescription for snapshots."
-msgstr ""
-
-msgid "\t--diff-cmd <command>\t\tCommand used for comparing files."
-msgstr ""
-
-msgid "\t--disable-used-space\t\tDisable showing used space."
-msgstr ""
-
-msgid "\t--extensions, -x <options>\tExtra options passed to the diff command."
-msgstr ""
-
-msgid "\t--free-space <space>\t\tTry to make space available."
-msgstr ""
-
-msgid "\t--from <number>\t\t\tCreate a snapshot from the specified snapshot."
-msgstr ""
-
-msgid "\t--fstype, -f <fstype>\t\tManually set filesystem type."
-msgstr ""
-
-msgid "\t--input, -i <file>\t\tRead files for which to undo changes from file."
-msgstr ""
-
-msgid "\t--input, -i <file>\t\tRead files to diff from file."
-msgstr ""
-
-msgid "\t--iso\t\t\t\tDisplay dates and times in ISO format."
-msgstr ""
-
-msgid "\t--jsonout\t\t\tSet JSON output format."
-msgstr ""
-
-msgid "\t--machine-readable <format>\tSet a machine-readable output format (csv, json)."
-msgstr ""
-
-msgid "\t--no-dbus\t\t\tOperate without DBus."
-msgstr ""
-
-msgid "\t--no-headers\t\t\tNo headers for CSV output format."
-msgstr ""
-
-msgid "\t--output, -o <file>\t\tSave status to file."
-msgstr ""
-
-msgid "\t--path <path>\t\t\tCleanup all configs affecting path."
-msgstr ""
-
-msgid "\t--pre-number <number>\t\tNumber of corresponding pre snapshot."
-msgstr ""
-
-msgid "\t--print-number, -p\t\tPrint number of created snapshot."
-msgstr ""
-
-msgid "\t--print-number, -p\t\tPrint number of second created snapshot."
-msgstr ""
-
-msgid "\t--quiet, -q\t\t\tSuppress normal output."
-msgstr ""
-
-msgid "\t--read-only\t\t\tCreate read-only snapshot."
-msgstr ""
-
-msgid "\t--read-only\t\t\tSet snapshot read-only."
-msgstr ""
-
-msgid "\t--read-write\t\t\tCreate read-write snapshot."
-msgstr ""
-
-msgid "\t--read-write\t\t\tSet snapshot read-write."
-msgstr ""
-
-msgid "\t--root, -r <path>\t\tOperate on target root (works only without DBus)."
-msgstr ""
-
-msgid "\t--separator <separator>\t\tCharacter separator for CSV output format."
-msgstr ""
-
-msgid "\t--sync, -s\t\t\tSync after deletion."
-msgstr ""
-
-msgid "\t--table-style, -t <style>\tTable style (integer)."
-msgstr ""
-
-msgid "\t--template, -t <name>\t\tName of config template to use."
-msgstr ""
-
-msgid "\t--type, -t <type>\t\tType for snapshot."
-msgstr ""
-
-msgid "\t--type, -t <type>\t\tType of snapshots to list."
-msgstr ""
-
-msgid "\t--userdata, -u <userdata>\tUserdata for snapshot."
-msgstr ""
-
-msgid "\t--userdata, -u <userdata>\tUserdata for snapshots."
-msgstr ""
-
-msgid "\t--utc\t\t\t\tDisplay dates and times in UTC."
-msgstr ""
-
-msgid "\t--verbose, -v\t\t\tIncrease verbosity."
-msgstr ""
-
-msgid "\t--version\t\t\tPrint version and exit."
-msgstr ""
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2;\n"
+"X-Generator: Weblate 5.12.2\n"
 
 msgid "\tsnapper cleanup <cleanup-algorithm>"
-msgstr ""
+msgstr "\tsnapper cleanup <algoritm de curățare>"
 
 msgid "\tsnapper create"
 msgstr "\tsnapper create"
@@ -189,14 +35,14 @@ msgid "\tsnapper create-config <subvolume>"
 msgstr ""
 
 msgid "\tsnapper delete <number>"
-msgstr ""
+msgstr "\tsnapper delete <număr>"
 
 #, fuzzy
 msgid "\tsnapper delete-config"
 msgstr "\tsnapper list-configs"
 
 msgid "\tsnapper diff <number1>..<number2> [files]"
-msgstr ""
+msgstr "\tsnapper diff <numărul1>..<numărul2> [fișiere]"
 
 #, fuzzy
 msgid "\tsnapper get-config"
@@ -212,11 +58,10 @@ msgid "\tsnapper modify <number>"
 msgstr "\tsnapper modify <număr>"
 
 msgid "\tsnapper mount <number>"
-msgstr ""
+msgstr "\tsnapper mount <număr>"
 
-#, fuzzy
 msgid "\tsnapper rollback [number]"
-msgstr "\tsnapper modify <număr>"
+msgstr "\tsnapper rollback [numărul]"
 
 #, fuzzy
 msgid "\tsnapper set-config <configdata>"
@@ -227,17 +72,16 @@ msgid "\tsnapper setup-quota"
 msgstr "\tsnapper list-configs"
 
 msgid "\tsnapper status <number1>..<number2>"
-msgstr ""
+msgstr "\tsnapper status <numărul1>..<numărul2>"
 
 msgid "\tsnapper umount <number>"
-msgstr ""
+msgstr "\tsnapper umount <numărul>"
 
 msgid "\tsnapper undochange <number1>..<number2> [files]"
 msgstr ""
 
-#, fuzzy
 msgid "\tsnapper xadiff <number1>..<number2> [files]"
-msgstr "\tsnapper modify <număr>"
+msgstr "\tsnapper xadiff <numărul1>..<numărul2> [fișiere]"
 
 msgid "    Global options:"
 msgstr "    Opțiuni globale:"
@@ -250,15 +94,13 @@ msgid "    Options for 'create' command:"
 msgstr "    Opțiuni pentru comanda 'create':"
 
 msgid "    Options for 'create-config' command:"
-msgstr ""
+msgstr "    Opțiuni pentru comanda 'create-config':"
 
-#, fuzzy
 msgid "    Options for 'delete' command:"
-msgstr "    Opțiuni pentru comanda 'create':"
+msgstr "    Opțiuni pentru comanda 'delete':"
 
-#, fuzzy
 msgid "    Options for 'diff' command:"
-msgstr "    Opțiuni pentru comanda 'modify':"
+msgstr "    Opțiuni pentru comanda 'diff':"
 
 #, fuzzy
 msgid "    Options for 'get-config' command:"
@@ -267,11 +109,9 @@ msgstr "    Opțiuni pentru comanda 'create':"
 msgid "    Options for 'list' command:"
 msgstr "    Opțiuni pentru comanda 'list':"
 
-msgid ""
-"    Options for 'list-configs' command:\n"
-"\t--columns <columns>\t\tColumns to show separated by comma.\n"
-"\t\t\t\t\tPossible columns: config, subvolume.\n"
-msgstr ""
+#, fuzzy
+msgid "    Options for 'list-configs' command:"
+msgstr "    Opțiuni pentru comanda 'create':"
 
 msgid "    Options for 'modify' command:"
 msgstr "    Opțiuni pentru comanda 'modify':"
@@ -320,7 +160,7 @@ msgid "  List snapshots:"
 msgstr "  Listează configurațiile:"
 
 msgid "  Modify snapshot:"
-msgstr ""
+msgstr "  Modificați instantaneul:"
 
 msgid "  Mount snapshot:"
 msgstr ""
@@ -359,9 +199,190 @@ msgstr ""
 msgid "%1$s, %2$s"
 msgstr ""
 
+msgid "'btrfs send | btrfs receive' failed."
+msgstr ""
+
+msgid "'btrfs subvolume delete' failed."
+msgstr ""
+
+msgid "'cp info.xml' failed."
+msgstr ""
+
+msgid "'mkdir' failed."
+msgstr ""
+
+msgid "'rm info.xml' failed."
+msgstr ""
+
+msgid "'rmdir' failed."
+msgstr ""
+
+msgid "'scp info.xml' failed."
+msgstr ""
+
 #, fuzzy, c-format
 msgid "(Snapshot %d.)"
 msgstr "Nu am găsit sursa de instalare '%s'."
+
+msgid "(Source) Creation Time"
+msgstr ""
+
+msgid "(Source) Parent UUID"
+msgstr ""
+
+msgid "(Source) Received UUID"
+msgstr ""
+
+msgid "(Source) UUID"
+msgstr ""
+
+msgid "(Target) Creation Time"
+msgstr ""
+
+msgid "(Target) Parent UUID"
+msgstr ""
+
+msgid "(Target) Received UUID"
+msgstr ""
+
+msgid "(Target) UUID"
+msgstr ""
+
+msgid "--abbreviate"
+msgstr ""
+
+msgid "--all-configs, -a"
+msgstr ""
+
+msgid "--ambit, -a <ambit>"
+msgstr ""
+
+msgid "--automatic"
+msgstr ""
+
+msgid "--backup-config, -b <name>"
+msgstr ""
+
+msgid "--cleanup-algorithm, -c <algo>"
+msgstr "--cleanup-algorithm, -c <algoritm>"
+
+msgid "--columns <columns>"
+msgstr ""
+
+msgid "--command <command>"
+msgstr ""
+
+msgid "--config, -c <name>"
+msgstr ""
+
+msgid "--csvout"
+msgstr ""
+
+msgid "--debug"
+msgstr ""
+
+msgid "--default"
+msgstr ""
+
+msgid "--description, -d <description>"
+msgstr ""
+
+msgid "--diff-cmd <command>"
+msgstr ""
+
+msgid "--disable-used-space"
+msgstr ""
+
+msgid "--empty"
+msgstr ""
+
+msgid "--extensions, -x <options>"
+msgstr ""
+
+msgid "--free-space <space>"
+msgstr ""
+
+msgid "--from <number>"
+msgstr ""
+
+msgid "--fstype, -f <fstype>"
+msgstr ""
+
+msgid "--input, -i <file>"
+msgstr ""
+
+msgid "--iso"
+msgstr ""
+
+msgid "--jsonout"
+msgstr ""
+
+msgid "--logger-type <type>"
+msgstr ""
+
+#, fuzzy
+msgid "--machine-readable <format>"
+msgstr "Date de emitere invalide."
+
+msgid "--no-dbus"
+msgstr ""
+
+msgid "--no-headers"
+msgstr ""
+
+msgid "--output, -o <file>"
+msgstr ""
+
+msgid "--path <path>"
+msgstr ""
+
+msgid "--pre-number <number>"
+msgstr ""
+
+msgid "--print-number, -p"
+msgstr ""
+
+msgid "--quiet, -q"
+msgstr ""
+
+msgid "--read-only"
+msgstr ""
+
+msgid "--read-write"
+msgstr ""
+
+msgid "--root, -r <path>"
+msgstr ""
+
+msgid "--separator <separator>"
+msgstr ""
+
+msgid "--sync, -s"
+msgstr ""
+
+msgid "--table-style, -t <style>"
+msgstr ""
+
+msgid "--target-mode <target-mode>"
+msgstr ""
+
+msgid "--template, -t <name>"
+msgstr ""
+
+msgid "--type, -t <type>"
+msgstr ""
+
+msgid "--userdata, -u <userdata>"
+msgstr "--userdata, -u <date utilizator>"
+
+msgid "--utc"
+msgstr ""
+
+msgid "--verbose, -v"
+msgstr ""
+
+msgid "--version"
+msgstr ""
 
 #, fuzzy
 msgid "ACL error."
@@ -373,21 +394,27 @@ msgstr ""
 msgid "Active snapshot is already default snapshot."
 msgstr ""
 
+msgid "Allow to abbreviate table columns."
+msgstr ""
+
 #, c-format
 msgid "Ambit is %s."
+msgstr ""
+
+msgid "Automatic"
 msgstr ""
 
 #. TRANSLATORS: symbol for "bytes" (best keep untranslated)
 msgid "B"
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot delete snapshot %d since it is the current system."
-msgstr "Ștergerea CA a eșuat: %1."
+msgstr "Nu se poate șterge instantaneul %d, deoarece acesta este sistemul curent."
 
 #, c-format
 msgid "Cannot delete snapshot %d since it is the currently mounted snapshot."
-msgstr ""
+msgstr "Nu se poate șterge instantaneul %d, deoarece este instantaneul montat în prezent."
 
 #, c-format
 msgid "Cannot delete snapshot %d since it is the next to be mounted snapshot."
@@ -399,8 +426,27 @@ msgstr ""
 msgid "Cannot do rollback since default subvolume is unknown."
 msgstr ""
 
+msgid "Character separator for CSV output format."
+msgstr ""
+
 msgid "Cleanup"
 msgstr "Curățenie"
+
+msgid "Cleanup algorithm for snapshot."
+msgstr "Algoritm de curățare pentru instantaneu."
+
+msgid "Cleanup algorithm for snapshots."
+msgstr "Algoritm de curățare pentru instantanee."
+
+msgid "Cleanup all configs affecting path."
+msgstr ""
+
+#, c-format
+msgid "Client-side plugin '%s' failed."
+msgstr ""
+
+msgid "Columns to show separated by comma."
+msgstr ""
 
 msgid "Command 'cleanup' needs one arguments."
 msgstr ""
@@ -441,9 +487,8 @@ msgstr "Comanda 'help' nu acceptă argumente."
 msgid "Command 'list-configs' does not take arguments."
 msgstr "Comanda 'help' nu acceptă argumente."
 
-#, fuzzy
 msgid "Command 'modify' needs at least one argument."
-msgstr "get necesită cel puțin un argument"
+msgstr "Comanda 'modify' are nevoie de cel puțin un argument."
 
 msgid "Command 'mount' needs at least one argument."
 msgstr ""
@@ -471,6 +516,10 @@ msgid "Command 'status' needs one argument."
 msgstr ""
 
 #, fuzzy
+msgid "Command 'transfer-and-delete' does not take arguments."
+msgstr "Comanda 'help' nu acceptă argumente."
+
+#, fuzzy
 msgid "Command 'umount' needs at least one argument."
 msgstr "get necesită cel puțin un argument"
 
@@ -480,6 +529,9 @@ msgstr ""
 #, fuzzy
 msgid "Command 'xadiff' needs at least one argument."
 msgstr "get necesită cel puțin un argument"
+
+msgid "Command used for comparing files."
+msgstr ""
 
 msgid "Config"
 msgstr "Configurare"
@@ -515,19 +567,35 @@ msgstr ""
 msgid "Could not make enough free space available."
 msgstr ""
 
+#, fuzzy
+msgid "Create a snapshot from the specified snapshot."
+msgstr "Crearea configurației a eșuat (%s)."
+
+#, fuzzy
+msgid "Create an empty snapshot."
+msgstr "Crearea configurației a eșuat (%s)."
+
+#, fuzzy
+msgid "Create read-only snapshot."
+msgstr "Crearea configurației a eșuat (%s)."
+
+#, fuzzy
+msgid "Create read-write snapshot."
+msgstr "Crearea configurației a eșuat (%s)."
+
 #, c-format
 msgid "Creating config failed (%s)."
 msgstr "Crearea configurației a eșuat (%s)."
 
 msgid "Creating read-only snapshot of current system."
-msgstr ""
+msgstr "Crearea unui instantaneu numai pentru citire a sistemului curent."
 
 #, fuzzy
 msgid "Creating read-only snapshot of default subvolume."
 msgstr "Crearea configurației a eșuat (%s)."
 
 msgid "Creating read-write snapshot of current subvolume."
-msgstr ""
+msgstr "Crearea unui instantaneu de citire-scriere a subvolumului curent."
 
 #, fuzzy, c-format
 msgid "Creating read-write snapshot of snapshot %d."
@@ -543,9 +611,17 @@ msgstr "Dată"
 msgid "Default"
 msgstr ""
 
+#, fuzzy
+msgid "Delete:"
+msgstr "  Listează configurațiile:"
+
 #, fuzzy, c-format
 msgid "Deleting config failed (%s)."
 msgstr "Crearea configurației a eșuat (%s)."
+
+#, fuzzy, c-format
+msgid "Deleting snapshot %d."
+msgstr "Ștergerea CA a eșuat: %1."
 
 #, fuzzy
 msgid "Deleting snapshot failed."
@@ -561,7 +637,23 @@ msgstr[2] "Ștergerea CA a eșuat: %1."
 msgid "Description"
 msgstr "Descriere"
 
+#, fuzzy
+msgid "Description for snapshot."
+msgstr "Descriere"
+
+msgid "Description for snapshots."
+msgstr ""
+
 msgid "Detecting filesystem type failed."
+msgstr ""
+
+msgid "Disable showing used space."
+msgstr ""
+
+msgid "Display dates and times in ISO format."
+msgstr ""
+
+msgid "Display dates and times in UTC."
 msgstr ""
 
 #. TRANSLATORS: symbol for "exa" (best keep untranslated)
@@ -580,20 +672,26 @@ msgstr ""
 msgid "Empty configdata."
 msgstr "Date de emitere invalide."
 
-#, fuzzy
 msgid "Empty userdata."
-msgstr "Date de emitere invalide."
+msgstr "Date utilizator goale."
 
 # error box title
 #, fuzzy, c-format
 msgid "Error (%s)."
 msgstr "Eroare I/O"
 
+msgid "Extra options passed to the diff command."
+msgstr "Opțiuni suplimentare transmise comenzii diff."
+
 msgid "Failed to initialize filesystem handler."
 msgstr ""
 
 #, fuzzy, c-format
 msgid "Failed to parse '%s'."
+msgstr "Date de emitere invalide."
+
+#, fuzzy
+msgid "Failed to parse number."
 msgstr "Date de emitere invalide."
 
 #, c-format
@@ -636,6 +734,10 @@ msgstr ""
 msgid "GiB"
 msgstr ""
 
+#, fuzzy
+msgid "Global options:"
+msgstr "    Opțiuni globale:"
+
 # error box title
 #, fuzzy, c-format
 msgid "IO Error (%s)."
@@ -653,12 +755,19 @@ msgstr ""
 msgid "Illegal snapshot."
 msgstr "Ștergerea CA a eșuat: %1."
 
+msgid "Increase verbosity."
+msgstr ""
+
 #, fuzzy, c-format
 msgid "Invalid ambit '%s'."
 msgstr "Date de emitere invalide."
 
 #, fuzzy, c-format
 msgid "Invalid column '%s'."
+msgstr "Date de emitere invalide."
+
+#, fuzzy
+msgid "Invalid config."
 msgstr "Date de emitere invalide."
 
 #, fuzzy
@@ -671,6 +780,10 @@ msgstr ""
 #, fuzzy, c-format
 msgid "Invalid group (%s)."
 msgstr "Motiv CRL invalid."
+
+#, fuzzy, c-format
+msgid "Invalid logger-type '%s'."
+msgstr "Date de emitere invalide."
 
 #, fuzzy, c-format
 msgid "Invalid machine readable format '%s'."
@@ -687,6 +800,10 @@ msgstr ""
 msgid "Invalid snapshots."
 msgstr ""
 
+#, fuzzy, c-format
+msgid "Invalid subvolume path '%s' on target."
+msgstr "Date de emitere invalide."
+
 msgid "Invalid subvolume."
 msgstr ""
 
@@ -695,12 +812,15 @@ msgid "Invalid table style '%s'."
 msgstr "Date de emitere invalide."
 
 #, fuzzy, c-format
+msgid "Invalid target mode '%s'."
+msgstr "Date de emitere invalide."
+
+#, fuzzy, c-format
 msgid "Invalid user (%s)."
 msgstr "Date de emitere invalide."
 
-#, fuzzy
 msgid "Invalid userdata."
-msgstr "Date de emitere invalide."
+msgstr "Date utilizator nevalide."
 
 #, fuzzy
 msgid "Key"
@@ -708,6 +828,16 @@ msgstr "Kenia"
 
 #. TRANSLATORS: symbol for "kibi bytes" (best keep untranslated)
 msgid "KiB"
+msgstr ""
+
+#, fuzzy
+msgid "List configs:"
+msgstr "  Listează configurațiile:"
+
+msgid "List snapshots from all accessible configs."
+msgstr ""
+
+msgid "List:"
 msgstr ""
 
 #, c-format
@@ -720,6 +850,9 @@ msgstr ""
 
 #. TRANSLATORS: symbol for "mega bytes" (best keep untranslated)
 msgid "MB"
+msgstr ""
+
+msgid "Manually set filesystem type."
 msgstr ""
 
 msgid "Maybe you forgot the delimiter '..' between the snapshot numbers."
@@ -747,15 +880,45 @@ msgstr ""
 msgid "Missing or invalid pre-number."
 msgstr ""
 
+msgid "Name"
+msgstr ""
+
+msgid "Name of config template to use."
+msgstr ""
+
+msgid "No backup configs found."
+msgstr ""
+
 msgid "No command provided."
+msgstr ""
+
+msgid "No headers for CSV output format."
 msgstr ""
 
 #, fuzzy
 msgid "No permissions."
 msgstr "(permisiunile posesorului dezactivate)"
 
+msgid "Number of corresponding pre snapshot."
+msgstr ""
+
+msgid "Only use backup-config with automatic set."
+msgstr ""
+
+msgid "Only use backup-config with specified target-mode."
+msgstr ""
+
 #, c-format
 msgid "Opening file '%s' failed."
+msgstr ""
+
+msgid "Operate in the specified ambit."
+msgstr ""
+
+msgid "Operate on target root (works only without DBus)."
+msgstr ""
+
+msgid "Operate without DBus."
 msgstr ""
 
 msgid "Option --from only supported for snapshots of type single."
@@ -771,6 +934,10 @@ msgstr ""
 
 #. TRANSLATORS: symbol for "peta bytes" (best keep untranslated)
 msgid "PB"
+msgstr ""
+
+#, c-format
+msgid "Path mismatch between source-path of backup-config and subvolume of snapper config ('%s' vs. '%s')."
 msgstr ""
 
 #. TRANSLATORS: symbol for "pebi bytes" (best keep untranslated)
@@ -791,17 +958,151 @@ msgstr ""
 msgid "Pre Date"
 msgstr "Data postării"
 
+msgid "Print number of created snapshot."
+msgstr ""
+
+msgid "Print number of second created snapshot."
+msgstr ""
+
+msgid "Print version and exit."
+msgstr ""
+
+msgid "Probing extra information for source snapshots."
+msgstr ""
+
+msgid "Probing extra information for target snapshots."
+msgstr ""
+
+#, fuzzy
+msgid "Probing source snapshots."
+msgstr "Descriere"
+
+#, fuzzy
+msgid "Probing target snapshots."
+msgstr "Datele utilizatorului pentru instantanee."
+
 # error box title
 #, fuzzy, c-format
 msgid "Quota error (%s)."
 msgstr "Eroare I/O"
 
+msgid "Read files for which to undo changes from file."
+msgstr ""
+
+msgid "Read files to diff from file."
+msgstr ""
+
 msgid "Read-Only"
+msgstr ""
+
+msgid "Run command and create pre and post snapshots."
+msgstr ""
+
+#, c-format
+msgid "Running delete failed for %d of %ld backup config."
+msgid_plural "Running delete failed for %d of %ld backup configs."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#, c-format
+msgid "Running delete for backup config '%s' failed."
+msgstr ""
+
+#, c-format
+msgid "Running delete for backup config '%s'."
+msgstr ""
+
+#, c-format
+msgid "Running list failed for %d of %ld backup config."
+msgid_plural "Running list failed for %d of %ld backup configs."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#, c-format
+msgid "Running transfer and delete failed for %d of %ld backup config."
+msgid_plural "Running transfer and delete failed for %d of %ld backup configs."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#, c-format
+msgid "Running transfer and delete for backup config '%s' failed."
+msgstr ""
+
+#, c-format
+msgid "Running transfer and delete for backup config '%s'."
+msgstr ""
+
+#, c-format
+msgid "Running transfer failed for %d of %ld backup config."
+msgid_plural "Running transfer failed for %d of %ld backup configs."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#, c-format
+msgid "Running transfer for backup config '%s' failed."
+msgstr ""
+
+#, c-format
+msgid "Running transfer for backup config '%s'."
+msgstr ""
+
+msgid "SSH Host"
+msgstr ""
+
+msgid "SSH Identity"
+msgstr ""
+
+msgid "SSH Port"
+msgstr ""
+
+#, fuzzy
+msgid "SSH User"
+msgstr "Nume de utilizator"
+
+msgid "Save status to file."
 msgstr ""
 
 #, fuzzy
 msgid "See 'man snapper' for further instructions."
 msgstr "Încercați `%s --help' or `%s --usage' pentru mai multe informații\n"
+
+#, c-format
+msgid "Server-side plugin '%s' failed."
+msgstr ""
+
+msgid "Set CSV output format."
+msgstr ""
+
+msgid "Set JSON output format."
+msgstr ""
+
+#, fuzzy
+msgid "Set a machine-readable output format (csv, json)."
+msgstr "Date de emitere invalide."
+
+msgid "Set logger type."
+msgstr ""
+
+msgid "Set name of backup-config to use."
+msgstr ""
+
+msgid "Set name of config to use."
+msgstr ""
+
+msgid "Set snapshot as default snapshot."
+msgstr ""
+
+#, fuzzy
+msgid "Set snapshot read-only."
+msgstr "Crearea configurației a eșuat (%s)."
+
+#, fuzzy
+msgid "Set snapshot read-write."
+msgstr "Crearea configurației a eșuat (%s)."
 
 #, c-format
 msgid "Setting default subvolume to snapshot %d."
@@ -812,10 +1113,38 @@ msgid "Snapshot '%u' not found."
 msgstr "Nu am găsit sursa de instalare '%s'."
 
 #, fuzzy
+msgid "Snapshot already on target."
+msgstr "Crearea configurației a eșuat (%s)."
+
+#, fuzzy
 msgid "Snapshot is in use."
 msgstr "Configurația '%s' nu a fost găsită."
 
+#, fuzzy
+msgid "Snapshot not on source."
+msgstr "Configurația '%s' nu a fost găsită."
+
+#, fuzzy
+msgid "Snapshot not on target."
+msgstr "Nu am găsit sursa de instalare '%s'."
+
+#, fuzzy, c-format
+msgid "Snapshot number %d not found."
+msgstr "Nu am găsit sursa de instalare '%s'."
+
+msgid "Source Path"
+msgstr ""
+
+msgid "Source State"
+msgstr ""
+
 msgid "Subvolume"
+msgstr ""
+
+msgid "Suppress normal output."
+msgstr ""
+
+msgid "Sync after deletion."
 msgstr ""
 
 #. TRANSLATORS: symbol for "tera" (best keep untranslated)
@@ -824,6 +1153,36 @@ msgstr ""
 
 #. TRANSLATORS: symbol for "tera bytes" (best keep untranslated)
 msgid "TB"
+msgstr ""
+
+msgid "Table style (integer)."
+msgstr ""
+
+msgid "Target Mode"
+msgstr ""
+
+msgid "Target Path"
+msgstr ""
+
+msgid "Target State"
+msgstr ""
+
+msgid "Target btrfs bin"
+msgstr ""
+
+msgid "Target findmnt Bin"
+msgstr ""
+
+msgid "Target mkdir bin"
+msgstr ""
+
+msgid "Target realpath bin"
+msgstr ""
+
+msgid "Target rm bin"
+msgstr ""
+
+msgid "Target rmdir bin"
 msgstr ""
 
 msgid "The ambit can be specified manually using the --ambit option."
@@ -839,16 +1198,43 @@ msgstr ""
 msgid "TiB"
 msgstr ""
 
+msgid "Transfer and delete:"
+msgstr ""
+
+msgid "Transfer:"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Transferring snapshot %d."
+msgstr "Crearea configurației a eșuat (%s)."
+
 #, fuzzy
 msgid "Try 'snapper --help' for more information."
 msgstr "Încercați `%s --help' or `%s --usage' pentru mai multe informații\n"
 
+#, fuzzy
+msgid "Try 'snbk --help' for more information."
+msgstr "Încercați `%s --help' or `%s --usage' pentru mai multe informații\n"
+
+msgid "Try to make space available."
+msgstr ""
+
+msgid "Turn on debugging."
+msgstr ""
+
 msgid "Type"
 msgstr "Tip"
 
+#, fuzzy
+msgid "Type for snapshot."
+msgstr "Ștergerea CA a eșuat: %1."
+
+msgid "Type of snapshots to list."
+msgstr ""
+
 #, c-format
 msgid "Unknown cleanup algorithm '%s'."
-msgstr ""
+msgstr "Algoritm de curățare necunoscut '%s'."
 
 #, c-format
 msgid "Unknown command '%s'."
@@ -887,24 +1273,29 @@ msgstr ""
 msgid "User"
 msgstr "Nume de utilizator"
 
-#, fuzzy
 msgid "Userdata"
-msgstr "Nume de utilizator"
+msgstr "Date utilizator"
 
 #, c-format
 msgid "Userdata '%s' does not include '=' sign."
-msgstr ""
+msgstr "Datele utilizatorului '%s' nu includ semnul '='."
 
 #, c-format
 msgid "Userdata '%s' has empty key."
-msgstr ""
+msgstr "Datele utilizatorului '%s' au o cheie goală."
+
+msgid "Userdata for snapshot."
+msgstr "Datele utilizatorului pentru instantaneu."
+
+msgid "Userdata for snapshots."
+msgstr "Datele utilizatorului pentru instantanee."
 
 msgid "Value"
 msgstr "Valoare"
 
 #, c-format
 msgid "create:%d modify:%d delete:%d"
-msgstr ""
+msgstr "creare:%d modificare:%d ștergere:%d"
 
 #, c-format
 msgid "creating %s"
@@ -924,7 +1315,7 @@ msgstr ""
 
 #, c-format
 msgid "failed to modify %s"
-msgstr ""
+msgstr "nu s-a reușit modificarea %s"
 
 #. TRANSLATORS: symbol for "kilo" (best keep untranslated)
 msgid "k"
@@ -936,7 +1327,7 @@ msgstr ""
 
 #, c-format
 msgid "modifying %s"
-msgstr ""
+msgstr "modificarea %s"
 
 msgid "no"
 msgstr ""
@@ -949,7 +1340,28 @@ msgstr "Nimic de făcut."
 msgid "root argument can be used only together with no-dbus.\n"
 msgstr "Încercați `%s --help' or `%s --usage' pentru mai multe informații\n"
 
+#, fuzzy
+msgid "snbk delete [numbers]"
+msgstr "\tsnapper delete <număr>"
+
+#, fuzzy
+msgid "snbk list"
+msgstr "\tsnapper list"
+
+#, fuzzy
+msgid "snbk list-configs"
+msgstr "\tsnapper list-configs"
+
+msgid "snbk transfer [numbers]"
+msgstr ""
+
+msgid "snbk transfer-and-delete"
+msgstr ""
+
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
+msgstr ""
+
+msgid "usage: snbk [--global-options] <command> [command-arguments]"
 msgstr ""
 
 msgid "yes"

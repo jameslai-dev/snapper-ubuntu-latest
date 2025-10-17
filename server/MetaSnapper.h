@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2012-2015] Novell, Inc.
- * Copyright (c) [2018-2023] SUSE LLC
+ * Copyright (c) [2018-2025] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -36,6 +36,9 @@ using namespace std;
 using namespace snapper;
 
 
+class Clients;
+
+
 struct UnknownConfig : public Exception
 {
     explicit UnknownConfig() : Exception("unknown config") {}
@@ -46,7 +49,7 @@ class MetaSnapper : public RefCounter
 {
 public:
 
-    MetaSnapper(ConfigInfo& config_info);
+    MetaSnapper(const ConfigInfo& config_info);
     ~MetaSnapper();
 
     const string& configName() const { return config_info.get_config_name(); }
@@ -61,9 +64,11 @@ public:
 
     Snapper* getSnapper();
 
-    bool is_equal(const Snapper* s) { return snapper && snapper == s; }
-    bool is_loaded() const { return snapper; }
+    bool is_equal(const Snapper* s) const { return is_loaded() && snapper.get() == s; }
+    bool is_loaded() const { return (bool) snapper; }
     void unload();
+
+    bool is_locked(const Clients& clients) const;
 
 private:
 
@@ -71,7 +76,7 @@ private:
 
     ConfigInfo config_info;
 
-    Snapper* snapper = nullptr;
+    unique_ptr<Snapper> snapper;
 
     vector<uid_t> allowed_uids;
     vector<gid_t> allowed_gids;
@@ -105,8 +110,8 @@ public:
     iterator find(const string& config_name);
 
     void createConfig(const string& config_name, const string& subvolume, const string& fstype,
-		      const string& template_name);
-    void deleteConfig(iterator);
+		      const string& template_name, Plugins::Report& report);
+    void deleteConfig(iterator, Plugins::Report& report);
 
 private:
 

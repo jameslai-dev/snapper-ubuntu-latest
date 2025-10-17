@@ -30,12 +30,11 @@
 
 #include "client/utils/text.h"
 #include "client/utils/GetOpts.h"
-#include "proxy.h"
+#include "proxy/proxy.h"
 
 
-using namespace snapper;
-using namespace std;
-
+namespace snapper
+{
 
 unsigned int
 read_num(const string& str);
@@ -52,8 +51,8 @@ read_configdata(const vector<string>& v, const map<string, string>& old = map<st
 string
 username(uid_t uid);
 
-const Filesystem*
-get_filesystem(const ProxyConfig& config, const string& target_root);
+    unique_ptr<const Filesystem>
+    get_filesystem(const ProxyConfig& config, const string& target_root);
 
 
 struct Differ
@@ -66,9 +65,6 @@ struct Differ
     string extensions;
 };
 
-
-namespace snapper
-{
 
     /**
      * Return a string listing the possible enum values. E.g. "Use auto, classic or

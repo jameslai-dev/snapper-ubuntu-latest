@@ -3,7 +3,7 @@
 #
 
 SUBDIRS = snapper dbus server client scripts pam data doc po examples		\
-	testsuite testsuite-real testsuite-cmp zypp-plugin
+	testsuite testsuite-real testsuite-cmp stomp zypp-plugin
 
 AUTOMAKE_OPTIONS = foreign dist-xz no-dist-gzip
 
@@ -14,27 +14,29 @@ EXTRA_DIST = $(doc_DATA) VERSION LIBVERSION
 snapper-$(VERSION).tar.xz: dist-xz
 
 DEBIAN_FLAVOURS =	\
-	Debian_10.0	\
 	Debian_11.0	\
 	Debian_12.0	\
+	Debian_13.0	\
 	Debian_Unstable
 
 UBUNTU_FLAVOURS =	\
-	xUbuntu_18.04	\
-	xUbuntu_18.10	\
-	xUbuntu_19.04	\
-	xUbuntu_19.10	\
 	xUbuntu_20.04	\
 	xUbuntu_20.10	\
 	xUbuntu_21.04	\
 	xUbuntu_21.10	\
 	xUbuntu_22.04	\
 	xUbuntu_22.10	\
-	xUbuntu_23.04
+	xUbuntu_23.04	\
+	xUbuntu_23.10	\
+	xUbuntu_24.04	\
+	xUbuntu_24.10	\
+	xUbuntu_25.04	\
+	xUbuntu_25.10
 
 RASPBIAN_FLAVOURS =	\
-	Raspbian_10	\
-	Raspbian_11
+	Raspbian_11	\
+	Raspbian_12	\
+	Raspbian_13
 
 show-debian:
 	@echo "Debian flavors: $(DEBIAN_FLAVOURS)"
@@ -68,7 +70,7 @@ endif
 # Create all the files necessary for building the package with OBS:
 #
 # - Clean up the package/ directory
-# - create a new tarball (via the depencency)
+# - create a new tarball (via the dependency)
 # - copy the content of the debian/ directory
 # - for both Debian, Ubuntu and Raspbian, generate a master .dsc.in from file with the
 #   "Files:" line for the tarball with its md5sum, file size in bytes, and name
@@ -85,7 +87,7 @@ endif
 # configure.ac) where @VERSION@ is expanded with the content of the toplevel
 # VERSION file.
 #
-# $< is the first depencency of the rule, i.e. snapper-$(VERSION).tar.gz in this case.
+# $< is the first dependency of the rule, i.e. snapper-$(VERSION).tar.gz in this case.
 
 # Build a reproducible tarball:
 # - set the file time stamps according to the latest commit
@@ -115,6 +117,7 @@ package: snapper-$(VERSION).tar.xz package-clean
 	cp dists/debian/*.dsc.in package/
 	echo "$(shell md5sum $< | sed -e 's/\s.*//') $(shell wc -c $<)" >> package/snapper-Debian.dsc.in
 	echo "$(shell md5sum $< | sed -e 's/\s.*//') $(shell wc -c $<)" >> package/snapper-xUbuntu.dsc.in
+	echo "$(shell md5sum $< | sed -e 's/\s.*//') $(shell wc -c $<)" >> package/snapper-Raspbian.dsc.in
 	for FLAV in $(DEBIAN_FLAVOURS); do cp -v package/snapper-Debian.dsc.in package/snapper-$${FLAV}.dsc; done
 	for FLAV in $(UBUNTU_FLAVOURS); do cp -v package/snapper-xUbuntu.dsc.in package/snapper-$${FLAV}.dsc; done
 	for FLAV in $(RASPBIAN_FLAVOURS); do cp -v package/snapper-Raspbian.dsc.in package/snapper-$${FLAV}.dsc; done

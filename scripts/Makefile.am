@@ -2,6 +2,8 @@
 # Makefile.am for snapper/scripts
 #
 
+SUBDIRS = completion
+
 if HAVE_PAM
 
 pam_snapperdir = /usr/lib/pam_snapper
@@ -14,10 +16,7 @@ pam_snapper_SCRIPTS =			\
 
 endif
 
-EXTRA_DIST = snapper-hourly snapper-daily bash-completion.bash zsh-completion.zsh $(pam_snapper_SCRIPTS)
+EXTRA_DIST = snapper-hourly $(pam_snapper_SCRIPTS)
 
 install-data-local:
 	install -D snapper-hourly $(DESTDIR)/etc/cron.hourly/suse.de-snapper
-	install -D snapper-daily $(DESTDIR)/etc/cron.daily/suse.de-snapper
-	install -D --mode a+r,u+w bash-completion.bash $(DESTDIR)/usr/share/bash-completion/completions/snapper
-	install -D --mode a+r,u+w zsh-completion.zsh $(DESTDIR)/usr/share/zsh/site-functions/_snapper

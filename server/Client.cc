@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2012-2015] Novell, Inc.
- * Copyright (c) [2016-2023] SUSE LLC
+ * Copyright (c) [2016-2025] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -23,9 +23,8 @@
 
 #include "config.h"
 
-#include <snapper/Log.h>
+#include <snapper/LoggerImpl.h>
 #include <snapper/SnapperTmpl.h>
-#include <snapper/AsciiFile.h>
 #include <snapper/Version.h>
 #include <dbus/DBusMessage.h>
 #include <dbus/DBusConnection.h>
@@ -56,9 +55,9 @@ Client::~Client()
     if (files_transfer_thread.joinable())
 	files_transfer_thread.join();
 
-    for (list<Comparison*>::iterator it = comparisons.begin(); it != comparisons.end(); ++it)
+    for (Comparison& comparison : comparisons)
     {
-	delete_comparison(it);
+	delete_comparison(comparison);
     }
 
     for (map<pair<string, unsigned int>, unsigned int>::iterator it1 = mounts.begin();
@@ -81,14 +80,14 @@ Client::~Client()
 }
 
 
-list<Comparison*>::iterator
+list<Comparison>::iterator
 Client::find_comparison(Snapper* snapper, Snapshots::const_iterator snapshot1,
 			Snapshots::const_iterator snapshot2)
 {
-    for (list<Comparison*>::iterator it = comparisons.begin(); it != comparisons.end(); ++it)
+    for (list<Comparison>::iterator it = comparisons.begin(); it != comparisons.end(); ++it)
     {
-	if ((*it)->getSnapper() == snapper && (*it)->getSnapshot1() == snapshot1 &&
-	    (*it)->getSnapshot2() == snapshot2)
+	if (it->getSnapper() == snapper && it->getSnapshot1() == snapshot1 &&
+	    it->getSnapshot2() == snapshot2)
 	    return it;
     }
 
@@ -97,7 +96,7 @@ Client::find_comparison(Snapper* snapper, Snapshots::const_iterator snapshot1,
 }
 
 
-list<Comparison*>::iterator
+list<Comparison>::iterator
 Client::find_comparison(Snapper* snapper, unsigned int number1, unsigned int number2)
 {
     Snapshots& snapshots = snapper->getSnapshots();
@@ -109,39 +108,43 @@ Client::find_comparison(Snapper* snapper, unsigned int number1, unsigned int num
 
 
 void
-Client::delete_comparison(list<Comparison*>::iterator it)
+Client::delete_comparison(Comparison& comparison)
 {
-    const Snapper* s = (*it)->getSnapper();
+    // TODO: function name is misleading
 
-    for (MetaSnappers::iterator it2 = meta_snappers.begin(); it2 != meta_snappers.end(); ++it2)
+    // TODO: a class MetaComparison with integrated RefCounter would be cool to avoid this
+    // function entirely
+
+    const Snapper* snapper = comparison.getSnapper();
+
+    for (MetaSnapper& meta_snapper : meta_snappers)
     {
-	if (it2->is_equal(s))
-	    it2->dec_use_count();
+	if (meta_snapper.is_equal(snapper))
+	    meta_snapper.dec_use_count();
     }
-
-    delete *it;
-    *it = nullptr;
 }
 
 
 void
 Client::add_lock(const string& config_name)
 {
-    locks.insert(config_name);
+    locks[config_name]++;
 }
 
 
 void
 Client::remove_lock(const string& config_name)
 {
-    locks.erase(config_name);
+    map<string, unsigned int>::iterator it = locks.find(config_name);
+    if (it != locks.end() && --it->second == 0)
+	locks.erase(it);
 }
 
 
 bool
 Client::has_lock(const string& config_name) const
 {
-    return contains(locks, config_name);
+    return locks.find(config_name) != locks.end();
 }
 
 
@@ -399,6 +402,13 @@ Client::introspect(DBus::Connection& conn, DBus::Message& msg)
 	"      <arg name='config-name' type='s' direction='in'/>\n"
 	"    </method>\n"
 
+	"    <method name='GetPluginsReport'>\n"
+	"      <arg name='report' type='a(sasi)' direction='out'/>\n"
+	"    </method>\n"
+
+	"    <method name='ClearPluginsReport'>\n"
+	"    </method>\n"
+
 	"  </interface>\n"
 	"</node>\n";
 
@@ -604,8 +614,9 @@ Client::list_configs(DBus::Connection& conn, DBus::Message& msg)
 
     DBus::Marshaller marshaller(reply);
     marshaller.open_array(DBus::TypeInfo<ConfigInfo>::signature);
-    for (MetaSnappers::const_iterator it = meta_snappers.begin(); it != meta_snappers.end(); ++it)
-	marshaller << it->getConfigInfo();
+    for (const MetaSnapper& meta_snapper : meta_snappers)
+	marshaller << meta_snapper.getConfigInfo();
+
     marshaller.close_array();
 
     conn.send(reply);
@@ -682,7 +693,7 @@ Client::create_config(DBus::Connection& conn, DBus::Message& msg)
 
     check_permission(conn, msg);
 
-    meta_snappers.createConfig(config_name, subvolume, fstype, template_name);
+    meta_snappers.createConfig(config_name, subvolume, fstype, template_name, report);
 
     DBus::MessageMethodReturn reply(msg);
 
@@ -710,7 +721,7 @@ Client::delete_config(DBus::Connection& conn, DBus::Message& msg)
     check_lock(conn, msg, config_name);
     check_config_in_use(*it);
 
-    meta_snappers.deleteConfig(it);
+    meta_snappers.deleteConfig(it, report);
 
     DBus::MessageMethodReturn reply(msg);
 
@@ -822,10 +833,10 @@ Client::list_snapshots_at_time(DBus::Connection& conn, DBus::Message& msg)
     DBus::Marshaller marshaller(reply);
 
     marshaller.open_array(DBus::TypeInfo<Snapshot>::signature);
-    for (Snapshots::const_iterator it = snapshots.begin(); it != snapshots.end(); ++it)
+    for (const Snapshot& snapshot : snapshots)
     {
-	if (it->getDate() >= begin && it->getDate() <= end)
-	    marshaller << *it;
+	if (snapshot.getDate() >= begin && snapshot.getDate() <= end)
+	    marshaller << snapshot;
     }
     marshaller.close_array();
 
@@ -891,7 +902,7 @@ Client::set_snapshot(DBus::Connection& conn, DBus::Message& msg)
     if (snap == snapshots.end())
 	SN_THROW(IllegalSnapshotException());
 
-    snapper->modifySnapshot(snap, smd);
+    snapper->modifySnapshot(snap, smd, report);
 
     DBus::MessageMethodReturn reply(msg);
 
@@ -922,7 +933,7 @@ Client::create_single_snapshot(DBus::Connection& conn, DBus::Message& msg)
 
     Snapper* snapper = it->getSnapper();
 
-    Snapshots::iterator snap1 = snapper->createSingleSnapshot(scd);
+    Snapshots::iterator snap1 = snapper->createSingleSnapshot(scd, report);
 
     DBus::MessageMethodReturn reply(msg);
 
@@ -961,7 +972,7 @@ Client::create_single_snapshot_v2(DBus::Connection& conn, DBus::Message& msg)
 
     Snapshots::iterator parent = snapshots.find(parent_num);
 
-    Snapshots::iterator snap2 = snapper->createSingleSnapshot(parent, scd);
+    Snapshots::iterator snap2 = snapper->createSingleSnapshot(parent, scd, report);
 
     DBus::MessageMethodReturn reply(msg);
 
@@ -995,7 +1006,7 @@ Client::create_single_snapshot_of_default(DBus::Connection& conn, DBus::Message&
 
     Snapper* snapper = it->getSnapper();
 
-    Snapshots::iterator snap = snapper->createSingleSnapshotOfDefault(scd);
+    Snapshots::iterator snap = snapper->createSingleSnapshotOfDefault(scd, report);
 
     DBus::MessageMethodReturn reply(msg);
 
@@ -1029,7 +1040,7 @@ Client::create_pre_snapshot(DBus::Connection& conn, DBus::Message& msg)
 
     Snapper* snapper = it->getSnapper();
 
-    Snapshots::iterator snap1 = snapper->createPreSnapshot(scd);
+    Snapshots::iterator snap1 = snapper->createPreSnapshot(scd, report);
 
     DBus::MessageMethodReturn reply(msg);
 
@@ -1067,12 +1078,16 @@ Client::create_post_snapshot(DBus::Connection& conn, DBus::Message& msg)
 
     Snapshots::iterator snap1 = snapshots.find(pre_num);
 
-    Snapshots::iterator snap2 = snapper->createPostSnapshot(snap1, scd);
+    Snapshots::iterator snap2 = snapper->createPostSnapshot(snap1, scd, report);
 
     bool background_comparison = true;
     it->getConfigInfo().get_value("BACKGROUND_COMPARISON", background_comparison);
     if (background_comparison)
-	clients.backgrounds().add_task(it, snap1, snap2);
+    {
+	// TODO isReadOnly is wrong if read-only is not supported by file system
+	if (snap1->isReadOnly() && snap2->isReadOnly())
+	    clients.backgrounds().add_task(it, snap1, snap2);
+    }
 
     DBus::MessageMethodReturn reply(msg);
 
@@ -1113,7 +1128,7 @@ Client::delete_snapshots(DBus::Connection& conn, DBus::Message& msg)
 
 	Snapshots::iterator snap = snapshots.find(*it2);
 
-	snapper->deleteSnapshot(snap);
+	snapper->deleteSnapshot(snap, report);
     }
 
     DBus::MessageMethodReturn reply(msg);
@@ -1142,7 +1157,6 @@ Client::is_snapshot_read_only(DBus::Connection& conn, DBus::Message& msg)
     check_permission(conn, msg, *it);
 
     Snapper* snapper = it->getSnapper();
-
     Snapshots& snapshots = snapper->getSnapshots();
 
     Snapshots::iterator snap = snapshots.find(num);
@@ -1179,14 +1193,13 @@ Client::set_snapshot_read_only(DBus::Connection& conn, DBus::Message& msg)
     check_permission(conn, msg, *it);
 
     Snapper* snapper = it->getSnapper();
-
     Snapshots& snapshots = snapper->getSnapshots();
 
     Snapshots::iterator snap = snapshots.find(num);
     if (snap == snapshots.end())
 	SN_THROW(IllegalSnapshotException());
 
-    snap->setReadOnly(read_only);
+    snap->setReadOnly(read_only, report);
 
     DBus::MessageMethodReturn reply(msg);
 
@@ -1312,7 +1325,6 @@ Client::get_used_space(DBus::Connection& conn, DBus::Message& msg)
     check_permission(conn, msg, *it);
 
     Snapper* snapper = it->getSnapper();
-
     Snapshots& snapshots = snapper->getSnapshots();
 
     Snapshots::iterator snap = snapshots.find(num);
@@ -1469,18 +1481,18 @@ Client::create_comparison(DBus::Connection& conn, DBus::Message& msg)
 
     lock.unlock();
 
-    Comparison* comparison = new Comparison(snapper, snapshot1, snapshot2, false);
+    Comparison comparison(snapper, snapshot1, snapshot2, false);
+    dbus_uint32_t num_files = comparison.getFiles().size();
 
     lock.lock();
 
-    comparisons.push_back(comparison);
+    comparisons.push_back(std::move(comparison));
 
     it->inc_use_count();
 
     DBus::MessageMethodReturn reply(msg);
 
     DBus::Marshaller marshaller(reply);
-    dbus_uint32_t num_files = comparison->getFiles().size();
     marshaller << num_files;
 
     conn.send(reply);
@@ -1504,9 +1516,9 @@ Client::delete_comparison(DBus::Connection& conn, DBus::Message& msg)
 
     check_permission(conn, msg, *it);
 
-    list<Comparison*>::iterator it2 = find_comparison(it->getSnapper(), num1, num2);
+    list<Comparison>::iterator it2 = find_comparison(it->getSnapper(), num1, num2);
 
-    delete_comparison(it2);
+    delete_comparison(*it2);
     comparisons.erase(it2);
 
     DBus::MessageMethodReturn reply(msg);
@@ -1532,9 +1544,9 @@ Client::get_files(DBus::Connection& conn, DBus::Message& msg)
 
     check_permission(conn, msg, *it);
 
-    list<Comparison*>::iterator it2 = find_comparison(it->getSnapper(), num1, num2);
+    list<Comparison>::iterator it2 = find_comparison(it->getSnapper(), num1, num2);
 
-    const Files& files = (*it2)->getFiles();
+    const Files& files = it2->getFiles();
 
     DBus::MessageMethodReturn reply(msg);
 
@@ -1562,9 +1574,9 @@ Client::get_files_by_pipe(DBus::Connection& conn, DBus::Message& msg)
 
     check_permission(conn, msg, *it);
 
-    list<Comparison*>::iterator it2 = find_comparison(it->getSnapper(), num1, num2);
+    list<Comparison>::iterator it2 = find_comparison(it->getSnapper(), num1, num2);
 
-    const Files& files = (*it2)->getFiles();
+    const Files& files = it2->getFiles();
 
     DBus::MessageMethodReturn reply(msg);
 
@@ -1708,6 +1720,8 @@ Client::sync(DBus::Connection& conn, DBus::Message& msg)
 
     y2deb("Sync config_name:" << config_name);
 
+    boost::unique_lock<boost::shared_mutex> lock(big_mutex);
+
     MetaSnappers::iterator it = meta_snappers.find(config_name);
 
     check_permission(conn, msg, *it);
@@ -1717,6 +1731,43 @@ Client::sync(DBus::Connection& conn, DBus::Message& msg)
     snapper->syncFilesystem();
 
     DBus::MessageMethodReturn reply(msg);
+
+    conn.send(reply);
+}
+
+
+void
+Client::get_plugins_report(DBus::Connection& conn, DBus::Message& msg)
+{
+    y2deb("GetPluginsReport");
+
+    boost::unique_lock<boost::shared_mutex> lock(big_mutex);
+
+    // No permission check here: The report belongs to the client.
+
+    DBus::MessageMethodReturn reply(msg);
+
+    DBus::Marshaller marshaller(reply);
+    marshaller << report.entries;
+
+    conn.send(reply);
+}
+
+
+void
+Client::clear_plugins_report(DBus::Connection& conn, DBus::Message& msg)
+{
+    y2deb("ClearPluginsReport");
+
+    boost::unique_lock<boost::shared_mutex> lock(big_mutex);
+
+    // No permission check here: The report belongs to the client.
+
+    DBus::MessageMethodReturn reply(msg);
+
+    report.clear();
+
+    DBus::Marshaller marshaller(reply);
 
     conn.send(reply);
 }
@@ -1745,41 +1796,43 @@ Client::debug(DBus::Connection& conn, DBus::Message& msg)
     }
 
     marshaller << "clients:";
-    for (Clients::const_iterator it = clients.begin(); it != clients.end(); ++it)
+    for (const Client& client : clients)
     {
 	std::ostringstream s;
-	s << "    name:'" << it->name << "', uid:" << it->uid;
-	if (&*it == this)
+	s << "    name:'" << client.name << "', uid:" << client.uid;
+	if (&client == this)
 	    s << ", myself";
-	if (it->zombie)
+	if (client.zombie)
 	    s << ", zombie";
-	if (!it->locks.empty())
-	    s << ", locks " << it->locks.size();
-	if (!it->comparisons.empty())
-	    s << ", comparisons " << it->comparisons.size();
+	if (!client.locks.empty())
+	    s << ", locks " << client.locks.size();
+	if (!client.comparisons.empty())
+	    s << ", comparisons " << client.comparisons.size();
 	marshaller << s.str();
     }
 
     marshaller << "backgrounds:";
-    for (Backgrounds::const_iterator it = clients.backgrounds().begin(); it != clients.backgrounds().end(); ++it)
+    for (const Backgrounds::Task& task : clients.backgrounds())
     {
 	std::ostringstream s;
-	s << "    name:'" << it->meta_snapper->configName() << "'";
+	s << "    name:'" << task.meta_snapper->configName() << "'";
 	marshaller << s.str();
     }
 
     marshaller << "meta-snappers:";
-    for (MetaSnappers::const_iterator it = meta_snappers.begin(); it != meta_snappers.end(); ++it)
+    for (const MetaSnapper& meta_snapper : meta_snappers)
     {
 	std::ostringstream s;
-	s << "    name:'" << it->configName() << "'";
-	if (it->is_loaded())
+	s << "    name:'" << meta_snapper.configName() << "'";
+	if (meta_snapper.is_loaded())
 	{
 	    s << ", loaded";
-	    if (it->use_count() == 0)
-		s << ", unused for " << duration_cast<milliseconds>(it->unused_for()).count() << "ms";
+	    if (meta_snapper.is_locked(clients))
+		s << ", locked";
+	    if (meta_snapper.use_count() == 0)
+		s << ", unused for " << duration_cast<milliseconds>(meta_snapper.unused_for()).count() << "ms";
 	    else
-		s << ", use count " << it->use_count();
+		s << ", use count " << meta_snapper.use_count();
 	}
 	marshaller << s.str();
     }
@@ -1788,6 +1841,7 @@ Client::debug(DBus::Connection& conn, DBus::Message& msg)
     marshaller << "    version " + string(Snapper::compileVersion());
     marshaller << "    libversion " LIBSNAPPER_MAJOR "." LIBSNAPPER_MINOR "." LIBSNAPPER_PATCHLEVEL;
     marshaller << "    flags " + string(Snapper::compileFlags());
+    marshaller << "    CONF_DIR " CONF_DIR;
 
     marshaller.close_array();
 
@@ -1836,6 +1890,8 @@ Client::dispatch(DBus::Connection& conn, DBus::Message& msg)
 	{ "QueryQuota", &Client::query_quota },
 	{ "QueryFreeSpace", &Client::query_free_space },
 	{ "Sync", &Client::sync },
+	{ "GetPluginsReport", &Client::get_plugins_report },
+	{ "ClearPluginsReport", &Client::clear_plugins_report },
 	{ "Debug", &Client::debug }
     };
 
@@ -1940,6 +1996,12 @@ Client::dispatch(DBus::Connection& conn, DBus::Message& msg)
     {
 	SN_CAUGHT(e);
 	DBus::MessageError reply(msg, "error.delete_snapshot_failed", DBUS_ERROR_FAILED);
+	conn.send(reply);
+    }
+    catch (const InvalidConfigException& e)
+    {
+	SN_CAUGHT(e);
+	DBus::MessageError reply(msg, "error.invalid_config", DBUS_ERROR_FAILED);
 	conn.send(reply);
     }
     catch (const InvalidConfigdataException& e)
@@ -2174,7 +2236,7 @@ Client::files_transfer_worker()
 	    catch (const StreamException& e)
 	    {
 		SN_CAUGHT(e);
-		y2err("error occured during files transfer");
+		y2err("error occurred during files transfer");
 	    }
 	}
     }

@@ -13,14 +13,14 @@ CMD_BTRFS="/sbin/btrfs"
 CMD_SNAPPER="/usr/bin/snapper"
 CMD_EGREP="grep -E"
 CMD_PAM_CONFIG="/usr/sbin/pam-config"
-CMD_SED="sed"
-CMD_USERADD="useradd -m"
-CMD_USERDEL="userdel -r"
+CMD_USERADD="useradd --no-create-home"
 CMD_CHOWN="chown"
 CMD_CHMOD="chmod"
+CMD_CPA="cp -a"
 #
 SNAPPERCFGDIR="/etc/snapper/configs"
 HOMEHOME=/home
+SKELLDIR=/etc/skel
 DRYRUN=1
 MYUSER=$1
 MYGROUP=$2
@@ -32,7 +32,7 @@ if [ "0$MYUSER" == "0" ]; then
 	exit 1
 fi
 
-# Sanity-Check: ist $HOMEHOME a btrfs filesystem
+# Sanity-Check: is $HOMEHOME a btrfs filesystem
 ${CMD_BTRFS} filesystem df ${HOMEHOME} 2>&1 > /dev/null
 RETVAL=$?
 if [ ${RETVAL} != 0 ]; then
@@ -45,13 +45,15 @@ if [ ${DRYRUN} == 0 ] ; then
 	${CMD_BTRFS} subvol create ${HOMEHOME}/${MYUSER}
 	# Create snapper config for USER
 	${CMD_SNAPPER} -c home_${MYUSER} create-config ${HOMEHOME}/${MYUSER}
-	${CMD_SED} -i -e "s/ALLOW_USERS=\"\"/ALLOW_USERS=\"${MYUSER}\"/g" ${SNAPPERCFGDIR}/home_${MYUSER}
+	${CMD_SNAPPER} -c home_${MYUSER} set-config ALLOW_USERS=${MYUSER}
 	# Create USER
 	${CMD_USERADD} ${MYUSER}
+	# Give USER skeleton files
+	${CMD_CPA} ${SKELLDIR}/. ${HOMEHOME}/${MYUSER}
 	# yast users add username=${MYUSER} home=/home/${MYUSER} password=""
 	# !! IMPORTANT !!
 	# chown USER's home directory
-	${CMD_CHOWN} ${MYUSER}.${MYGROUP} ${HOMEHOME}/${MYUSER}
+	${CMD_CHOWN} ${MYUSER}:${MYGROUP} ${HOMEHOME}/${MYUSER}
 	${CMD_CHMOD} 755 ${HOMEHOME}/${MYUSER}/.snapshots
 else
 	echo -e "#"

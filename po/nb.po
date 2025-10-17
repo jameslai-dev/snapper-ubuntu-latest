@@ -7,177 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-12 09:40+0200\n"
-"PO-Revision-Date: 2013-10-04 18:20+0200\n"
-"Last-Translator: Olav Pettershagen <olpetter@bbnett.no>\n"
-"Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
+"POT-Creation-Date: 2025-07-23 11:53+0200\n"
+"PO-Revision-Date: 2025-07-22 15:00+0000\n"
+"Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+"Language-Team: Norwegian Bokmål <https://l10n.opensuse.org/projects/snapper/master/nb_NO/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.5\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "\t--abbreviate\t\t\tAllow to abbreviate table columns."
-msgstr ""
-
-msgid "\t--all-configs, -a\t\tList snapshots from all accessible configs."
-msgstr ""
-
-msgid "\t--ambit, -a ambit\t\tOperate in the specified ambit."
-msgstr ""
-
-msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshot."
-msgstr "\t--cleanup-algorithm, -c <algo>\tOppryddingsalgoritme for øyeblikksbilde."
-
-#, fuzzy
-msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshots."
-msgstr "\t--cleanup-algorithm, -c <algo>\tOppryddingsalgoritme for øyeblikksbilde."
-
-msgid ""
-"\t--columns <columns>\t\tColumns to show separated by comma.\n"
-"\t\t\t\t\tPossible columns: config, subvolume, number, default, active,\n"
-"\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
-"\t\t\t\t\tpre-number, post-number, post-date, read-only."
-msgstr ""
-
-msgid ""
-"\t--columns <columns>\t\tColumns to show separated by comma.\n"
-"\t\t\t\t\tPossible columns: key, value.\n"
-"\t\t\t\t\tColumns are not selected when JSON format is used."
-msgstr ""
-
-#, fuzzy
-msgid "\t--command <command>\t\tRun command and create pre and post snapshots."
-msgstr "\t--command <kommando>\tKjør kommandoen og opprette før- og etter-øyeblikksbilder."
-
-msgid "\t--config, -c <name>\t\tSet name of config to use."
-msgstr "\t--config, -c <navn>\t\tNavn som skal brukes i oppsettet."
-
-msgid "\t--csvout\t\t\tSet CSV output format."
-msgstr ""
-
-msgid "\t--debug\t\t\t\tTurn on debugging."
-msgstr ""
-
-msgid "\t--default\t\t\tSet snapshot as default snapshot."
-msgstr ""
-
-msgid "\t--description, -d <description>\tDescription for snapshot."
-msgstr "\t--description, -d <beskrivelse>\tBeskrivelse av øyeblikksbilde."
-
-#, fuzzy
-msgid "\t--description, -d <description>\tDescription for snapshots."
-msgstr "\t--description, -d <beskrivelse>\tBeskrivelse av øyeblikksbilde."
-
-msgid "\t--diff-cmd <command>\t\tCommand used for comparing files."
-msgstr ""
-
-#, fuzzy
-msgid "\t--disable-used-space\t\tDisable showing used space."
-msgstr "\t--disable-filters\t\tDeaktiver filtre."
-
-msgid "\t--extensions, -x <options>\tExtra options passed to the diff command."
-msgstr ""
-
-msgid "\t--free-space <space>\t\tTry to make space available."
-msgstr ""
-
-msgid "\t--from <number>\t\t\tCreate a snapshot from the specified snapshot."
-msgstr ""
-
-msgid "\t--fstype, -f <fstype>\t\tManually set filesystem type."
-msgstr "\t--fstype, -f <fstype>\t\tAngi filsystemtype manuelt."
-
-msgid "\t--input, -i <file>\t\tRead files for which to undo changes from file."
-msgstr "\t--input, -i <fil>\t\tLes filer der endringer skal angres."
-
-#, fuzzy
-msgid "\t--input, -i <file>\t\tRead files to diff from file."
-msgstr "\t--input, -i <fil>\t\tLes filer der endringer skal angres."
-
-msgid "\t--iso\t\t\t\tDisplay dates and times in ISO format."
-msgstr ""
-
-msgid "\t--jsonout\t\t\tSet JSON output format."
-msgstr ""
-
-msgid "\t--machine-readable <format>\tSet a machine-readable output format (csv, json)."
-msgstr ""
-
-msgid "\t--no-dbus\t\t\tOperate without DBus."
-msgstr "\t--no-dbus\t\t\tBruk systemet uten DBus."
-
-msgid "\t--no-headers\t\t\tNo headers for CSV output format."
-msgstr ""
-
-msgid "\t--output, -o <file>\t\tSave status to file."
-msgstr "\t--output, -o <fil>\t\tLagre status i fil."
-
-msgid "\t--path <path>\t\t\tCleanup all configs affecting path."
-msgstr ""
-
-msgid "\t--pre-number <number>\t\tNumber of corresponding pre snapshot."
-msgstr "\t--pre-number <antall>\t\tAntall samsvarende før øyeblikksbilde."
-
-msgid "\t--print-number, -p\t\tPrint number of created snapshot."
-msgstr "\t--print-number, -p\t\tVis antall opprettede øyeblikksbilder."
-
-#, fuzzy
-msgid "\t--print-number, -p\t\tPrint number of second created snapshot."
-msgstr "\t--print-number, -p\t\tVis antall opprettede øyeblikksbilder."
-
-msgid "\t--quiet, -q\t\t\tSuppress normal output."
-msgstr "\t--quiet, -q\t\t\tUndertrykk vanlig visning."
-
-msgid "\t--read-only\t\t\tCreate read-only snapshot."
-msgstr ""
-
-msgid "\t--read-only\t\t\tSet snapshot read-only."
-msgstr ""
-
-msgid "\t--read-write\t\t\tCreate read-write snapshot."
-msgstr ""
-
-msgid "\t--read-write\t\t\tSet snapshot read-write."
-msgstr ""
-
-msgid "\t--root, -r <path>\t\tOperate on target root (works only without DBus)."
-msgstr ""
-
-msgid "\t--separator <separator>\t\tCharacter separator for CSV output format."
-msgstr ""
-
-msgid "\t--sync, -s\t\t\tSync after deletion."
-msgstr ""
-
-msgid "\t--table-style, -t <style>\tTable style (integer)."
-msgstr "\t--table-style, -t <style>\tTabellformat (heltall)."
-
-msgid "\t--template, -t <name>\t\tName of config template to use."
-msgstr "\t--template, -t <navn>\t\tNavn på oppsettmal som skal brukes."
-
-msgid "\t--type, -t <type>\t\tType for snapshot."
-msgstr "\t--type, -t <type>\t\tType øyeblikksbilde."
-
-msgid "\t--type, -t <type>\t\tType of snapshots to list."
-msgstr "\t--type, -t <type>\t\tType øyeblikksbilder som skal vises."
-
-msgid "\t--userdata, -u <userdata>\tUserdata for snapshot."
-msgstr "\t--userdata, -u <userdata>\tBrukerdata for øyeblikksbilde."
-
-#, fuzzy
-msgid "\t--userdata, -u <userdata>\tUserdata for snapshots."
-msgstr "\t--userdata, -u <userdata>\tBrukerdata for øyeblikksbilde."
-
-msgid "\t--utc\t\t\t\tDisplay dates and times in UTC."
-msgstr ""
-
-msgid "\t--verbose, -v\t\t\tIncrease verbosity."
-msgstr "\t--verbose, -v\t\t\tVis mer informasjon."
-
-msgid "\t--version\t\t\tPrint version and exit."
-msgstr "\t--version\t\t\tVis versjon og avslutt."
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.12.2\n"
 
 msgid "\tsnapper cleanup <cleanup-algorithm>"
 msgstr "\tsnapper cleanup <oppryddingsalgoritme>"
@@ -263,11 +102,9 @@ msgstr "    Valg for 'create config'-kommandoen:"
 msgid "    Options for 'list' command:"
 msgstr "    Valg for 'list'-kommandoen:"
 
-msgid ""
-"    Options for 'list-configs' command:\n"
-"\t--columns <columns>\t\tColumns to show separated by comma.\n"
-"\t\t\t\t\tPossible columns: config, subvolume.\n"
-msgstr ""
+#, fuzzy
+msgid "    Options for 'list-configs' command:"
+msgstr "    Valg for 'create config'-kommandoen:"
 
 msgid "    Options for 'modify' command:"
 msgstr "    Valg for 'modify'-kommandoen:"
@@ -351,9 +188,198 @@ msgstr ""
 msgid "%1$s, %2$s"
 msgstr ""
 
+msgid "'btrfs send | btrfs receive' failed."
+msgstr ""
+
+msgid "'btrfs subvolume delete' failed."
+msgstr ""
+
+#, fuzzy
+msgid "'cp info.xml' failed."
+msgstr "Filen '%s' kunne ikke åpnes."
+
+msgid "'mkdir' failed."
+msgstr ""
+
+msgid "'rm info.xml' failed."
+msgstr ""
+
+msgid "'rmdir' failed."
+msgstr ""
+
+msgid "'scp info.xml' failed."
+msgstr ""
+
 #, fuzzy, c-format
 msgid "(Snapshot %d.)"
 msgstr "Øyeblikksbildet '%u' ikke funnet."
+
+msgid "(Source) Creation Time"
+msgstr ""
+
+msgid "(Source) Parent UUID"
+msgstr ""
+
+msgid "(Source) Received UUID"
+msgstr ""
+
+msgid "(Source) UUID"
+msgstr ""
+
+msgid "(Target) Creation Time"
+msgstr ""
+
+msgid "(Target) Parent UUID"
+msgstr ""
+
+msgid "(Target) Received UUID"
+msgstr ""
+
+msgid "(Target) UUID"
+msgstr ""
+
+msgid "--abbreviate"
+msgstr ""
+
+msgid "--all-configs, -a"
+msgstr ""
+
+msgid "--ambit, -a <ambit>"
+msgstr ""
+
+msgid "--automatic"
+msgstr ""
+
+msgid "--backup-config, -b <name>"
+msgstr ""
+
+#, fuzzy
+msgid "--cleanup-algorithm, -c <algo>"
+msgstr "\t--cleanup-algorithm, -c <algo>\tOppryddingsalgoritme for øyeblikksbilde."
+
+msgid "--columns <columns>"
+msgstr ""
+
+msgid "--command <command>"
+msgstr ""
+
+msgid "--config, -c <name>"
+msgstr ""
+
+msgid "--csvout"
+msgstr ""
+
+msgid "--debug"
+msgstr ""
+
+msgid "--default"
+msgstr ""
+
+#, fuzzy
+msgid "--description, -d <description>"
+msgstr "\t--description, -d <beskrivelse>\tBeskrivelse av øyeblikksbilde."
+
+msgid "--diff-cmd <command>"
+msgstr ""
+
+msgid "--disable-used-space"
+msgstr ""
+
+msgid "--empty"
+msgstr ""
+
+msgid "--extensions, -x <options>"
+msgstr ""
+
+msgid "--free-space <space>"
+msgstr ""
+
+msgid "--from <number>"
+msgstr ""
+
+msgid "--fstype, -f <fstype>"
+msgstr ""
+
+msgid "--input, -i <file>"
+msgstr ""
+
+msgid "--iso"
+msgstr ""
+
+msgid "--jsonout"
+msgstr ""
+
+#, fuzzy
+msgid "--logger-type <type>"
+msgstr "\t--type, -t <type>\t\tType øyeblikksbilde."
+
+#, fuzzy
+msgid "--machine-readable <format>"
+msgstr "Ugyldig tabellstil %d."
+
+msgid "--no-dbus"
+msgstr ""
+
+msgid "--no-headers"
+msgstr ""
+
+#, fuzzy
+msgid "--output, -o <file>"
+msgstr "\t--output, -o <fil>\t\tLagre status i fil."
+
+msgid "--path <path>"
+msgstr ""
+
+msgid "--pre-number <number>"
+msgstr ""
+
+msgid "--print-number, -p"
+msgstr ""
+
+msgid "--quiet, -q"
+msgstr ""
+
+msgid "--read-only"
+msgstr ""
+
+msgid "--read-write"
+msgstr ""
+
+msgid "--root, -r <path>"
+msgstr ""
+
+msgid "--separator <separator>"
+msgstr ""
+
+msgid "--sync, -s"
+msgstr ""
+
+#, fuzzy
+msgid "--table-style, -t <style>"
+msgstr "\t--table-style, -t <style>\tTabellformat (heltall)."
+
+msgid "--target-mode <target-mode>"
+msgstr ""
+
+msgid "--template, -t <name>"
+msgstr ""
+
+#, fuzzy
+msgid "--type, -t <type>"
+msgstr "\t--type, -t <type>\t\tType øyeblikksbilde."
+
+#, fuzzy
+msgid "--userdata, -u <userdata>"
+msgstr "\t--userdata, -u <userdata>\tBrukerdata for øyeblikksbilde."
+
+msgid "--utc"
+msgstr ""
+
+msgid "--verbose, -v"
+msgstr ""
+
+msgid "--version"
+msgstr ""
 
 # error box title
 #, fuzzy
@@ -366,8 +392,14 @@ msgstr ""
 msgid "Active snapshot is already default snapshot."
 msgstr ""
 
+msgid "Allow to abbreviate table columns."
+msgstr ""
+
 #, c-format
 msgid "Ambit is %s."
+msgstr ""
+
+msgid "Automatic"
 msgstr ""
 
 #. TRANSLATORS: symbol for "bytes" (best keep untranslated)
@@ -392,8 +424,29 @@ msgstr ""
 msgid "Cannot do rollback since default subvolume is unknown."
 msgstr ""
 
+msgid "Character separator for CSV output format."
+msgstr ""
+
 msgid "Cleanup"
 msgstr "Rydde opp"
+
+#, fuzzy
+msgid "Cleanup algorithm for snapshot."
+msgstr "\t--cleanup-algorithm, -c <algo>\tOppryddingsalgoritme for øyeblikksbilde."
+
+#, fuzzy
+msgid "Cleanup algorithm for snapshots."
+msgstr "\t--cleanup-algorithm, -c <algo>\tOppryddingsalgoritme for øyeblikksbilde."
+
+msgid "Cleanup all configs affecting path."
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Client-side plugin '%s' failed."
+msgstr "Filen '%s' kunne ikke åpnes."
+
+msgid "Columns to show separated by comma."
+msgstr ""
 
 msgid "Command 'cleanup' needs one arguments."
 msgstr "Kommandoen 'cleanup' trenger ett argument."
@@ -457,6 +510,10 @@ msgid "Command 'status' needs one argument."
 msgstr "Kommandoen 'status' trenger ett argument."
 
 #, fuzzy
+msgid "Command 'transfer-and-delete' does not take arguments."
+msgstr "Kommandoen 'create' tar ikke argumenter."
+
+#, fuzzy
 msgid "Command 'umount' needs at least one argument."
 msgstr "Kommandoen 'mount' trenger minst ett argument."
 
@@ -465,6 +522,9 @@ msgstr "Kommandoen 'undochange' trenger minst ett argument."
 
 msgid "Command 'xadiff' needs at least one argument."
 msgstr "Kommandoen «xadiff» trenger minst ett argument."
+
+msgid "Command used for comparing files."
+msgstr ""
 
 msgid "Config"
 msgstr "Oppsett"
@@ -498,6 +558,22 @@ msgstr ""
 msgid "Could not make enough free space available."
 msgstr ""
 
+#, fuzzy
+msgid "Create a snapshot from the specified snapshot."
+msgstr "Diskbilde kunne ikke opprettes."
+
+#, fuzzy
+msgid "Create an empty snapshot."
+msgstr "%s -regel støttes ikke på dette systemet.\n"
+
+#, fuzzy
+msgid "Create read-only snapshot."
+msgstr "%s -regel støttes ikke på dette systemet.\n"
+
+#, fuzzy
+msgid "Create read-write snapshot."
+msgstr "Diskbilde kunne ikke opprettes."
+
 #, c-format
 msgid "Creating config failed (%s)."
 msgstr "Oppsett kunne ikke opprettes (%s)."
@@ -526,9 +602,17 @@ msgstr "Dato"
 msgid "Default"
 msgstr ""
 
+#, fuzzy
+msgid "Delete:"
+msgstr "  Slette oppsett:"
+
 #, c-format
 msgid "Deleting config failed (%s)."
 msgstr "Oppsett kunne ikke slettes (%s)."
+
+#, fuzzy, c-format
+msgid "Deleting snapshot %d."
+msgstr "Diskbilde kunne ikke slettes."
 
 msgid "Deleting snapshot failed."
 msgstr "Diskbilde kunne ikke slettes."
@@ -542,8 +626,26 @@ msgstr[1] "Diskbilde kunne ikke slettes."
 msgid "Description"
 msgstr "Beskrivelse"
 
+#, fuzzy
+msgid "Description for snapshot."
+msgstr "Beskrivelse"
+
+#, fuzzy
+msgid "Description for snapshots."
+msgstr "sammenligner øyeblikksbilder..."
+
 msgid "Detecting filesystem type failed."
 msgstr "Registrering av filsystemtype mislyktes"
+
+#, fuzzy
+msgid "Disable showing used space."
+msgstr "\t--disable-filters\t\tDeaktiver filtre."
+
+msgid "Display dates and times in ISO format."
+msgstr ""
+
+msgid "Display dates and times in UTC."
+msgstr ""
 
 #. TRANSLATORS: symbol for "exa" (best keep untranslated)
 msgid "E"
@@ -571,11 +673,19 @@ msgid "Error (%s)."
 msgstr "Inn/ut-feil."
 
 #, fuzzy
+msgid "Extra options passed to the diff command."
+msgstr "    Valg for 'modify'-kommandoen:"
+
+#, fuzzy
 msgid "Failed to initialize filesystem handler."
 msgstr "Kunne ikke install filhåndterer"
 
 #, fuzzy, c-format
 msgid "Failed to parse '%s'."
+msgstr "kunne ikke opprette %s"
+
+#, fuzzy
+msgid "Failed to parse number."
 msgstr "kunne ikke opprette %s"
 
 #, c-format
@@ -618,6 +728,10 @@ msgstr ""
 msgid "GiB"
 msgstr ""
 
+#, fuzzy
+msgid "Global options:"
+msgstr "    Globale valg:"
+
 # error box title
 #, fuzzy, c-format
 msgid "IO Error (%s)."
@@ -635,6 +749,10 @@ msgstr "Identiske øyeblikksbilder."
 msgid "Illegal snapshot."
 msgstr "Ugyldig øyeblikksbilde."
 
+#, fuzzy
+msgid "Increase verbosity."
+msgstr "\t--verbose, -v\t\t\tVis mer informasjon."
+
 #, fuzzy, c-format
 msgid "Invalid ambit '%s'."
 msgstr "Ugyldig øyeblikksbilde '%s'."
@@ -642,6 +760,10 @@ msgstr "Ugyldig øyeblikksbilde '%s'."
 #, fuzzy, c-format
 msgid "Invalid column '%s'."
 msgstr "Ugyldig øyeblikksbilde '%s'."
+
+#, fuzzy
+msgid "Invalid config."
+msgstr "Ugyldige oppsettdata."
 
 msgid "Invalid configdata."
 msgstr "Ugyldige oppsettdata."
@@ -653,6 +775,10 @@ msgstr "Ugyldig undervolum."
 #, fuzzy, c-format
 msgid "Invalid group (%s)."
 msgstr "Ugyldig undervolum."
+
+#, fuzzy, c-format
+msgid "Invalid logger-type '%s'."
+msgstr "Ugyldig tabellstil %d."
 
 #, fuzzy, c-format
 msgid "Invalid machine readable format '%s'."
@@ -669,11 +795,19 @@ msgstr "Ugyldig øyeblikksbilde '%s'."
 msgid "Invalid snapshots."
 msgstr "Ugyldige øyeblikksbilder."
 
+#, fuzzy, c-format
+msgid "Invalid subvolume path '%s' on target."
+msgstr "Ugyldig undervolum."
+
 msgid "Invalid subvolume."
 msgstr "Ugyldig undervolum."
 
 #, fuzzy, c-format
 msgid "Invalid table style '%s'."
+msgstr "Ugyldig tabellstil %d."
+
+#, fuzzy, c-format
+msgid "Invalid target mode '%s'."
 msgstr "Ugyldig tabellstil %d."
 
 #, fuzzy, c-format
@@ -690,6 +824,16 @@ msgstr "Nøkkel"
 msgid "KiB"
 msgstr ""
 
+#, fuzzy
+msgid "List configs:"
+msgstr "  Vise oppsett:"
+
+msgid "List snapshots from all accessible configs."
+msgstr ""
+
+msgid "List:"
+msgstr ""
+
 #, c-format
 msgid "Listing configs failed (%s)."
 msgstr "Oppsett kunne ikke vises (%s)."
@@ -701,6 +845,10 @@ msgstr ""
 #. TRANSLATORS: symbol for "mega bytes" (best keep untranslated)
 msgid "MB"
 msgstr ""
+
+#, fuzzy
+msgid "Manually set filesystem type."
+msgstr "\t--fstype, -f <fstype>\t\tAngi filsystemtype manuelt."
 
 msgid "Maybe you forgot the delimiter '..' between the snapshot numbers."
 msgstr ""
@@ -727,15 +875,48 @@ msgstr ""
 msgid "Missing or invalid pre-number."
 msgstr "Manglende eller ugyldig før-nummer."
 
+msgid "Name"
+msgstr ""
+
+#, fuzzy
+msgid "Name of config template to use."
+msgstr "\t--template, -t <navn>\t\tNavn på oppsettmal som skal brukes."
+
+msgid "No backup configs found."
+msgstr ""
+
 msgid "No command provided."
 msgstr "Ingen kommando gitt"
+
+msgid "No headers for CSV output format."
+msgstr ""
 
 msgid "No permissions."
 msgstr "Ikke autorisert."
 
+#, fuzzy
+msgid "Number of corresponding pre snapshot."
+msgstr "\t--pre-number <antall>\t\tAntall samsvarende før øyeblikksbilde."
+
+msgid "Only use backup-config with automatic set."
+msgstr ""
+
+msgid "Only use backup-config with specified target-mode."
+msgstr ""
+
 #, c-format
 msgid "Opening file '%s' failed."
 msgstr "Filen '%s' kunne ikke åpnes."
+
+msgid "Operate in the specified ambit."
+msgstr ""
+
+msgid "Operate on target root (works only without DBus)."
+msgstr ""
+
+#, fuzzy
+msgid "Operate without DBus."
+msgstr "\t--no-dbus\t\t\tBruk systemet uten DBus."
 
 msgid "Option --from only supported for snapshots of type single."
 msgstr ""
@@ -750,6 +931,10 @@ msgstr ""
 
 #. TRANSLATORS: symbol for "peta bytes" (best keep untranslated)
 msgid "PB"
+msgstr ""
+
+#, c-format
+msgid "Path mismatch between source-path of backup-config and subvolume of snapper config ('%s' vs. '%s')."
 msgstr ""
 
 #. TRANSLATORS: symbol for "pebi bytes" (best keep untranslated)
@@ -768,17 +953,158 @@ msgstr "Før #"
 msgid "Pre Date"
 msgstr "Før dato"
 
+#, fuzzy
+msgid "Print number of created snapshot."
+msgstr "\t--print-number, -p\t\tVis antall opprettede øyeblikksbilder."
+
+#, fuzzy
+msgid "Print number of second created snapshot."
+msgstr "\t--print-number, -p\t\tVis antall opprettede øyeblikksbilder."
+
+#, fuzzy
+msgid "Print version and exit."
+msgstr "\t--version\t\t\tVis versjon og avslutt."
+
+#, fuzzy
+msgid "Probing extra information for source snapshots."
+msgstr "sammenligner øyeblikksbilder..."
+
+#, fuzzy
+msgid "Probing extra information for target snapshots."
+msgstr "sammenligner øyeblikksbilder..."
+
+#, fuzzy
+msgid "Probing source snapshots."
+msgstr "sammenligner øyeblikksbilder..."
+
+#, fuzzy
+msgid "Probing target snapshots."
+msgstr "sammenligner øyeblikksbilder..."
+
 # error box title
 #, fuzzy, c-format
 msgid "Quota error (%s)."
 msgstr "Inn/ut-feil."
 
+#, fuzzy
+msgid "Read files for which to undo changes from file."
+msgstr "\t--input, -i <fil>\t\tLes filer der endringer skal angres."
+
+#, fuzzy
+msgid "Read files to diff from file."
+msgstr "\t--input, -i <fil>\t\tLes filer der endringer skal angres."
+
 msgid "Read-Only"
 msgstr ""
 
 #, fuzzy
+msgid "Run command and create pre and post snapshots."
+msgstr "\t--command <kommando>\tKjør kommandoen og opprette før- og etter-øyeblikksbilder."
+
+#, c-format
+msgid "Running delete failed for %d of %ld backup config."
+msgid_plural "Running delete failed for %d of %ld backup configs."
+msgstr[0] ""
+msgstr[1] ""
+
+#, c-format
+msgid "Running delete for backup config '%s' failed."
+msgstr ""
+
+#, c-format
+msgid "Running delete for backup config '%s'."
+msgstr ""
+
+#, c-format
+msgid "Running list failed for %d of %ld backup config."
+msgid_plural "Running list failed for %d of %ld backup configs."
+msgstr[0] ""
+msgstr[1] ""
+
+#, c-format
+msgid "Running transfer and delete failed for %d of %ld backup config."
+msgid_plural "Running transfer and delete failed for %d of %ld backup configs."
+msgstr[0] ""
+msgstr[1] ""
+
+#, c-format
+msgid "Running transfer and delete for backup config '%s' failed."
+msgstr ""
+
+#, c-format
+msgid "Running transfer and delete for backup config '%s'."
+msgstr ""
+
+#, c-format
+msgid "Running transfer failed for %d of %ld backup config."
+msgid_plural "Running transfer failed for %d of %ld backup configs."
+msgstr[0] ""
+msgstr[1] ""
+
+#, c-format
+msgid "Running transfer for backup config '%s' failed."
+msgstr ""
+
+#, c-format
+msgid "Running transfer for backup config '%s'."
+msgstr ""
+
+msgid "SSH Host"
+msgstr ""
+
+msgid "SSH Identity"
+msgstr ""
+
+msgid "SSH Port"
+msgstr ""
+
+#, fuzzy
+msgid "SSH User"
+msgstr "Bruker"
+
+#, fuzzy
+msgid "Save status to file."
+msgstr "\t--output, -o <fil>\t\tLagre status i fil."
+
+#, fuzzy
 msgid "See 'man snapper' for further instructions."
 msgstr "Forsøk 'snapper --help' for mer informasjon."
+
+#, fuzzy, c-format
+msgid "Server-side plugin '%s' failed."
+msgstr "Filen '%s' kunne ikke åpnes."
+
+msgid "Set CSV output format."
+msgstr ""
+
+msgid "Set JSON output format."
+msgstr ""
+
+#, fuzzy
+msgid "Set a machine-readable output format (csv, json)."
+msgstr "Ugyldig tabellstil %d."
+
+msgid "Set logger type."
+msgstr ""
+
+#, fuzzy
+msgid "Set name of backup-config to use."
+msgstr "\t--config, -c <navn>\t\tNavn som skal brukes i oppsettet."
+
+#, fuzzy
+msgid "Set name of config to use."
+msgstr "\t--config, -c <navn>\t\tNavn som skal brukes i oppsettet."
+
+msgid "Set snapshot as default snapshot."
+msgstr ""
+
+#, fuzzy
+msgid "Set snapshot read-only."
+msgstr "Diskbilde kunne ikke opprettes."
+
+#, fuzzy
+msgid "Set snapshot read-write."
+msgstr "Diskbilde kunne ikke opprettes."
 
 #, c-format
 msgid "Setting default subvolume to snapshot %d."
@@ -788,11 +1114,40 @@ msgstr ""
 msgid "Snapshot '%u' not found."
 msgstr "Øyeblikksbildet '%u' ikke funnet."
 
+#, fuzzy
+msgid "Snapshot already on target."
+msgstr "Diskbilde kunne ikke opprettes."
+
 msgid "Snapshot is in use."
 msgstr "Øyeblikksbildet er i bruk."
 
+#, fuzzy
+msgid "Snapshot not on source."
+msgstr "Øyeblikksbildet er i bruk."
+
+#, fuzzy
+msgid "Snapshot not on target."
+msgstr "Øyeblikksbildet '%u' ikke funnet."
+
+#, fuzzy, c-format
+msgid "Snapshot number %d not found."
+msgstr "Øyeblikksbildet '%u' ikke funnet."
+
+msgid "Source Path"
+msgstr ""
+
+msgid "Source State"
+msgstr ""
+
 msgid "Subvolume"
 msgstr "Undervolum"
+
+#, fuzzy
+msgid "Suppress normal output."
+msgstr "\t--quiet, -q\t\t\tUndertrykk vanlig visning."
+
+msgid "Sync after deletion."
+msgstr ""
 
 #. TRANSLATORS: symbol for "tera" (best keep untranslated)
 msgid "T"
@@ -800,6 +1155,37 @@ msgstr ""
 
 #. TRANSLATORS: symbol for "tera bytes" (best keep untranslated)
 msgid "TB"
+msgstr ""
+
+#, fuzzy
+msgid "Table style (integer)."
+msgstr "\t--table-style, -t <style>\tTabellformat (heltall)."
+
+msgid "Target Mode"
+msgstr ""
+
+msgid "Target Path"
+msgstr ""
+
+msgid "Target State"
+msgstr ""
+
+msgid "Target btrfs bin"
+msgstr ""
+
+msgid "Target findmnt Bin"
+msgstr ""
+
+msgid "Target mkdir bin"
+msgstr ""
+
+msgid "Target realpath bin"
+msgstr ""
+
+msgid "Target rm bin"
+msgstr ""
+
+msgid "Target rmdir bin"
 msgstr ""
 
 msgid "The ambit can be specified manually using the --ambit option."
@@ -815,11 +1201,39 @@ msgstr ""
 msgid "TiB"
 msgstr ""
 
+msgid "Transfer and delete:"
+msgstr ""
+
+msgid "Transfer:"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Transferring snapshot %d."
+msgstr "Diskbilde kunne ikke opprettes."
+
 msgid "Try 'snapper --help' for more information."
 msgstr "Forsøk 'snapper --help' for mer informasjon."
 
+#, fuzzy
+msgid "Try 'snbk --help' for more information."
+msgstr "Forsøk 'snapper --help' for mer informasjon."
+
+msgid "Try to make space available."
+msgstr ""
+
+msgid "Turn on debugging."
+msgstr ""
+
 msgid "Type"
 msgstr "Type"
+
+#, fuzzy
+msgid "Type for snapshot."
+msgstr "Ukjent type for øyeblikksbilde."
+
+#, fuzzy
+msgid "Type of snapshots to list."
+msgstr "\t--type, -t <type>\t\tType øyeblikksbilder som skal vises."
 
 #, c-format
 msgid "Unknown cleanup algorithm '%s'."
@@ -871,6 +1285,14 @@ msgstr "Filen '%s' ikke funnet på medium '%s'"
 msgid "Userdata '%s' has empty key."
 msgstr ""
 
+#, fuzzy
+msgid "Userdata for snapshot."
+msgstr "\t--userdata, -u <userdata>\tBrukerdata for øyeblikksbilde."
+
+#, fuzzy
+msgid "Userdata for snapshots."
+msgstr "Identiske øyeblikksbilder."
+
 msgid "Value"
 msgstr "Verdi"
 
@@ -920,14 +1342,41 @@ msgstr "Ingenting å gjøre"
 msgid "root argument can be used only together with no-dbus.\n"
 msgstr "Forsøk 'snapper --help' for mer informasjon."
 
+#, fuzzy
+msgid "snbk delete [numbers]"
+msgstr "\tsnapper delete <nummer>"
+
+#, fuzzy
+msgid "snbk list"
+msgstr "\tsnapper list"
+
+#, fuzzy
+msgid "snbk list-configs"
+msgstr "\tsnapper list-configs"
+
+msgid "snbk transfer [numbers]"
+msgstr ""
+
+msgid "snbk transfer-and-delete"
+msgstr ""
+
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
+msgstr "bruk: snapper [--globale valg] <kommando> [--kommandovalg] [kommandoargumenter]"
+
+#, fuzzy
+msgid "usage: snbk [--global-options] <command> [command-arguments]"
 msgstr "bruk: snapper [--globale valg] <kommando> [--kommandovalg] [kommandoargumenter]"
 
 msgid "yes"
 msgstr ""
 
-#~ msgid "Unknown type of snapshot."
-#~ msgstr "Ukjent type for øyeblikksbilde."
+#, fuzzy
+#~ msgid "\t--description, -d <description>\tDescription for snapshots."
+#~ msgstr "\t--description, -d <beskrivelse>\tBeskrivelse av øyeblikksbilde."
+
+#, fuzzy
+#~ msgid "\t--userdata, -u <userdata>\tUserdata for snapshots."
+#~ msgstr "\t--userdata, -u <userdata>\tBrukerdata for øyeblikksbilde."
 
 #~ msgid "Unknown type of snapshots."
 #~ msgstr "Ukjent type for øyeblikksbilder."
@@ -948,9 +1397,6 @@ msgstr ""
 
 #~ msgid "Command failed (%s). See log for more information."
 #~ msgstr "Kommandoen mislyktes (%s). Loggen inneholder mer informasjon."
-
-#~ msgid "comparing snapshots..."
-#~ msgstr "sammenligner øyeblikksbilder..."
 
 #~ msgid "done"
 #~ msgstr "fullført"

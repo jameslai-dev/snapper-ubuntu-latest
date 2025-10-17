@@ -8,171 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-12 09:40+0200\n"
-"PO-Revision-Date: 2015-10-17 16:22+0200\n"
-"Last-Translator: Andriy Bandura <andriykopanytsia@gmail.com>\n"
-"Language-Team: Ukrainian <http://10n.opensuse.org/projects/snapper/master/uk/>\n"
+"POT-Creation-Date: 2025-07-23 11:53+0200\n"
+"PO-Revision-Date: 2025-07-22 15:00+0000\n"
+"Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+"Language-Team: Ukrainian <https://l10n.opensuse.org/projects/snapper/master/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.3\n"
-
-msgid "\t--abbreviate\t\t\tAllow to abbreviate table columns."
-msgstr ""
-
-msgid "\t--all-configs, -a\t\tList snapshots from all accessible configs."
-msgstr "\t--all-configs, -a\t\tСписок знімків із усіх доступних конфігурацій."
-
-msgid "\t--ambit, -a ambit\t\tOperate in the specified ambit."
-msgstr ""
-
-msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshot."
-msgstr "\t--cleanup-algorithm, -c <алгоритм>\tАлгоритм очищення для знімка."
-
-msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshots."
-msgstr "\t--cleanup-algorithm, -c <алгоритм>\tАлгоритм очищення для знімків."
-
-msgid ""
-"\t--columns <columns>\t\tColumns to show separated by comma.\n"
-"\t\t\t\t\tPossible columns: config, subvolume, number, default, active,\n"
-"\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
-"\t\t\t\t\tpre-number, post-number, post-date, read-only."
-msgstr ""
-
-msgid ""
-"\t--columns <columns>\t\tColumns to show separated by comma.\n"
-"\t\t\t\t\tPossible columns: key, value.\n"
-"\t\t\t\t\tColumns are not selected when JSON format is used."
-msgstr ""
-
-#, fuzzy
-msgid "\t--command <command>\t\tRun command and create pre and post snapshots."
-msgstr "\t--command <команда>\tЗапустити команду і створити знімки до та після."
-
-msgid "\t--config, -c <name>\t\tSet name of config to use."
-msgstr "\t--config, -c <ім'я>\t\tНазва використовуваної конфігурації."
-
-msgid "\t--csvout\t\t\tSet CSV output format."
-msgstr ""
-
-msgid "\t--debug\t\t\t\tTurn on debugging."
-msgstr ""
-
-msgid "\t--default\t\t\tSet snapshot as default snapshot."
-msgstr ""
-
-msgid "\t--description, -d <description>\tDescription for snapshot."
-msgstr "\t--description, -d <опис>\tОпис знімка."
-
-msgid "\t--description, -d <description>\tDescription for snapshots."
-msgstr "\t--description, -d <опис>\tОпис знімків."
-
-msgid "\t--diff-cmd <command>\t\tCommand used for comparing files."
-msgstr "\t--diff-cmd <command>\t\tКоманда для порівняння файлів."
-
-msgid "\t--disable-used-space\t\tDisable showing used space."
-msgstr ""
-
-msgid "\t--extensions, -x <options>\tExtra options passed to the diff command."
-msgstr "\t--extensions, -x <options>\tДодаткові параметри, передані у команду diff."
-
-msgid "\t--free-space <space>\t\tTry to make space available."
-msgstr ""
-
-msgid "\t--from <number>\t\t\tCreate a snapshot from the specified snapshot."
-msgstr ""
-
-msgid "\t--fstype, -f <fstype>\t\tManually set filesystem type."
-msgstr "\t--fstype, -f <тип ФС>\t\tВказати тип файлової системи вручну."
-
-msgid "\t--input, -i <file>\t\tRead files for which to undo changes from file."
-msgstr "\t--input, -i <файл>\t\tПрочитати файли для відкоту змін з файлу."
-
-msgid "\t--input, -i <file>\t\tRead files to diff from file."
-msgstr "\t--input, -i <файл>\t\tПрочитати файли у diff з файлу."
-
-msgid "\t--iso\t\t\t\tDisplay dates and times in ISO format."
-msgstr "\t--iso\t\t\t\tПоказувати дату і час у форматі ISO."
-
-msgid "\t--jsonout\t\t\tSet JSON output format."
-msgstr ""
-
-msgid "\t--machine-readable <format>\tSet a machine-readable output format (csv, json)."
-msgstr ""
-
-msgid "\t--no-dbus\t\t\tOperate without DBus."
-msgstr "\t--no-dbus\t\t\tПрацювати без DBus."
-
-msgid "\t--no-headers\t\t\tNo headers for CSV output format."
-msgstr ""
-
-msgid "\t--output, -o <file>\t\tSave status to file."
-msgstr "\t--output, -o <файл>\t\tЗберегти статус у файл."
-
-msgid "\t--path <path>\t\t\tCleanup all configs affecting path."
-msgstr ""
-
-msgid "\t--pre-number <number>\t\tNumber of corresponding pre snapshot."
-msgstr "\t--pre-number <число>\t\tНомер відповідного попереднього знімка."
-
-msgid "\t--print-number, -p\t\tPrint number of created snapshot."
-msgstr "\t--print-число, -p\t\tВивести номер створеного знімка."
-
-msgid "\t--print-number, -p\t\tPrint number of second created snapshot."
-msgstr "\t--print-number, -p\t\tВивести номер другого створеного знімка."
-
-msgid "\t--quiet, -q\t\t\tSuppress normal output."
-msgstr "\t--тихо, -q\t\t\tПоглушити нормальне виведення."
-
-msgid "\t--read-only\t\t\tCreate read-only snapshot."
-msgstr ""
-
-msgid "\t--read-only\t\t\tSet snapshot read-only."
-msgstr ""
-
-msgid "\t--read-write\t\t\tCreate read-write snapshot."
-msgstr ""
-
-msgid "\t--read-write\t\t\tSet snapshot read-write."
-msgstr ""
-
-msgid "\t--root, -r <path>\t\tOperate on target root (works only without DBus)."
-msgstr "\t--root, -r <path>\t\tРобота із цільовим коренем (підтримується тільки без DBus)."
-
-msgid "\t--separator <separator>\t\tCharacter separator for CSV output format."
-msgstr ""
-
-msgid "\t--sync, -s\t\t\tSync after deletion."
-msgstr "\t--sync, -s\t\t\tСинхронізація після вилучення."
-
-msgid "\t--table-style, -t <style>\tTable style (integer)."
-msgstr "\t--table-style, -t <стиль>\tСтиль таблиці (ціле число)."
-
-msgid "\t--template, -t <name>\t\tName of config template to use."
-msgstr "\t--template, -t <ім'я>\t\tНазва шаблону конфігурації."
-
-msgid "\t--type, -t <type>\t\tType for snapshot."
-msgstr "\t--type, -t <тип>\t\tТип знімка."
-
-msgid "\t--type, -t <type>\t\tType of snapshots to list."
-msgstr "\t--type, -t <тип>\t\tТип перерахованих знімків."
-
-msgid "\t--userdata, -u <userdata>\tUserdata for snapshot."
-msgstr "\t--userdata, -u <дані>\tДані для знімка."
-
-msgid "\t--userdata, -u <userdata>\tUserdata for snapshots."
-msgstr "\t--userdata, -u <дані>\tДані для знімків."
-
-msgid "\t--utc\t\t\t\tDisplay dates and times in UTC."
-msgstr "\t--utc\t\t\t\t Показувати дату і час у UTC."
-
-msgid "\t--verbose, -v\t\t\tIncrease verbosity."
-msgstr "\t--verbose-v\t\t\tЗбільшити детальність виводу."
-
-msgid "\t--version\t\t\tPrint version and exit."
-msgstr "\t--version\t\t\tВивести версію програми та вийти."
+"X-Generator: Weblate 5.12.2\n"
 
 msgid "\tsnapper cleanup <cleanup-algorithm>"
 msgstr "\tsnapper cleanup <алгоритм очищення>"
@@ -213,9 +58,8 @@ msgstr "\tsnapper rollback [число]"
 msgid "\tsnapper set-config <configdata>"
 msgstr "\tsnapper set-config <параметри>"
 
-#, fuzzy
 msgid "\tsnapper setup-quota"
-msgstr "\tsnapper get-config"
+msgstr "\tsnapper setup-quota"
 
 msgid "\tsnapper status <number1>..<number2>"
 msgstr "\tsnapper status <число1>..<число2>"
@@ -255,11 +99,9 @@ msgstr "    Параметри команди 'create-config':"
 msgid "    Options for 'list' command:"
 msgstr "    Параметри команди 'list':"
 
-msgid ""
-"    Options for 'list-configs' command:\n"
-"\t--columns <columns>\t\tColumns to show separated by comma.\n"
-"\t\t\t\t\tPossible columns: config, subvolume.\n"
-msgstr ""
+#, fuzzy
+msgid "    Options for 'list-configs' command:"
+msgstr "    Параметри команди 'create-config':"
 
 msgid "    Options for 'modify' command:"
 msgstr "    Параметри команди 'modify':"
@@ -341,9 +183,198 @@ msgstr ""
 msgid "%1$s, %2$s"
 msgstr ""
 
+msgid "'btrfs send | btrfs receive' failed."
+msgstr ""
+
+msgid "'btrfs subvolume delete' failed."
+msgstr ""
+
+#, fuzzy
+msgid "'cp info.xml' failed."
+msgstr "Помилка при відкритті файлу '%s'."
+
+msgid "'mkdir' failed."
+msgstr ""
+
+msgid "'rm info.xml' failed."
+msgstr ""
+
+msgid "'rmdir' failed."
+msgstr ""
+
+msgid "'scp info.xml' failed."
+msgstr ""
+
 #, c-format
 msgid "(Snapshot %d.)"
 msgstr "(Знімок %d.)"
+
+msgid "(Source) Creation Time"
+msgstr ""
+
+msgid "(Source) Parent UUID"
+msgstr ""
+
+msgid "(Source) Received UUID"
+msgstr ""
+
+msgid "(Source) UUID"
+msgstr ""
+
+msgid "(Target) Creation Time"
+msgstr ""
+
+msgid "(Target) Parent UUID"
+msgstr ""
+
+msgid "(Target) Received UUID"
+msgstr ""
+
+msgid "(Target) UUID"
+msgstr ""
+
+msgid "--abbreviate"
+msgstr ""
+
+msgid "--all-configs, -a"
+msgstr ""
+
+msgid "--ambit, -a <ambit>"
+msgstr ""
+
+msgid "--automatic"
+msgstr ""
+
+msgid "--backup-config, -b <name>"
+msgstr ""
+
+#, fuzzy
+msgid "--cleanup-algorithm, -c <algo>"
+msgstr "\t--cleanup-algorithm, -c <алгоритм>\tАлгоритм очищення для знімка."
+
+msgid "--columns <columns>"
+msgstr ""
+
+msgid "--command <command>"
+msgstr ""
+
+msgid "--config, -c <name>"
+msgstr ""
+
+msgid "--csvout"
+msgstr ""
+
+msgid "--debug"
+msgstr ""
+
+msgid "--default"
+msgstr ""
+
+#, fuzzy
+msgid "--description, -d <description>"
+msgstr "\t--description, -d <опис>\tОпис знімка."
+
+msgid "--diff-cmd <command>"
+msgstr ""
+
+msgid "--disable-used-space"
+msgstr ""
+
+msgid "--empty"
+msgstr ""
+
+msgid "--extensions, -x <options>"
+msgstr ""
+
+msgid "--free-space <space>"
+msgstr ""
+
+msgid "--from <number>"
+msgstr ""
+
+msgid "--fstype, -f <fstype>"
+msgstr ""
+
+msgid "--input, -i <file>"
+msgstr ""
+
+msgid "--iso"
+msgstr ""
+
+msgid "--jsonout"
+msgstr ""
+
+#, fuzzy
+msgid "--logger-type <type>"
+msgstr "\t--type, -t <тип>\t\tТип знімка."
+
+#, fuzzy
+msgid "--machine-readable <format>"
+msgstr "Непридатний стиль таблиці %d."
+
+msgid "--no-dbus"
+msgstr ""
+
+msgid "--no-headers"
+msgstr ""
+
+#, fuzzy
+msgid "--output, -o <file>"
+msgstr "\t--output, -o <файл>\t\tЗберегти статус у файл."
+
+msgid "--path <path>"
+msgstr ""
+
+msgid "--pre-number <number>"
+msgstr ""
+
+msgid "--print-number, -p"
+msgstr ""
+
+msgid "--quiet, -q"
+msgstr ""
+
+msgid "--read-only"
+msgstr ""
+
+msgid "--read-write"
+msgstr ""
+
+msgid "--root, -r <path>"
+msgstr ""
+
+msgid "--separator <separator>"
+msgstr ""
+
+msgid "--sync, -s"
+msgstr ""
+
+#, fuzzy
+msgid "--table-style, -t <style>"
+msgstr "\t--table-style, -t <стиль>\tСтиль таблиці (ціле число)."
+
+msgid "--target-mode <target-mode>"
+msgstr ""
+
+msgid "--template, -t <name>"
+msgstr ""
+
+#, fuzzy
+msgid "--type, -t <type>"
+msgstr "\t--type, -t <тип>\t\tТип знімка."
+
+#, fuzzy
+msgid "--userdata, -u <userdata>"
+msgstr "\t--userdata, -u <дані>\tДані для знімка."
+
+msgid "--utc"
+msgstr ""
+
+msgid "--verbose, -v"
+msgstr ""
+
+msgid "--version"
+msgstr ""
 
 msgid "ACL error."
 msgstr "Помилка ACL."
@@ -354,8 +385,14 @@ msgstr ""
 msgid "Active snapshot is already default snapshot."
 msgstr ""
 
+msgid "Allow to abbreviate table columns."
+msgstr ""
+
 #, c-format
 msgid "Ambit is %s."
+msgstr ""
+
+msgid "Automatic"
 msgstr ""
 
 #. TRANSLATORS: symbol for "bytes" (best keep untranslated)
@@ -380,8 +417,29 @@ msgstr ""
 msgid "Cannot do rollback since default subvolume is unknown."
 msgstr ""
 
+msgid "Character separator for CSV output format."
+msgstr ""
+
 msgid "Cleanup"
 msgstr "Очищення"
+
+#, fuzzy
+msgid "Cleanup algorithm for snapshot."
+msgstr "\t--cleanup-algorithm, -c <алгоритм>\tАлгоритм очищення для знімка."
+
+#, fuzzy
+msgid "Cleanup algorithm for snapshots."
+msgstr "\t--cleanup-algorithm, -c <алгоритм>\tАлгоритм очищення для знімків."
+
+msgid "Cleanup all configs affecting path."
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Client-side plugin '%s' failed."
+msgstr "Помилка при відкритті файлу '%s'."
+
+msgid "Columns to show separated by comma."
+msgstr ""
 
 msgid "Command 'cleanup' needs one arguments."
 msgstr "Команді 'cleanup' потрібен один аргумент."
@@ -443,6 +501,10 @@ msgid "Command 'status' needs one argument."
 msgstr "Команді 'status' потрібен один аргумент."
 
 #, fuzzy
+msgid "Command 'transfer-and-delete' does not take arguments."
+msgstr "Команді 'create' не потрібні аргументи."
+
+#, fuzzy
 msgid "Command 'umount' needs at least one argument."
 msgstr "Команді 'mount' потрібен хоча б один аргумент."
 
@@ -451,6 +513,10 @@ msgstr "Команді 'undochange' потрібен хоча б один арг
 
 msgid "Command 'xadiff' needs at least one argument."
 msgstr "Команді 'xadiff' потрібен хоча б один аргумент."
+
+#, fuzzy
+msgid "Command used for comparing files."
+msgstr "\t--diff-cmd <command>\t\tКоманда для порівняння файлів."
 
 msgid "Config"
 msgstr "Конфігурація"
@@ -484,6 +550,22 @@ msgstr ""
 msgid "Could not make enough free space available."
 msgstr ""
 
+#, fuzzy
+msgid "Create a snapshot from the specified snapshot."
+msgstr "Створення знімка %d для читання-запису."
+
+#, fuzzy
+msgid "Create an empty snapshot."
+msgstr "Створення знімка поточної системи тільки для читання."
+
+#, fuzzy
+msgid "Create read-only snapshot."
+msgstr "Створення знімка поточної системи тільки для читання."
+
+#, fuzzy
+msgid "Create read-write snapshot."
+msgstr "Створення знімка %d для читання-запису."
+
 #, c-format
 msgid "Creating config failed (%s)."
 msgstr "Помилка при створенні конфігурації (%s)."
@@ -510,9 +592,17 @@ msgstr "Дата"
 msgid "Default"
 msgstr ""
 
+#, fuzzy
+msgid "Delete:"
+msgstr "  Вилучити конфігурацію:"
+
 #, c-format
 msgid "Deleting config failed (%s)."
 msgstr "Помилка при видаленні конфігурації (%s)."
+
+#, fuzzy, c-format
+msgid "Deleting snapshot %d."
+msgstr "Не вдалося видалити знімок."
 
 msgid "Deleting snapshot failed."
 msgstr "Не вдалося видалити знімок."
@@ -527,8 +617,27 @@ msgstr[2] "Вилучення знімків із %s:"
 msgid "Description"
 msgstr "Опис"
 
+#, fuzzy
+msgid "Description for snapshot."
+msgstr "Опис"
+
+#, fuzzy
+msgid "Description for snapshots."
+msgstr "\t--description, -d <опис>\tОпис знімків."
+
 msgid "Detecting filesystem type failed."
 msgstr "Збій при визначенні типу файлової системи."
+
+msgid "Disable showing used space."
+msgstr ""
+
+#, fuzzy
+msgid "Display dates and times in ISO format."
+msgstr "\t--iso\t\t\t\tПоказувати дату і час у форматі ISO."
+
+#, fuzzy
+msgid "Display dates and times in UTC."
+msgstr "\t--utc\t\t\t\t Показувати дату і час у UTC."
 
 #. TRANSLATORS: symbol for "exa" (best keep untranslated)
 msgid "E"
@@ -553,11 +662,19 @@ msgstr "Порожні дані користувача."
 msgid "Error (%s)."
 msgstr "Помилка вводу/виводу (%s)."
 
+#, fuzzy
+msgid "Extra options passed to the diff command."
+msgstr "\t--extensions, -x <options>\tДодаткові параметри, передані у команду diff."
+
 msgid "Failed to initialize filesystem handler."
 msgstr "Не вдалося ініціалізувати обробник файлової системи."
 
 #, fuzzy, c-format
 msgid "Failed to parse '%s'."
+msgstr "не вдалося створити %s"
+
+#, fuzzy
+msgid "Failed to parse number."
 msgstr "не вдалося створити %s"
 
 #, c-format
@@ -600,6 +717,10 @@ msgstr ""
 msgid "GiB"
 msgstr ""
 
+#, fuzzy
+msgid "Global options:"
+msgstr "    Загальні параметри:"
+
 # error box title
 #, c-format
 msgid "IO Error (%s)."
@@ -617,6 +738,10 @@ msgstr "Знімки ідентичні."
 msgid "Illegal snapshot."
 msgstr "Некоректний знімок."
 
+#, fuzzy
+msgid "Increase verbosity."
+msgstr "\t--verbose-v\t\t\tЗбільшити детальність виводу."
+
 #, fuzzy, c-format
 msgid "Invalid ambit '%s'."
 msgstr "Неправильний знімок '%s'."
@@ -624,6 +749,10 @@ msgstr "Неправильний знімок '%s'."
 #, fuzzy, c-format
 msgid "Invalid column '%s'."
 msgstr "Неправильний знімок '%s'."
+
+#, fuzzy
+msgid "Invalid config."
+msgstr "Неправильні дані конфігурації."
 
 msgid "Invalid configdata."
 msgstr "Неправильні дані конфігурації."
@@ -635,6 +764,10 @@ msgstr "Нечинний підтом."
 #, fuzzy, c-format
 msgid "Invalid group (%s)."
 msgstr "Нечинна група."
+
+#, fuzzy, c-format
+msgid "Invalid logger-type '%s'."
+msgstr "Непридатний стиль таблиці %d."
 
 #, fuzzy, c-format
 msgid "Invalid machine readable format '%s'."
@@ -651,11 +784,19 @@ msgstr "Неправильний знімок '%s'."
 msgid "Invalid snapshots."
 msgstr "Неправильні знімки."
 
+#, fuzzy, c-format
+msgid "Invalid subvolume path '%s' on target."
+msgstr "Нечинний підтом."
+
 msgid "Invalid subvolume."
 msgstr "Нечинний підтом."
 
 #, fuzzy, c-format
 msgid "Invalid table style '%s'."
+msgstr "Непридатний стиль таблиці %d."
+
+#, fuzzy, c-format
+msgid "Invalid target mode '%s'."
 msgstr "Непридатний стиль таблиці %d."
 
 #, fuzzy, c-format
@@ -672,6 +813,17 @@ msgstr "Ключ"
 msgid "KiB"
 msgstr ""
 
+#, fuzzy
+msgid "List configs:"
+msgstr "  Список конфігурацій:"
+
+#, fuzzy
+msgid "List snapshots from all accessible configs."
+msgstr "\t--all-configs, -a\t\tСписок знімків із усіх доступних конфігурацій."
+
+msgid "List:"
+msgstr ""
+
 #, c-format
 msgid "Listing configs failed (%s)."
 msgstr "Збій при перерахуванні конфігурацій (%s)."
@@ -683,6 +835,10 @@ msgstr ""
 #. TRANSLATORS: symbol for "mega bytes" (best keep untranslated)
 msgid "MB"
 msgstr ""
+
+#, fuzzy
+msgid "Manually set filesystem type."
+msgstr "\t--fstype, -f <тип ФС>\t\tВказати тип файлової системи вручну."
 
 msgid "Maybe you forgot the delimiter '..' between the snapshot numbers."
 msgstr "Можливо, ви забули роздільник '..' між номерами моментальних знімків."
@@ -709,15 +865,49 @@ msgstr "Відсутній роздільник '..' між номерами з�
 msgid "Missing or invalid pre-number."
 msgstr "Відсутній або неправильний номер попереднього знімка."
 
+msgid "Name"
+msgstr ""
+
+#, fuzzy
+msgid "Name of config template to use."
+msgstr "\t--template, -t <ім'я>\t\tНазва шаблону конфігурації."
+
+msgid "No backup configs found."
+msgstr ""
+
 msgid "No command provided."
 msgstr "Не вказано команду."
+
+msgid "No headers for CSV output format."
+msgstr ""
 
 msgid "No permissions."
 msgstr "Немає прав."
 
+#, fuzzy
+msgid "Number of corresponding pre snapshot."
+msgstr "\t--pre-number <число>\t\tНомер відповідного попереднього знімка."
+
+msgid "Only use backup-config with automatic set."
+msgstr ""
+
+msgid "Only use backup-config with specified target-mode."
+msgstr ""
+
 #, c-format
 msgid "Opening file '%s' failed."
 msgstr "Помилка при відкритті файлу '%s'."
+
+msgid "Operate in the specified ambit."
+msgstr ""
+
+#, fuzzy
+msgid "Operate on target root (works only without DBus)."
+msgstr "\t--root, -r <path>\t\tРобота із цільовим коренем (підтримується тільки без DBus)."
+
+#, fuzzy
+msgid "Operate without DBus."
+msgstr "\t--no-dbus\t\t\tПрацювати без DBus."
 
 msgid "Option --from only supported for snapshots of type single."
 msgstr ""
@@ -732,6 +922,10 @@ msgstr ""
 
 #. TRANSLATORS: symbol for "peta bytes" (best keep untranslated)
 msgid "PB"
+msgstr ""
+
+#, c-format
+msgid "Path mismatch between source-path of backup-config and subvolume of snapper config ('%s' vs. '%s')."
 msgstr ""
 
 #. TRANSLATORS: symbol for "pebi bytes" (best keep untranslated)
@@ -750,16 +944,161 @@ msgstr "№ попереднього знімка"
 msgid "Pre Date"
 msgstr "Дата попереднього знімка"
 
+#, fuzzy
+msgid "Print number of created snapshot."
+msgstr "\t--print-число, -p\t\tВивести номер створеного знімка."
+
+#, fuzzy
+msgid "Print number of second created snapshot."
+msgstr "\t--print-number, -p\t\tВивести номер другого створеного знімка."
+
+#, fuzzy
+msgid "Print version and exit."
+msgstr "\t--version\t\t\tВивести версію програми та вийти."
+
+#, fuzzy
+msgid "Probing extra information for source snapshots."
+msgstr "\t--description, -d <опис>\tОпис знімків."
+
+#, fuzzy
+msgid "Probing extra information for target snapshots."
+msgstr "\t--description, -d <опис>\tОпис знімків."
+
+#, fuzzy
+msgid "Probing source snapshots."
+msgstr "\t--description, -d <опис>\tОпис знімків."
+
+#, fuzzy
+msgid "Probing target snapshots."
+msgstr "\t--description, -d <опис>\tОпис знімків."
+
 # error box title
 #, fuzzy, c-format
 msgid "Quota error (%s)."
 msgstr "Помилка вводу/виводу (%s)."
 
+#, fuzzy
+msgid "Read files for which to undo changes from file."
+msgstr "\t--input, -i <файл>\t\tПрочитати файли для відкоту змін з файлу."
+
+#, fuzzy
+msgid "Read files to diff from file."
+msgstr "\t--input, -i <файл>\t\tПрочитати файли у diff з файлу."
+
 msgid "Read-Only"
 msgstr ""
 
+#, fuzzy
+msgid "Run command and create pre and post snapshots."
+msgstr "\t--command <команда>\tЗапустити команду і створити знімки до та після."
+
+#, c-format
+msgid "Running delete failed for %d of %ld backup config."
+msgid_plural "Running delete failed for %d of %ld backup configs."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#, c-format
+msgid "Running delete for backup config '%s' failed."
+msgstr ""
+
+#, c-format
+msgid "Running delete for backup config '%s'."
+msgstr ""
+
+#, c-format
+msgid "Running list failed for %d of %ld backup config."
+msgid_plural "Running list failed for %d of %ld backup configs."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#, c-format
+msgid "Running transfer and delete failed for %d of %ld backup config."
+msgid_plural "Running transfer and delete failed for %d of %ld backup configs."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#, c-format
+msgid "Running transfer and delete for backup config '%s' failed."
+msgstr ""
+
+#, c-format
+msgid "Running transfer and delete for backup config '%s'."
+msgstr ""
+
+#, c-format
+msgid "Running transfer failed for %d of %ld backup config."
+msgid_plural "Running transfer failed for %d of %ld backup configs."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#, c-format
+msgid "Running transfer for backup config '%s' failed."
+msgstr ""
+
+#, c-format
+msgid "Running transfer for backup config '%s'."
+msgstr ""
+
+msgid "SSH Host"
+msgstr ""
+
+msgid "SSH Identity"
+msgstr ""
+
+msgid "SSH Port"
+msgstr ""
+
+#, fuzzy
+msgid "SSH User"
+msgstr "Користувач"
+
+#, fuzzy
+msgid "Save status to file."
+msgstr "\t--output, -o <файл>\t\tЗберегти статус у файл."
+
 msgid "See 'man snapper' for further instructions."
 msgstr "Додаткові вказівки див. у 'man snapper'."
+
+#, fuzzy, c-format
+msgid "Server-side plugin '%s' failed."
+msgstr "Помилка при відкритті файлу '%s'."
+
+msgid "Set CSV output format."
+msgstr ""
+
+msgid "Set JSON output format."
+msgstr ""
+
+#, fuzzy
+msgid "Set a machine-readable output format (csv, json)."
+msgstr "Непридатний стиль таблиці %d."
+
+msgid "Set logger type."
+msgstr ""
+
+#, fuzzy
+msgid "Set name of backup-config to use."
+msgstr "\t--config, -c <ім'я>\t\tНазва використовуваної конфігурації."
+
+#, fuzzy
+msgid "Set name of config to use."
+msgstr "\t--config, -c <ім'я>\t\tНазва використовуваної конфігурації."
+
+msgid "Set snapshot as default snapshot."
+msgstr ""
+
+#, fuzzy
+msgid "Set snapshot read-only."
+msgstr "Не вдалося зробити знімок."
+
+#, fuzzy
+msgid "Set snapshot read-write."
+msgstr "Не вдалося зробити знімок."
 
 #, c-format
 msgid "Setting default subvolume to snapshot %d."
@@ -769,11 +1108,41 @@ msgstr "Призначення знімка %d типовий підтомом."
 msgid "Snapshot '%u' not found."
 msgstr "Знімок '%u' не знайдено."
 
+#, fuzzy
+msgid "Snapshot already on target."
+msgstr "Не вдалося зробити знімок."
+
 msgid "Snapshot is in use."
 msgstr "Знімок вже використовується."
 
+#, fuzzy
+msgid "Snapshot not on source."
+msgstr "Знімок вже використовується."
+
+#, fuzzy
+msgid "Snapshot not on target."
+msgstr "Знімок '%u' не знайдено."
+
+#, fuzzy, c-format
+msgid "Snapshot number %d not found."
+msgstr "Знімок '%u' не знайдено."
+
+msgid "Source Path"
+msgstr ""
+
+msgid "Source State"
+msgstr ""
+
 msgid "Subvolume"
 msgstr "Підтом"
+
+#, fuzzy
+msgid "Suppress normal output."
+msgstr "\t--тихо, -q\t\t\tПоглушити нормальне виведення."
+
+#, fuzzy
+msgid "Sync after deletion."
+msgstr "\t--sync, -s\t\t\tСинхронізація після вилучення."
 
 #. TRANSLATORS: symbol for "tera" (best keep untranslated)
 msgid "T"
@@ -781,6 +1150,37 @@ msgstr ""
 
 #. TRANSLATORS: symbol for "tera bytes" (best keep untranslated)
 msgid "TB"
+msgstr ""
+
+#, fuzzy
+msgid "Table style (integer)."
+msgstr "\t--table-style, -t <стиль>\tСтиль таблиці (ціле число)."
+
+msgid "Target Mode"
+msgstr ""
+
+msgid "Target Path"
+msgstr ""
+
+msgid "Target State"
+msgstr ""
+
+msgid "Target btrfs bin"
+msgstr ""
+
+msgid "Target findmnt Bin"
+msgstr ""
+
+msgid "Target mkdir bin"
+msgstr ""
+
+msgid "Target realpath bin"
+msgstr ""
+
+msgid "Target rm bin"
+msgstr ""
+
+msgid "Target rmdir bin"
 msgstr ""
 
 msgid "The ambit can be specified manually using the --ambit option."
@@ -796,11 +1196,39 @@ msgstr ""
 msgid "TiB"
 msgstr ""
 
+msgid "Transfer and delete:"
+msgstr ""
+
+msgid "Transfer:"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Transferring snapshot %d."
+msgstr "Не вдалося зробити знімок."
+
 msgid "Try 'snapper --help' for more information."
 msgstr "Щоб отримати більше інформації, спробуйте \"snapper --help'."
 
+#, fuzzy
+msgid "Try 'snbk --help' for more information."
+msgstr "Щоб отримати більше інформації, спробуйте \"snapper --help'."
+
+msgid "Try to make space available."
+msgstr ""
+
+msgid "Turn on debugging."
+msgstr ""
+
 msgid "Type"
 msgstr "Тип"
+
+#, fuzzy
+msgid "Type for snapshot."
+msgstr "Невідомий тип знімка."
+
+#, fuzzy
+msgid "Type of snapshots to list."
+msgstr "\t--type, -t <тип>\t\tТип перерахованих знімків."
 
 #, c-format
 msgid "Unknown cleanup algorithm '%s'."
@@ -852,6 +1280,14 @@ msgstr "Дані користувача '%s' не включають знак '=
 msgid "Userdata '%s' has empty key."
 msgstr "Порожній ключ в даних користувача '%s'."
 
+#, fuzzy
+msgid "Userdata for snapshot."
+msgstr "\t--userdata, -u <дані>\tДані для знімка."
+
+#, fuzzy
+msgid "Userdata for snapshots."
+msgstr "Знімки ідентичні."
+
 msgid "Value"
 msgstr "Значення"
 
@@ -901,14 +1337,36 @@ msgstr "нема що робити"
 msgid "root argument can be used only together with no-dbus.\n"
 msgstr "Аргумент root можна використовувати тільки разом з no-dbus."
 
+#, fuzzy
+msgid "snbk delete [numbers]"
+msgstr "\tsnapper delete <число>"
+
+#, fuzzy
+msgid "snbk list"
+msgstr "\tsnapper list"
+
+#, fuzzy
+msgid "snbk list-configs"
+msgstr "\tsnapper list-configs"
+
+msgid "snbk transfer [numbers]"
+msgstr ""
+
+msgid "snbk transfer-and-delete"
+msgstr ""
+
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
+msgstr "використання: snapper [--загальні параметри] <команда> [--параметри команди] [аргументи команди]"
+
+#, fuzzy
+msgid "usage: snbk [--global-options] <command> [command-arguments]"
 msgstr "використання: snapper [--загальні параметри] <команда> [--параметри команди] [аргументи команди]"
 
 msgid "yes"
 msgstr ""
 
-#~ msgid "Unknown type of snapshot."
-#~ msgstr "Невідомий тип знімка."
+#~ msgid "\t--userdata, -u <userdata>\tUserdata for snapshots."
+#~ msgstr "\t--userdata, -u <дані>\tДані для знімків."
 
 #~ msgid "Unknown type of snapshots."
 #~ msgstr "Невідомий тип знімків."

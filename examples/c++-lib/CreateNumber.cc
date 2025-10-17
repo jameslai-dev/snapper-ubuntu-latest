@@ -1,7 +1,5 @@
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/types.h>
+#include <cstdlib>
 #include <vector>
 #include <iostream>
 
@@ -23,8 +21,10 @@ delete_all()
 	if (!it->isCurrent())
 	    tmp.push_back(it);
 
+    Plugins::Report report;
+
     for (vector<Snapshots::iterator>::iterator it = tmp.begin(); it != tmp.end(); ++it)
-	snapper.deleteSnapshot(*it);
+	snapper.deleteSnapshot(*it, report);
 }
 
 
@@ -32,6 +32,8 @@ void
 create_number()
 {
     Snapper snapper("testsuite", "/");
+
+    Plugins::Report report;
 
     for (size_t i = 0; i < 100; ++i)
     {
@@ -42,7 +44,7 @@ create_number()
 	if (i % 5 == 0)
 	    scd.userdata["important"] = "yes";
 
-	snapper.createSingleSnapshot(scd);
+	snapper.createSingleSnapshot(scd, report);
     }
 }
 

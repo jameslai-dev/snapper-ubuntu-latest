@@ -60,29 +60,23 @@
 	</listitem>
       </varlistentry>
 
-      <varlistentry>
-	<term><option>SPACE_LIMIT=<replaceable>float</replaceable> or
+      <varlistentry>	<term><option>SPACE_LIMIT=<replaceable>float</replaceable> or
 	<replaceable>size</replaceable></option></term>
 	<listitem>
-	  <para>Limit of the filesystems space the snapshots should
-	  use. Either a fraction of the whole filesystem for an
-	  absolute value. An absolute value must use the C locale.</para>
+	  <para>Threshold for the maximum space snapshots should use on the filesystem. When snapshots exceed this limit (either as a fraction of the whole filesystem or an absolute value), snapper will remove older snapshots during cleanup operations. An absolute value must use the C locale.</para>
 	  <para>Only supported for btrfs.</para>
-	  <para>Default value is &quot;0.5&quot;.</para>
+	  <para>Default value is &quot;0.5&quot; (50% of the filesystem).</para>
 	  <para>New in version 0.3.0, absolute value new in version
 	  0.9.0.</para>
 	</listitem>
       </varlistentry>
 
-      <varlistentry>
-	<term><option>FREE_LIMIT=<replaceable>float</replaceable> or
+      <varlistentry>	<term><option>FREE_LIMIT=<replaceable>float</replaceable> or
 	<replaceable>size</replaceable></option></term>
 	<listitem>
-	  <para>Limit of the filesystem space that should be
-	  free. Either a fraction of the whole filesystem for an absolute
-	  value. An absolute value must use the C locale.</para>
+	  <para>Threshold for the minimum free space that should remain on the filesystem. When free space falls below this limit (either as a fraction of the whole filesystem or an absolute value), snapper will remove older snapshots during cleanup operations to reclaim space. An absolute value must use the C locale.</para>
 	  <para>Only supported for btrfs.</para>
-	  <para>Default value is &quot;0.2&quot;.</para>
+	  <para>Default value is &quot;0.2&quot; (20% of the filesystem).</para>
 	  <para>New in version 0.8.0, absolute value new in version 0.9.0.</para>
 	</listitem>
       </varlistentry>
@@ -164,7 +158,7 @@
 	<listitem>
 	  <para>Minimal age for snapshots to be deleted by the number cleanup
 	  algorithm.</para>
-	  <para>Default value is &quot;1800&quot;.</para>
+	  <para>Default value is &quot;3600&quot;.</para>
 	</listitem>
       </varlistentry>
 
@@ -197,8 +191,8 @@
 	<listitem>
 	  <para>Defines whether hourly snapshots should be created.</para>
 	  <para>Together with the timeline cleanup algorithm this will create
-	  a collection of snapshots with more snapshots is the near past and
-	  less snapshots in the far past.</para>
+	  a collection of snapshots with more snapshots in the recent past and
+	  fewer snapshots in the far past.</para>
 	  <para>Default value is &quot;no&quot;.</para>
 	</listitem>
       </varlistentry>
@@ -217,7 +211,7 @@
 	<listitem>
 	  <para>Minimal age for snapshots to be deleted by the timeline
 	  cleanup algorithm.</para>
-	  <para>Default value is &quot;1800&quot;.</para>
+	  <para>Default value is &quot;3600&quot;.</para>
 	</listitem>
       </varlistentry>
 
@@ -267,6 +261,17 @@
       </varlistentry>
 
       <varlistentry>
+	<term><option>TIMELINE_LIMIT_QUARTERLY=<replaceable>number</replaceable> or
+	<replaceable>range</replaceable></option></term>
+	<listitem>
+	  <para>Defines how many quarterly snapshots the timeline cleanup
+	  algorithm should keep. A quarterly snapshot is the first snapshot in a quarter. The
+	  youngest quarterly snapshots will be kept.</para>
+	  <para>Default value is &quot;0&quot;.</para>
+	</listitem>
+      </varlistentry>
+
+      <varlistentry>
 	<term><option>TIMELINE_LIMIT_YEARLY=<replaceable>number</replaceable> or
 	<replaceable>range</replaceable></option></term>
 	<listitem>
@@ -291,7 +296,7 @@
 	<listitem>
 	  <para>Minimal age for snapshots to be deleted by the empty-pre-post
 	  cleanup algorithm.</para>
-	  <para>Default value is &quot;1800&quot;.</para>
+	  <para>Default value is &quot;3600&quot;.</para>
 	</listitem>
       </varlistentry>
 

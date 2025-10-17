@@ -1,4 +1,190 @@
 -------------------------------------------------------------------
+Fri Sep 05 12:52:07 CEST 2025 - aschnell@suse.com
+
+- do not link with stub libboost_system
+- version 0.13.0
+
+-------------------------------------------------------------------
+Tue Sep 02 14:29:41 CEST 2025 - aschnell@suse.com
+
+- added generic plugin action used when setting snapshot read-only
+  (bsc#1246172)
+
+-------------------------------------------------------------------
+Mon Aug 04 17:00:45 CEST 2025 - Arvin Schnell <aschnell@suse.com>
+
+- fixed memory leak in DBus Marshalling
+
+-------------------------------------------------------------------
+Wed Jul 23 10:35:22 CEST 2025 - aschnell@suse.com
+
+- allow to send log to system logger (gh#openSUSE/snapper#1030)
+- removed deprecated functions
+
+-------------------------------------------------------------------
+Fri Jul 04 12:52:34 CEST 2025 - aschnell@suse.com
+
+- split off lang package
+
+-------------------------------------------------------------------
+Fri Jun 13 11:52:02 CEST 2025 - aschnell@suse.com
+
+- check that path for mksubvolume is an absolute path
+  (gh#openSUSE/snapper#1016)
+
+-------------------------------------------------------------------
+Thu Apr 24 12:20:13 CEST 2025 - aschnell@suse.com
+
+- pick boost process v1 when compiling with boost 1.88 or higher
+
+-------------------------------------------------------------------
+Mon Apr 07 10:05:23 CEST 2025 - aschnell@suse.com
+
+- use correct btrfs binary for target commands in snbk
+  (gh#openSUSE/snapper#998)
+- version 0.12.2
+
+-------------------------------------------------------------------
+Tue Feb 04 10:10:41 CET 2025 - aschnell@suse.com
+
+- avoid running 'btrfs qgroup clear-stale' if quota is disabled
+  (gh#openSUSE/snapper#987)
+
+-------------------------------------------------------------------
+Fri Jan 17 07:07:43 CET 2025 - aschnell@suse.com
+
+- avoid build dependency e2fsprogs-devel
+
+-------------------------------------------------------------------
+Tue Dec 17 09:14:46 CET 2024 - aschnell@suse.com
+
+- make some binary paths used in snbk configurable
+  (gh#openSUSE/snapper#970)
+- version 0.12.1
+
+-------------------------------------------------------------------
+Mon Dec 02 16:51:50 CET 2024 - aschnell@suse.com
+
+- added new workflow using only two steps to installation-helper
+  (gh#openSUSE/snapper#944)
+
+-------------------------------------------------------------------
+Tue Nov 05 10:50:50 CET 2024 - aschnell@suse.com
+
+- provide backup program for btrfs snapshots
+- version 0.12.0
+
+-------------------------------------------------------------------
+Fri Oct 25 08:48:46 CEST 2024 - aschnell@suse.com
+
+- support creating empty snapshots (gh#openSUSE/snapper#944)
+
+-------------------------------------------------------------------
+Fri Oct 11 10:34:42 CEST 2024 - aschnell@suse.com
+
+- generate dsc file for Ubuntu 24.10
+
+-------------------------------------------------------------------
+Thu Aug 29 17:42:35 CEST 2024 - aschnell@suse.com
+
+- use .snapshots dir for 'btrfs qgroup clear-stale' (bsc#1229904)
+- version 0.11.2
+
+-------------------------------------------------------------------
+Fri Jul 05 16:03:42 CEST 2024 - aschnell@suse.com
+
+- handle content-length of stomp in zypper plugin
+  (gh#openSUSE/snapper#918)
+- version 0.11.1
+
+-------------------------------------------------------------------
+Wed May 22 17:21:18 CEST 2024 - aschnell@suse.com
+
+- fixed error message (gh#openSUSE/snapper#907)
+
+-------------------------------------------------------------------
+Thu Apr 18 15:03:31 CEST 2024 - aschnell@suse.com
+
+- async cleanup of stale btrfs qgroups (bsc#1222847)
+- version 0.11.0
+
+-------------------------------------------------------------------
+Wed Apr 17 17:03:40 CEST 2024 - aschnell@suse.com
+
+- reverted some parts of PR#884 to fix build in obs
+
+-------------------------------------------------------------------
+Wed Apr 17 15:00:13 CEST 2024 - aschnell@suse.com
+
+- run cleanup service every hour (gh#openSUSE/snapper#885)
+
+-------------------------------------------------------------------
+Tue Apr 16 17:59:58 CEST 2024 - aschnell@suse.com
+
+- disable qgroup if it does not exist to avoid failure creating
+  snapshots with kernel 6.8.4 (gh#openSUSE/snapper#894)
+
+-------------------------------------------------------------------
+Mon Apr 08 08:54:07 CEST 2024 - aschnell@suse.com
+
+- avoid excessive logging (gh#openSUSE/snapper#892)
+
+-------------------------------------------------------------------
+Thu Mar 21 10:46:08 CET 2024 - aschnell@suse.com
+
+- improved log message (see gh#openSUSE/snapper#866)
+
+-------------------------------------------------------------------
+Tue Mar 19 14:58:12 CET 2024 - aschnell@suse.com
+
+- improved error message (gh#openSUSE/snapper#864)
+
+-------------------------------------------------------------------
+Sat Mar 09 09:44:17 GMT 2024 - infinity0@pwned.gg
+
+- add support for quarterly snapshots
+
+-------------------------------------------------------------------
+Fri Feb 16 08:26:41 CET 2024 - aschnell@suse.com
+
+- select table style based on codeset
+
+-------------------------------------------------------------------
+Wed Feb 14 09:14:32 CET 2024 - aschnell@suse.com
+
+- added experimental bcachefs support (gh#openSUSE/snapper#858)
+
+-------------------------------------------------------------------
+Wed Feb 07 11:16:40 CET 2024 - aschnell@suse.com
+
+- lock config during list and cleanup commands and in zypper plugin
+  (gh#openSUSE/snapper#867)
+- increase min age for cleanup to 3600 seconds
+
+-------------------------------------------------------------------
+Fri Dec 08 09:06:30 CET 2023 - aschnell@suse.com
+
+- drop permissions check in GetPluginsReport and ClearPluginsReport
+  (gh#openSUSE/snapper#856)
+
+-------------------------------------------------------------------
+Tue Nov 28 08:22:41 CET 2023 - aschnell@suse.com
+
+- report plugin failures (gh#openSUSE/snapper#846)
+- version 0.10.7
+
+-------------------------------------------------------------------
+Wed Nov 22 16:15:37 CET 2023 - aschnell@suse.com
+
+- fix building with libxml 2.12.0 (gh#openSUSE/snapper#848)
+
+-------------------------------------------------------------------
+Fri Oct 13 08:56:18 CEST 2023 - aschnell@suse.com
+
+- fix diff for lvm based configs (bsc#1216191)
+- make SystemCmd take vector of strings
+
+-------------------------------------------------------------------
 Thu Sep 14 15:45:53 CEST 2023 - aschnell@suse.com
 
 - fixed creating files in root dir (gh#openSUSE/snapper#168)
@@ -530,7 +716,7 @@ Wed Sep  6 09:53:12 CEST 2017 - aschnell@suse.com
 -------------------------------------------------------------------
 Thu Aug  3 18:12:17 UTC 2017 - lslezak@suse.com
 
-- fixed table formatting for non-ACSII characters (bsc#1051901)
+- fixed table formatting for non-ASCII characters (bsc#1051901)
   (::mbrtowc behavior has been changed in glibc-2.22)
 - version 0.5.1
 
@@ -663,7 +849,6 @@ Tue Sep 22 14:55:10 CEST 2015 - shundhammer@suse.de
 - version 0.2.9
 
 -------------------------------------------------------------------
-
 Tue Sep 22 12:20:28 CEST 2015 - aschnell@suse.com
 
 - added program to create btrfs subvolume suitable for systems

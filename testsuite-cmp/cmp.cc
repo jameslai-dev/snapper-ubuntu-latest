@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "snapper/Log.h"
+#include "snapper/LoggerImpl.h"
 #include "snapper/AppUtil.h"
 #include "snapper/File.h"
 #include "snapper/Filesystem.h"
@@ -27,7 +27,7 @@ struct helper
 bool
 cmp(const string& fstype, const string& subvolume, unsigned int num1, unsigned int num2)
 {
-    Filesystem* filesystem = Filesystem::create(fstype, subvolume, "/");
+    unique_ptr<Filesystem> filesystem = Filesystem::create(fstype, subvolume, "/");
 
     SDir dir1 = filesystem->openSnapshotDir(num1);
     SDir dir2 = filesystem->openSnapshotDir(num2);
@@ -36,7 +36,7 @@ cmp(const string& fstype, const string& subvolume, unsigned int num1, unsigned i
     double t1;
 
     {
-	StopWatch sw1;
+	Stopwatch sw1;
 
 #if 1
 	cmpdirs_cb_t cb1 = helper(result1);
@@ -58,7 +58,7 @@ cmp(const string& fstype, const string& subvolume, unsigned int num1, unsigned i
     double t2;
 
     {
-	StopWatch sw2;
+	Stopwatch sw2;
 
 #if 1
 	cmpdirs_cb_t cb2 = helper(result2);

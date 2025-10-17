@@ -26,34 +26,44 @@ AC_PREFIX_DEFAULT(/usr)
 
 AC_PATH_PROG([XSLTPROC], [xsltproc], [/usr/bin/xsltproc])
 
-AC_PATH_PROG([CHSNAPBIN], [chsnap], [/sbin/chsnap])
-AC_PATH_PROG([CPBIN], [cp], [/bin/cp])
-AC_PATH_PROG([TOUCHBIN], [touch], [/usr/bin/touch])
-AC_PATH_PROG([RMBIN], [rm], [/bin/rm])
-AC_PATH_PROG([DIFFBIN], [diff], [/usr/bin/diff])
-AC_PATH_PROG([CHATTRBIN], [chattr], [/usr/bin/chattr])
-AC_PATH_PROG([LVCREATEBIN], [lvcreate], [/sbin/lvcreate])
-AC_PATH_PROG([LVREMOVEBIN], [lvremove], [/sbin/lvremove])
-AC_PATH_PROG([LVSBIN], [lvs], [/sbin/lvs])
-AC_PATH_PROG([LVCHANGEBIN], [lvchange], [/sbin/lvchange])
-AC_PATH_PROG([LVMBIN], [lvm], [/sbin/lvm])
-AC_PATH_PROG([LVRENAMEBIN], [lvrename], [/sbin/lvrename])
+AC_PATH_PROG([BTRFS_BIN], [btrfs], [/usr/sbin/btrfs])
+AC_PATH_PROG([CHATTR_BIN], [chattr], [/usr/bin/chattr])
+AC_PATH_PROG([CHSNAP_BIN], [chsnap], [/sbin/chsnap])
+AC_PATH_PROG([CP_BIN], [cp], [/bin/cp])
+AC_PATH_PROG([DIFF_BIN], [diff], [/usr/bin/diff])
+AC_PATH_PROG([FINDMNT_BIN], [findmnt], [/usr/bin/findmnt])
+AC_PATH_PROG([LVCHANGE_BIN], [lvchange], [/sbin/lvchange])
+AC_PATH_PROG([LVCREATE_BIN], [lvcreate], [/sbin/lvcreate])
+AC_PATH_PROG([LVM_BIN], [lvm], [/sbin/lvm])
+AC_PATH_PROG([LVREMOVE_BIN], [lvremove], [/sbin/lvremove])
+AC_PATH_PROG([LVRENAME_BIN], [lvrename], [/sbin/lvrename])
+AC_PATH_PROG([LVS_BIN], [lvs], [/sbin/lvs])
+AC_PATH_PROG([MKDIR_BIN], [mkdir], [/bin/mkdir])
+AC_PATH_PROG([REALPATH_BIN], [realpath], [/usr/bin/realpath])
+AC_PATH_PROG([RM_BIN], [rm], [/bin/rm])
+AC_PATH_PROG([RMDIR_BIN], [rmdir], [/bin/rmdir])
+AC_PATH_PROG([TOUCH_BIN], [touch], [/usr/bin/touch])
 
-AC_DEFINE_UNQUOTED([CHSNAPBIN], ["$CHSNAPBIN"], [Path of chsnap program.])
-AC_DEFINE_UNQUOTED([CPBIN], ["$CPBIN"], [Path of cp program.])
-AC_DEFINE_UNQUOTED([TOUCHBIN], ["$TOUCHBIN"], [Path of touch program.])
-AC_DEFINE_UNQUOTED([RMBIN], ["$RMBIN"], [Path of rm program.])
-AC_DEFINE_UNQUOTED([DIFFBIN], ["$DIFFBIN"], [Path of diff program.])
-AC_DEFINE_UNQUOTED([CHATTRBIN], ["$CHATTRBIN"], [Path of chattr program.])
-AC_DEFINE_UNQUOTED([LVCREATEBIN], ["$LVCREATEBIN"], [Path of lvcreate program.])
-AC_DEFINE_UNQUOTED([LVREMOVEBIN], ["$LVREMOVEBIN"], [Path of lvremove program.])
-AC_DEFINE_UNQUOTED([LVSBIN], ["$LVSBIN"], [Path of lvs program.])
-AC_DEFINE_UNQUOTED([LVCHANGEBIN], ["$LVCHANGEBIN"], [Path of lvchange program.])
-AC_DEFINE_UNQUOTED([LVMBIN], ["$LVMBIN"], [Path of lvm program.])
-AC_DEFINE_UNQUOTED([LVRENAMEBIN], ["$LVRENAMEBIN"], [Path of lvrename program.])
+AC_DEFINE_UNQUOTED([BTRFS_BIN], ["$BTRFS_BIN"], [Path of btrfs program.])
+AC_DEFINE_UNQUOTED([CHATTR_BIN], ["$CHATTR_BIN"], [Path of chattr program.])
+AC_DEFINE_UNQUOTED([CHSNAP_BIN], ["$CHSNAP_BIN"], [Path of chsnap program.])
+AC_DEFINE_UNQUOTED([CP_BIN], ["$CP_BIN"], [Path of cp program.])
+AC_DEFINE_UNQUOTED([DIFF_BIN], ["$DIFF_BIN"], [Path of diff program.])
+AC_DEFINE_UNQUOTED([FINDMNT_BIN], ["$FINDMNT_BIN"], [Path of findmnt program.])
+AC_DEFINE_UNQUOTED([LVCHANGE_BIN], ["$LVCHANGE_BIN"], [Path of lvchange program.])
+AC_DEFINE_UNQUOTED([LVCREATE_BIN], ["$LVCREATE_BIN"], [Path of lvcreate program.])
+AC_DEFINE_UNQUOTED([LVM_BIN], ["$LVM_BIN"], [Path of lvm program.])
+AC_DEFINE_UNQUOTED([LVREMOVE_BIN], ["$LVREMOVE_BIN"], [Path of lvremove program.])
+AC_DEFINE_UNQUOTED([LVRENAME_BIN], ["$LVRENAME_BIN"], [Path of lvrename program.])
+AC_DEFINE_UNQUOTED([LVS_BIN], ["$LVS_BIN"], [Path of lvs program.])
+AC_DEFINE_UNQUOTED([MKDIR_BIN], ["$MKDIR_BIN"], [Path of mkdir program.])
+AC_DEFINE_UNQUOTED([REALPATH_BIN], ["$REALPATH_BIN"], [Path of realpath program.])
+AC_DEFINE_UNQUOTED([RM_BIN], ["$RM_BIN"], [Path of rm program.])
+AC_DEFINE_UNQUOTED([RMDIR_BIN], ["$RMDIR_BIN"], [Path of rmdir program.])
+AC_DEFINE_UNQUOTED([TOUCH_BIN], ["$TOUCH_BIN"], [Path of touch program.])
 
 CFLAGS="${CFLAGS} -std=c99 -Wall -Wextra -Wformat -Wmissing-prototypes -Wno-unused-parameter"
-CXXFLAGS="${CXXFLAGS} -std=c++11 -Wall -Wextra -Wformat -Wnon-virtual-dtor -Wno-unused-parameter -Wsuggest-override"
+CXXFLAGS="${CXXFLAGS} -std=c++14 -Wall -Wextra -Wformat -Wnon-virtual-dtor -Wno-unused-parameter -Wsuggest-override"
 
 SYSCONFIG=/etc/sysconfig
 
@@ -75,6 +85,14 @@ AM_CONDITIONAL(ENABLE_BTRFS, [test "x$with_btrfs" = "xyes"])
 
 if test "x$with_btrfs" = "xyes"; then
 	AC_DEFINE(ENABLE_BTRFS, 1, [Enable Btrfs internal snapshots support])
+fi
+
+AC_ARG_ENABLE([bcachefs], AS_HELP_STRING([--disable-bcachefs], [Disable Bcachefs internal snapshots support]),
+		[with_bcachefs=$enableval], [with_bcachefs=yes])
+AM_CONDITIONAL(ENABLE_BCACHEFS, [test "x$with_bcachefs" = "xyes"])
+
+if test "x$with_bcachefs" = "xyes"; then
+	AC_DEFINE(ENABLE_BCACHEFS, 1, [Enable Bcachefs internal snapshots support])
 fi
 
 AC_ARG_ENABLE([ext4], AS_HELP_STRING([--disable-ext4], [Disable ext4 snapshots support]),
@@ -176,7 +194,7 @@ fi
 
 PKG_CHECK_MODULES(DBUS, dbus-1)
 PKG_CHECK_MODULES(XML2, libxml-2.0)
-PKG_CHECK_MODULES(JSONC, json-c, [], [AC_MSG_WARN([Cannot find json-c. Please install libjson-c-devel])])
+PKG_CHECK_MODULES(JSON_C, json-c, [], [AC_MSG_WARN([Cannot find json-c. Please install libjson-c-devel])])
 PKG_CHECK_MODULES(ZLIB, zlib)
 
 # Conditional support for libbtrfsutil based on existence of pkg-config file
@@ -205,16 +223,26 @@ AC_CONFIG_FILES([
 	examples/c/Makefile
 	examples/c++-lib/Makefile
 	dbus/Makefile
+	dbus/testsuite/Makefile
 	server/Makefile
 	client/Makefile
 	client/utils/Makefile
+	client/proxy/Makefile
+	client/snapper/Makefile
+	client/mksubvolume/Makefile
+	client/installation-helper/Makefile
+	client/systemd-helper/Makefile
+	client/snbk/Makefile
 	scripts/Makefile
+	scripts/completion/Makefile
 	pam/Makefile
 	data/Makefile
 	doc/Makefile
 	doc/snapper.xml:doc/snapper.xml.in
 	doc/snapperd.xml:doc/snapperd.xml.in
 	doc/snapper-configs.xml:doc/snapper-configs.xml.in
+	doc/snbk.xml:doc/snbk.xml.in
+	doc/snapper-backup-configs.xml:doc/snapper-backup-configs.xml.in
 	doc/snapper-zypp-plugin.xml:doc/snapper-zypp-plugin.xml.in
 	doc/snapper-zypp-plugin.conf.xml:doc/snapper-zypp-plugin.conf.xml.in
 	doc/pam_snapper.xml:doc/pam_snapper.xml.in
@@ -223,6 +251,8 @@ AC_CONFIG_FILES([
 	testsuite/Makefile
 	testsuite-real/Makefile
 	testsuite-cmp/Makefile
+	stomp/Makefile
+	stomp/testsuite/Makefile
 	zypp-plugin/Makefile
 	zypp-plugin/testsuite/Makefile
 	package/snapper.spec:snapper.spec.in

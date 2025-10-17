@@ -1,5 +1,5 @@
 /*
- * Copyright (c) [2019-2023] SUSE LLC
+ * Copyright (c) [2019-2024] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -24,7 +24,6 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include <iostream>
 #include <map>
 #include <set>
 #include <string>
@@ -32,16 +31,16 @@
 #include <boost/algorithm/string.hpp>
 
 #include <json.h>
-// a collision with client/errors.h
+// a collision with client/proxy/errors.h
 #ifdef error_description
 #undef error_description
 #endif
 
 #include "dbus/DBusConnection.h"
 #include "snapper/Exception.h"
-#include "snapper/Log.h"
-#include "client/commands.h"
-#include "client/errors.h"
+#include "snapper/LoggerImpl.h"
+#include "client/proxy/commands.h"
+#include "client/proxy/errors.h"
 
 #include "snapper-zypp-plugin.h"
 
@@ -97,7 +96,7 @@ SnapperZyppCommitPlugin::SnapperZyppCommitPlugin(const ProgramOptions& opts)
 ZyppCommitPlugin::Message
 SnapperZyppCommitPlugin::plugin_begin(const Message& msg)
 {
-    y2mil("PLUGINBEGIN");
+    y2mil("PLUGIN BEGIN");
 
     userdata = get_userdata(msg);
 
@@ -108,7 +107,7 @@ SnapperZyppCommitPlugin::plugin_begin(const Message& msg)
 ZyppCommitPlugin::Message
 SnapperZyppCommitPlugin::plugin_end(const Message& msg)
 {
-    y2mil("PLUGINEND");
+    y2mil("PLUGIN END");
 
     return ack();
 }
@@ -117,7 +116,7 @@ SnapperZyppCommitPlugin::plugin_end(const Message& msg)
 ZyppCommitPlugin::Message
 SnapperZyppCommitPlugin::commit_begin(const Message& msg)
 {
-    y2mil("COMMITBEGIN");
+    y2mil("COMMIT BEGIN");
 
     set<string> solvables = get_solvables(msg, Phase::BEFORE);
     y2deb("solvables: " << solvables);
@@ -128,6 +127,16 @@ SnapperZyppCommitPlugin::commit_begin(const Message& msg)
 
     if (found || important)
     {
+	try
+	{
+	    y2deb("lock config");
+	    command_lock_config(dbus_conn, snapper_cfg);
+	}
+	catch (const Exception& ex)
+	{
+	    SN_CAUGHT(ex);
+	}
+
 	userdata["important"] = important ? "yes" : "no";
 
 	try
@@ -141,6 +150,8 @@ SnapperZyppCommitPlugin::commit_begin(const Message& msg)
 	{
 	    SN_CAUGHT(ex);
 	    y2err(error_description(ex));
+	    y2err(ex.name());
+	    y2err(ex.message());
 	}
 	catch (const Exception& ex)
 	{
@@ -155,7 +166,7 @@ SnapperZyppCommitPlugin::commit_begin(const Message& msg)
 ZyppCommitPlugin::Message
 SnapperZyppCommitPlugin::commit_end(const Message& msg)
 {
-    y2mil("COMMITEND");
+    y2mil("COMMIT END");
 
     if (pre_snapshot_num != 0)
     {
@@ -183,6 +194,8 @@ SnapperZyppCommitPlugin::commit_end(const Message& msg)
 	    {
 		SN_CAUGHT(ex);
 		y2err(error_description(ex));
+		y2err(ex.name());
+		y2err(ex.message());
 	    }
 	    catch (const Exception& ex)
 	    {
@@ -202,6 +215,8 @@ SnapperZyppCommitPlugin::commit_end(const Message& msg)
 	    {
 		SN_CAUGHT(ex);
 		y2err(error_description(ex));
+		y2err(ex.name());
+		y2err(ex.message());
 	    }
 	    catch (const Exception& ex)
 	    {
@@ -222,11 +237,23 @@ SnapperZyppCommitPlugin::commit_end(const Message& msg)
 	    {
 		SN_CAUGHT(ex);
 		y2err(error_description(ex));
+		y2err(ex.name());
+		y2err(ex.message());
 	    }
 	    catch (const Exception& ex)
 	    {
 		SN_CAUGHT(ex);
 	    }
+	}
+
+	try
+	{
+	    y2deb("unlock config");
+	    command_unlock_config(dbus_conn, snapper_cfg);
+	}
+	catch (const Exception& ex)
+	{
+	    SN_CAUGHT(ex);
 	}
     }
 
@@ -399,37 +426,20 @@ SnapperZyppCommitPlugin::match_solvables(const set<string>& solvables, bool& fou
 }
 
 
-static bool log_debug = false;
-
-
-static bool
-simple_log_query(LogLevel level, const string& component)
-{
-    return log_debug || level != DEBUG;
-}
-
-
-static void
-simple_log_do(LogLevel level, const string& component, const char* file, int line,
-	      const char* func, const string& text)
-{
-    static const char* ln[4] = { "DEB", "MIL", "WAR", "ERR" };
-
-    cerr << ln[level] << ' ' << text << endl;
-}
-
-
 int
 main()
 {
-    setLogQuery(simple_log_query);
-    setLogDo(simple_log_do);
+    set_logger(get_stdout_logger());
 
     if (getenv("SNAPPER_ZYPP_PLUGIN_DEBUG"))
     {
 	y2mil("enabling debug logging of snapper-zypp-plugin");
 
-	log_debug = true;
+	set_logger_tresshold(LogLevel::DEBUG);
+    }
+    else
+    {
+	set_logger_tresshold(LogLevel::MILESTONE);
     }
 
     if (getenv("DISABLE_SNAPPER_ZYPP_PLUGIN"))

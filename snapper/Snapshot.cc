@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2011-2015] Novell, Inc.
- * Copyright (c) [2016-2023] SUSE LLC
+ * Copyright (c) [2016-2025] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -43,13 +43,14 @@
 #include "snapper/SnapperTmpl.h"
 #include "snapper/SnapperDefines.h"
 #include "snapper/Exception.h"
-#include "snapper/Hooks.h"
+#include "snapper/PluginsImpl.h"
 #include "snapper/ComparisonImpl.h"
 
 
 namespace snapper
 {
     using std::list;
+    using std::regex;
 
 
     std::ostream& operator<<(std::ostream& s, const Snapshot& snapshot)
@@ -86,9 +87,7 @@ namespace snapper
     }
 
 
-    Snapshot::~Snapshot()
-    {
-    }
+    Snapshot::~Snapshot() = default;
 
 
     // Directory containing the actual content of the snapshot.
@@ -135,7 +134,7 @@ namespace snapper
 
 
     void
-    Snapshot::setReadOnly(bool read_only)
+    Snapshot::setReadOnly(bool read_only, Plugins::Report& report)
     {
 	if (isCurrent())
 	    SN_THROW(IllegalSnapshotException());
@@ -145,7 +144,7 @@ namespace snapper
 
 	Snapshot::read_only = read_only;
 
-	snapper->getFilesystem()->setSnapshotReadOnly(num, read_only);
+	snapper->getFilesystem()->setSnapshotReadOnly(num, read_only, report);
 
 	if (!read_only)
 	    deleteFilelists();
@@ -160,9 +159,9 @@ namespace snapper
 
 
     void
-    Snapshot::setDefault() const
+    Snapshot::setDefault(Plugins::Report& report)
     {
-	snapper->getFilesystem()->setDefault(num);
+	snapper->getFilesystem()->setDefault(num, report);
     }
 
 
@@ -205,10 +204,11 @@ namespace snapper
     {
 	SDir info_dir = openInfoDir();
 
-	// remove all filelists in the info directory of this shapshot
+	// remove all filelists in the info directory of this snapshot
 	for (const string& name : info_dir.entries(is_filelist_file))
 	{
-	    info_dir.unlink(name, 0);
+	    if (info_dir.unlink(name) < 0)
+		y2err("unlink '" << name << "' failed errno: " << errno << " (" << stringerror(errno) << ")");
 	}
 
 	// remove all filelists of the snapshot in the info directories of other snapshots
@@ -219,8 +219,11 @@ namespace snapper
 
 	    SDir tmp = snapshot.openInfoDir();
 	    string name = filelist_name(snapshot.getNum());
-	    tmp.unlink(name, 0);
-	    tmp.unlink(name + ".gz", 0);
+
+	    if (tmp.unlink(name) < 0 && errno != ENOENT)
+		y2err("unlink '" << name << "' failed errno: " << errno << " (" << stringerror(errno) << ")");
+	    if (tmp.unlink(name + ".gz") < 0 && errno != ENOENT)
+		y2err("unlink '" << name << ".gz' failed errno: " << errno << " (" << stringerror(errno) << ")");
 	}
     }
 
@@ -231,9 +234,7 @@ namespace snapper
     }
 
 
-    Snapshots::~Snapshots()
-    {
-    }
+    Snapshots::~Snapshots() = default;
 
 
     void
@@ -485,7 +486,7 @@ namespace snapper
 
 
     unsigned int
-    Snapshots::nextNumber()
+    Snapshots::nextNumber() const
     {
 	unsigned int num = entries.empty() ? 0 : entries.rbegin()->num;
 
@@ -566,7 +567,7 @@ namespace snapper
 	{
 	    SN_CAUGHT(e);
 
-	    info_dir.unlink(tmp_name, 0);
+	    info_dir.unlink(tmp_name);
 
 	    SN_RETHROW(e);
 	}
@@ -666,7 +667,7 @@ namespace snapper
 
 
     Snapshots::iterator
-    Snapshots::createSingleSnapshot(const SCD& scd)
+    Snapshots::createSingleSnapshot(const SCD& scd, Plugins::Report& report)
     {
 	checkUserdata(scd.userdata);
 
@@ -677,12 +678,12 @@ namespace snapper
 	snapshot.cleanup = scd.cleanup;
 	snapshot.userdata = scd.userdata;
 
-	return createHelper(snapshot, getSnapshotCurrent(), scd.empty);
+	return createHelper(snapshot, getSnapshotCurrent(), scd.empty, report);
     }
 
 
     Snapshots::iterator
-    Snapshots::createSingleSnapshot(const_iterator parent, const SCD& scd)
+    Snapshots::createSingleSnapshot(const_iterator parent, const SCD& scd, Plugins::Report& report)
     {
 	checkUserdata(scd.userdata);
 
@@ -693,12 +694,12 @@ namespace snapper
 	snapshot.cleanup = scd.cleanup;
 	snapshot.userdata = scd.userdata;
 
-	return createHelper(snapshot, parent);
+	return createHelper(snapshot, parent, scd.empty, report);
     }
 
 
     Snapshots::iterator
-    Snapshots::createSingleSnapshotOfDefault(const SCD& scd)
+    Snapshots::createSingleSnapshotOfDefault(const SCD& scd, Plugins::Report& report)
     {
 	checkUserdata(scd.userdata);
 
@@ -709,12 +710,12 @@ namespace snapper
 	snapshot.cleanup = scd.cleanup;
 	snapshot.userdata = scd.userdata;
 
-	return createHelper(snapshot, end());
+	return createHelper(snapshot, end(), false, report);
     }
 
 
     Snapshots::iterator
-    Snapshots::createPreSnapshot(const SCD& scd)
+    Snapshots::createPreSnapshot(const SCD& scd, Plugins::Report& report)
     {
 	checkUserdata(scd.userdata);
 
@@ -725,12 +726,12 @@ namespace snapper
 	snapshot.cleanup = scd.cleanup;
 	snapshot.userdata = scd.userdata;
 
-	return createHelper(snapshot, getSnapshotCurrent());
+	return createHelper(snapshot, getSnapshotCurrent(), false, report);
     }
 
 
     Snapshots::iterator
-    Snapshots::createPostSnapshot(Snapshots::const_iterator pre, const SCD& scd)
+    Snapshots::createPostSnapshot(Snapshots::const_iterator pre, const SCD& scd, Plugins::Report& report)
     {
 	if (pre == entries.end() || pre->isCurrent() || pre->getType() != PRE ||
 	    findPost(pre) != entries.end())
@@ -746,18 +747,18 @@ namespace snapper
 	snapshot.cleanup = scd.cleanup;
 	snapshot.userdata = scd.userdata;
 
-	return createHelper(snapshot, getSnapshotCurrent());
+	return createHelper(snapshot, getSnapshotCurrent(), false, report);
     }
 
 
     Snapshots::iterator
-    Snapshots::createHelper(Snapshot& snapshot, const_iterator parent, bool empty)
+    Snapshots::createHelper(Snapshot& snapshot, const_iterator parent, bool empty, Plugins::Report& report)
     {
 	// parent == end indicates the btrfs default subvolume. Unclean, but
 	// adding a special snapshot like current needs too many API changes.
 
-	Hooks::create_snapshot(Hooks::Stage::PRE_ACTION, snapper->subvolumeDir(), snapper->getFilesystem(),
-			       snapshot);
+	Plugins::create_snapshot(Plugins::Stage::PRE_ACTION, snapper->subvolumeDir(), snapper->getFilesystem(),
+				 snapshot, report);
 
 	try
 	{
@@ -771,7 +772,7 @@ namespace snapper
 	    SN_CAUGHT(e);
 
 	    SDir infos_dir = snapper->openInfosDir();
-	    infos_dir.unlink(decString(snapshot.getNum()), AT_REMOVEDIR);
+	    infos_dir.rmdir(decString(snapshot.getNum()));
 
 	    SN_RETHROW(e);
 	}
@@ -786,28 +787,28 @@ namespace snapper
 
 	    snapshot.deleteFilesystemSnapshot();
 	    SDir infos_dir = snapper->openInfosDir();
-	    infos_dir.unlink(decString(snapshot.getNum()), AT_REMOVEDIR);
+	    infos_dir.rmdir(decString(snapshot.getNum()));
 
 	    SN_RETHROW(e);
 	}
 
-	Hooks::create_snapshot(Hooks::Stage::POST_ACTION, snapper->subvolumeDir(), snapper->getFilesystem(),
-			       snapshot);
+	Plugins::create_snapshot(Plugins::Stage::POST_ACTION, snapper->subvolumeDir(), snapper->getFilesystem(),
+				 snapshot, report);
 
 	return entries.insert(entries.end(), snapshot);
     }
 
 
     void
-    Snapshots::modifySnapshot(iterator snapshot, const SMD& smd)
+    Snapshots::modifySnapshot(iterator snapshot, const SMD& smd, Plugins::Report& report)
     {
 	if (snapshot == entries.end() || snapshot->isCurrent())
 	    SN_THROW(IllegalSnapshotException());
 
 	checkUserdata(smd.userdata);
 
-	Hooks::modify_snapshot(Hooks::Stage::PRE_ACTION, snapper->subvolumeDir(), snapper->getFilesystem(),
-			       *snapshot);
+	Plugins::modify_snapshot(Plugins::Stage::PRE_ACTION, snapper->subvolumeDir(), snapper->getFilesystem(),
+				 *snapshot, report);
 
 	snapshot->description = smd.description;
 	snapshot->cleanup = smd.cleanup;
@@ -815,32 +816,34 @@ namespace snapper
 
 	snapshot->writeInfo();
 
-	Hooks::modify_snapshot(Hooks::Stage::POST_ACTION, snapper->subvolumeDir(), snapper->getFilesystem(),
-			       *snapshot);
+	Plugins::modify_snapshot(Plugins::Stage::POST_ACTION, snapper->subvolumeDir(), snapper->getFilesystem(),
+				 *snapshot, report);
     }
 
 
     void
-    Snapshots::deleteSnapshot(iterator snapshot)
+    Snapshots::deleteSnapshot(iterator snapshot, Plugins::Report& report)
     {
 	if (snapshot == entries.end() || snapshot->isCurrent() || snapshot->isDefault() ||
 	    snapshot->isActive())
 	    SN_THROW(IllegalSnapshotException());
 
-	Hooks::delete_snapshot(Hooks::Stage::PRE_ACTION, snapper->subvolumeDir(), snapper->getFilesystem(),
-			       *snapshot);
+	Plugins::delete_snapshot(Plugins::Stage::PRE_ACTION, snapper->subvolumeDir(), snapper->getFilesystem(),
+				 *snapshot, report);
 
 	snapshot->deleteFilesystemSnapshot();
 	snapshot->deleteFilelists();
 
 	SDir info_dir = snapshot->openInfoDir();
-	info_dir.unlink("info.xml", 0);
+	if (info_dir.unlink("info.xml") < 0)
+	    y2err("unlink 'info.xml' failed errno: " << errno << " (" << stringerror(errno) << ")");
 
 	SDir infos_dir = snapper->openInfosDir();
-	infos_dir.unlink(decString(snapshot->getNum()), AT_REMOVEDIR);
+	if (infos_dir.rmdir(decString(snapshot->getNum())) < 0)
+	    y2err("rmdir '" << snapshot->getNum() << "' failed errno: " << errno << " (" << stringerror(errno) << ")");
 
-	Hooks::delete_snapshot(Hooks::Stage::POST_ACTION, snapper->subvolumeDir(), snapper->getFilesystem(),
-			       *snapshot);
+	Plugins::delete_snapshot(Plugins::Stage::POST_ACTION, snapper->subvolumeDir(), snapper->getFilesystem(),
+				 *snapshot, report);
 
 	entries.erase(snapshot);
     }

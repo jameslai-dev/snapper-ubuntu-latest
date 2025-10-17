@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2012 Novell, Inc.
- * Copyright (c) [2016-2023] SUSE LLC
+ * Copyright (c) [2016-2025] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -171,9 +171,14 @@ namespace DBus
 
     template <typename Type> struct TypeInfo {};
 
+    template <> struct TypeInfo<dbus_int32_t> { static const char* signature; };
     template <> struct TypeInfo<dbus_uint32_t> { static const char* signature; };
     template <> struct TypeInfo<dbus_uint64_t> { static const char* signature; };
     template <> struct TypeInfo<string> { static const char* signature; };
+
+
+    // Note: mashalling functions below are not exception safe: If an FatalException is
+    // thrown the internal state may be broken afterwards.
 
 
     class Marshalling
@@ -181,14 +186,17 @@ namespace DBus
 
     public:
 
-	DBusMessageIter* top() { return iters.back(); }
+	DBusMessageIter* top() { return &iters.back(); }
+	DBusMessageIter* second() { return &iters[iters.size() - 2]; }
 
 	int get_type() { return dbus_message_iter_get_arg_type(top()); }
-	string get_signature() { return dbus_message_iter_get_signature(top()); }
+	string get_signature();
 
     protected:
 
-	vector<DBusMessageIter*> iters;
+	// According to the DBus documentation DBusMessageIter can be copied by assignment
+	// or memcpy(). So we are fine even if the vector gets resized.
+	vector<DBusMessageIter> iters;
 
     };
 
@@ -237,6 +245,9 @@ namespace DBus
     Unmarshaller& operator>>(Unmarshaller& unmarshaller, dbus_uint16_t& data);
     Marshaller& operator<<(Marshaller& marshaller, dbus_uint16_t data);
 
+    Unmarshaller& operator>>(Unmarshaller& unmarshaller, dbus_int32_t& data);
+    Marshaller& operator<<(Marshaller& marshaller, dbus_int32_t data);
+
     Unmarshaller& operator>>(Unmarshaller& unmarshaller, dbus_uint32_t& data);
     Marshaller& operator<<(Marshaller& marshaller, dbus_uint32_t data);
 
@@ -284,9 +295,9 @@ namespace DBus
     {
 	marshaller.open_array(TypeInfo<Type>::signature);
 
-	for (typename vector<Type>::const_iterator it = data.begin(); it != data.end(); ++it)
+	for (const Type& value : data)
 	{
-	    marshaller << *it;
+	    marshaller << value;
 	}
 
 	marshaller.close_array();

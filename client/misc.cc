@@ -36,6 +36,9 @@
 #include "misc.h"
 
 
+namespace snapper
+{
+
 unsigned int
 read_num(const string& str)
 {
@@ -165,7 +168,7 @@ username(uid_t uid)
 }
 
 
-const Filesystem*
+    unique_ptr<const Filesystem>
 get_filesystem(const ProxyConfig& config, const string& target_root)
 {
     const map<string, string>& raw = config.getAllValues();
@@ -192,7 +195,7 @@ get_filesystem(const ProxyConfig& config, const string& target_root)
 
 
 Differ::Differ()
-    : command(DIFFBIN " --new-file --unified")
+    : command(DIFF_BIN " --new-file --unified")
 {
 }
 
@@ -205,11 +208,13 @@ Differ::run(const string& f1, const string& f2) const
 	tmp += " " + extensions;
     tmp += " " + quote(f1) + " " + quote(f2);
 
-    SystemCmd cmd(tmp);
+    SystemCmd cmd({ SH_BIN, "-c", tmp });
 
     for (const string& line : cmd.get_stdout())
 	cout << line << endl;
 
     for (const string& line : cmd.get_stderr())
 	cerr << line << endl;
+}
+
 }

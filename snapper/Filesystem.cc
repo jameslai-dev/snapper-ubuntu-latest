@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2011-2015] Novell, Inc.
- * Copyright (c) [2016-2018] SUSE LLC
+ * Copyright (c) [2016-2024] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -34,10 +34,13 @@
 #include <asm/types.h>
 #include <boost/algorithm/string.hpp>
 
-#include "snapper/Log.h"
+#include "snapper/LoggerImpl.h"
 #include "snapper/Filesystem.h"
 #ifdef ENABLE_BTRFS
 #include "snapper/Btrfs.h"
+#endif
+#ifdef ENABLE_BCACHEFS
+#include "snapper/Bcachefs.h"
 #endif
 #ifdef ENABLE_EXT4
 #include "snapper/Ext4.h"
@@ -91,15 +94,18 @@ namespace snapper
     }
 
 
-    Filesystem*
+    std::unique_ptr<Filesystem>
     Filesystem::create(const string& fstype, const string& subvolume, const string& root_prefix)
     {
-	typedef Filesystem* (*func_t)(const string& fstype, const string& subvolume,
-				      const string& root_prefix);
+	typedef std::unique_ptr<Filesystem> (*func_t)(const string& fstype, const string& subvolume,
+						      const string& root_prefix);
 
 	static const func_t funcs[] = {
 #ifdef ENABLE_BTRFS
 		&Btrfs::create,
+#endif
+#ifdef ENABLE_BCACHEFS
+		&Bcachefs::create,
 #endif
 #ifdef ENABLE_EXT4
 		&Ext4::create,
@@ -107,12 +113,12 @@ namespace snapper
 #ifdef ENABLE_LVM
 		&Lvm::create,
 #endif
-		NULL
+		nullptr
 	};
 
-	for (const func_t* func = funcs; *func != NULL; ++func)
+	for (const func_t* func = funcs; *func != nullptr; ++func)
 	{
-	    Filesystem* fs = (*func)(fstype, subvolume, root_prefix);
+	    std::unique_ptr<Filesystem> fs = (*func)(fstype, subvolume, root_prefix);
 	    if (fs)
 		return fs;
 	}
@@ -123,13 +129,13 @@ namespace snapper
     }
 
 
-    Filesystem*
+    std::unique_ptr<Filesystem>
     Filesystem::create(const ConfigInfo& config_info, const string& root_prefix)
     {
 	string fstype = "btrfs";
 	config_info.get_value(KEY_FSTYPE, fstype);
 
-	Filesystem* fs = create(fstype, config_info.get_subvolume(), root_prefix);
+	std::unique_ptr<Filesystem> fs = create(fstype, config_info.get_subvolume(), root_prefix);
 
 	fs->evalConfigInfo(config_info);
 
@@ -186,7 +192,7 @@ namespace snapper
 
 
     void
-    Filesystem::setDefault(unsigned int num) const
+    Filesystem::setDefault(unsigned int num, Plugins::Report& report) const
     {
 	SN_THROW(UnsupportedException());
 	__builtin_unreachable();

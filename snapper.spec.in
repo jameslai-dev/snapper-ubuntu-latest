@@ -1,7 +1,7 @@
 #
 # spec file for package snapper
 #
-# Copyright (c) 2023 SUSE LLC
+# Copyright (c) 2025 SUSE LLC
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -43,7 +43,6 @@ Group:          System/Packages
 URL:            http://snapper.io/
 Source:         snapper-%{version}.tar.xz
 %if 0%{?suse_version}
-BuildRequires:  libboost_system-devel
 BuildRequires:  libboost_thread-devel
 BuildRequires:  libboost_test-devel
 %else
@@ -53,7 +52,6 @@ BuildRequires:  gcc-c++
 BuildRequires:  libacl-devel
 BuildRequires:  libtool
 BuildRequires:  libxml2-devel
-BuildRequires:  e2fsprogs-devel
 BuildRequires:  ncurses-devel
 %if 0%{?suse_version}
 BuildRequires:  libbtrfs-devel
@@ -115,6 +113,7 @@ Requires:       systemd
 Recommends:     logrotate snapper-zypp-plugin
 Supplements:    btrfsprogs
 %endif
+Recommends:     %{name}-lang
 
 %description
 This package contains snapper, a tool for filesystem snapshot management.
@@ -143,14 +142,13 @@ autoreconf -fvi
 	--disable-btrfs-quota							\
 %endif
 	%{?with_selinux:--enable-selinux}					\
-	--disable-silent-rules --disable-ext4
+	--disable-silent-rules --disable-bcachefs --disable-ext4
 make %{?_smp_mflags}
 
 %install
 %make_install
 rm -f "%{buildroot}/%{_libdir}"/*.la "%{buildroot}/%{pam_security_dir}/pam_snapper.la"
 rm -f %{buildroot}/etc/cron.hourly/suse.de-snapper
-rm -f %{buildroot}/etc/cron.daily/suse.de-snapper
 
 %if 0%{?suse_version}
 install -D -m 644 data/sysconfig.snapper "%{buildroot}%{_fillupdir}/sysconfig.snapper"
@@ -186,10 +184,6 @@ if [ -f /etc/cron.hourly/suse.de-snapper ]; then
  systemctl preset snapper-timeline.timer || :
  systemctl is-enabled -q snapper-timeline.timer && systemctl start snapper-timeline.timer || :
 fi
-if [ -f /etc/cron.daily/suse.de-snapper ]; then
- systemctl preset snapper-cleanup.timer || :
- systemctl is-enabled -q snapper-cleanup.timer && systemctl start snapper-cleanup.timer || :
-fi
 %service_add_post snapper-boot.service snapper-boot.timer snapper-cleanup.service snapper-cleanup.timer snapper-timeline.service snapper-timeline.timer snapperd.service
 %endif
 
@@ -209,7 +203,7 @@ test -f /etc/logrotate.d/snapper.rpmsave && mv -v /etc/logrotate.d/snapper.rpmsa
 %service_del_postun snapper-boot.service snapper-boot.timer snapper-cleanup.service snapper-cleanup.timer snapper-timeline.service snapper-timeline.timer snapperd.service
 %endif
 
-%files -f snapper.lang
+%files
 %defattr(-,root,root)
 %{_bindir}/snapper
 %{_sbindir}/snapperd
@@ -229,14 +223,31 @@ test -f /etc/logrotate.d/snapper.rpmsave && mv -v /etc/logrotate.d/snapper.rpmsa
 %else
 %config(noreplace) %{_sysconfdir}/logrotate.d/snapper
 %endif
-%{_unitdir}/snapper*.*
+%{_unitdir}/snapper-{timeline,cleanup,boot}.*
+%{_unitdir}/snapperd.service
 %if 0%{?suse_version} <= 1500
 %dir %{_datadir}/dbus-1/system.d
 %endif
 %{_datadir}/dbus-1/system.d/org.opensuse.Snapper.conf
 %{_datadir}/dbus-1/system-services/org.opensuse.Snapper.service
-%{_datadir}/bash-completion
-%{_datadir}/zsh
+%dir %{_datadir}/bash-completion
+%dir %{_datadir}/bash-completion/completions/
+%{_datadir}/bash-completion/completions/snapper
+%dir %{_datadir}/zsh
+%dir %{_datadir}/zsh/site-functions
+%{_datadir}/zsh/site-functions/_snapper
+
+%package lang
+Summary:        Languages for package %{name}
+Group:          System/Localization
+Supplements:    %{name}
+Provides:       %{name}-lang-all = %{version}
+BuildArch:      noarch
+
+%description lang
+Provides translations to the package %{name}
+
+%files lang -f snapper.lang
 
 %package -n libsnapper@LIBVERSION_MAJOR@
 Summary:        Library for filesystem snapshot management
@@ -268,6 +279,7 @@ This package contains libsnapper, a library for filesystem snapshot management.
 %else
 %config(noreplace) %{_sysconfdir}/sysconfig/snapper
 %endif
+%dir /usr/lib/snapper/plugins
 
 %pre -n libsnapper@LIBVERSION_MAJOR@
 # Migration from /etc/snapper to /usr/share/snapper
@@ -345,10 +357,31 @@ for i in zypp-plugin.conf ; do
     test -f /etc/snapper/${i}.rpmsave && mv -v /etc/snapper/${i}.rpmsave /etc/snapper/${i} ||:
 done
 
+%package -n snapper-backup
+Requires:       snapper = %version
+Summary:        A backup program for snapper
+Group:          System/Packages
+Recommends:     %{name}-lang
+
+%description -n snapper-backup
+A backup program for snapshots created by snapper.
+
+%files -n snapper-backup
+%{_sbindir}/snbk
+%dir %{_sysconfdir}/snapper/backup-configs
+%dir %{_sysconfdir}/snapper/certs
+%{_unitdir}/snapper-{backup}.*
+%{_mandir}/*/snbk.8*
+%{_mandir}/*/snapper-backup-configs.5*
+%dir %{_datadir}/bash-completion
+%dir %{_datadir}/bash-completion/completions
+%{_datadir}/bash-completion/completions/snbk
+
 %package -n pam_snapper
 Requires:       pam
 Requires:       snapper = %version
 Summary:        PAM module for calling snapper
+Requires:       util-linux-systemd
 Group:          System/Packages
 
 %description -n pam_snapper

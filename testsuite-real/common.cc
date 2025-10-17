@@ -7,7 +7,7 @@
 #include <snapper/Comparison.h>
 #include <snapper/File.h>
 #include <snapper/SnapperDefines.h>
-#include <snapper/Log.h>
+#include <snapper/Logger.h>
 
 
 extern char* program_invocation_short_name;
@@ -32,7 +32,8 @@ setup()
     system("/usr/bin/find " SUBVOLUME " -mindepth 1 -maxdepth 1 -not -path " SUBVOLUME "/.snapshots "
 	   "-exec rm -r {} \\;");
 
-    initDefaultLogger();
+    set_logger(get_stdout_logger());
+    set_logger_tresshold(LogLevel::DEBUG);
 
     sh = new Snapper(CONFIG, "/");
 }
@@ -41,8 +42,10 @@ setup()
 void
 cleanup()
 {
-    sh->deleteSnapshot(second);
-    sh->deleteSnapshot(first);
+    Plugins::Report report;
+
+    sh->deleteSnapshot(second, report);
+    sh->deleteSnapshot(first, report);
     delete sh;
 }
 
@@ -54,7 +57,9 @@ first_snapshot()
     scd.description = CONFIG;
     scd.cleanup = "number";
 
-    first = sh->createPreSnapshot(scd);
+    Plugins::Report report;
+
+    first = sh->createPreSnapshot(scd, report);
 }
 
 
@@ -65,7 +70,9 @@ second_snapshot()
     scd.description = CONFIG;
     scd.cleanup = "number";
 
-    second = sh->createPostSnapshot(first, scd);
+    Plugins::Report report;
+
+    second = sh->createPostSnapshot(first, scd, report);
 }
 
 
@@ -95,6 +102,7 @@ check_xa_undo_statistics(unsigned int xaNumCreate, unsigned xaNumReplace, unsign
     check_equal(xaReplace, xaNumReplace);
 }
 #endif
+
 
 void
 undo()

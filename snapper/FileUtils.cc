@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2011-2014] Novell, Inc.
- * Copyright (c) [2018-2023] SUSE LLC
+ * Copyright (c) [2018-2025] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -30,7 +30,7 @@
 #include <sys/xattr.h>
 #include <sys/statvfs.h>
 #include <fcntl.h>
-#include <stddef.h>
+#include <cstddef>
 #include <dirent.h>
 #include <unistd.h>
 #include <cerrno>
@@ -40,7 +40,7 @@
 
 #include "snapper/FileUtils.h"
 #include "snapper/AppUtil.h"
-#include "snapper/Log.h"
+#include "snapper/LoggerImpl.h"
 #include "snapper/Exception.h"
 #ifdef ENABLE_SELINUX
 #include "snapper/Selinux.h"
@@ -200,7 +200,7 @@ namespace snapper
 #if defined(__GLIBC__) && ((__GLIBC__ > 2) || ((__GLIBC__ == 2) && (__GLIBC_MINOR__ >= 24)))
 
 	// Since glibc 2.24 readdir is thread safe under certain
-	// condidtions, which apply here, and readdir_r is deprecated
+	// conditions, which apply here, and readdir_r is deprecated
 	// (see readdir(3)).
 
 	struct dirent* ep = nullptr;
@@ -335,12 +335,22 @@ namespace snapper
 
 
     int
-    SDir::unlink(const string& name, int flags) const
+    SDir::rmdir(const string& name) const
     {
 	assert(name.find('/') == string::npos);
 	assert(name != "..");
 
-	return ::unlinkat(dirfd, name.c_str(), flags);
+	return ::unlinkat(dirfd, name.c_str(), AT_REMOVEDIR);
+    }
+
+
+    int
+    SDir::unlink(const string& name) const
+    {
+	assert(name.find('/') == string::npos);
+	assert(name != "..");
+
+	return ::unlinkat(dirfd, name.c_str(), 0);
     }
 
 
@@ -387,9 +397,13 @@ namespace snapper
     std::pair<unsigned long long, unsigned long long>
     SDir::statvfs() const
     {
-	struct statvfs64 fsbuf;
-	if (fstatvfs64(dirfd, &fsbuf) != 0)
-	    SN_THROW(IOErrorException(sformat("statvfs64 failed path:%s errno:%d (%s)", base_path.c_str(),
+	struct statvfs fsbuf;
+
+	static_assert(sizeof(fsbuf.f_blocks) == 8);
+	static_assert(sizeof(fsbuf.f_bavail) == 8);
+
+	if (fstatvfs(dirfd, &fsbuf) != 0)
+	    SN_THROW(IOErrorException(sformat("statvfs failed path:%s errno:%d (%s)", base_path.c_str(),
 					      errno, stringerror(errno).c_str())));
 
 	// f_bavail is used (not f_bfree) since df seems to do the
@@ -876,8 +890,8 @@ namespace snapper
 
     TmpDir::~TmpDir()
     {
-	if (base_dir.unlink(name, AT_REMOVEDIR) != 0)
-	    y2err("unlink failed, errno:" << errno);
+	if (base_dir.rmdir(name) != 0)
+	    y2err("rmdir failed, errno:" << errno << " (" << stringerror(errno) << ")");
     }
 
 

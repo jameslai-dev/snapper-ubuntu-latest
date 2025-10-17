@@ -9,7 +9,10 @@
 #define ZYPPER_UTILS_TEXT_H_
 
 #include <string>
-#include <iosfwd>
+
+
+namespace snapper
+{
 
 const char* _(const char* msgid) __attribute__ ((format_arg(1)));
 
@@ -18,26 +21,6 @@ const char* _(const char* msgid, const char* msgid_plural, unsigned long int n)
 
 /** Returns the column width of a multi-byte character string \a str */
 unsigned mbs_width (const std::string & str);
-
-/**
- * Wrap and indent given \a text and write it to the output stream \a out.
- *
- * TODO
- * - delete whitespace at the end of lines
- * - keep one-letter words with the next
- *
- * \param out       output stream to write to
- * \param test      text to wrap
- * \param indent    number of columns by which to indent the whole text
- * \param wrap_width number of columns the text should be wrapped into
- * \param initial   number of columns by which the first line should be indented
- *                  by default, the first line is indented by \a indent
- *
- */
-void mbs_write_wrapped (
-    std::ostream & out,
-    const std::string & text,
-    unsigned indent, unsigned wrap_width, int initial = -1);
 
 /**
  * Returns a substring of a multi-byte character string \a str starting
@@ -49,4 +32,6 @@ std::string mbs_substr_by_width(
     std::string::size_type pos,
     std::string::size_type n = std::string::npos);
 
-#endif /* ZYPPER_UTILS_TEXT_H_ */
+}
+
+#endif

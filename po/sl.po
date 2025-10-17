@@ -8,922 +8,1309 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-12 09:40+0200\n"
-"PO-Revision-Date: 2005-08-24 17:37+0200\n"
-"Last-Translator: Janez Krek <janez.krek@euroteh.si>\n"
-"Language-Team: Slovenščina <sl@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2025-07-23 11:53+0200\n"
+"PO-Revision-Date: 2025-07-23 23:59+0000\n"
+"Last-Translator: Jure Repinc <jlp@holodeck1.com>\n"
+"Language-Team: Slovenian <https://l10n.opensuse.org/projects/snapper/master/"
+"sl/>\n"
+"Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3.1\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
-
-msgid "\t--abbreviate\t\t\tAllow to abbreviate table columns."
-msgstr ""
-
-msgid "\t--all-configs, -a\t\tList snapshots from all accessible configs."
-msgstr ""
-
-msgid "\t--ambit, -a ambit\t\tOperate in the specified ambit."
-msgstr ""
-
-msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshot."
-msgstr ""
-
-msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshots."
-msgstr ""
-
-msgid ""
-"\t--columns <columns>\t\tColumns to show separated by comma.\n"
-"\t\t\t\t\tPossible columns: config, subvolume, number, default, active,\n"
-"\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
-"\t\t\t\t\tpre-number, post-number, post-date, read-only."
-msgstr ""
-
-msgid ""
-"\t--columns <columns>\t\tColumns to show separated by comma.\n"
-"\t\t\t\t\tPossible columns: key, value.\n"
-"\t\t\t\t\tColumns are not selected when JSON format is used."
-msgstr ""
-
-msgid "\t--command <command>\t\tRun command and create pre and post snapshots."
-msgstr ""
-
-msgid "\t--config, -c <name>\t\tSet name of config to use."
-msgstr ""
-
-msgid "\t--csvout\t\t\tSet CSV output format."
-msgstr ""
-
-msgid "\t--debug\t\t\t\tTurn on debugging."
-msgstr ""
-
-msgid "\t--default\t\t\tSet snapshot as default snapshot."
-msgstr ""
-
-msgid "\t--description, -d <description>\tDescription for snapshot."
-msgstr ""
-
-msgid "\t--description, -d <description>\tDescription for snapshots."
-msgstr ""
-
-msgid "\t--diff-cmd <command>\t\tCommand used for comparing files."
-msgstr ""
-
-msgid "\t--disable-used-space\t\tDisable showing used space."
-msgstr ""
-
-msgid "\t--extensions, -x <options>\tExtra options passed to the diff command."
-msgstr ""
-
-msgid "\t--free-space <space>\t\tTry to make space available."
-msgstr ""
-
-msgid "\t--from <number>\t\t\tCreate a snapshot from the specified snapshot."
-msgstr ""
-
-msgid "\t--fstype, -f <fstype>\t\tManually set filesystem type."
-msgstr ""
-
-msgid "\t--input, -i <file>\t\tRead files for which to undo changes from file."
-msgstr ""
-
-msgid "\t--input, -i <file>\t\tRead files to diff from file."
-msgstr ""
-
-msgid "\t--iso\t\t\t\tDisplay dates and times in ISO format."
-msgstr ""
-
-msgid "\t--jsonout\t\t\tSet JSON output format."
-msgstr ""
-
-msgid "\t--machine-readable <format>\tSet a machine-readable output format (csv, json)."
-msgstr ""
-
-msgid "\t--no-dbus\t\t\tOperate without DBus."
-msgstr ""
-
-msgid "\t--no-headers\t\t\tNo headers for CSV output format."
-msgstr ""
-
-msgid "\t--output, -o <file>\t\tSave status to file."
-msgstr ""
-
-msgid "\t--path <path>\t\t\tCleanup all configs affecting path."
-msgstr ""
-
-msgid "\t--pre-number <number>\t\tNumber of corresponding pre snapshot."
-msgstr ""
-
-msgid "\t--print-number, -p\t\tPrint number of created snapshot."
-msgstr ""
-
-msgid "\t--print-number, -p\t\tPrint number of second created snapshot."
-msgstr ""
-
-msgid "\t--quiet, -q\t\t\tSuppress normal output."
-msgstr ""
-
-msgid "\t--read-only\t\t\tCreate read-only snapshot."
-msgstr ""
-
-msgid "\t--read-only\t\t\tSet snapshot read-only."
-msgstr ""
-
-msgid "\t--read-write\t\t\tCreate read-write snapshot."
-msgstr ""
-
-msgid "\t--read-write\t\t\tSet snapshot read-write."
-msgstr ""
-
-msgid "\t--root, -r <path>\t\tOperate on target root (works only without DBus)."
-msgstr ""
-
-msgid "\t--separator <separator>\t\tCharacter separator for CSV output format."
-msgstr ""
-
-msgid "\t--sync, -s\t\t\tSync after deletion."
-msgstr ""
-
-msgid "\t--table-style, -t <style>\tTable style (integer)."
-msgstr ""
-
-msgid "\t--template, -t <name>\t\tName of config template to use."
-msgstr ""
-
-msgid "\t--type, -t <type>\t\tType for snapshot."
-msgstr ""
-
-msgid "\t--type, -t <type>\t\tType of snapshots to list."
-msgstr ""
-
-msgid "\t--userdata, -u <userdata>\tUserdata for snapshot."
-msgstr ""
-
-msgid "\t--userdata, -u <userdata>\tUserdata for snapshots."
-msgstr ""
-
-msgid "\t--utc\t\t\t\tDisplay dates and times in UTC."
-msgstr ""
-
-msgid "\t--verbose, -v\t\t\tIncrease verbosity."
-msgstr ""
-
-msgid "\t--version\t\t\tPrint version and exit."
-msgstr ""
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3;\n"
+"X-Generator: Weblate 5.12.2\n"
 
 msgid "\tsnapper cleanup <cleanup-algorithm>"
-msgstr ""
+msgstr "\tsnapper cleanup <algoritem_čiščenja>"
 
 msgid "\tsnapper create"
-msgstr ""
+msgstr "\tsnapper create"
 
 msgid "\tsnapper create-config <subvolume>"
-msgstr ""
+msgstr "\tsnapper create-config <podnosilec>"
 
 msgid "\tsnapper delete <number>"
-msgstr ""
+msgstr "\tsnapper delete <številka>"
 
 msgid "\tsnapper delete-config"
-msgstr ""
+msgstr "\tsnapper delete-config"
 
 msgid "\tsnapper diff <number1>..<number2> [files]"
-msgstr ""
+msgstr "\tsnapper diff <številka1>..<številka2> [datoteke]"
 
 msgid "\tsnapper get-config"
-msgstr ""
+msgstr "\tsnapper get-config"
 
 msgid "\tsnapper list"
-msgstr ""
+msgstr "\tsnapper list"
 
 msgid "\tsnapper list-configs"
-msgstr ""
+msgstr "\tsnapper list-configs"
 
 msgid "\tsnapper modify <number>"
-msgstr ""
+msgstr "\tsnapper modify <številka>"
 
 msgid "\tsnapper mount <number>"
-msgstr ""
+msgstr "\tsnapper mount <številka>"
 
 msgid "\tsnapper rollback [number]"
-msgstr ""
+msgstr "\tsnapper rollback [številka]"
 
 msgid "\tsnapper set-config <configdata>"
-msgstr ""
+msgstr "\tsnapper set-config <nastavitve>"
 
 msgid "\tsnapper setup-quota"
-msgstr ""
+msgstr "\tsnapper setup-quota"
 
 msgid "\tsnapper status <number1>..<number2>"
-msgstr ""
+msgstr "\tsnapper status <številka1>..<številka2>"
 
 msgid "\tsnapper umount <number>"
-msgstr ""
+msgstr "\tsnapper umount <številka>"
 
 msgid "\tsnapper undochange <number1>..<number2> [files]"
-msgstr ""
+msgstr "\tsnapper undochange <številka1>..<številka2> [datoteke]"
 
 msgid "\tsnapper xadiff <number1>..<number2> [files]"
-msgstr ""
+msgstr "\tsnapper xadiff <številka1>..<številka2> [datoteke]"
 
 msgid "    Global options:"
-msgstr ""
+msgstr "    Splošne možnosti:"
 
 msgid "    Options for 'cleanup' command:"
-msgstr ""
+msgstr "    Možnosti za ukaz »cleanup«:"
 
 msgid "    Options for 'create' command:"
-msgstr ""
+msgstr "    Možnosti za ukaz »create«:"
 
 msgid "    Options for 'create-config' command:"
-msgstr ""
+msgstr "    Možnosti za ukaz »create-config«:"
 
 msgid "    Options for 'delete' command:"
-msgstr ""
+msgstr "    Možnosti za ukaz »delete«:"
 
 msgid "    Options for 'diff' command:"
-msgstr ""
+msgstr "    Možnosti za ukaz »diff«:"
 
 msgid "    Options for 'get-config' command:"
-msgstr ""
+msgstr "    Možnosti za ukaz »get-config«:"
 
 msgid "    Options for 'list' command:"
-msgstr ""
+msgstr "    Možnosti za ukaz »list«:"
 
-msgid ""
-"    Options for 'list-configs' command:\n"
-"\t--columns <columns>\t\tColumns to show separated by comma.\n"
-"\t\t\t\t\tPossible columns: config, subvolume.\n"
-msgstr ""
+msgid "    Options for 'list-configs' command:"
+msgstr "    Možnosti za ukaz »list-configs«:"
 
 msgid "    Options for 'modify' command:"
-msgstr ""
+msgstr "    Možnosti za ukaz »modify«:"
 
 msgid "    Options for 'rollback' command:"
-msgstr ""
+msgstr "    Možnosti za ukaz »rollback«:"
 
 msgid "    Options for 'status' command:"
-msgstr ""
+msgstr "    Možnosti za ukaz »status«:"
 
 msgid "    Options for 'undochange' command:"
-msgstr ""
+msgstr "    Možnosti za ukaz »undochange«:"
 
 msgid "  Cleanup snapshots:"
-msgstr ""
+msgstr "  Čiščenje posnetkov:"
 
 msgid "  Comparing snapshots extended attributes:"
-msgstr ""
+msgstr "  Primerjanje razširjenih lastnosti posnetkov:"
 
 msgid "  Comparing snapshots:"
-msgstr ""
+msgstr "  Primerjanje posnetkov:"
 
 msgid "  Create config:"
-msgstr ""
+msgstr "  Ustvarjanje nastavitev:"
 
 msgid "  Create snapshot:"
-msgstr ""
+msgstr "  Ustvarjanje posnetka:"
 
 msgid "  Delete config:"
-msgstr ""
+msgstr "  Brisanje nastavitev:"
 
 msgid "  Delete snapshot:"
-msgstr ""
+msgstr "  Brisanje posnetka:"
 
 msgid "  Get config:"
-msgstr ""
+msgstr "  Pridobivanje nastavitev:"
 
 msgid "  List configs:"
-msgstr ""
+msgstr "  Izpisovanje seznama nastavitev:"
 
 msgid "  List snapshots:"
-msgstr ""
+msgstr "  Izpisovanje seznama posnetkov:"
 
 msgid "  Modify snapshot:"
-msgstr ""
+msgstr "  Spreminjanje posnetka:"
 
 msgid "  Mount snapshot:"
-msgstr ""
+msgstr "  Priklapljanje posnetka:"
 
-#, fuzzy
 msgid "  Rollback:"
-msgstr "Povrni nazaj"
+msgstr "  Povrnitev:"
 
 msgid "  Set config:"
-msgstr ""
+msgstr "  Nastavljanje nastavitev:"
 
 msgid "  Setup quota:"
-msgstr ""
+msgstr "  Nastavljanje kvote:"
 
 msgid "  Umount snapshot:"
-msgstr ""
+msgstr "  Odklapljanje posnetka:"
 
 msgid "  Undo changes:"
-msgstr ""
+msgstr "  Razveljavljanje sprememb:"
 
 msgid "#"
-msgstr ""
+msgstr "Št."
 
 #. TRANSLATORS: used to construct list of values
 #. %1$s is replaced by first value
 #. %2$s is replaced by second value
 #, c-format
 msgid "%1$s or %2$s"
-msgstr ""
+msgstr "%1$s ali %2$s"
 
 #. TRANSLATORS: used to construct list of values
 #. %1$s is replaced by first value
 #. %2$s is replaced by second value
 #, c-format
 msgid "%1$s, %2$s"
-msgstr ""
+msgstr "%1$s, %2$s"
 
-#, fuzzy, c-format
+msgid "'btrfs send | btrfs receive' failed."
+msgstr "Ukaz »btrfs send« ali » btrfs receive« ni uspel."
+
+msgid "'btrfs subvolume delete' failed."
+msgstr "Ukaz »btrfs subvolume delete« ni uspel."
+
+msgid "'cp info.xml' failed."
+msgstr "Ukaz »cp info.xml« ni uspel."
+
+msgid "'mkdir' failed."
+msgstr "Ukaz »mkdir« ni uspel."
+
+msgid "'rm info.xml' failed."
+msgstr "Ukaz »rm info.xml« ni uspel."
+
+msgid "'rmdir' failed."
+msgstr "Ukaz »rmdir« ni uspel."
+
+msgid "'scp info.xml' failed."
+msgstr "Ukaz »scp info.xml« ni uspel."
+
+#, c-format
 msgid "(Snapshot %d.)"
-msgstr "Gostitelja %s ni."
+msgstr "(Posnetek %d.)"
+
+msgid "(Source) Creation Time"
+msgstr "(Vir) čas ustvaritve"
+
+msgid "(Source) Parent UUID"
+msgstr "(Vir) nadrejeni UUID"
+
+msgid "(Source) Received UUID"
+msgstr "(Vir) prejeti UUID"
+
+msgid "(Source) UUID"
+msgstr "(Vir) UUID"
+
+msgid "(Target) Creation Time"
+msgstr "(Cilj) čas ustvaritve"
+
+msgid "(Target) Parent UUID"
+msgstr "(Cilj) nadrejeni UUID"
+
+msgid "(Target) Received UUID"
+msgstr "(Cilj) prejeti UUID"
+
+msgid "(Target) UUID"
+msgstr "(Cilj) UUID"
+
+msgid "--abbreviate"
+msgstr "--abbreviate"
+
+msgid "--all-configs, -a"
+msgstr "--all-configs, -a"
+
+msgid "--ambit, -a <ambit>"
+msgstr "--ambit, -a <ambit>"
+
+msgid "--automatic"
+msgstr "--automatic"
+
+msgid "--backup-config, -b <name>"
+msgstr "--backup-config, -b <ime>"
+
+msgid "--cleanup-algorithm, -c <algo>"
+msgstr "--cleanup-algorithm, -c <algoritem>"
+
+msgid "--columns <columns>"
+msgstr "--columns <stolpci>"
+
+msgid "--command <command>"
+msgstr "--command <ukaz>"
+
+msgid "--config, -c <name>"
+msgstr "--config, -c <ime>"
+
+msgid "--csvout"
+msgstr "--csvout"
+
+msgid "--debug"
+msgstr "--debug"
+
+msgid "--default"
+msgstr "--default"
+
+msgid "--description, -d <description>"
+msgstr "--description, -d <opis>"
+
+msgid "--diff-cmd <command>"
+msgstr "--diff-cmd <ukaz>"
+
+msgid "--disable-used-space"
+msgstr "--disable-used-space"
+
+msgid "--empty"
+msgstr "--empty"
+
+msgid "--extensions, -x <options>"
+msgstr "--extensions, -x <možnosti>"
+
+msgid "--free-space <space>"
+msgstr "--free-space <prostor>"
+
+msgid "--from <number>"
+msgstr "--from <številka>"
+
+msgid "--fstype, -f <fstype>"
+msgstr "--fstype, -f <vrsta>"
+
+msgid "--input, -i <file>"
+msgstr "--input, -i <datoteka>"
+
+msgid "--iso"
+msgstr "--iso"
+
+msgid "--jsonout"
+msgstr "--jsonout"
+
+msgid "--logger-type <type>"
+msgstr "--logger-type <vrsta>"
+
+msgid "--machine-readable <format>"
+msgstr "--machine-readable <oblika>"
+
+msgid "--no-dbus"
+msgstr "--no-dbus"
+
+msgid "--no-headers"
+msgstr "--no-headers"
+
+msgid "--output, -o <file>"
+msgstr "--output, -o <datoteka>"
+
+msgid "--path <path>"
+msgstr "--path <pot>"
+
+msgid "--pre-number <number>"
+msgstr "--pre-number <številka>"
+
+msgid "--print-number, -p"
+msgstr "--print-number, -p"
+
+msgid "--quiet, -q"
+msgstr "--quiet, -q"
+
+msgid "--read-only"
+msgstr "--read-only"
+
+msgid "--read-write"
+msgstr "--read-write"
+
+msgid "--root, -r <path>"
+msgstr "--root, -r <pot>"
+
+msgid "--separator <separator>"
+msgstr "--separator <ločilnik>"
+
+msgid "--sync, -s"
+msgstr "--sync, -s"
+
+msgid "--table-style, -t <style>"
+msgstr "--table-style, -t <slog>"
+
+msgid "--target-mode <target-mode>"
+msgstr "--target-mode <način-za-cilj>"
+
+msgid "--template, -t <name>"
+msgstr "--template, -t <ime>"
+
+msgid "--type, -t <type>"
+msgstr "--type, -t <vrsta>"
+
+msgid "--userdata, -u <userdata>"
+msgstr "--userdata, -u <podatki>"
+
+msgid "--utc"
+msgstr "--utc"
+
+msgid "--verbose, -v"
+msgstr "--verbose, -v"
+
+msgid "--version"
+msgstr "--version"
 
 # error box title
-#, fuzzy
 msgid "ACL error."
-msgstr "V/I napaka"
+msgstr "Napaka ACL."
 
 msgid "Active"
-msgstr ""
+msgstr "Dejaven"
 
 msgid "Active snapshot is already default snapshot."
-msgstr ""
+msgstr "Dejaven posnetek je že privzeti posnetek."
+
+msgid "Allow to abbreviate table columns."
+msgstr "Dovoli okrajševanje stolpcev razpredelnice."
 
 #, c-format
 msgid "Ambit is %s."
-msgstr ""
+msgstr "Ambit je %s."
+
+msgid "Automatic"
+msgstr "Samodejno"
 
 #. TRANSLATORS: symbol for "bytes" (best keep untranslated)
 msgid "B"
-msgstr ""
+msgstr "B"
 
 # %s is either BOOTP or DHCP
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot delete snapshot %d since it is the current system."
-msgstr "Prilagoditev %s ni bila uspešna."
+msgstr "Posnetka %d ni moč izbrisati, ker je to trenutni sistem."
 
 #, c-format
 msgid "Cannot delete snapshot %d since it is the currently mounted snapshot."
-msgstr ""
+msgstr "Posnetka %d ni moč izbrisati, ker je to trenutno priklopljeni posnetek."
 
 #, c-format
 msgid "Cannot delete snapshot %d since it is the next to be mounted snapshot."
-msgstr ""
+msgstr "Posnetka %d ni moč izbrisati, ker je to posnetek, ki bo priklopljen kot naslednji."
 
 msgid "Cannot detect ambit since default subvolume is unknown."
-msgstr ""
+msgstr "Ambita ni moč zaznati, ker privzeti podnosilec ni znan."
 
 msgid "Cannot do rollback since default subvolume is unknown."
-msgstr ""
+msgstr "Povrnitve ni moč izvesti, ker privzeti podnosilec ni znan."
+
+msgid "Character separator for CSV output format."
+msgstr "Ločilni znak za obliko izpisa CSV."
 
 msgid "Cleanup"
-msgstr ""
+msgstr "Čiščenje"
+
+msgid "Cleanup algorithm for snapshot."
+msgstr "Algoritem za čiščenje posnetka."
+
+msgid "Cleanup algorithm for snapshots."
+msgstr "Algoritem za čiščenje posnetkov."
+
+msgid "Cleanup all configs affecting path."
+msgstr "Čiščenje vseh nastavitev, ki vplivajo na pot."
+
+#, c-format
+msgid "Client-side plugin '%s' failed."
+msgstr "Vstavek »%s« na strani odjemalca ni uspel."
+
+msgid "Columns to show separated by comma."
+msgstr "Stolpci za prikaz, ločeni z vejico."
 
 msgid "Command 'cleanup' needs one arguments."
-msgstr ""
+msgstr "Ukaz »cleanup« potrebuje en argument."
 
 msgid "Command 'create' does not take arguments."
-msgstr ""
+msgstr "Ukaz »create« ne potrebuje argumentov."
 
 msgid "Command 'create-config' needs one argument."
-msgstr ""
+msgstr "Ukaz »create-config« potrebuje en argument."
 
 msgid "Command 'debug' does not take arguments."
-msgstr ""
+msgstr "Ukaz »debug« ne potrebuje argumentov."
 
 msgid "Command 'delete' needs at least one argument."
-msgstr ""
+msgstr "Ukaz »delete« potrebuje vsaj en argument."
 
 msgid "Command 'delete-config' does not take arguments."
-msgstr ""
+msgstr "Ukaz »delete-config« ne potrebuje argumentov."
 
 msgid "Command 'diff' needs at least one argument."
-msgstr ""
+msgstr "Ukaz »diff« potrebuje vsaj en argument."
 
 msgid "Command 'get-config' does not take arguments."
-msgstr ""
+msgstr "Ukaz »get-config« ne potrebuje argumentov."
 
 msgid "Command 'help' does not take arguments."
-msgstr ""
+msgstr "Ukaz »help« ne potrebuje argumentov."
 
 msgid "Command 'list' does not take arguments."
-msgstr ""
+msgstr "Ukaz »list« ne potrebuje argumentov."
 
 msgid "Command 'list-configs' does not take arguments."
-msgstr ""
+msgstr "Ukaz »list-configs« ne potrebuje argumentov."
 
 msgid "Command 'modify' needs at least one argument."
-msgstr ""
+msgstr "Ukaz »modify« potrebuje vsaj en argument."
 
 msgid "Command 'mount' needs at least one argument."
-msgstr ""
+msgstr "Ukaz »mount« potrebuje vsaj en argument."
 
 #, c-format
 msgid "Command 'rollback' cannot be used on a non-root subvolume %s."
-msgstr ""
+msgstr "Ukaza »rollback« ni mogoče uporabljati na podnosilcu %s, ki ni korenski."
 
 msgid "Command 'rollback' only available for btrfs."
-msgstr ""
+msgstr "Ukaz »rollback« je na voljo samo za datotečni sistem btrfs."
 
 msgid "Command 'rollback' takes either one or no argument."
-msgstr ""
+msgstr "Ukaz »rollback« potrebuje en argument ali nobenega."
 
 msgid "Command 'set-config' needs at least one argument."
-msgstr ""
+msgstr "Ukaz »set-config« potrebuje vsaj en argument."
 
 msgid "Command 'setup-quota' does not take arguments."
-msgstr ""
+msgstr "Ukaz »setup-quota« ne potrebuje argumentov."
 
 msgid "Command 'status' needs one argument."
-msgstr ""
+msgstr "Ukaz »status« potrebuje en argument."
+
+msgid "Command 'transfer-and-delete' does not take arguments."
+msgstr "Ukaz »transfer-and-delete« ne potrebuje argumentov."
 
 msgid "Command 'umount' needs at least one argument."
-msgstr ""
+msgstr "Ukaz »umount« potrebuje vsaj en argument."
 
 msgid "Command 'undochange' needs at least one argument."
-msgstr ""
+msgstr "Ukaz »undochange« potrebuje vsaj en argument."
 
 msgid "Command 'xadiff' needs at least one argument."
-msgstr ""
+msgstr "Ukaz »xadiff« potrebuje vsaj en argument."
 
-#, fuzzy
+msgid "Command used for comparing files."
+msgstr "Ukaz, ki se uporablja za primerjanje datotek."
+
 msgid "Config"
-msgstr "Konflikti"
+msgstr "Nastavitve"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Config '%s' is invalid."
-msgstr "Gostitelja %s ni."
+msgstr "Nastavitve »%s« niso veljavne."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Config '%s' not found."
-msgstr "Gostitelja %s ni."
+msgstr "Nastavitve »%s« niso najdene."
 
-#, fuzzy
 msgid "Config is in use."
-msgstr "Gostitelja %s ni."
+msgstr "Nastavitve so v uporabi."
 
-#, fuzzy
 msgid "Config is locked."
-msgstr "Gostitelja %s ni."
+msgstr "Nastavitve so zaklenjene."
 
 #, c-format
 msgid "Configdata '%s' does not include '=' sign."
-msgstr ""
+msgstr "Podatki nastavitev »%s« ne vsebujejo znaka »=«."
 
 #, c-format
 msgid "Configdata '%s' has empty key."
-msgstr ""
+msgstr "Podatki nastavitev »%s« vsebujejo prazen ključ."
 
 #, c-format
 msgid "Could not make enough free space available for path '%s'."
-msgstr ""
+msgstr "Ni bilo moč sprostiti dovolj prostora na disku za pot »%s«."
 
 msgid "Could not make enough free space available."
-msgstr ""
+msgstr "Ni bilo moč sprostiti dovolj prostora na disku."
+
+msgid "Create a snapshot from the specified snapshot."
+msgstr "Ustvari posnetek iz navedenega posnetka."
+
+# %s is either BOOTP or DHCP
+msgid "Create an empty snapshot."
+msgstr "Ustvari prazen posnetek."
+
+# %s is either BOOTP or DHCP
+msgid "Create read-only snapshot."
+msgstr "Ustvari posnetek samo za branje."
+
+msgid "Create read-write snapshot."
+msgstr "Ustvari posnetek za branje in pisanje."
 
 #, c-format
 msgid "Creating config failed (%s)."
-msgstr ""
+msgstr "Ustvarjanje nastavitev ni uspelo (%s)."
 
 msgid "Creating read-only snapshot of current system."
-msgstr ""
+msgstr "Ustvarjanje posnetka trenutnega sistema samo za branje."
 
 msgid "Creating read-only snapshot of default subvolume."
-msgstr ""
+msgstr "Ustvarjanje posnetka privzetega podnosilca samo za branje."
 
 msgid "Creating read-write snapshot of current subvolume."
-msgstr ""
+msgstr "Ustvarjanje posnetka trenutnega podnosilca za branje in pisanje."
 
 #, c-format
 msgid "Creating read-write snapshot of snapshot %d."
-msgstr ""
+msgstr "Ustvarjanje posnetka za branje in pisanje iz posnetka %d."
 
 msgid "Creating snapshot failed."
-msgstr ""
+msgstr "Ustvarjanje posnetka ni uspelo."
 
-#, fuzzy
 msgid "Date"
-msgstr "Po zagonu"
+msgstr "Datum"
 
 msgid "Default"
-msgstr ""
+msgstr "Privzeti"
+
+msgid "Delete:"
+msgstr "Izbris:"
 
 # %s is either BOOTP or DHCP
-#, fuzzy, c-format
+#, c-format
 msgid "Deleting config failed (%s)."
-msgstr "Prilagoditev %s ni bila uspešna."
+msgstr "Brisanje nastavitev ni uspelo (%s)."
 
 # %s is either BOOTP or DHCP
-#, fuzzy
+#, c-format
+msgid "Deleting snapshot %d."
+msgstr "Brisanje posnetka %d."
+
+# %s is either BOOTP or DHCP
 msgid "Deleting snapshot failed."
-msgstr "Prilagoditev %s ni bila uspešna."
+msgstr "Brisanje posnetka ni uspelo."
 
 # %s is either BOOTP or DHCP
-#, fuzzy, c-format
+#, c-format
 msgid "Deleting snapshot from %s:"
 msgid_plural "Deleting snapshots from %s:"
-msgstr[0] "Prilagoditev %s ni bila uspešna."
-msgstr[1] "Prilagoditev %s ni bila uspešna."
-msgstr[2] "Prilagoditev %s ni bila uspešna."
-msgstr[3] "Prilagoditev %s ni bila uspešna."
+msgstr[0] "Brisanje posnetka iz %s:"
+msgstr[1] "Brisanje posnetkov iz %s:"
+msgstr[2] "Brisanje posnetkov iz %s:"
+msgstr[3] "Brisanje posnetkov iz %s:"
 
 msgid "Description"
 msgstr "Opis"
 
+msgid "Description for snapshot."
+msgstr "Opis posnetka."
+
+msgid "Description for snapshots."
+msgstr "Opis posnetkov."
+
 msgid "Detecting filesystem type failed."
-msgstr ""
+msgstr "Zaznavanje vrste datotečnega sistema ni uspelo."
+
+msgid "Disable showing used space."
+msgstr "Onemogoči prikaz porabljenega prostora."
+
+msgid "Display dates and times in ISO format."
+msgstr "Prikazuje datume in čase v obliki ISO."
+
+msgid "Display dates and times in UTC."
+msgstr "Prikazuje datume in čase v časovnem pasu UTC."
 
 #. TRANSLATORS: symbol for "exa" (best keep untranslated)
 msgid "E"
-msgstr ""
+msgstr "E"
 
 #. TRANSLATORS: symbol for "exa bytes" (best keep untranslated)
 msgid "EB"
-msgstr ""
+msgstr "EB"
 
 #. TRANSLATORS: symbol for "exbi bytes" (best keep untranslated)
 msgid "EiB"
-msgstr ""
+msgstr "EiB"
 
-#, fuzzy
 msgid "Empty configdata."
-msgstr "Napačen vnos."
+msgstr "Prazni podatki nastavitev."
 
 msgid "Empty userdata."
-msgstr ""
+msgstr "Prazni uporabniški podatki."
 
 # error box title
-#, fuzzy, c-format
+#, c-format
 msgid "Error (%s)."
-msgstr "V/I napaka"
+msgstr "Napaka (%s)."
+
+msgid "Extra options passed to the diff command."
+msgstr "Dodatne možnosti, ki se posredujejo ukazu diff."
 
 msgid "Failed to initialize filesystem handler."
-msgstr ""
+msgstr "Pripravljanje ročnika za datotečni sistem ni uspelo."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to parse '%s'."
-msgstr "Napaka pri nalaganju modula \"%s\"."
+msgstr "Razčlenjevanje »%s« ni uspelo."
+
+msgid "Failed to parse number."
+msgstr "Razčlenjevanje številke ni uspelo."
 
 #, c-format
 msgid "Failed to query free space for path '%s'."
-msgstr ""
+msgstr "Poizvedovanje o razpoložljivem prostoru za pot »%s« ni uspelo."
 
-#, fuzzy
 msgid "Failed to query free space."
-msgstr "Napaka pri nalaganju modula \"%s\"."
+msgstr "Poizvedovanje o razpoložljivem prostoru ni uspelo."
 
-#, fuzzy
 msgid "Failed to set locale."
-msgstr "Napaka pri nalaganju modula \"%s\"."
+msgstr "Nastavitev jezika ni uspela."
 
 msgid "Failure"
-msgstr ""
+msgstr "Neuspeh"
 
 #, c-format
 msgid "Failure (%s)."
-msgstr ""
+msgstr "Neuspeh (%s)."
 
-#, fuzzy, c-format
+#, c-format
 msgid "File '%s' not found."
-msgstr "Gostitelja %s ni."
+msgstr "Datoteka »%s« ni najdena."
 
 # error box title
-#, fuzzy, c-format
+#, c-format
 msgid "Free space error (%s)."
-msgstr "V/I napaka"
+msgstr "Napaka razpoložljivega prostora (%s)."
 
 #. TRANSLATORS: symbol for "giga" (best keep untranslated)
 msgid "G"
-msgstr ""
+msgstr "G"
 
 #. TRANSLATORS: symbol for "giga bytes" (best keep untranslated)
 msgid "GB"
-msgstr ""
+msgstr "GB"
 
 #. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
 msgid "GiB"
-msgstr ""
+msgstr "GiB"
+
+msgid "Global options:"
+msgstr "Splošne možnosti:"
 
 # error box title
-#, fuzzy, c-format
+#, c-format
 msgid "IO Error (%s)."
-msgstr "V/I napaka"
+msgstr "V/I napaka (%s)."
 
 # error box title
-#, fuzzy, c-format
+#, c-format
 msgid "IO error (%s)."
-msgstr "V/I napaka"
+msgstr "V/I napaka (%s)."
 
 msgid "Identical snapshots."
-msgstr ""
+msgstr "Enaka posnetka."
 
 # %s is either BOOTP or DHCP
-#, fuzzy
 msgid "Illegal snapshot."
-msgstr "Prilagoditev %s ni bila uspešna."
+msgstr "Neveljaven posnetek."
 
-#, fuzzy, c-format
+msgid "Increase verbosity."
+msgstr "Poveča količino izpisa."
+
+#, c-format
 msgid "Invalid ambit '%s'."
-msgstr "Napačen vnos."
+msgstr "Neveljaven ambit »%s«."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid column '%s'."
-msgstr "Napačen vnos."
+msgstr "Neveljaven stolpec »%s«."
 
-#, fuzzy
+msgid "Invalid config."
+msgstr "Neveljavne nastavitve."
+
 msgid "Invalid configdata."
-msgstr "Napačen vnos."
+msgstr "Neveljavni podatki nastavitev."
 
 msgid "Invalid free-space value."
-msgstr ""
+msgstr "Neveljavna vrednost razpoložljivega prostora."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid group (%s)."
-msgstr "Napačen vnos."
+msgstr "Neveljavna skupina (%s)."
 
-#, fuzzy, c-format
+#, c-format
+msgid "Invalid logger-type '%s'."
+msgstr "Neveljavna vrsta »%s« za logger-type."
+
+#, c-format
 msgid "Invalid machine readable format '%s'."
-msgstr "Napačen vnos."
+msgstr "Neveljavna računalniško berljiva oblika »%s«."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid path '%s'."
-msgstr "Napačen vnos."
+msgstr "Neveljavna pot »%s«."
 
 #, c-format
 msgid "Invalid snapshot '%s'."
-msgstr ""
+msgstr "Neveljaven posnetek »%s«."
 
 msgid "Invalid snapshots."
-msgstr ""
+msgstr "Neveljavni posnetki."
+
+#, c-format
+msgid "Invalid subvolume path '%s' on target."
+msgstr "Neveljavna pot podnosilca »%s« na cilju."
 
 msgid "Invalid subvolume."
-msgstr ""
+msgstr "Neveljaven podnosilec."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid table style '%s'."
-msgstr "Napačen vnos."
+msgstr "Neveljaven slog razpredelnice »%s«."
 
-#, fuzzy, c-format
+#, c-format
+msgid "Invalid target mode '%s'."
+msgstr "Neveljaven način cilja »%s«."
+
+#, c-format
 msgid "Invalid user (%s)."
-msgstr "Napačen vnos."
+msgstr "Neveljaven uporabnik (%s)."
 
 msgid "Invalid userdata."
-msgstr ""
+msgstr "Neveljavni uporabniški podatki."
 
 # KE
-#, fuzzy
 msgid "Key"
-msgstr "Kenija"
+msgstr "Ključ"
 
 #. TRANSLATORS: symbol for "kibi bytes" (best keep untranslated)
 msgid "KiB"
-msgstr ""
+msgstr "KiB"
+
+msgid "List configs:"
+msgstr "Izpis nastavitev:"
+
+msgid "List snapshots from all accessible configs."
+msgstr "Izpiše posnetke iz vseh dostopnih nastavitev."
+
+msgid "List:"
+msgstr "Izpis:"
 
 # %s is either BOOTP or DHCP
-#, fuzzy, c-format
+#, c-format
 msgid "Listing configs failed (%s)."
-msgstr "Prilagoditev %s ni bila uspešna."
+msgstr "Izpisovanje nastavitev ni uspelo (%s)."
 
 #. TRANSLATORS: symbol for "mega" (best keep untranslated)
 msgid "M"
-msgstr ""
+msgstr "M"
 
 #. TRANSLATORS: symbol for "mega bytes" (best keep untranslated)
 msgid "MB"
-msgstr ""
+msgstr "MB"
+
+msgid "Manually set filesystem type."
+msgstr "Ročno nastavi vrsto datotečnega sistema."
 
 msgid "Maybe you forgot the delimiter '..' between the snapshot numbers."
-msgstr ""
+msgstr "Morda ste med številkama posnetkov pozabili ločilnik »..«."
 
 #. TRANSLATORS: symbol for "mebi bytes" (best keep untranslated)
 msgid "MiB"
-msgstr ""
+msgstr "MiB"
 
 #, c-format
 msgid "Missing argument for command option '%s'."
-msgstr ""
+msgstr "Manjka argument za ukazno možnost »%s«."
 
 #, c-format
 msgid "Missing argument for global option '%s'."
-msgstr ""
+msgstr "Manjka argument za splošno možnost »%s«."
 
 msgid "Missing command option."
-msgstr ""
+msgstr "Manjka ukazna možnost."
 
 msgid "Missing delimiter '..' between snapshot numbers."
-msgstr ""
+msgstr "Manjka ločilnik »..« med številkama posnetkov."
 
 msgid "Missing or invalid pre-number."
-msgstr ""
+msgstr "Manjka pred-številka ali pa ni veljavna."
+
+msgid "Name"
+msgstr "Ime"
+
+msgid "Name of config template to use."
+msgstr "Ime predloge nastavitev, ki bo uporabljena."
+
+msgid "No backup configs found."
+msgstr "Najdena ni bila nobena varnostna kopija nastavitev."
 
 msgid "No command provided."
-msgstr ""
+msgstr "Naveden ni bil noben ukaz."
+
+msgid "No headers for CSV output format."
+msgstr "Brez glav za izhodno obliko CSV."
 
 msgid "No permissions."
-msgstr ""
+msgstr "Brez dovoljenj."
+
+msgid "Number of corresponding pre snapshot."
+msgstr "Številka ustreznega pred-posnetka."
+
+msgid "Only use backup-config with automatic set."
+msgstr "Uporabite »backup-config« samo skupaj z »automatic«."
+
+msgid "Only use backup-config with specified target-mode."
+msgstr "Uporabite »backup-config« samo skupaj z navedbo »target-mode«."
 
 #, c-format
 msgid "Opening file '%s' failed."
-msgstr ""
+msgstr "Odpiranje datoteke »%s« ni uspelo."
+
+msgid "Operate in the specified ambit."
+msgstr "Delovanje v navedenem ambitu."
+
+msgid "Operate on target root (works only without DBus)."
+msgstr "Delovanje na cilju root (deluje samo brez DBus-a)."
+
+msgid "Operate without DBus."
+msgstr "Delovanje brez DBus-a."
 
 msgid "Option --from only supported for snapshots of type single."
-msgstr ""
+msgstr "Možnost »--from« je podprta samo za posnetke vrste »enojni«."
 
 #. DBus versions of CreatePreSnapshot and CreatePostSnapshot do not pass read-only flag
 msgid "Option --read-write only supported for snapshots of type single."
-msgstr ""
+msgstr "Možnost »--read-write« je podprta samo za posnetke vrste »enojni«."
 
 #. TRANSLATORS: symbol for "peta" (best keep untranslated)
 msgid "P"
-msgstr ""
+msgstr "P"
 
 #. TRANSLATORS: symbol for "peta bytes" (best keep untranslated)
 msgid "PB"
-msgstr ""
+msgstr "PB"
+
+#, c-format
+msgid "Path mismatch between source-path of backup-config and subvolume of snapper config ('%s' vs. '%s')."
+msgstr "Neujemanje poti med »source-path« v »backup-config« in podnosilcem v nastavitvah za snapper (»%s« in »%s«)."
 
 #. TRANSLATORS: symbol for "pebi bytes" (best keep untranslated)
 msgid "PiB"
-msgstr ""
+msgstr "PiB"
 
-#, fuzzy
 msgid "Post #"
-msgstr "Po zagonu"
+msgstr "Št. po"
 
-#, fuzzy
 msgid "Post Date"
-msgstr "Po zagonu"
+msgstr "Datum po"
 
 msgid "Pre #"
-msgstr ""
+msgstr "Št. pred"
 
-#, fuzzy
 msgid "Pre Date"
-msgstr "Po zagonu"
+msgstr "Datum pred"
+
+msgid "Print number of created snapshot."
+msgstr "Izpiše številko ustvarjenega posnetka."
+
+msgid "Print number of second created snapshot."
+msgstr "Izpiše številko drugega ustvarjenega posnetka."
+
+msgid "Print version and exit."
+msgstr "Izpiše številko in konča."
+
+msgid "Probing extra information for source snapshots."
+msgstr "Ugotavljanje dodatnih podatkov za izvorne posnetke."
+
+msgid "Probing extra information for target snapshots."
+msgstr "Ugotavljanje dodatnih podatkov za ciljne posnetke."
+
+msgid "Probing source snapshots."
+msgstr "Ugotavljanje izvornih posnetkov."
+
+msgid "Probing target snapshots."
+msgstr "Ugotavljanje ciljnih posnetkov."
 
 # error box title
-#, fuzzy, c-format
+#, c-format
 msgid "Quota error (%s)."
-msgstr "V/I napaka"
+msgstr "Napaka kvote (%s)."
+
+msgid "Read files for which to undo changes from file."
+msgstr "Prebere datoteke, za katere bodo razveljavljene spremembe iz datoteke."
+
+msgid "Read files to diff from file."
+msgstr "Prebere datoteke v diff iz datoteke."
 
 msgid "Read-Only"
-msgstr ""
+msgstr "Samo za branje"
 
-#, fuzzy
+msgid "Run command and create pre and post snapshots."
+msgstr "Zažene ukaz in ustvari posnetka pred in po."
+
+#, c-format
+msgid "Running delete failed for %d of %ld backup config."
+msgid_plural "Running delete failed for %d of %ld backup configs."
+msgstr[0] "Izvajanje brisanja je spodletelo za %d od %ld nastavitve varnostnega kopiranja."
+msgstr[1] "Izvajanje brisanja je spodletelo za %d od %ld nastavitev varnostnega kopiranja."
+msgstr[2] "Izvajanje brisanja je spodletelo za %d od %ld nastavitev varnostnega kopiranja."
+msgstr[3] "Izvajanje brisanja je spodletelo za %d od %ld nastavitev varnostnega kopiranja."
+
+#, c-format
+msgid "Running delete for backup config '%s' failed."
+msgstr "Izvajanje brisanja za nastavitev varnostnega kopiranja »%s« je spodletelo."
+
+#, c-format
+msgid "Running delete for backup config '%s'."
+msgstr "Izvajanje brisanja za nastavitev varnostnega kopiranja »%s«."
+
+#, c-format
+msgid "Running list failed for %d of %ld backup config."
+msgid_plural "Running list failed for %d of %ld backup configs."
+msgstr[0] "Izvajanje izpisovanja je spodletelo za %d od %ld nastavitve varnostnega kopiranja."
+msgstr[1] "Izvajanje izpisovanja je spodletelo za %d od %ld nastavitev varnostnega kopiranja."
+msgstr[2] "Izvajanje izpisovanja je spodletelo za %d od %ld nastavitev varnostnega kopiranja."
+msgstr[3] "Izvajanje izpisovanja je spodletelo za %d od %ld nastavitev varnostnega kopiranja."
+
+#, c-format
+msgid "Running transfer and delete failed for %d of %ld backup config."
+msgid_plural "Running transfer and delete failed for %d of %ld backup configs."
+msgstr[0] "Izvajanje prenosa in brisanja je spodletelo za %d od %ld nastavitve varnostnega kopiranja."
+msgstr[1] "Izvajanje prenosa in brisanja je spodletelo za %d od %ld nastavitev varnostnega kopiranja."
+msgstr[2] "Izvajanje prenosa in brisanja je spodletelo za %d od %ld nastavitev varnostnega kopiranja."
+msgstr[3] "Izvajanje prenosa in brisanja je spodletelo za %d od %ld nastavitev varnostnega kopiranja."
+
+#, c-format
+msgid "Running transfer and delete for backup config '%s' failed."
+msgstr "Izvajanje prenosa in brisanja za nastavitve varnostnega kopiranja »%s« je spodletelo."
+
+#, c-format
+msgid "Running transfer and delete for backup config '%s'."
+msgstr "Izvajanje prenosa in brisanja za nastavitve varnostnega kopiranja »%s«."
+
+#, c-format
+msgid "Running transfer failed for %d of %ld backup config."
+msgid_plural "Running transfer failed for %d of %ld backup configs."
+msgstr[0] "Izvajanje prenosa je spodletelo za %d od %ld nastavitve varnostnega kopiranja."
+msgstr[1] "Izvajanje prenosa je spodletelo za %d od %ld nastavitev varnostnega kopiranja."
+msgstr[2] "Izvajanje prenosa je spodletelo za %d od %ld nastavitev varnostnega kopiranja."
+msgstr[3] "Izvajanje prenosa je spodletelo za %d od %ld nastavitev varnostnega kopiranja."
+
+#, c-format
+msgid "Running transfer for backup config '%s' failed."
+msgstr "Izvajanje prenosa za nastavitve varnostnega kopiranja »%s« je spodletelo."
+
+#, c-format
+msgid "Running transfer for backup config '%s'."
+msgstr "Izvajanje prenosa za nastavitve varnostnega kopiranja »%s«."
+
+msgid "SSH Host"
+msgstr "Gostitelj SSH"
+
+msgid "SSH Identity"
+msgstr "Istovetnost SSH"
+
+msgid "SSH Port"
+msgstr "Vrata SSH"
+
+msgid "SSH User"
+msgstr "Uporabnik SSH"
+
+msgid "Save status to file."
+msgstr "Shrani stanje v datoteko."
+
 msgid "See 'man snapper' for further instructions."
-msgstr "Pridobivanje podatkov o pomnilniku.."
+msgstr "Za nadaljnja navodila si oglejte »man snapper«."
+
+#, c-format
+msgid "Server-side plugin '%s' failed."
+msgstr "Vstavek »%s« na strani strežnika ni uspel."
+
+msgid "Set CSV output format."
+msgstr "Nastavi izpis v obliki CSV."
+
+msgid "Set JSON output format."
+msgstr "Nastavi izpis v obliki JSON."
+
+msgid "Set a machine-readable output format (csv, json)."
+msgstr "Nastavi računalniško berljivo obliko izpisa (csv, json)."
+
+msgid "Set logger type."
+msgstr "Nastavi vrsto dnevnika."
+
+msgid "Set name of backup-config to use."
+msgstr "Nastavi ime nastavitev varnostnega kopiranja, ki bodo uporabljene."
+
+msgid "Set name of config to use."
+msgstr "Nastavi ime nastavitev, ki bodo uporabljene."
+
+msgid "Set snapshot as default snapshot."
+msgstr "Nastavi posnetek za privzeti posnetek."
+
+# %s is either BOOTP or DHCP
+msgid "Set snapshot read-only."
+msgstr "Nastavi posnetek samo za branje."
+
+# %s is either BOOTP or DHCP
+msgid "Set snapshot read-write."
+msgstr "Nastavi posnetek za branje in pisanje."
 
 #, c-format
 msgid "Setting default subvolume to snapshot %d."
-msgstr ""
+msgstr "Nastavljanje privzetega podnosilca na posnetek %d."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Snapshot '%u' not found."
-msgstr "Gostitelja %s ni."
+msgstr "Posnetek »%u« ni najden."
 
-#, fuzzy
+# %s is either BOOTP or DHCP
+msgid "Snapshot already on target."
+msgstr "Posnetek je že na ciljnem mestu."
+
 msgid "Snapshot is in use."
-msgstr "Gostitelja %s ni."
+msgstr "Posnetek je v uporabi."
+
+msgid "Snapshot not on source."
+msgstr "Posnetka ni na izvornem mestu."
+
+msgid "Snapshot not on target."
+msgstr "Posnetka ni na ciljnem mestu."
+
+#, c-format
+msgid "Snapshot number %d not found."
+msgstr "Posnetek s številko »%d« ni najden."
+
+msgid "Source Path"
+msgstr "Izvorna pot"
+
+msgid "Source State"
+msgstr "Izvorno stanje"
 
 msgid "Subvolume"
-msgstr ""
+msgstr "Podnosilec"
+
+msgid "Suppress normal output."
+msgstr "Skrij običajen izhod."
+
+msgid "Sync after deletion."
+msgstr "Po izbrisu uskladi datotečni sistem."
 
 #. TRANSLATORS: symbol for "tera" (best keep untranslated)
 msgid "T"
-msgstr ""
+msgstr "T"
 
 #. TRANSLATORS: symbol for "tera bytes" (best keep untranslated)
 msgid "TB"
-msgstr ""
+msgstr "TB"
+
+msgid "Table style (integer)."
+msgstr "Slog razpredelnice (celo število)."
+
+msgid "Target Mode"
+msgstr "Ciljni način"
+
+msgid "Target Path"
+msgstr "Ciljna pot"
+
+msgid "Target State"
+msgstr "Ciljno stanje"
+
+msgid "Target btrfs bin"
+msgstr "Ciljna izvršljiva datoteka btrfs"
+
+msgid "Target findmnt Bin"
+msgstr "Ciljna izvršljiva datoteka findmnt"
+
+msgid "Target mkdir bin"
+msgstr "Ciljna izvršljiva datoteka mkdir"
+
+msgid "Target realpath bin"
+msgstr "Ciljna izvršljiva datoteka realpath"
+
+msgid "Target rm bin"
+msgstr "Ciljna izvršljiva datoteka rm"
+
+msgid "Target rmdir bin"
+msgstr "Ciljna izvršljiva datoteka rmdir"
 
 msgid "The ambit can be specified manually using the --ambit option."
-msgstr ""
+msgstr "Ambit lahko določite ročno z uporabo možnosti »--ambit«."
 
 msgid "The config 'root' does not exist. Likely snapper is not configured."
-msgstr ""
+msgstr "Nastavitve »root« ne obstajajo. Najverjetneje snapper še ni nastavljen."
 
 msgid "This can happen if the system was not set up for rollback."
-msgstr ""
+msgstr "To se lahko zgodi, če sistem ni bil nastavljen za povrnitev."
 
 #. TRANSLATORS: symbol for "tebi bytes" (best keep untranslated)
 msgid "TiB"
-msgstr ""
+msgstr "TiB"
 
-#, fuzzy
+msgid "Transfer and delete:"
+msgstr "Prenos in izbris:"
+
+msgid "Transfer:"
+msgstr "Prenos:"
+
+#, c-format
+msgid "Transferring snapshot %d."
+msgstr "Prenašanje posnetka %d."
+
 msgid "Try 'snapper --help' for more information."
-msgstr "Pridobivanje podatkov o pomnilniku.."
+msgstr "Za dodatne informacije poskusite z ukazom »snapper --help«."
+
+msgid "Try 'snbk --help' for more information."
+msgstr "Za dodatne informacije poskusite z ukazom »snbk --help«."
+
+msgid "Try to make space available."
+msgstr "Poskusi sprostiti prostor na disku."
+
+msgid "Turn on debugging."
+msgstr "Vklopi razhroščevanje."
 
 msgid "Type"
-msgstr "Tip"
+msgstr "Vrsta"
+
+# %s is either BOOTP or DHCP
+msgid "Type for snapshot."
+msgstr "Vrsta posnetka."
+
+msgid "Type of snapshots to list."
+msgstr "Vrsta posnetkov za izpisati."
 
 #, c-format
 msgid "Unknown cleanup algorithm '%s'."
-msgstr ""
+msgstr "Neznan algoritem čiščenja »%s«."
 
 #, c-format
 msgid "Unknown command '%s'."
-msgstr ""
+msgstr "Neznan ukaz »%s«."
 
-#, fuzzy
 msgid "Unknown config."
-msgstr "Neznan monitor:"
+msgstr "Neznane nastavitve."
 
 #, c-format
 msgid "Unknown global option '%s'."
-msgstr ""
+msgstr "Neznana splošna možnost »%s«."
 
 #, c-format
 msgid "Unknown option '%s' for command '%s'."
-msgstr ""
+msgstr "Neznana možnost »%s« za ukaz »%s«."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown type '%s'."
-msgstr "Nezano stanje omrežne povezave "
+msgstr "Neznana vrsta »%s«."
 
 #. TRANSLATORS: a list of possible values
 #. %1$s is replaced by list of possible values
 #, c-format
 msgid "Use %1$s."
-msgstr ""
+msgstr "Uporabite %1$s."
 
 #, c-format
 msgid "Use an integer number from %d to %d."
-msgstr ""
+msgstr "Uporabite celo število od %d do %d."
 
 msgid "Used Space"
-msgstr ""
+msgstr "Porabljen prostor"
 
 msgid "User"
-msgstr ""
+msgstr "Uporabnik"
 
 msgid "Userdata"
-msgstr ""
+msgstr "Uporabniški podatki"
 
 #, c-format
 msgid "Userdata '%s' does not include '=' sign."
-msgstr ""
+msgstr "Uporabniški podatki »%s« ne vsebujejo znaka »=«."
 
 #, c-format
 msgid "Userdata '%s' has empty key."
-msgstr ""
+msgstr "Uporabniški podatki »%s« vsebuje prazen ključ."
+
+# %s is either BOOTP or DHCP
+msgid "Userdata for snapshot."
+msgstr "Uporabniški podatki za posnetek."
+
+# %s is either BOOTP or DHCP
+msgid "Userdata for snapshots."
+msgstr "Uporabniški podatki za posnetke."
 
 msgid "Value"
 msgstr "Vrednost"
 
 #, c-format
 msgid "create:%d modify:%d delete:%d"
-msgstr ""
+msgstr "ustvari:%d spremeni:%d izbriši:%d"
 
 #, c-format
 msgid "creating %s"
-msgstr ""
+msgstr "ustvarjanje %s"
 
 #, c-format
 msgid "deleting %s"
-msgstr ""
+msgstr "brisanje %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "failed to create %s"
-msgstr "Napaka pri nalaganju modula \"%s\"."
+msgstr "ustvarjanje %s ni uspelo"
 
-#, fuzzy, c-format
+#, c-format
 msgid "failed to delete %s"
-msgstr "Napaka pri nalaganju modula \"%s\"."
+msgstr "brisanje %s ni uspelo"
 
-#, fuzzy, c-format
+#, c-format
 msgid "failed to modify %s"
-msgstr "Napaka pri nalaganju modula \"%s\"."
+msgstr "spreminjanje %s ni uspelo"
 
 #. TRANSLATORS: symbol for "kilo" (best keep untranslated)
 msgid "k"
-msgstr ""
+msgstr "k"
 
 #. TRANSLATORS: symbol for "kilo bytes" (best keep untranslated)
 msgid "kB"
-msgstr ""
+msgstr "kB"
 
 #, c-format
 msgid "modifying %s"
-msgstr ""
+msgstr "spreminjanje %s"
 
 msgid "no"
-msgstr ""
+msgstr "ne"
 
 msgid "nothing to do"
-msgstr ""
+msgstr "ničesar ni za storiti"
 
-#, fuzzy
 msgid "root argument can be used only together with no-dbus.\n"
-msgstr "Pridobivanje podatkov o pomnilniku.."
+msgstr "Argument »root« se lahko uporablja samo skupaj z »no-dbus«.\n"
+
+msgid "snbk delete [numbers]"
+msgstr "snbk delete [številke]"
+
+msgid "snbk list"
+msgstr "snbk list"
+
+msgid "snbk list-configs"
+msgstr "snbk list-configs"
+
+msgid "snbk transfer [numbers]"
+msgstr "snbk transfer [številke]"
+
+msgid "snbk transfer-and-delete"
+msgstr "snbk transfer-and-delete"
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
-msgstr ""
+msgstr "uporaba: snapper [--splošne-možnosti] <ukaz> [--ukazne-možnosti] [ukazni-argumenti]"
+
+msgid "usage: snbk [--global-options] <command> [command-arguments]"
+msgstr "uporaba: snbk [--splošne-možnosti] <ukaz> [ukazni-argumenti]"
 
 msgid "yes"
-msgstr ""
+msgstr "da"
 
 #, fuzzy
 #~ msgid "Unknown file."

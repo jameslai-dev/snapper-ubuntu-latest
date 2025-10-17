@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2012-2015] Novell, Inc.
- * Copyright (c) [2016-2023] SUSE LLC
+ * Copyright (c) [2016-2025] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -28,12 +28,13 @@
 #include <string>
 #include <list>
 #include <queue>
-#include <set>
+#include <map>
 #include <boost/thread.hpp>
 
 #include <snapper/Snapper.h>
 #include <snapper/Snapshot.h>
 #include <snapper/Comparison.h>
+#include <snapper/Plugins.h>
 #include <dbus/DBusConnection.h>
 #include <dbus/DBusMessage.h>
 
@@ -120,6 +121,8 @@ public:
     void query_quota(DBus::Connection& conn, DBus::Message& msg);
     void query_free_space(DBus::Connection& conn, DBus::Message& msg);
     void sync(DBus::Connection& conn, DBus::Message& msg);
+    void get_plugins_report(DBus::Connection& conn, DBus::Message& msg);
+    void clear_plugins_report(DBus::Connection& conn, DBus::Message& msg);
     void debug(DBus::Connection& conn, DBus::Message& msg);
 
     void dispatch(DBus::Connection& conn, DBus::Message& msg);
@@ -127,14 +130,14 @@ public:
     Client(const string& name, uid_t uid, const Clients& clients);
     ~Client();
 
-    list<Comparison*>::iterator find_comparison(Snapper* snapper, unsigned int number1,
-						unsigned int number2);
+    list<Comparison>::iterator find_comparison(Snapper* snapper, unsigned int number1,
+					       unsigned int number2);
 
-    list<Comparison*>::iterator find_comparison(Snapper* snapper,
-						Snapshots::const_iterator snapshot1,
-						Snapshots::const_iterator snapshot2);
+    list<Comparison>::iterator find_comparison(Snapper* snapper,
+					       Snapshots::const_iterator snapshot1,
+					       Snapshots::const_iterator snapshot2);
 
-    void delete_comparison(list<Comparison*>::iterator);
+    void delete_comparison(Comparison& comparison);
 
     void add_lock(const string& config_name);
     void remove_lock(const string& config_name);
@@ -146,9 +149,9 @@ public:
     const string name;
     const uid_t uid;
 
-    list<Comparison*> comparisons;
+    list<Comparison> comparisons;
 
-    set<string> locks;
+    map<string, unsigned int> locks;
 
     map<pair<string, unsigned int>, unsigned int> mounts;
 
@@ -173,6 +176,8 @@ public:
     void add_files_transfer_task(shared_ptr<FilesTransferTask> files_transfer_task);
 
     bool zombie = false;
+
+    Plugins::Report report;
 
 private:
 

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2011-2015] Novell, Inc.
- * Copyright (c) [2016-2023] SUSE LLC
+ * Copyright (c) [2016-2025] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -39,8 +39,8 @@ namespace snapper
     {
     public:
 
-	static Filesystem* create(const string& fstype, const string& subvolume,
-				  const string& root_prefix);
+	static std::unique_ptr<Filesystem> create(const string& fstype, const string& subvolume,
+						  const string& root_prefix);
 
 	Btrfs(const string& subvolume, const string& root_prefix);
 
@@ -77,7 +77,7 @@ namespace snapper
 	virtual void umountSnapshot(unsigned int num) const override;
 
 	virtual bool isSnapshotReadOnly(unsigned int num) const override;
-	virtual void setSnapshotReadOnly(unsigned int num, bool read_only) const override;
+	virtual void setSnapshotReadOnly(unsigned int num, bool read_only, Plugins::Report& report) const override;
 
 	virtual bool checkSnapshot(unsigned int num) const override;
 
@@ -86,7 +86,8 @@ namespace snapper
 	virtual bool isDefault(unsigned int num) const override;
 
 	virtual std::pair<bool, unsigned int> getDefault() const override;
-	virtual void setDefault(unsigned int num) const override;
+
+	virtual void setDefault(unsigned int num, Plugins::Report& report) const override;
 
 	virtual bool isActive(unsigned int num) const override;
 

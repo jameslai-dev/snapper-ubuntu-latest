@@ -7,179 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-12 09:40+0200\n"
-"PO-Revision-Date: 2023-04-26 19:14+0000\n"
-"Last-Translator: George David Apostolidis <geoapostolidis999@gmail.com>\n"
+"POT-Creation-Date: 2025-07-23 11:53+0200\n"
+"PO-Revision-Date: 2025-07-22 14:59+0000\n"
+"Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
 "Language-Team: Greek <https://l10n.opensuse.org/projects/snapper/master/el/>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9.1\n"
+"X-Generator: Weblate 5.12.2\n"
 "X-Poedit-SourceCharset: utf-8\n"
-
-msgid "\t--abbreviate\t\t\tAllow to abbreviate table columns."
-msgstr "\t--abbreviate Επιτρέπει τη σύντμηση των στηλών του πίνακα."
-
-msgid "\t--all-configs, -a\t\tList snapshots from all accessible configs."
-msgstr "\t--all-configs, -a\t\tΕμφανίζει τα στιγμιότυπα από όλες τις προσβάσιμες ρυθμίσεις."
-
-msgid "\t--ambit, -a ambit\t\tOperate in the specified ambit."
-msgstr "\t--ambit, -a ambit Λειτουργεί στην καθορισμένη περιοχή."
-
-msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshot."
-msgstr "\t--cleanup-algorithm, -c <algo>\t\tΑλγόριθμος εκκαθάρισης στιγμιότυπου."
-
-msgid "\t--cleanup-algorithm, -c <algo>\tCleanup algorithm for snapshots."
-msgstr "\t--cleanup-algorithm, -c <algo>\tΑλγόρυθμος εκκαθάρισης για τα στιγμιότυπα."
-
-msgid ""
-"\t--columns <columns>\t\tColumns to show separated by comma.\n"
-"\t\t\t\t\tPossible columns: config, subvolume, number, default, active,\n"
-"\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
-"\t\t\t\t\tpre-number, post-number, post-date, read-only."
-msgstr ""
-"\t--columns <columns> Στήλες για εμφάνιση χωρισμένες με κόμμα.\n"
-"\t\t\t\t\tΠιθανές στήλες: config, subvolume, number, default, active,\n"
-"\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
-"\t\t\t\t\tpre-number, post-number, post-date, read-only."
-
-msgid ""
-"\t--columns <columns>\t\tColumns to show separated by comma.\n"
-"\t\t\t\t\tPossible columns: key, value.\n"
-"\t\t\t\t\tColumns are not selected when JSON format is used."
-msgstr ""
-"\t--columns <columns> Στήλες για εμφάνιση χωρισμένες με κόμμα.\n"
-"\t\t\t\t\tΠιθανές στήλες: κλειδί, τιμή.\n"
-"\t\t\t\t\tΟι στήλες δεν επιλέγονται όταν χρησιμοποιείται η μορφή JSON."
-
-msgid "\t--command <command>\t\tRun command and create pre and post snapshots."
-msgstr "\t--command <command>\tΕκτέλεση εντολής και δημιουργία στιγμιότυπου πριν και μετά."
-
-msgid "\t--config, -c <name>\t\tSet name of config to use."
-msgstr "\t--config, -c <name>\t\tΟρίσετε το όνομα του αρχείου ρυθμίσεων που θα χρησιμοποιηθεί."
-
-msgid "\t--csvout\t\t\tSet CSV output format."
-msgstr "\t--csvout Ορισμός μορφής εξόδου CSV."
-
-msgid "\t--debug\t\t\t\tTurn on debugging."
-msgstr "\t--debug Ενεργοποίηση της αποσφαλμάτωσης."
-
-msgid "\t--default\t\t\tSet snapshot as default snapshot."
-msgstr "\t--default Ορίζει το στιγμιότυπο ως προεπιλεγμένο στιγμιότυπο."
-
-msgid "\t--description, -d <description>\tDescription for snapshot."
-msgstr "\t--description, -d <description>\tΠεριγραφή για το στιγμιότυπο."
-
-msgid "\t--description, -d <description>\tDescription for snapshots."
-msgstr "\t--description, -d <description>\tΠεριγραφή για τα στιγμιότυπα."
-
-msgid "\t--diff-cmd <command>\t\tCommand used for comparing files."
-msgstr "\t--diff-cmd <command> Εντολή που χρησιμοποιείται για τη σύγκριση αρχείων."
-
-#, fuzzy
-msgid "\t--disable-used-space\t\tDisable showing used space."
-msgstr "\t--disable-filters\t\tΑπενεργοποίηση φίλτρων."
-
-msgid "\t--extensions, -x <options>\tExtra options passed to the diff command."
-msgstr "\t--extensions, -x <options> Πρόσθετες επιλογές που περνούν στην εντολή diff."
-
-msgid "\t--free-space <space>\t\tTry to make space available."
-msgstr "\t--free-space <space> Προσπαθήστε να κάνετε διαθέσιμο χώρο."
-
-msgid "\t--from <number>\t\t\tCreate a snapshot from the specified snapshot."
-msgstr "\t--from <αριθμός> Δημιουργήστε ένα στιγμιότυπο από το καθορισμένο στιγμιότυπο."
-
-msgid "\t--fstype, -f <fstype>\t\tManually set filesystem type."
-msgstr "\t--fstype, -f <fstype>\t\tΟρίσετε είδος συστήματος αρχείων με το χέρι."
-
-msgid "\t--input, -i <file>\t\tRead files for which to undo changes from file."
-msgstr "\t--input, -i <file>\t\tΑνάγνωση αρχείων που θα γίνει αναίρεση αλλαγών από αρχείο."
-
-msgid "\t--input, -i <file>\t\tRead files to diff from file."
-msgstr "\t--input, -i <file>\t\tΑνάγνωση αρχείων που θα γίνει αναίρεση αλλαγών από αρχείο."
-
-msgid "\t--iso\t\t\t\tDisplay dates and times in ISO format."
-msgstr "\t--iso\t\t\t\tΠροβολή ημερομηνίας και ώρας σε μορφή ISO."
-
-msgid "\t--jsonout\t\t\tSet JSON output format."
-msgstr "\t--jsonout Ορισμός μορφής εξόδου JSON."
-
-msgid "\t--machine-readable <format>\tSet a machine-readable output format (csv, json)."
-msgstr "\t--machine-readable <format> Ορίστε μια μορφή εξόδου αναγνώσιμη από μηχανή (csv, json)."
-
-msgid "\t--no-dbus\t\t\tOperate without DBus."
-msgstr "\t--no-dbus\t\t\tΛειτουργία χωρίς το DBus."
-
-msgid "\t--no-headers\t\t\tNo headers for CSV output format."
-msgstr "\t--no-headers Δεν υπάρχουν κεφαλίδες για τη μορφή εξόδου CSV."
-
-msgid "\t--output, -o <file>\t\tSave status to file."
-msgstr "\t--output, -o <file>\t\tΑποθήκευση κατάστασης σε αρχείο."
-
-msgid "\t--path <path>\t\t\tCleanup all configs affecting path."
-msgstr "\t--path <path> Καθαρισμός όλων των ρυθμίσεων που επηρεάζουν τη διαδρομή."
-
-msgid "\t--pre-number <number>\t\tNumber of corresponding pre snapshot."
-msgstr "\t--pre-number <αριθμός>\t\tΑριθμός από αντίστοιχα προ-στιγμιότυπα."
-
-msgid "\t--print-number, -p\t\tPrint number of created snapshot."
-msgstr "\t--print-number, -p\t\tΕμφάνιση αριθμού στιγμιοτύπων που δημιουργήθηκαν."
-
-msgid "\t--print-number, -p\t\tPrint number of second created snapshot."
-msgstr "\t--print-number, -p\t\tΕμφάνιση αριθμού του δευτερολέπτου που δημιουργήθηκε το στιγμιότυπο."
-
-msgid "\t--quiet, -q\t\t\tSuppress normal output."
-msgstr "\t--quiet, -q\t\t\tΑπόκρυψη κανονικής απόδοσης."
-
-msgid "\t--read-only\t\t\tCreate read-only snapshot."
-msgstr "\t--read-only Δημιουργία στιγμιότυπου μόνο για ανάγνωση."
-
-msgid "\t--read-only\t\t\tSet snapshot read-only."
-msgstr "\t--read-only Ορίστε το στιγμιότυπο μόνο για ανάγνωση."
-
-msgid "\t--read-write\t\t\tCreate read-write snapshot."
-msgstr "\t--read-write Δημιουργία στιγμιότυπου ανάγνωσης-γραφής."
-
-msgid "\t--read-write\t\t\tSet snapshot read-write."
-msgstr "\t--read-write Ρύθμιση στιγμιότυπου ανάγνωσης-εγγραφής."
-
-msgid "\t--root, -r <path>\t\tOperate on target root (works only without DBus)."
-msgstr "\t--root, -r <path> Λειτουργεί στο root του στόχου (λειτουργεί μόνο χωρίς DBus)."
-
-msgid "\t--separator <separator>\t\tCharacter separator for CSV output format."
-msgstr "\t--separator <separator> Διαχωριστικό χαρακτήρων για τη μορφή εξόδου CSV."
-
-msgid "\t--sync, -s\t\t\tSync after deletion."
-msgstr "\t--sync, -s Συγχρονισμός μετά τη διαγραφή."
-
-msgid "\t--table-style, -t <style>\tTable style (integer)."
-msgstr "\t--table-style, -t <style>\tΣτύλ πίνακα (ακέραιος)."
-
-msgid "\t--template, -t <name>\t\tName of config template to use."
-msgstr "\t--template, -t <name>\t\tΌνομα προτύπου ρυθμίσεων προς χρήση."
-
-msgid "\t--type, -t <type>\t\tType for snapshot."
-msgstr "\t--type, -t <type>\t\tΤύπος στιγμιοτύπου."
-
-msgid "\t--type, -t <type>\t\tType of snapshots to list."
-msgstr "\t--type, -t <type>\t\tΤύπος στιγμιοτύπου για εμφάνιση."
-
-msgid "\t--userdata, -u <userdata>\tUserdata for snapshot."
-msgstr "\t--userdata, -u <userdata>\tΔεδομένα χρήστη στιγμιότυπου."
-
-msgid "\t--userdata, -u <userdata>\tUserdata for snapshots."
-msgstr "\t--userdata, -u <userdata>\tΔεδομένα χρήστη για τα στιγμιότυπα."
-
-msgid "\t--utc\t\t\t\tDisplay dates and times in UTC."
-msgstr "\t--utc\t\t\t\tΠροβολή ημερομηνίας και ώρας σε UTC."
-
-msgid "\t--verbose, -v\t\t\tIncrease verbosity."
-msgstr "\t--verbose, -v\t\t\tΑύξηση περιφραστικότητας."
-
-msgid "\t--version\t\t\tPrint version and exit."
-msgstr "\t--version\t\t\tΕμφάνιση έκδοσης και έξοδος."
 
 msgid "\tsnapper cleanup <cleanup-algorithm>"
 msgstr "\tsnapper cleanup <cleanup-algorithm>"
@@ -260,14 +98,9 @@ msgstr "    Επιλογές για την εντολή 'create-config':"
 msgid "    Options for 'list' command:"
 msgstr "    Επιλογές για την εντολή 'list':"
 
-msgid ""
-"    Options for 'list-configs' command:\n"
-"\t--columns <columns>\t\tColumns to show separated by comma.\n"
-"\t\t\t\t\tPossible columns: config, subvolume.\n"
-msgstr ""
-"    Επιλογές για την εντολή 'list-configs':\n"
-"\t--columns <columns> Στήλες για εμφάνιση χωρισμένες με κόμμα.\n"
-"\t\t\t\t\tΠιθανές στήλες: config, subvolume.\n"
+#, fuzzy
+msgid "    Options for 'list-configs' command:"
+msgstr "    Επιλογές για την εντολή 'create-config':"
 
 msgid "    Options for 'modify' command:"
 msgstr "    Επιλογές για την εντολή 'modify':"
@@ -349,9 +182,200 @@ msgstr "%1$s ή %2$s"
 msgid "%1$s, %2$s"
 msgstr "%1$s, %2$s"
 
+msgid "'btrfs send | btrfs receive' failed."
+msgstr ""
+
+msgid "'btrfs subvolume delete' failed."
+msgstr ""
+
+#, fuzzy
+msgid "'cp info.xml' failed."
+msgstr "Αποτυχία ανοίγματος αρχείου '%s'."
+
+msgid "'mkdir' failed."
+msgstr ""
+
+msgid "'rm info.xml' failed."
+msgstr ""
+
+msgid "'rmdir' failed."
+msgstr ""
+
+msgid "'scp info.xml' failed."
+msgstr ""
+
 #, c-format
 msgid "(Snapshot %d.)"
 msgstr "(Στιγμιότυπο %d.)"
+
+msgid "(Source) Creation Time"
+msgstr ""
+
+msgid "(Source) Parent UUID"
+msgstr ""
+
+msgid "(Source) Received UUID"
+msgstr ""
+
+msgid "(Source) UUID"
+msgstr ""
+
+msgid "(Target) Creation Time"
+msgstr ""
+
+msgid "(Target) Parent UUID"
+msgstr ""
+
+msgid "(Target) Received UUID"
+msgstr ""
+
+msgid "(Target) UUID"
+msgstr ""
+
+msgid "--abbreviate"
+msgstr ""
+
+msgid "--all-configs, -a"
+msgstr ""
+
+msgid "--ambit, -a <ambit>"
+msgstr ""
+
+msgid "--automatic"
+msgstr ""
+
+msgid "--backup-config, -b <name>"
+msgstr ""
+
+#, fuzzy
+msgid "--cleanup-algorithm, -c <algo>"
+msgstr "\t--cleanup-algorithm, -c <algo>\t\tΑλγόριθμος εκκαθάρισης στιγμιότυπου."
+
+msgid "--columns <columns>"
+msgstr ""
+
+msgid "--command <command>"
+msgstr ""
+
+msgid "--config, -c <name>"
+msgstr ""
+
+msgid "--csvout"
+msgstr ""
+
+msgid "--debug"
+msgstr ""
+
+#, fuzzy
+msgid "--default"
+msgstr "Προεπιλογή"
+
+#, fuzzy
+msgid "--description, -d <description>"
+msgstr "\t--description, -d <description>\tΠεριγραφή για το στιγμιότυπο."
+
+msgid "--diff-cmd <command>"
+msgstr ""
+
+msgid "--disable-used-space"
+msgstr ""
+
+msgid "--empty"
+msgstr ""
+
+msgid "--extensions, -x <options>"
+msgstr ""
+
+msgid "--free-space <space>"
+msgstr ""
+
+msgid "--from <number>"
+msgstr ""
+
+msgid "--fstype, -f <fstype>"
+msgstr ""
+
+msgid "--input, -i <file>"
+msgstr ""
+
+msgid "--iso"
+msgstr ""
+
+msgid "--jsonout"
+msgstr ""
+
+#, fuzzy
+msgid "--logger-type <type>"
+msgstr "\t--type, -t <type>\t\tΤύπος στιγμιοτύπου."
+
+#, fuzzy
+msgid "--machine-readable <format>"
+msgstr "Μη έγκυρη μορφή αναγνώσιμης μηχανής '%s'."
+
+msgid "--no-dbus"
+msgstr ""
+
+msgid "--no-headers"
+msgstr ""
+
+#, fuzzy
+msgid "--output, -o <file>"
+msgstr "\t--output, -o <file>\t\tΑποθήκευση κατάστασης σε αρχείο."
+
+msgid "--path <path>"
+msgstr ""
+
+msgid "--pre-number <number>"
+msgstr ""
+
+msgid "--print-number, -p"
+msgstr ""
+
+msgid "--quiet, -q"
+msgstr ""
+
+#, fuzzy
+msgid "--read-only"
+msgstr "Μόνο για ανάγνωση"
+
+msgid "--read-write"
+msgstr ""
+
+msgid "--root, -r <path>"
+msgstr ""
+
+msgid "--separator <separator>"
+msgstr ""
+
+msgid "--sync, -s"
+msgstr ""
+
+#, fuzzy
+msgid "--table-style, -t <style>"
+msgstr "\t--table-style, -t <style>\tΣτύλ πίνακα (ακέραιος)."
+
+msgid "--target-mode <target-mode>"
+msgstr ""
+
+msgid "--template, -t <name>"
+msgstr ""
+
+#, fuzzy
+msgid "--type, -t <type>"
+msgstr "\t--type, -t <type>\t\tΤύπος στιγμιοτύπου."
+
+#, fuzzy
+msgid "--userdata, -u <userdata>"
+msgstr "\t--userdata, -u <userdata>\tΔεδομένα χρήστη στιγμιότυπου."
+
+msgid "--utc"
+msgstr ""
+
+msgid "--verbose, -v"
+msgstr ""
+
+msgid "--version"
+msgstr ""
 
 msgid "ACL error."
 msgstr "Σφάλμα ACL."
@@ -362,9 +386,16 @@ msgstr "Ενεργό"
 msgid "Active snapshot is already default snapshot."
 msgstr "Το ενεργό στιγμιότυπο είναι ήδη προεπιλεγμένο στιγμιότυπο."
 
+#, fuzzy
+msgid "Allow to abbreviate table columns."
+msgstr "\t--abbreviate Επιτρέπει τη σύντμηση των στηλών του πίνακα."
+
 #, c-format
 msgid "Ambit is %s."
 msgstr "Το Ambit είναι %s."
+
+msgid "Automatic"
+msgstr ""
 
 #. TRANSLATORS: symbol for "bytes" (best keep untranslated)
 msgid "B"
@@ -388,8 +419,31 @@ msgstr "Δεν είναι δυνατή η ανίχνευση της περιοχ
 msgid "Cannot do rollback since default subvolume is unknown."
 msgstr "Δεν είναι δυνατή η επαναφορά αφού ο προεπιλεγμένος υποόγκος είναι άγνωστος."
 
+#, fuzzy
+msgid "Character separator for CSV output format."
+msgstr "\t--separator <separator> Διαχωριστικό χαρακτήρων για τη μορφή εξόδου CSV."
+
 msgid "Cleanup"
 msgstr "Εκκαθάριση"
+
+#, fuzzy
+msgid "Cleanup algorithm for snapshot."
+msgstr "\t--cleanup-algorithm, -c <algo>\t\tΑλγόριθμος εκκαθάρισης στιγμιότυπου."
+
+#, fuzzy
+msgid "Cleanup algorithm for snapshots."
+msgstr "\t--cleanup-algorithm, -c <algo>\tΑλγόρυθμος εκκαθάρισης για τα στιγμιότυπα."
+
+#, fuzzy
+msgid "Cleanup all configs affecting path."
+msgstr "\t--path <path> Καθαρισμός όλων των ρυθμίσεων που επηρεάζουν τη διαδρομή."
+
+#, fuzzy, c-format
+msgid "Client-side plugin '%s' failed."
+msgstr "Αποτυχία ανοίγματος αρχείου '%s'."
+
+msgid "Columns to show separated by comma."
+msgstr ""
 
 msgid "Command 'cleanup' needs one arguments."
 msgstr "Η εντολή 'cleanup' (εκκαθάριση) χρειάζεται μία παράμετρο."
@@ -449,6 +503,10 @@ msgstr "Η εντολή 'help' δεν δέχεται παραμέτρους."
 msgid "Command 'status' needs one argument."
 msgstr "Η εντολή 'status' χρειάζεται μία παράμετρο."
 
+#, fuzzy
+msgid "Command 'transfer-and-delete' does not take arguments."
+msgstr "Η εντολή 'create' δεν δέχεται παραμέτρους."
+
 msgid "Command 'umount' needs at least one argument."
 msgstr "Η εντολή 'mount' χρειάζεται τουλάχιστον μία παράμετρο."
 
@@ -457,6 +515,10 @@ msgstr "Η εντολή 'undochange' χρειάζεται τουλάχιστον
 
 msgid "Command 'xadiff' needs at least one argument."
 msgstr "Η εντολή 'xadiff' χρειάζεται τουλάχιστον μια παράμετρο."
+
+#, fuzzy
+msgid "Command used for comparing files."
+msgstr "\t--diff-cmd <command> Εντολή που χρησιμοποιείται για τη σύγκριση αρχείων."
 
 msgid "Config"
 msgstr "Ρύθμιση"
@@ -490,6 +552,22 @@ msgstr "Δεν μπόρεσε να διαθέσει αρκετό ελεύθερ�
 msgid "Could not make enough free space available."
 msgstr "Δεν μπόρεσε να διαθέσει αρκετό ελεύθερο χώρο."
 
+#, fuzzy
+msgid "Create a snapshot from the specified snapshot."
+msgstr "\t--from <αριθμός> Δημιουργήστε ένα στιγμιότυπο από το καθορισμένο στιγμιότυπο."
+
+#, fuzzy
+msgid "Create an empty snapshot."
+msgstr "\t--read-only Δημιουργία στιγμιότυπου μόνο για ανάγνωση."
+
+#, fuzzy
+msgid "Create read-only snapshot."
+msgstr "\t--read-only Δημιουργία στιγμιότυπου μόνο για ανάγνωση."
+
+#, fuzzy
+msgid "Create read-write snapshot."
+msgstr "\t--read-write Δημιουργία στιγμιότυπου ανάγνωσης-γραφής."
+
 #, c-format
 msgid "Creating config failed (%s)."
 msgstr "Αποτυχία δημιουργίας ρύθμισης (%s)."
@@ -516,9 +594,17 @@ msgstr "Ημερομηνία"
 msgid "Default"
 msgstr "Προεπιλογή"
 
+#, fuzzy
+msgid "Delete:"
+msgstr "  Διαγραφή ρυθμίσεων:"
+
 #, c-format
 msgid "Deleting config failed (%s)."
 msgstr "Αποτυχία διαγραφής ρυθμίσεων (%s)."
+
+#, fuzzy, c-format
+msgid "Deleting snapshot %d."
+msgstr "Η διαγραφή στιγμιότυπου απέτυχε."
 
 msgid "Deleting snapshot failed."
 msgstr "Η διαγραφή στιγμιότυπου απέτυχε."
@@ -532,8 +618,28 @@ msgstr[1] "Αποτυχία διαγραφής στιγμιοτύπου."
 msgid "Description"
 msgstr "Περιγραφή"
 
+#, fuzzy
+msgid "Description for snapshot."
+msgstr "Περιγραφή"
+
+#, fuzzy
+msgid "Description for snapshots."
+msgstr "Σύγκριση στιγμιοτύπων..."
+
 msgid "Detecting filesystem type failed."
 msgstr "Απέτυχε ο εντοπισμός του τύπου συστήματος αρχείων."
+
+#, fuzzy
+msgid "Disable showing used space."
+msgstr "\t--disable-filters\t\tΑπενεργοποίηση φίλτρων."
+
+#, fuzzy
+msgid "Display dates and times in ISO format."
+msgstr "\t--iso\t\t\t\tΠροβολή ημερομηνίας και ώρας σε μορφή ISO."
+
+#, fuzzy
+msgid "Display dates and times in UTC."
+msgstr "\t--utc\t\t\t\tΠροβολή ημερομηνίας και ώρας σε UTC."
 
 #. TRANSLATORS: symbol for "exa" (best keep untranslated)
 msgid "E"
@@ -559,11 +665,19 @@ msgstr "Κενά δεδομένα χρήστη."
 msgid "Error (%s)."
 msgstr "Σφάλμα (%s)."
 
+#, fuzzy
+msgid "Extra options passed to the diff command."
+msgstr "\t--extensions, -x <options> Πρόσθετες επιλογές που περνούν στην εντολή diff."
+
 msgid "Failed to initialize filesystem handler."
 msgstr "Αποτυχία αρχικοποίησης χειριστή συστήματος αρχείων."
 
 #, c-format
 msgid "Failed to parse '%s'."
+msgstr "Απέτυχε η ανάλυση του '%s'."
+
+#, fuzzy
+msgid "Failed to parse number."
 msgstr "Απέτυχε η ανάλυση του '%s'."
 
 #, c-format
@@ -605,6 +719,10 @@ msgstr "GiB"
 msgid "GiB"
 msgstr "GiB"
 
+#, fuzzy
+msgid "Global options:"
+msgstr "    Γενικές Επιλογές:"
+
 # error box title
 #, c-format
 msgid "IO Error (%s)."
@@ -621,6 +739,10 @@ msgstr "Πανομοιότυπα στιγμιότυπα."
 msgid "Illegal snapshot."
 msgstr "Αντικανονικό στιγμιότυπο."
 
+#, fuzzy
+msgid "Increase verbosity."
+msgstr "\t--verbose, -v\t\t\tΑύξηση περιφραστικότητας."
+
 #, c-format
 msgid "Invalid ambit '%s'."
 msgstr "Μη έγκυρο στιγμιότυπο '%s'."
@@ -628,6 +750,10 @@ msgstr "Μη έγκυρο στιγμιότυπο '%s'."
 #, c-format
 msgid "Invalid column '%s'."
 msgstr "Μη έγκυρη στήλη '%s'."
+
+#, fuzzy
+msgid "Invalid config."
+msgstr "Μη έγκυρα δεδομένα ρυθμίσεων."
 
 msgid "Invalid configdata."
 msgstr "Μη έγκυρα δεδομένα ρυθμίσεων."
@@ -638,6 +764,10 @@ msgstr "Μη έγκυρη τιμή ελεύθερου χώρου."
 #, fuzzy, c-format
 msgid "Invalid group (%s)."
 msgstr "Μη έγκυρη ομάδα."
+
+#, fuzzy, c-format
+msgid "Invalid logger-type '%s'."
+msgstr "Μη έγκυρο στυλ πίνακα '%s'."
 
 #, c-format
 msgid "Invalid machine readable format '%s'."
@@ -654,11 +784,19 @@ msgstr "Μη έγκυρο στιγμιότυπο '%s'."
 msgid "Invalid snapshots."
 msgstr "Μη έγκυρα στιγμιότυπα."
 
+#, fuzzy, c-format
+msgid "Invalid subvolume path '%s' on target."
+msgstr "Μη έγκυρος υποτόμος."
+
 msgid "Invalid subvolume."
 msgstr "Μη έγκυρος υποτόμος."
 
 #, c-format
 msgid "Invalid table style '%s'."
+msgstr "Μη έγκυρο στυλ πίνακα '%s'."
+
+#, fuzzy, c-format
+msgid "Invalid target mode '%s'."
 msgstr "Μη έγκυρο στυλ πίνακα '%s'."
 
 #, fuzzy, c-format
@@ -675,6 +813,17 @@ msgstr "Κλειδί"
 msgid "KiB"
 msgstr "KiB"
 
+#, fuzzy
+msgid "List configs:"
+msgstr "  Εμφάνιση ρυθμίσεων:"
+
+#, fuzzy
+msgid "List snapshots from all accessible configs."
+msgstr "\t--all-configs, -a\t\tΕμφανίζει τα στιγμιότυπα από όλες τις προσβάσιμες ρυθμίσεις."
+
+msgid "List:"
+msgstr ""
+
 #, c-format
 msgid "Listing configs failed (%s)."
 msgstr "Απέτυχε η εμφάνιση αρχείων ρυθμίσεων (%s)."
@@ -687,6 +836,10 @@ msgstr "Μ"
 #, fuzzy
 msgid "MB"
 msgstr "MiB"
+
+#, fuzzy
+msgid "Manually set filesystem type."
+msgstr "\t--fstype, -f <fstype>\t\tΟρίσετε είδος συστήματος αρχείων με το χέρι."
 
 msgid "Maybe you forgot the delimiter '..' between the snapshot numbers."
 msgstr "Ίσως ξεχάσατε το διαχωριστικό '..' μεταξύ των αριθμών στιγμιότυπων."
@@ -712,15 +865,51 @@ msgstr "Λείπει το διαχωριστικό '..' μεταξύ των αρ
 msgid "Missing or invalid pre-number."
 msgstr "Απουσία ή μη έγκυρος προ-αριθμός."
 
+msgid "Name"
+msgstr ""
+
+#, fuzzy
+msgid "Name of config template to use."
+msgstr "\t--template, -t <name>\t\tΌνομα προτύπου ρυθμίσεων προς χρήση."
+
+msgid "No backup configs found."
+msgstr ""
+
 msgid "No command provided."
 msgstr "Δεν δόθηκε εντολή."
+
+#, fuzzy
+msgid "No headers for CSV output format."
+msgstr "\t--no-headers Δεν υπάρχουν κεφαλίδες για τη μορφή εξόδου CSV."
 
 msgid "No permissions."
 msgstr "Χωρίς Δικαιώματα."
 
+#, fuzzy
+msgid "Number of corresponding pre snapshot."
+msgstr "\t--pre-number <αριθμός>\t\tΑριθμός από αντίστοιχα προ-στιγμιότυπα."
+
+msgid "Only use backup-config with automatic set."
+msgstr ""
+
+msgid "Only use backup-config with specified target-mode."
+msgstr ""
+
 #, c-format
 msgid "Opening file '%s' failed."
 msgstr "Αποτυχία ανοίγματος αρχείου '%s'."
+
+#, fuzzy
+msgid "Operate in the specified ambit."
+msgstr "\t--ambit, -a ambit Λειτουργεί στην καθορισμένη περιοχή."
+
+#, fuzzy
+msgid "Operate on target root (works only without DBus)."
+msgstr "\t--root, -r <path> Λειτουργεί στο root του στόχου (λειτουργεί μόνο χωρίς DBus)."
+
+#, fuzzy
+msgid "Operate without DBus."
+msgstr "\t--no-dbus\t\t\tΛειτουργία χωρίς το DBus."
 
 msgid "Option --from only supported for snapshots of type single."
 msgstr "Η επιλογή --from υποστηρίζεται μόνο για στιγμιότυπα τύπου single."
@@ -738,6 +927,10 @@ msgstr "P"
 msgid "PB"
 msgstr "PiB"
 
+#, c-format
+msgid "Path mismatch between source-path of backup-config and subvolume of snapper config ('%s' vs. '%s')."
+msgstr ""
+
 #. TRANSLATORS: symbol for "pebi bytes" (best keep untranslated)
 msgid "PiB"
 msgstr "PiB"
@@ -754,16 +947,160 @@ msgstr "Προ #"
 msgid "Pre Date"
 msgstr "Ημερομηνία προ-στιγμιοτύπου"
 
+#, fuzzy
+msgid "Print number of created snapshot."
+msgstr "\t--print-number, -p\t\tΕμφάνιση αριθμού στιγμιοτύπων που δημιουργήθηκαν."
+
+#, fuzzy
+msgid "Print number of second created snapshot."
+msgstr "\t--print-number, -p\t\tΕμφάνιση αριθμού του δευτερολέπτου που δημιουργήθηκε το στιγμιότυπο."
+
+#, fuzzy
+msgid "Print version and exit."
+msgstr "\t--version\t\t\tΕμφάνιση έκδοσης και έξοδος."
+
+#, fuzzy
+msgid "Probing extra information for source snapshots."
+msgstr "Σύγκριση στιγμιοτύπων..."
+
+#, fuzzy
+msgid "Probing extra information for target snapshots."
+msgstr "Σύγκριση στιγμιοτύπων..."
+
+#, fuzzy
+msgid "Probing source snapshots."
+msgstr "Σύγκριση στιγμιοτύπων..."
+
+#, fuzzy
+msgid "Probing target snapshots."
+msgstr "Σύγκριση στιγμιοτύπων..."
+
 # error box title
 #, c-format
 msgid "Quota error (%s)."
 msgstr "Σφάλμα ποσόστωσης (%s)."
 
+#, fuzzy
+msgid "Read files for which to undo changes from file."
+msgstr "\t--input, -i <file>\t\tΑνάγνωση αρχείων που θα γίνει αναίρεση αλλαγών από αρχείο."
+
+#, fuzzy
+msgid "Read files to diff from file."
+msgstr "\t--input, -i <file>\t\tΑνάγνωση αρχείων που θα γίνει αναίρεση αλλαγών από αρχείο."
+
 msgid "Read-Only"
 msgstr "Μόνο για ανάγνωση"
 
+#, fuzzy
+msgid "Run command and create pre and post snapshots."
+msgstr "\t--command <command>\tΕκτέλεση εντολής και δημιουργία στιγμιότυπου πριν και μετά."
+
+#, c-format
+msgid "Running delete failed for %d of %ld backup config."
+msgid_plural "Running delete failed for %d of %ld backup configs."
+msgstr[0] ""
+msgstr[1] ""
+
+#, c-format
+msgid "Running delete for backup config '%s' failed."
+msgstr ""
+
+#, c-format
+msgid "Running delete for backup config '%s'."
+msgstr ""
+
+#, c-format
+msgid "Running list failed for %d of %ld backup config."
+msgid_plural "Running list failed for %d of %ld backup configs."
+msgstr[0] ""
+msgstr[1] ""
+
+#, c-format
+msgid "Running transfer and delete failed for %d of %ld backup config."
+msgid_plural "Running transfer and delete failed for %d of %ld backup configs."
+msgstr[0] ""
+msgstr[1] ""
+
+#, c-format
+msgid "Running transfer and delete for backup config '%s' failed."
+msgstr ""
+
+#, c-format
+msgid "Running transfer and delete for backup config '%s'."
+msgstr ""
+
+#, c-format
+msgid "Running transfer failed for %d of %ld backup config."
+msgid_plural "Running transfer failed for %d of %ld backup configs."
+msgstr[0] ""
+msgstr[1] ""
+
+#, c-format
+msgid "Running transfer for backup config '%s' failed."
+msgstr ""
+
+#, c-format
+msgid "Running transfer for backup config '%s'."
+msgstr ""
+
+msgid "SSH Host"
+msgstr ""
+
+msgid "SSH Identity"
+msgstr ""
+
+msgid "SSH Port"
+msgstr ""
+
+#, fuzzy
+msgid "SSH User"
+msgstr "Χρήστης"
+
+#, fuzzy
+msgid "Save status to file."
+msgstr "\t--output, -o <file>\t\tΑποθήκευση κατάστασης σε αρχείο."
+
 msgid "See 'man snapper' for further instructions."
 msgstr "Για περισσότερες πληροφορίες δοκιμάστε 'snapper --help'."
+
+#, fuzzy, c-format
+msgid "Server-side plugin '%s' failed."
+msgstr "Αποτυχία ανοίγματος αρχείου '%s'."
+
+#, fuzzy
+msgid "Set CSV output format."
+msgstr "\t--csvout Ορισμός μορφής εξόδου CSV."
+
+#, fuzzy
+msgid "Set JSON output format."
+msgstr "\t--jsonout Ορισμός μορφής εξόδου JSON."
+
+#, fuzzy
+msgid "Set a machine-readable output format (csv, json)."
+msgstr "\t--machine-readable <format> Ορίστε μια μορφή εξόδου αναγνώσιμη από μηχανή (csv, json)."
+
+msgid "Set logger type."
+msgstr ""
+
+#, fuzzy
+msgid "Set name of backup-config to use."
+msgstr "\t--config, -c <name>\t\tΟρίσετε το όνομα του αρχείου ρυθμίσεων που θα χρησιμοποιηθεί."
+
+#, fuzzy
+msgid "Set name of config to use."
+msgstr "\t--config, -c <name>\t\tΟρίσετε το όνομα του αρχείου ρυθμίσεων που θα χρησιμοποιηθεί."
+
+#, fuzzy
+msgid "Set snapshot as default snapshot."
+msgstr "\t--default Ορίζει το στιγμιότυπο ως προεπιλεγμένο στιγμιότυπο."
+
+#, fuzzy
+msgid "Set snapshot read-only."
+msgstr "\t--read-only Ορίστε το στιγμιότυπο μόνο για ανάγνωση."
+
+#, fuzzy
+msgid "Set snapshot read-write."
+msgstr "\t--read-write Ρύθμιση στιγμιότυπου ανάγνωσης-εγγραφής."
 
 #, c-format
 msgid "Setting default subvolume to snapshot %d."
@@ -773,11 +1110,41 @@ msgstr "Ορισμός προεπιλεγμένου υποτόμου στο στ
 msgid "Snapshot '%u' not found."
 msgstr "Δεν βρέθηκε στιγμιότυπο '%u'."
 
+#, fuzzy
+msgid "Snapshot already on target."
+msgstr "\t--read-only Ορίστε το στιγμιότυπο μόνο για ανάγνωση."
+
 msgid "Snapshot is in use."
 msgstr "Το στιγμιότυπο είναι σε χρήση."
 
+#, fuzzy
+msgid "Snapshot not on source."
+msgstr "Το στιγμιότυπο είναι σε χρήση."
+
+#, fuzzy
+msgid "Snapshot not on target."
+msgstr "Δεν βρέθηκε στιγμιότυπο '%u'."
+
+#, fuzzy, c-format
+msgid "Snapshot number %d not found."
+msgstr "Δεν βρέθηκε στιγμιότυπο '%u'."
+
+msgid "Source Path"
+msgstr ""
+
+msgid "Source State"
+msgstr ""
+
 msgid "Subvolume"
 msgstr "Υποτόμος"
+
+#, fuzzy
+msgid "Suppress normal output."
+msgstr "\t--quiet, -q\t\t\tΑπόκρυψη κανονικής απόδοσης."
+
+#, fuzzy
+msgid "Sync after deletion."
+msgstr "\t--sync, -s Συγχρονισμός μετά τη διαγραφή."
 
 #. TRANSLATORS: symbol for "tera" (best keep untranslated)
 msgid "T"
@@ -787,6 +1154,37 @@ msgstr ""
 #, fuzzy
 msgid "TB"
 msgstr "TiB"
+
+#, fuzzy
+msgid "Table style (integer)."
+msgstr "\t--table-style, -t <style>\tΣτύλ πίνακα (ακέραιος)."
+
+msgid "Target Mode"
+msgstr ""
+
+msgid "Target Path"
+msgstr ""
+
+msgid "Target State"
+msgstr ""
+
+msgid "Target btrfs bin"
+msgstr ""
+
+msgid "Target findmnt Bin"
+msgstr ""
+
+msgid "Target mkdir bin"
+msgstr ""
+
+msgid "Target realpath bin"
+msgstr ""
+
+msgid "Target rm bin"
+msgstr ""
+
+msgid "Target rmdir bin"
+msgstr ""
 
 msgid "The ambit can be specified manually using the --ambit option."
 msgstr "Το πεδίο εφαρμογής μπορεί να καθοριστεί χειροκίνητα χρησιμοποιώντας την επιλογή --ambit."
@@ -801,11 +1199,41 @@ msgstr "Αυτό μπορεί να συμβεί εάν το σύστημα δε�
 msgid "TiB"
 msgstr "TiB"
 
+msgid "Transfer and delete:"
+msgstr ""
+
+msgid "Transfer:"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Transferring snapshot %d."
+msgstr "Αποτυχία δημιουργίας στιγμιοτύπου."
+
 msgid "Try 'snapper --help' for more information."
 msgstr "Για περισσότερες πληροφορίες δοκιμάστε 'snapper --help'."
 
+#, fuzzy
+msgid "Try 'snbk --help' for more information."
+msgstr "Για περισσότερες πληροφορίες δοκιμάστε 'snapper --help'."
+
+#, fuzzy
+msgid "Try to make space available."
+msgstr "\t--free-space <space> Προσπαθήστε να κάνετε διαθέσιμο χώρο."
+
+#, fuzzy
+msgid "Turn on debugging."
+msgstr "\t--debug Ενεργοποίηση της αποσφαλμάτωσης."
+
 msgid "Type"
 msgstr "Τύπος"
+
+#, fuzzy
+msgid "Type for snapshot."
+msgstr "Άγνωστος τύπος στιγμιοτύπου."
+
+#, fuzzy
+msgid "Type of snapshots to list."
+msgstr "\t--type, -t <type>\t\tΤύπος στιγμιοτύπου για εμφάνιση."
 
 #, c-format
 msgid "Unknown cleanup algorithm '%s'."
@@ -857,6 +1285,14 @@ msgstr "Δεν περιλαμβάνεται το κλειδί '=' στα δεδ�
 msgid "Userdata '%s' has empty key."
 msgstr "Κενό κλειδί στα δεδομένα χρήστη '%s'."
 
+#, fuzzy
+msgid "Userdata for snapshot."
+msgstr "\t--userdata, -u <userdata>\tΔεδομένα χρήστη στιγμιότυπου."
+
+#, fuzzy
+msgid "Userdata for snapshots."
+msgstr "Πανομοιότυπα στιγμιότυπα."
+
 msgid "Value"
 msgstr "Τιμή"
 
@@ -905,11 +1341,68 @@ msgstr "τίποτα για να γίνει"
 msgid "root argument can be used only together with no-dbus.\n"
 msgstr "Το όρισμα root μπορεί να χρησιμοποιηθεί μόνο μαζί με το no-dbus.\n"
 
+#, fuzzy
+msgid "snbk delete [numbers]"
+msgstr "\tsnapper delete <number>"
+
+#, fuzzy
+msgid "snbk list"
+msgstr "\tsnapper list"
+
+#, fuzzy
+msgid "snbk list-configs"
+msgstr "\tsnapper list-configs"
+
+msgid "snbk transfer [numbers]"
+msgstr ""
+
+msgid "snbk transfer-and-delete"
+msgstr ""
+
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
+msgstr "χρήση: snapper [--global-options] <command> [--command-options] [command-arguments]"
+
+#, fuzzy
+msgid "usage: snbk [--global-options] <command> [command-arguments]"
 msgstr "χρήση: snapper [--global-options] <command> [--command-options] [command-arguments]"
 
 msgid "yes"
 msgstr "Ναι"
+
+#~ msgid ""
+#~ "\t--columns <columns>\t\tColumns to show separated by comma.\n"
+#~ "\t\t\t\t\tPossible columns: config, subvolume, number, default, active,\n"
+#~ "\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
+#~ "\t\t\t\t\tpre-number, post-number, post-date, read-only."
+#~ msgstr ""
+#~ "\t--columns <columns> Στήλες για εμφάνιση χωρισμένες με κόμμα.\n"
+#~ "\t\t\t\t\tΠιθανές στήλες: config, subvolume, number, default, active,\n"
+#~ "\t\t\t\t\ttype, date, user, used-space, cleanup, description, userdata,\n"
+#~ "\t\t\t\t\tpre-number, post-number, post-date, read-only."
+
+#~ msgid ""
+#~ "\t--columns <columns>\t\tColumns to show separated by comma.\n"
+#~ "\t\t\t\t\tPossible columns: key, value.\n"
+#~ "\t\t\t\t\tColumns are not selected when JSON format is used."
+#~ msgstr ""
+#~ "\t--columns <columns> Στήλες για εμφάνιση χωρισμένες με κόμμα.\n"
+#~ "\t\t\t\t\tΠιθανές στήλες: κλειδί, τιμή.\n"
+#~ "\t\t\t\t\tΟι στήλες δεν επιλέγονται όταν χρησιμοποιείται η μορφή JSON."
+
+#~ msgid "\t--description, -d <description>\tDescription for snapshots."
+#~ msgstr "\t--description, -d <description>\tΠεριγραφή για τα στιγμιότυπα."
+
+#~ msgid "\t--userdata, -u <userdata>\tUserdata for snapshots."
+#~ msgstr "\t--userdata, -u <userdata>\tΔεδομένα χρήστη για τα στιγμιότυπα."
+
+#~ msgid ""
+#~ "    Options for 'list-configs' command:\n"
+#~ "\t--columns <columns>\t\tColumns to show separated by comma.\n"
+#~ "\t\t\t\t\tPossible columns: config, subvolume.\n"
+#~ msgstr ""
+#~ "    Επιλογές για την εντολή 'list-configs':\n"
+#~ "\t--columns <columns> Στήλες για εμφάνιση χωρισμένες με κόμμα.\n"
+#~ "\t\t\t\t\tΠιθανές στήλες: config, subvolume.\n"
 
 #, c-format
 #~ msgid "Use %s, %s or %s."
@@ -918,9 +1411,6 @@ msgstr "Ναι"
 #, c-format
 #~ msgid "Use %s, %s, %s or %s."
 #~ msgstr "Χρήση %s, %s, %s ή %s."
-
-#~ msgid "Unknown type of snapshot."
-#~ msgstr "Άγνωστος τύπος στιγμιοτύπου."
 
 #~ msgid "Unknown type of snapshots."
 #~ msgstr "Άγνωστος τύπος στιγμιοτύπων."
@@ -944,9 +1434,6 @@ msgstr "Ναι"
 
 #~ msgid "Command failed (%s). See log for more information."
 #~ msgstr "Αποτυχία εντολής (%s). Για περισσότερες πληροφορίες δείτε το ιστορικό."
-
-#~ msgid "comparing snapshots..."
-#~ msgstr "Σύγκριση στιγμιοτύπων..."
 
 #~ msgid "done"
 #~ msgstr "Ολοκληρώθηκε"

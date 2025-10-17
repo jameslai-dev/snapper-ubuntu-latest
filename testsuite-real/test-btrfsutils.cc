@@ -7,9 +7,9 @@
  */
 
 
-#include <errno.h>
+#include <cerrno>
 #include <fcntl.h>
-#include <string.h>
+#include <cstring>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -43,6 +43,21 @@ main()
 
     if (false)
     {
+	int fddst = open("/btrfs/snaps", O_NOATIME);
+	if (fddst < 0)
+	{
+	    cerr << "open failed (" << strerror(errno) << ")" << endl;
+	    return EXIT_FAILURE;
+	}
+
+	create_snapshot(fd, fddst, "snap1", true, parse_qgroup("1/0"));
+
+	close(fddst);
+    }
+
+
+    if (false)
+    {
 	quota_enable(fd);
     }
 
@@ -56,6 +71,12 @@ main()
     if (false)
     {
 	quota_rescan(fd);
+    }
+
+
+    if (false)
+    {
+	cout << does_qgroup_exist(fd, parse_qgroup("1/0")) << '\n';
     }
 
 
@@ -107,6 +128,17 @@ main()
 
     if (false)
     {
+	cout << "qgroup_query_relations" << endl;
+
+	vector<qgroup_t> relations = qgroup_query_relations(fd, parse_qgroup("1/0"));
+	for (qgroup_t relation : relations)
+	    cout << format_qgroup(relation) << " ";
+	cout << endl;
+    }
+
+
+    if (false)
+    {
 	cout << "qgroup_query_children" << endl;
 
 	vector<qgroup_t> children = qgroup_query_children(fd, parse_qgroup("1/0"));
@@ -114,6 +146,7 @@ main()
 	    cout << format_qgroup(child) << " ";
 	cout << endl;
     }
+
 
     close(fd);
 }
