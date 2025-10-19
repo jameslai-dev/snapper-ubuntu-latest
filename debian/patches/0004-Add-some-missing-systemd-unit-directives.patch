@@ -23,10 +23,10 @@ Index: snapper/data/snapperd.service
 ===================================================================
 --- snapper.orig/data/snapperd.service
 +++ snapper/data/snapperd.service
-@@ -14,3 +14,6 @@ PrivateNetwork=true
- ProtectHostname=true
+@@ -15,3 +15,6 @@ ProtectHostname=true
  RestrictAddressFamilies=AF_UNIX
  RestrictRealtime=true
+ PrivateMounts=no
 +
 +[Install]
 +WantedBy=sysinit.target
