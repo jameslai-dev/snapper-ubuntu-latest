@@ -1,3 +1,17 @@
+snapper (0.13.0-1) experimental; urgency=medium
+
+  * New upstream release
+  * debian/patches
+    - Refreshed patches
+  * debian/{control,snapper-backup.*}
+    - Added snapper-backup package
+  * debian/{control,libsnapper8t64.*}
+    - Updated libsnapper package version
+  * debian/rules
+    - Customized btrfs binary path for Ubuntu
+
+ -- Cheng-Ling Lai <jamesljlster@gmail.com>  Sun, 19 Oct 2025 17:09:59 +0800
+
 snapper (0.10.6-1.2build2) questing; urgency=medium
 
   * No-change rebuild for boost 1.88.
