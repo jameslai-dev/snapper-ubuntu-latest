@@ -48,6 +48,13 @@ Description: Linux filesystem snapshot management tool
    * D-Bus interface
    * PAM module to create snapshots during login and logout (libpam-snapper)
 
+Package: snapper-backup
+Architecture: linux-any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Enhances: btrfs-progs
+Description: snapper-backup
+ This package contains snbk, a tool for backups of snapper snapshots.
+
 Package: libsnapper8t64
 Provides: ${t64:Provides}
 Section: libs

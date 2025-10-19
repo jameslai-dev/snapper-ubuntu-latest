@@ -1,0 +1,6 @@
+etc/snapper/backup-configs
+etc/snapper/certs
+usr/lib/systemd/system/snapper-backup.service
+usr/lib/systemd/system/snapper-backup.timer
+usr/sbin/snbk
+usr/share/bash-completion/completions/snbk
