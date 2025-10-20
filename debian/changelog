@@ -1,4 +1,4 @@
-snapper (0.13.0-1) experimental; urgency=medium
+snapper (0.13.0-1) noble; urgency=medium
 
   * New upstream release
   * debian/patches
