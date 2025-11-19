@@ -2,3 +2,4 @@
 0004-fix-manpage.patch
 0005-drop-testsuite-real-to-avoid-to-be-installed-into-pa.patch
 0004-Add-some-missing-systemd-unit-directives.patch
+0001-add-CAP_MKNOD-in-snapper-backup.service.patch
