@@ -1,0 +1,26 @@
+From a54f839e29bae459937828f54e8a022cc16c997f Mon Sep 17 00:00:00 2001
+From: Arvin Schnell <aschnell@suse.de>
+Date: Mon, 10 Nov 2025 10:32:32 +0100
+Subject: [PATCH 07/74] - extended documentation
+
+---
+ data/systemd-sandboxing.txt | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/data/systemd-sandboxing.txt b/data/systemd-sandboxing.txt
+index 71a5e076..a0f8c761 100644
+--- a/data/systemd-sandboxing.txt
++++ b/data/systemd-sandboxing.txt
+@@ -25,7 +25,8 @@ CapabilityBoundingSet=CAP_FOWNER is needed if for home directories.
+ CapabilityBoundingSet=CAP_DAC_OVERRIDE is needed for directory
+ comparison (in some cases) - but not if using btrfs send/receive.
+ 
+-Finally do not forget the plugins.
++Finally do not forget the plugins. For those systemd overrides are
++likely a good idea to extend capabilities.
+ 
+ Have a lot of fun...
+ 
+-- 
+2.43.0
+

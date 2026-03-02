@@ -1,0 +1,50 @@
+From 739a3ec864f6c6680f09b465c677b705e8a83079 Mon Sep 17 00:00:00 2001
+From: Cheng-Ling Lai <jamesljlster@gmail.com>
+Date: Tue, 9 Dec 2025 15:44:49 +0800
+Subject: [PATCH 21/74] Added TheBigThings::restore
+
+---
+ client/snbk/TheBigThing.cc | 14 ++++++++++++++
+ client/snbk/TheBigThing.h  |  1 +
+ 2 files changed, 15 insertions(+)
+
+diff --git a/client/snbk/TheBigThing.cc b/client/snbk/TheBigThing.cc
+index fa7b7bb0..2587efac 100644
+--- a/client/snbk/TheBigThing.cc
++++ b/client/snbk/TheBigThing.cc
+@@ -562,6 +562,20 @@ namespace snapper
+     }
+ 
+ 
++    void
++    TheBigThings::restore(const BackupConfig& backup_config, bool quiet, bool verbose)
++    {
++	for (TheBigThing& the_big_thing : the_big_things)
++	{
++	    if (the_big_thing.target_state == TheBigThing::TargetState::VALID &&
++		the_big_thing.source_state == TheBigThing::SourceState::MISSING)
++	    {
++		the_big_thing.restore(backup_config, *this, quiet);
++	    }
++	}
++    }
++
++
+     void
+     TheBigThings::remove(const BackupConfig& backup_config, bool quiet, bool verbose)
+     {
+diff --git a/client/snbk/TheBigThing.h b/client/snbk/TheBigThing.h
+index 577afddc..0aa24dde 100644
+--- a/client/snbk/TheBigThing.h
++++ b/client/snbk/TheBigThing.h
+@@ -94,6 +94,7 @@ namespace snapper
+ 	TheBigThings(const BackupConfig& backup_config, ProxySnappers* snappers, bool verbose);
+ 
+ 	void transfer(const BackupConfig& backup_config, bool quiet, bool verbose);
++	void restore(const BackupConfig& backup_config, bool quiet, bool verbose);
+ 
+ 	void remove(const BackupConfig& backup_config, bool quiet, bool verbose);
+ 
+-- 
+2.43.0
+

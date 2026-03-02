@@ -1,0 +1,48 @@
+From d045595236611a6b196dab09f2ac89e899522e65 Mon Sep 17 00:00:00 2001
+From: Arvin Schnell <aschnell@suse.de>
+Date: Fri, 2 Jan 2026 10:30:13 +0100
+Subject: [PATCH 43/74] - improved documentation
+
+---
+ doc/snapper.xml.in | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/doc/snapper.xml.in b/doc/snapper.xml.in
+index 613e07d0..ef1ef2aa 100644
+--- a/doc/snapper.xml.in
++++ b/doc/snapper.xml.in
+@@ -2,13 +2,13 @@
+ <refentry id='snapper8' xmlns:xlink="http://www.w3.org/1999/xlink">
+ 
+   <refentryinfo>
+-    <date>2025-09-02</date>
++    <date>2026-01-02</date>
+   </refentryinfo>
+ 
+   <refmeta>
+     <refentrytitle>snapper</refentrytitle>
+     <manvolnum>8</manvolnum>
+-    <refmiscinfo class='date'>2025-09-02</refmiscinfo>
++    <refmiscinfo class='date'>2026-01-02</refmiscinfo>
+     <refmiscinfo class='version'>@VERSION@</refmiscinfo>
+     <refmiscinfo class='manual'>Filesystem Snapshot Management</refmiscinfo>
+   </refmeta>
+@@ -386,10 +386,11 @@
+       <varlistentry>
+ 	<term><option>delete-config</option></term>
+ 	<listitem>
+-	  <para>Delete a configuration for a filesystem or subvolume. For this
+-	  command you will likely need to global option
+-	  <option>--config</option>, see <link linkend='global_options'>GLOBAL
+-	  OPTIONS</link> and <link linkend="concepts">CONCEPTS.</link></para>
++	  <para>Delete a configuration for a filesystem or subvolume
++	  including all snapshots. For this command you will likely need to
++	  global option <option>--config</option>, see <link
++	  linkend='global_options'>GLOBAL OPTIONS</link> and <link
++	  linkend="concepts">CONCEPTS.</link></para>
+ 	</listitem>
+       </varlistentry>
+ 
+-- 
+2.43.0
+

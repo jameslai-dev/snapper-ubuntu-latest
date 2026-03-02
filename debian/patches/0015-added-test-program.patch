@@ -1,0 +1,25 @@
+From 3cfe2ff168c66b98f819242e235e73c7070d8f9b Mon Sep 17 00:00:00 2001
+From: Arvin Schnell <aschnell@suse.de>
+Date: Mon, 24 Nov 2025 13:11:56 +0100
+Subject: [PATCH 15/74] - added test program
+
+---
+ stomp/testsuite/Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/stomp/testsuite/Makefile.am b/stomp/testsuite/Makefile.am
+index 424ce182..c715cd8c 100644
+--- a/stomp/testsuite/Makefile.am
++++ b/stomp/testsuite/Makefile.am
+@@ -9,7 +9,7 @@ LDADD =								\
+ 	-lboost_unit_test_framework
+ 
+ check_PROGRAMS =						\
+-	read1.test write1.test escape.test
++	read1.test write1.test escape.test strip.test
+ 
+ AM_DEFAULT_SOURCE_EXT = .cc
+ 
+-- 
+2.43.0
+

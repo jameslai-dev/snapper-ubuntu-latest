@@ -1,0 +1,58 @@
+From 617e5f76f70bfb0feb5df2509763bb9aa1fbf6f2 Mon Sep 17 00:00:00 2001
+From: Cheng-Ling Lai <jamesljlster@gmail.com>
+Date: Fri, 12 Dec 2025 21:19:01 +0800
+Subject: [PATCH 28/74] Prohibited snbk restore with multiple backup configs
+
+---
+ client/snbk/cmd-restore.cc | 11 ++++++++++-
+ doc/snbk.xml.in            |  5 +++--
+ 2 files changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/client/snbk/cmd-restore.cc b/client/snbk/cmd-restore.cc
+index 7f3ede45..345328a7 100644
+--- a/client/snbk/cmd-restore.cc
++++ b/client/snbk/cmd-restore.cc
+@@ -46,7 +46,10 @@ namespace snapper
+ 	cout << "  " << _("Restore:") << '\n'
+ 	     << "\t" << _("snbk restore [numbers]") << '\n'
+ 	     << '\n'
+-	     << "\t" << _("Notice: Restart the `snapperd` service to make the restored "
++	     << "\t" << _("Notice:") << '\n'
++	     << "\t" << _("- A backup-config must be specified to run this command.")
++		     << '\n'
++	     << "\t" << _("- Restart the `snapperd` service to make the restored "
+ 			  "snapshots visible immediately.") << '\n'
+ 	     << '\n';
+     }
+@@ -72,6 +75,12 @@ namespace snapper
+ 	    nums.push_back(stoi(arg));
+ 	}
+ 
++	if (backup_configs.size() != 1)
++	{
++	    SN_THROW(OptionsException(_("A backup-config must be specified to run this "
++					"command.")));
++	}
++
+ 	unsigned int errors = 0;
+ 
+ 	for (const BackupConfig& backup_config : backup_configs)
+diff --git a/doc/snbk.xml.in b/doc/snbk.xml.in
+index e11b1042..79006c37 100644
+--- a/doc/snbk.xml.in
++++ b/doc/snbk.xml.in
+@@ -263,8 +263,9 @@
+ 	<term><option>restore [<replaceable>number</replaceable>]</option></term>
+ 	<listitem>
+ 	  <para>Restore all missing snapshots or the specified snapshot back to the
+-	  source. A restart of the `snapperd` service is required to make the restored
+-	  snapshots visible immediately.</para>
++	  source. A backup config must be specified to run this command. A restart of the
++	  `snapperd` service is required to make the restored snapshots visible
++	  immediately.</para>
+ 	</listitem>
+       </varlistentry>
+ 
+-- 
+2.43.0
+

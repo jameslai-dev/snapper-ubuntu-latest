@@ -1,0 +1,242 @@
+From 9a793fff711280a2028459326657ad005a6464ba Mon Sep 17 00:00:00 2001
+From: Arvin Schnell <aschnell@suse.de>
+Date: Tue, 27 Jan 2026 15:40:17 +0100
+Subject: [PATCH 55/74] - use std::any instead of boost::any
+
+---
+ client/snapper/cmd-list.cc      | 32 ++++++++++++++++----------------
+ client/snbk/cmd-list-configs.cc |  2 +-
+ client/snbk/cmd-list.cc         |  2 +-
+ client/utils/OutputOptions.cc   | 18 +++++++++---------
+ client/utils/OutputOptions.h    |  6 +++---
+ 5 files changed, 30 insertions(+), 30 deletions(-)
+
+diff --git a/client/snapper/cmd-list.cc b/client/snapper/cmd-list.cc
+index b00f4a30..8b00db06 100644
+--- a/client/snapper/cmd-list.cc
++++ b/client/snapper/cmd-list.cc
+@@ -24,7 +24,7 @@
+ #include "config.h"
+ 
+ #include <iostream>
+-#include <boost/any.hpp>
++#include <any>
+ 
+ #include <snapper/SnapperTmpl.h>
+ #include <snapper/BtrfsUtils.h>
+@@ -381,7 +381,7 @@ namespace snapper
+ 	}
+ 
+ 
+-	boost::any
++	std::any
+ 	value_for_as_any(const OutputOptions& output_options, const OutputHelper& output_helper, Column column,
+ 			 const ProxySnapshot& snapshot)
+ 	{
+@@ -480,7 +480,7 @@ namespace snapper
+ 	value_for_as_string(const OutputOptions& output_options, const OutputHelper& output_helper,
+ 			    Column column, const ProxySnapshot& snapshot)
+ 	{
+-	    boost::any value = value_for_as_any(output_options, output_helper, column, snapshot);
++	    std::any value = value_for_as_any(output_options, output_helper, column, snapshot);
+ 
+ 	    if (value.type() == typeid(nullptr_t))
+ 	    {
+@@ -488,26 +488,26 @@ namespace snapper
+ 	    }
+ 	    else if (value.type() == typeid(unsigned int))
+ 	    {
+-		return decString(boost::any_cast<unsigned int>(value));
++		return decString(std::any_cast<unsigned int>(value));
+ 	    }
+ 	    else if (value.type() == typeid(bool))
+ 	    {
+ 		if (output_options.human)
+-		    return boost::any_cast<bool>(value) ? _("yes") : _("no");
++		    return std::any_cast<bool>(value) ? _("yes") : _("no");
+ 		else
+-		    return boost::any_cast<bool>(value) ? "yes" : "no";
++		    return std::any_cast<bool>(value) ? "yes" : "no";
+ 	    }
+ 	    else if (value.type() == typeid(string))
+ 	    {
+-		return boost::any_cast<string>(value).c_str();
++		return std::any_cast<string>(value).c_str();
+ 	    }
+ 	    else if (value.type() == typeid(uint64_t))
+ 	    {
+-		return decString(boost::any_cast<uint64_t>(value));
++		return decString(std::any_cast<uint64_t>(value));
+ 	    }
+ 	    else if (value.type() == typeid(map<string, string>))
+ 	    {
+-		return show_userdata(boost::any_cast<map<string, string>>(value));
++		return show_userdata(std::any_cast<map<string, string>>(value));
+ 	    }
+ 
+ 	    SN_THROW(Exception("invalid column type in value_for_as_string"));
+@@ -519,7 +519,7 @@ namespace snapper
+ 	value_for_as_json(const OutputOptions& output_options, const OutputHelper& output_helper,
+ 			  Column column, const ProxySnapshot& snapshot)
+ 	{
+-	    boost::any value = value_for_as_any(output_options, output_helper, column, snapshot);
++	    std::any value = value_for_as_any(output_options, output_helper, column, snapshot);
+ 
+ 	    if (value.type() == typeid(nullptr_t))
+ 	    {
+@@ -527,27 +527,27 @@ namespace snapper
+ 	    }
+ 	    else if (value.type() == typeid(unsigned int))
+ 	    {
+-		return json_object_new_int(boost::any_cast<unsigned int>(value));
++		return json_object_new_int(std::any_cast<unsigned int>(value));
+ 	    }
+ 	    else if (value.type() == typeid(bool))
+ 	    {
+-		return json_object_new_boolean(boost::any_cast<bool>(value));
++		return json_object_new_boolean(std::any_cast<bool>(value));
+ 	    }
+ 	    else if (value.type() == typeid(string))
+ 	    {
+-		return json_object_new_string(boost::any_cast<string>(value).c_str());
++		return json_object_new_string(std::any_cast<string>(value).c_str());
+ 	    }
+ 	    else if (value.type() == typeid(uint64_t))
+ 	    {
+ #if JSON_C_VERSION_NUM >= ((0 << 16) | (14 << 8) | 0)
+-		return json_object_new_uint64(boost::any_cast<uint64_t>(value));
++		return json_object_new_uint64(std::any_cast<uint64_t>(value));
+ #else
+-		return json_object_new_int64(boost::any_cast<uint64_t>(value));
++		return json_object_new_int64(std::any_cast<uint64_t>(value));
+ #endif
+ 	    }
+ 	    else if (value.type() == typeid(map<string, string>))
+ 	    {
+-		map<string, string> tmp = boost::any_cast<map<string, string>>(value);
++		map<string, string> tmp = std::any_cast<map<string, string>>(value);
+ 		if (tmp.empty())
+ 		    return nullptr;
+ 
+diff --git a/client/snbk/cmd-list-configs.cc b/client/snbk/cmd-list-configs.cc
+index bdd6da55..11e7958e 100644
+--- a/client/snbk/cmd-list-configs.cc
++++ b/client/snbk/cmd-list-configs.cc
+@@ -115,7 +115,7 @@ namespace snapper
+ 	}
+ 
+ 
+-	boost::any
++	std::any
+ 	value_for_as_any(Column column, const BackupConfig& backup_config)
+ 	{
+ 	    switch (column)
+diff --git a/client/snbk/cmd-list.cc b/client/snbk/cmd-list.cc
+index 2923627e..c0ed98f9 100644
+--- a/client/snbk/cmd-list.cc
++++ b/client/snbk/cmd-list.cc
+@@ -120,7 +120,7 @@ namespace snapper
+ 	}
+ 
+ 
+-	boost::any
++	std::any
+ 	value_for_as_any(const OutputOptions& output_options, Column column, const BackupConfig& backup_config,
+ 			 const TheBigThing& the_big_thing)
+ 	{
+diff --git a/client/utils/OutputOptions.cc b/client/utils/OutputOptions.cc
+index aa950fa8..adb37a8c 100644
+--- a/client/utils/OutputOptions.cc
++++ b/client/utils/OutputOptions.cc
+@@ -35,7 +35,7 @@ namespace snapper
+ 
+ 
+     string
+-    any_to_string(const OutputOptions& output_options, const boost::any& value)
++    any_to_string(const OutputOptions& output_options, const std::any& value)
+     {
+ 	if (value.type() == typeid(nullptr_t))
+ 	{
+@@ -45,19 +45,19 @@ namespace snapper
+ 	if (value.type() == typeid(bool))
+ 	{
+ 	    if (output_options.human)
+-		return boost::any_cast<bool>(value) ? _("yes") : _("no");
++		return std::any_cast<bool>(value) ? _("yes") : _("no");
+ 	    else
+-		return boost::any_cast<bool>(value) ? "yes" : "no";
++		return std::any_cast<bool>(value) ? "yes" : "no";
+ 	}
+ 
+ 	if (value.type() == typeid(unsigned int))
+ 	{
+-	    return to_string(boost::any_cast<unsigned int>(value));
++	    return to_string(std::any_cast<unsigned int>(value));
+ 	}
+ 
+ 	if (value.type() == typeid(string))
+ 	{
+-	    return boost::any_cast<string>(value).c_str();
++	    return std::any_cast<string>(value).c_str();
+ 	}
+ 
+ 	SN_THROW(Exception("invalid type in any_to_string"));
+@@ -66,7 +66,7 @@ namespace snapper
+ 
+ 
+     json_object*
+-    any_to_json(const OutputOptions& output_options, const boost::any& value)
++    any_to_json(const OutputOptions& output_options, const std::any& value)
+     {
+ 	if (value.type() == typeid(nullptr_t))
+ 	{
+@@ -75,17 +75,17 @@ namespace snapper
+ 
+ 	if (value.type() == typeid(bool))
+ 	{
+-	    return json_object_new_boolean(boost::any_cast<bool>(value));
++	    return json_object_new_boolean(std::any_cast<bool>(value));
+ 	}
+ 
+ 	if (value.type() == typeid(unsigned int))
+ 	{
+-	    return json_object_new_int(boost::any_cast<unsigned int>(value));
++	    return json_object_new_int(std::any_cast<unsigned int>(value));
+ 	}
+ 
+ 	if (value.type() == typeid(string))
+ 	{
+-	    return json_object_new_string(boost::any_cast<string>(value).c_str());
++	    return json_object_new_string(std::any_cast<string>(value).c_str());
+ 	}
+ 
+ 	SN_THROW(Exception("invalid type in any_to_json"));
+diff --git a/client/utils/OutputOptions.h b/client/utils/OutputOptions.h
+index 3df41ba3..b48e8f07 100644
+--- a/client/utils/OutputOptions.h
++++ b/client/utils/OutputOptions.h
+@@ -22,7 +22,7 @@
+ 
+ 
+ #include <string>
+-#include <boost/any.hpp>
++#include <any>
+ #include <json-c/json.h>
+ 
+ 
+@@ -54,10 +54,10 @@ namespace snapper
+     // TODO extend functions and use in client/snapper
+ 
+     string
+-    any_to_string(const OutputOptions& output_options, const boost::any& value);
++    any_to_string(const OutputOptions& output_options, const std::any& value);
+ 
+ 
+     json_object*
+-    any_to_json(const OutputOptions& output_options, const boost::any& value);
++    any_to_json(const OutputOptions& output_options, const std::any& value);
+ 
+ }
+-- 
+2.43.0
+

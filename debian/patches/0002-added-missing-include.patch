@@ -1,0 +1,25 @@
+From 24462024c0f019edc4fda4668f20d7c5ec0d5739 Mon Sep 17 00:00:00 2001
+From: Arvin Schnell <aschnell@suse.de>
+Date: Fri, 12 Sep 2025 18:57:52 +0200
+Subject: [PATCH 02/74] - added missing include
+
+---
+ server/Client.cc | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/server/Client.cc b/server/Client.cc
+index 538b38da..331f35cc 100644
+--- a/server/Client.cc
++++ b/server/Client.cc
+@@ -23,6 +23,8 @@
+ 
+ #include "config.h"
+ 
++#include <cassert>
++
+ #include <snapper/LoggerImpl.h>
+ #include <snapper/SnapperTmpl.h>
+ #include <snapper/Version.h>
+-- 
+2.43.0
+

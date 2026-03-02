@@ -1,0 +1,38 @@
+From c9dce708c6088ded6039b448ed2b28dfa13d5383 Mon Sep 17 00:00:00 2001
+From: Arvin Schnell <aschnell@suse.de>
+Date: Thu, 18 Dec 2025 10:43:47 +0100
+Subject: [PATCH 34/74] - coding style
+
+---
+ client/snbk/Shell.cc | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/client/snbk/Shell.cc b/client/snbk/Shell.cc
+index 9cf38784..1c41ab69 100644
+--- a/client/snbk/Shell.cc
++++ b/client/snbk/Shell.cc
+@@ -57,9 +57,11 @@ namespace snapper
+ 	}
+ 
+ 
+-	string wrap_shell_args(const Shell& shell, const SystemCmd::Args& args)
++	string
++	wrap_shell_args(const Shell& shell, const SystemCmd::Args& args)
+ 	{
+-	    string tmp = quote(args);
++	    const string tmp = quote(args);
++
+ 	    switch (shell.mode)
+ 	    {
+ 		case Shell::Mode::DIRECT:
+@@ -99,6 +101,7 @@ namespace snapper
+ 	__builtin_unreachable();
+     }
+ 
++
+     SystemCmd::Args
+     shellify_pipe(const Shell& shell1, const SystemCmd::Args& args1,
+ 		  const Shell& shell2, const SystemCmd::Args& args2)
+-- 
+2.43.0
+

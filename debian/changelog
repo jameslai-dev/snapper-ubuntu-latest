@@ -1,4 +1,11 @@
-snapper (0.13.0-3) noble; urgency=medium
+snapper (0.13.0-4) noble; urgency=medium
+
+  * Synchronized with upstream
+    (commit 68a120d0a646cd34690192eea79d9dd466f3f894)
+
+ -- Cheng-Ling Lai <jamesljlster@gmail.com>  Mon, 02 Mar 2026 15:18:16 +0800
+
+snapper (0.13.0-3) experimental; urgency=medium
 
   * Added upstream patch to fix target snapshot detection in snbk
 

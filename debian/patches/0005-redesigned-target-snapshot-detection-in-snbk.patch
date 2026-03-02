@@ -1,12 +1,12 @@
-From 146a728c06df6dbd8ac585015244dae16390365f Mon Sep 17 00:00:00 2001
+From e41cfdc9ed849674f2812341954ccdc25ba012d6 Mon Sep 17 00:00:00 2001
 From: Arvin Schnell <aschnell@suse.de>
 Date: Mon, 13 Oct 2025 14:35:17 +0200
-Subject: [PATCH] - redesigned target snapshot detection in snbk
+Subject: [PATCH 05/74] - redesigned target snapshot detection in snbk
 
 ---
  client/snbk/BackupConfig.cc              |   3 +-
  client/snbk/BackupConfig.h               |   3 +-
- client/snbk/CmdBtrfs.cc                  | 121 +------------------
+ client/snbk/CmdBtrfs.cc                  | 120 -------------------
  client/snbk/CmdBtrfs.h                   |  50 --------
  client/snbk/CmdFindmnt.cc                |  88 --------------
  client/snbk/CmdFindmnt.h                 |  64 ----------
@@ -18,18 +18,18 @@ Subject: [PATCH] - redesigned target snapshot detection in snbk
  configure.ac                             |   6 +-
  doc/snapper-backup-configs.xml.in        |  16 +--
  package/snapper.changes                  |   6 +
- 14 files changed, 115 insertions(+), 468 deletions(-)
+ 14 files changed, 114 insertions(+), 468 deletions(-)
  delete mode 100644 client/snbk/CmdFindmnt.cc
  delete mode 100644 client/snbk/CmdFindmnt.h
  rename client/snbk/{CmdRealpath.cc => CmdLs.cc} (66%)
  rename client/snbk/{CmdRealpath.h => CmdLs.h} (64%)
 
 diff --git a/client/snbk/BackupConfig.cc b/client/snbk/BackupConfig.cc
-index 8ed3a35..9b01626 100644
+index 7a819333..661b5041 100644
 --- a/client/snbk/BackupConfig.cc
 +++ b/client/snbk/BackupConfig.cc
-@@ -71,9 +71,8 @@ namespace snapper
- 	}
+@@ -75,9 +75,8 @@ namespace snapper
+ 	get_child_nodes(json_file.get_root(), "receive-options", receive_options);
  
  	get_child_value(json_file.get_root(), "target-btrfs-bin", target_btrfs_bin);
 -	get_child_value(json_file.get_root(), "target-findmnt-bin", target_findmnt_bin);
@@ -40,11 +40,11 @@ index 8ed3a35..9b01626 100644
  	get_child_value(json_file.get_root(), "target-rmdir-bin", target_rmdir_bin);
      }
 diff --git a/client/snbk/BackupConfig.h b/client/snbk/BackupConfig.h
-index 39763a8..21008a1 100644
+index 935c6d61..f92c3d37 100644
 --- a/client/snbk/BackupConfig.h
 +++ b/client/snbk/BackupConfig.h
-@@ -71,9 +71,8 @@ namespace snapper
- 	Shell get_target_shell() const;
+@@ -75,9 +75,8 @@ namespace snapper
+ 	vector<string> receive_options;
  
  	string target_btrfs_bin = BTRFS_BIN;
 -	string target_findmnt_bin = FINDMNT_BIN;
@@ -55,21 +55,20 @@ index 39763a8..21008a1 100644
  	string target_rmdir_bin = RMDIR_BIN;
  
 diff --git a/client/snbk/CmdBtrfs.cc b/client/snbk/CmdBtrfs.cc
-index f761459..f8d35af 100644
+index 37db965f..89f680f2 100644
 --- a/client/snbk/CmdBtrfs.cc
 +++ b/client/snbk/CmdBtrfs.cc
-@@ -21,9 +21,8 @@
-  */
+@@ -22,9 +22,7 @@
  
  
+ #include <sys/utsname.h>
 -#include <cstring>
-+#include <sys/utsname.h>
  #include <regex>
 -#include <boost/algorithm/string.hpp>
  
  #include "snapper/SnapperTmpl.h"
  #include "snapper/SystemCmd.h"
-@@ -39,124 +38,6 @@ namespace snapper
+@@ -40,124 +38,6 @@ namespace snapper
      using namespace std;
  
  
@@ -195,7 +194,7 @@ index f761459..f8d35af 100644
      {
  	SystemCmd::Args cmd_args = { btrfs_bin, "subvolume", "show", "--", mount_point };
 diff --git a/client/snbk/CmdBtrfs.h b/client/snbk/CmdBtrfs.h
-index 86a7e55..8fe78f2 100644
+index 61e0243e..4a94a7d9 100644
 --- a/client/snbk/CmdBtrfs.h
 +++ b/client/snbk/CmdBtrfs.h
 @@ -35,56 +35,6 @@ namespace snapper
@@ -257,7 +256,7 @@ index 86a7e55..8fe78f2 100644
       * show <mount-point>".
 diff --git a/client/snbk/CmdFindmnt.cc b/client/snbk/CmdFindmnt.cc
 deleted file mode 100644
-index ea603ce..0000000
+index ea603ce0..00000000
 --- a/client/snbk/CmdFindmnt.cc
 +++ /dev/null
 @@ -1,88 +0,0 @@
@@ -351,7 +350,7 @@ index ea603ce..0000000
 -}
 diff --git a/client/snbk/CmdFindmnt.h b/client/snbk/CmdFindmnt.h
 deleted file mode 100644
-index 9a25141..0000000
+index 9a251419..00000000
 --- a/client/snbk/CmdFindmnt.h
 +++ /dev/null
 @@ -1,64 +0,0 @@
@@ -423,7 +422,7 @@ diff --git a/client/snbk/CmdRealpath.cc b/client/snbk/CmdLs.cc
 similarity index 66%
 rename from client/snbk/CmdRealpath.cc
 rename to client/snbk/CmdLs.cc
-index 991e7b9..05eaa00 100644
+index 991e7b98..05eaa00b 100644
 --- a/client/snbk/CmdRealpath.cc
 +++ b/client/snbk/CmdLs.cc
 @@ -1,5 +1,6 @@
@@ -501,7 +500,7 @@ diff --git a/client/snbk/CmdRealpath.h b/client/snbk/CmdLs.h
 similarity index 64%
 rename from client/snbk/CmdRealpath.h
 rename to client/snbk/CmdLs.h
-index c69afb6..d69c15c 100644
+index c69afb62..d69c15ca 100644
 --- a/client/snbk/CmdRealpath.h
 +++ b/client/snbk/CmdLs.h
 @@ -1,5 +1,6 @@
@@ -565,7 +564,7 @@ index c69afb6..d69c15c 100644
      };
  
 diff --git a/client/snbk/Makefile.am b/client/snbk/Makefile.am
-index a1c245b..4a0f06a 100644
+index a1c245b5..4a0f06ad 100644
 --- a/client/snbk/Makefile.am
 +++ b/client/snbk/Makefile.am
 @@ -19,8 +19,7 @@ snbk_SOURCES = 						\
@@ -579,7 +578,7 @@ index a1c245b..4a0f06a 100644
  
  snbk_LDADD =				\
 diff --git a/client/snbk/TheBigThing.cc b/client/snbk/TheBigThing.cc
-index 0ccc620..82b2963 100644
+index 3c57fed0..1bcf9003 100644
 --- a/client/snbk/TheBigThing.cc
 +++ b/client/snbk/TheBigThing.cc
 @@ -34,8 +34,7 @@
@@ -606,7 +605,7 @@ index 0ccc620..82b2963 100644
  	SystemCmd cmd1(shellify(backup_config.get_target_shell(), cmd1_args));
  	if (cmd1.retcode() != 0)
  	{
-@@ -305,112 +304,94 @@ namespace snapper
+@@ -320,112 +319,94 @@ namespace snapper
  	if (verbose)
  	    cout << _("Probing target snapshots.") << endl;
  
@@ -779,7 +778,7 @@ index 0ccc620..82b2963 100644
      }
  
 diff --git a/client/snbk/cmd-list-configs.cc b/client/snbk/cmd-list-configs.cc
-index b2e9d69..9106ee8 100644
+index b2e9d69b..9106ee83 100644
 --- a/client/snbk/cmd-list-configs.cc
 +++ b/client/snbk/cmd-list-configs.cc
 @@ -54,8 +54,8 @@ namespace snapper
@@ -852,7 +851,7 @@ index b2e9d69..9106ee8 100644
  
  }
 diff --git a/configure.ac b/configure.ac
-index 0d78d0f..a116203 100644
+index 0d78d0f8..a116203d 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -31,15 +31,14 @@ AC_PATH_PROG([CHATTR_BIN], [chattr], [/usr/bin/chattr])
@@ -890,26 +889,26 @@ index 0d78d0f..a116203 100644
  AC_DEFINE_UNQUOTED([RMDIR_BIN], ["$RMDIR_BIN"], [Path of rmdir program.])
  AC_DEFINE_UNQUOTED([TOUCH_BIN], ["$TOUCH_BIN"], [Path of touch program.])
 diff --git a/doc/snapper-backup-configs.xml.in b/doc/snapper-backup-configs.xml.in
-index adae5cd..447e94d 100644
+index 7a6e202f..8e17f5e2 100644
 --- a/doc/snapper-backup-configs.xml.in
 +++ b/doc/snapper-backup-configs.xml.in
 @@ -2,13 +2,13 @@
  <refentry id='snapper-backup-configs5'>
  
    <refentryinfo>
--    <date>2025-04-09</date>
+-    <date>2025-10-07</date>
 +    <date>2025-10-13</date>
    </refentryinfo>
  
    <refmeta>
      <refentrytitle>snapper-backup-configs</refentrytitle>
      <manvolnum>5</manvolnum>
--    <refmiscinfo class='date'>2025-04-09</refmiscinfo>
+-    <refmiscinfo class='date'>2025-10-07</refmiscinfo>
 +    <refmiscinfo class='date'>2025-10-13</refmiscinfo>
      <refmiscinfo class='version'>@VERSION@</refmiscinfo>
      <refmiscinfo class='manual'>Filesystem Snapshot Management</refmiscinfo>
    </refmeta>
-@@ -111,9 +111,9 @@
+@@ -138,9 +138,9 @@
        </varlistentry>
  
        <varlistentry>
@@ -921,7 +920,7 @@ index adae5cd..447e94d 100644
  	  be used to install wrapper scripts. Optional.</para>
  	</listitem>
        </varlistentry>
-@@ -126,14 +126,6 @@
+@@ -153,14 +153,6 @@
  	</listitem>
        </varlistentry>
  
@@ -937,7 +936,7 @@ index adae5cd..447e94d 100644
  	<term><option>target-rm-bin</option></term>
  	<listitem>
 diff --git a/package/snapper.changes b/package/snapper.changes
-index 795c786..a04601d 100644
+index ee7331f5..33aa71f3 100644
 --- a/package/snapper.changes
 +++ b/package/snapper.changes
 @@ -1,3 +1,9 @@
@@ -948,7 +947,7 @@ index 795c786..a04601d 100644
 +  (gh#openSUSE/snapper#1061)
 +
  -------------------------------------------------------------------
- Tue Nov 18 10:23:16 CET 2025 - aschnell@suse.com
+ Tue Oct 07 14:42:16 CEST 2025 - aschnell@suse.com
  
 -- 
 2.43.0
