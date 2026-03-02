@@ -1,0 +1,86 @@
+From 11e684f0e7e4a4995607f5c5d2bc9b4acc22e18b Mon Sep 17 00:00:00 2001
+From: Cheng-Ling Lai <jamesljlster@gmail.com>
+Date: Mon, 8 Dec 2025 16:54:00 +0800
+Subject: [PATCH 18/74] Added TheBigThings::find_restore_parent
+
+---
+ client/snbk/TheBigThing.cc | 52 ++++++++++++++++++++++++++++++++++++++
+ client/snbk/TheBigThing.h  |  1 +
+ 2 files changed, 53 insertions(+)
+
+diff --git a/client/snbk/TheBigThing.cc b/client/snbk/TheBigThing.cc
+index 1bcf9003..398ece69 100644
+--- a/client/snbk/TheBigThing.cc
++++ b/client/snbk/TheBigThing.cc
+@@ -516,4 +516,56 @@ namespace snapper
+ 	return end();
+     }
+ 
++    TheBigThings::const_iterator
++    TheBigThings::find_restore_parent(const TheBigThing& the_big_thing) const
++    {
++	typedef vector<TheBigThing>::const_reverse_iterator const_reverse_iterator;
++
++	// Find the direct parent or a previous snapshots with the same parent UUID (more
++	// a sibling).
++
++	for (const_reverse_iterator it1 = the_big_things.rbegin();
++	     it1 != the_big_things.rend(); ++it1)
++	{
++	    if (it1->num >= the_big_thing.num)
++		continue;
++
++	    if (it1->source_state != TheBigThing::SourceState::READ_ONLY ||
++		it1->target_state != TheBigThing::TargetState::VALID)
++		continue;
++
++	    if (it1->target_uuid == the_big_thing.target_parent_uuid)
++		return (it1 + 1).base();
++
++	    if (it1->target_parent_uuid == the_big_thing.target_parent_uuid)
++		return (it1 + 1).base();
++	}
++
++	// Find the nearest previous snapshot to use as the send parent,
++	// reducing disk usage.
++
++	int distance = std::numeric_limits<int>::max();
++	TheBigThings::const_iterator parent = end();
++
++	for (const_reverse_iterator it1 = the_big_things.rbegin();
++	     it1 != the_big_things.rend(); ++it1)
++	{
++	    if (it1->num >= the_big_thing.num)
++		continue;
++
++	    if (it1->source_state != TheBigThing::SourceState::READ_ONLY ||
++		it1->target_state != TheBigThing::TargetState::VALID)
++		continue;
++
++	    int tmp_dist = std::abs((int)it1->num - (int)the_big_thing.num);
++	    if (tmp_dist < distance)
++	    {
++		distance = tmp_dist;
++		parent = (it1 + 1).base();
++	    }
++	}
++
++	return parent;
++    }
++
+ }
+diff --git a/client/snbk/TheBigThing.h b/client/snbk/TheBigThing.h
+index 6a961c07..860d0f97 100644
+--- a/client/snbk/TheBigThing.h
++++ b/client/snbk/TheBigThing.h
+@@ -111,6 +111,7 @@ namespace snapper
+ 	 * Detect a suitable parent for btrfs send. Return end() iff none is found.
+ 	 */
+ 	const_iterator find_send_parent(const TheBigThing& the_big_thing) const;
++	const_iterator find_restore_parent(const TheBigThing& the_big_thing) const;
+ 
+ 	CmdBtrfsVersion source_btrfs_version;
+ 	CmdBtrfsVersion target_btrfs_version;
+-- 
+2.43.0
+

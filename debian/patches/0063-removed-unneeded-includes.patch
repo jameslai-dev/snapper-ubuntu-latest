@@ -1,0 +1,38 @@
+From 54bfb7f62cf901bdaa7c719ca663395330405167 Mon Sep 17 00:00:00 2001
+From: Arvin Schnell <aschnell@suse.de>
+Date: Thu, 29 Jan 2026 14:28:38 +0100
+Subject: [PATCH 63/74] - removed unneeded includes
+
+---
+ server/MetaSnapper.h | 2 --
+ snapper/Snapshot.cc  | 1 -
+ 2 files changed, 3 deletions(-)
+
+diff --git a/server/MetaSnapper.h b/server/MetaSnapper.h
+index b3f9ce55..1e0231f9 100644
+--- a/server/MetaSnapper.h
++++ b/server/MetaSnapper.h
+@@ -25,8 +25,6 @@
+ #define SNAPPER_META_SNAPPER_H
+ 
+ 
+-#include <boost/thread.hpp>
+-
+ #include <snapper/Snapper.h>
+ 
+ #include "RefCounter.h"
+diff --git a/snapper/Snapshot.cc b/snapper/Snapshot.cc
+index dde63b40..c71b4f0a 100644
+--- a/snapper/Snapshot.cc
++++ b/snapper/Snapshot.cc
+@@ -29,7 +29,6 @@
+ #include <cerrno>
+ #include <cstring>
+ #include <regex>
+-#include <boost/algorithm/string.hpp>
+ 
+ #include "snapper/Snapshot.h"
+ #include "snapper/Snapper.h"
+-- 
+2.43.0
+

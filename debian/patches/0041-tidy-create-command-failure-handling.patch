@@ -1,0 +1,41 @@
+From d0929c20309377f1fb52ef129ccc7d562395caa7 Mon Sep 17 00:00:00 2001
+From: Eric Gillespie <epg@pretzelnet.org>
+Date: Mon, 22 Dec 2025 09:21:40 -0600
+Subject: [PATCH 41/74] tidy 'create --command' failure handling
+
+Throw Exception in the case the child was STOPped or CONTinued.
+Document that system(3) should handle those cases.
+---
+ client/snapper/cmd-create.cc | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/client/snapper/cmd-create.cc b/client/snapper/cmd-create.cc
+index 40cde60d..51f9e290 100644
+--- a/client/snapper/cmd-create.cc
++++ b/client/snapper/cmd-create.cc
+@@ -23,6 +23,7 @@
+ 
+ #include <sys/wait.h>
+ 
++#include <cassert>
+ #include <iostream>
+ 
+ #include <client/snapper/cmd.h>
+@@ -208,8 +209,13 @@ namespace snapper
+ 		    if (exit_status != 0) {
+ 			SN_THROW(CommandException(exit_status));
+ 		    }
+-		} else {
++		} else if (WIFSIGNALED(status)) {
+ 		    SN_THROW(Exception(sformat("%s killed with %d", command.c_str(), WTERMSIG(status))));
++		} else {
++		    // For system(3), only WIFEXITED or WIFSIGNALED should be possible.
++		    string error = sformat(_("%s got STOP or CONT signal and may still be running"),
++					   command.c_str());
++		    SN_THROW(Exception(error));
+ 		}
+ 	    } break;
+ 	}
+-- 
+2.43.0
+

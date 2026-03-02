@@ -1,0 +1,203 @@
+From 33345a489fa733442a23e2fe8dbf865497919b4c Mon Sep 17 00:00:00 2001
+From: Arvin Schnell <aschnell@suse.de>
+Date: Tue, 27 Jan 2026 15:33:02 +0100
+Subject: [PATCH 54/74] - use std::optional instead of boost::optional
+
+---
+ client/snapper/cmd-cleanup.cc |  4 ++--
+ client/snbk/GlobalOptions.cc  |  8 ++++----
+ client/snbk/GlobalOptions.h   | 14 +++++++-------
+ client/snbk/TreeView.cc       |  9 +++++----
+ client/snbk/TreeView.h        |  7 +++----
+ 5 files changed, 21 insertions(+), 21 deletions(-)
+
+diff --git a/client/snapper/cmd-cleanup.cc b/client/snapper/cmd-cleanup.cc
+index 9afbef15..95306d2e 100644
+--- a/client/snapper/cmd-cleanup.cc
++++ b/client/snapper/cmd-cleanup.cc
+@@ -284,7 +284,7 @@ namespace snapper
+ 	    }
+ 	    else
+ 	    {
+-		boost::optional<FreeSpaceCondition> free_space_condition;
++		std::optional<FreeSpaceCondition> free_space_condition;
+ 
+ 		try
+ 		{
+@@ -353,7 +353,7 @@ namespace snapper
+ 	    }
+ 	    else
+ 	    {
+-		boost::optional<FreeSpaceCondition> free_space_condition;
++		std::optional<FreeSpaceCondition> free_space_condition;
+ 
+ 		try
+ 		{
+diff --git a/client/snbk/GlobalOptions.cc b/client/snbk/GlobalOptions.cc
+index 4f9deab4..f4962e87 100644
+--- a/client/snbk/GlobalOptions.cc
++++ b/client/snbk/GlobalOptions.cc
+@@ -111,12 +111,12 @@ namespace snapper
+     }
+ 
+ 
+-    boost::optional<BackupConfig::TargetMode>
++    std::optional<BackupConfig::TargetMode>
+     GlobalOptions::only_target_mode_value(const ParsedOpts& opts) const
+     {
+ 	ParsedOpts::const_iterator it = opts.find("target-mode");
+ 	if (it == opts.end())
+-	    return boost::optional<BackupConfig::TargetMode>();
++	    return std::optional<BackupConfig::TargetMode>();
+ 
+ 	BackupConfig::TargetMode target_mode;
+ 
+@@ -195,12 +195,12 @@ namespace snapper
+     }
+ 
+ 
+-    boost::optional<string>
++    std::optional<string>
+     GlobalOptions::backup_config_value(const ParsedOpts& opts) const
+     {
+ 	ParsedOpts::const_iterator it = opts.find("backup-config");
+ 	if (it == opts.end())
+-	    return boost::optional<string>();
++	    return std::optional<string>();
+ 
+ 	return it->second;
+     }
+diff --git a/client/snbk/GlobalOptions.h b/client/snbk/GlobalOptions.h
+index d72f42a5..b6b84d21 100644
+--- a/client/snbk/GlobalOptions.h
++++ b/client/snbk/GlobalOptions.h
+@@ -24,7 +24,7 @@
+ 
+ 
+ #include <string>
+-#include <boost/optional.hpp>
++#include <optional>
+ 
+ #include <snapper/Enum.h>
+ 
+@@ -50,7 +50,7 @@ namespace snapper
+ 	bool quiet() const { return _quiet; }
+ 	bool verbose() const { return _verbose; }
+ 	bool debug() const { return _debug; }
+-	const boost::optional<BackupConfig::TargetMode>& target_mode() const { return _target_mode; }
++	const std::optional<BackupConfig::TargetMode>& target_mode() const { return _target_mode; }
+ 	bool automatic() const { return _automatic; }
+ 	bool utc() const { return _utc; }
+ 	bool iso() const { return _iso; }
+@@ -61,22 +61,22 @@ namespace snapper
+ 	OutputFormat output_format() const { return _output_format; }
+ 	const string& separator() const { return _separator; }
+ 	bool headers() const { return _headers; }
+-	const boost::optional<string>& backup_config() const { return _backup_config; }
++	const std::optional<string>& backup_config() const { return _backup_config; }
+ 
+     private:
+ 
+ 	void check_options(const ParsedOpts& parsed_opts) const;
+ 
+-	boost::optional<BackupConfig::TargetMode> only_target_mode_value(const ParsedOpts& parsed_opts) const;
++	std::optional<BackupConfig::TargetMode> only_target_mode_value(const ParsedOpts& parsed_opts) const;
+ 	Style table_style_value(const ParsedOpts& parsed_opts) const;
+ 	OutputFormat output_format_value(const ParsedOpts& parsed_opts) const;
+ 	string separator_value(const ParsedOpts& parsed_opts) const;
+-	boost::optional<string> backup_config_value(const ParsedOpts& parsed_opts) const;
++	std::optional<string> backup_config_value(const ParsedOpts& parsed_opts) const;
+ 
+ 	bool _quiet;
+ 	bool _verbose;
+ 	bool _debug;
+-	boost::optional<BackupConfig::TargetMode> _target_mode;
++	std::optional<BackupConfig::TargetMode> _target_mode;
+ 	bool _automatic;
+ 	bool _utc;
+ 	bool _iso;
+@@ -87,7 +87,7 @@ namespace snapper
+ 	OutputFormat _output_format;
+ 	string _separator;
+ 	bool _headers;
+-	boost::optional<string> _backup_config;
++	std::optional<string> _backup_config;
+ 
+     };
+ 
+diff --git a/client/snbk/TreeView.cc b/client/snbk/TreeView.cc
+index 54af02f5..71a74e81 100644
+--- a/client/snbk/TreeView.cc
++++ b/client/snbk/TreeView.cc
+@@ -27,7 +27,6 @@
+ #include <vector>
+ 
+ #include <boost/algorithm/string.hpp>
+-#include <boost/optional.hpp>
+ 
+ #include <snapper/AppUtil.h>
+ 
+@@ -230,7 +229,8 @@ namespace snapper
+ 	}
+     }
+ 
+-    boost::optional<TreeView::SearchResult>
++
++    std::optional<TreeView::SearchResult>
+     TreeView::find_nearest_valid_node(const string& start_uuid) const
+     {
+ 	auto pair = pool.find(start_uuid);
+@@ -244,7 +244,8 @@ namespace snapper
+ 	__builtin_unreachable();
+     }
+ 
+-    boost::optional<TreeView::SearchResult>
++
++    std::optional<TreeView::SearchResult>
+     TreeView::find_nearest_valid_node(const ProxyNode* start_node) const
+     {
+ 	queue<SearchResult> nodes_to_visit;
+@@ -282,7 +283,7 @@ namespace snapper
+ 	    }
+ 	}
+ 
+-	return boost::none;
++	return std::nullopt;
+     }
+ 
+     void TreeView::set_parent(ProxyNode* node, ProxyNode* parent, ParentType parent_type)
+diff --git a/client/snbk/TreeView.h b/client/snbk/TreeView.h
+index f6b88b1c..bcd0a1b5 100644
+--- a/client/snbk/TreeView.h
++++ b/client/snbk/TreeView.h
+@@ -27,8 +27,7 @@
+ #include <memory>
+ #include <string>
+ #include <vector>
+-
+-#include <boost/optional.hpp>
++#include <optional>
+ 
+ #include <snapper/Enum.h>
+ 
+@@ -109,7 +108,7 @@ namespace snapper
+ 	TreeView(const vector<shared_ptr<ProxyNode>>& nodes);
+ 
+ 	/** Find the nearest valid node to use as a Btrfs‑send parent. */
+-	boost::optional<SearchResult>
++	std::optional<SearchResult>
+ 	find_nearest_valid_node(const string& start_uuid) const;
+ 
+ 	/** Print the tree graph in Graphviz DOT Language. */
+@@ -140,7 +139,7 @@ namespace snapper
+ 	 * Find the nearest valid node to use as a Btrfs‑send parent, starting from the
+ 	 * given node.
+ 	 */
+-	boost::optional<SearchResult>
++	std::optional<SearchResult>
+ 	find_nearest_valid_node(const ProxyNode* start_node) const;
+ 
+ 	/**
+-- 
+2.43.0
+

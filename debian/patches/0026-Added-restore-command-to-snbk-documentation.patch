@@ -1,0 +1,32 @@
+From 00dbb9c6883c09ee9284408153406151e178f8d6 Mon Sep 17 00:00:00 2001
+From: Cheng-Ling Lai <jamesljlster@gmail.com>
+Date: Fri, 12 Dec 2025 11:16:56 +0800
+Subject: [PATCH 26/74] Added restore command to snbk documentation
+
+---
+ doc/snbk.xml.in | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/doc/snbk.xml.in b/doc/snbk.xml.in
+index 9e97f6ea..e11b1042 100644
+--- a/doc/snbk.xml.in
++++ b/doc/snbk.xml.in
+@@ -259,6 +259,15 @@
+ 	</listitem>
+       </varlistentry>
+ 
++      <varlistentry>
++	<term><option>restore [<replaceable>number</replaceable>]</option></term>
++	<listitem>
++	  <para>Restore all missing snapshots or the specified snapshot back to the
++	  source. A restart of the `snapperd` service is required to make the restored
++	  snapshots visible immediately.</para>
++	</listitem>
++      </varlistentry>
++
+       <varlistentry>
+ 	<term><option>delete (remove|rm) [<replaceable>number</replaceable>]</option></term>
+ 	<listitem>
+-- 
+2.43.0
+

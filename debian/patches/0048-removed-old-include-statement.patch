@@ -1,0 +1,24 @@
+From be4aeab266c49eb259ce80d69198b92f00f2089f Mon Sep 17 00:00:00 2001
+From: Arvin Schnell <aschnell@suse.de>
+Date: Thu, 22 Jan 2026 16:00:27 +0100
+Subject: [PATCH 48/74] - removed old include statement
+
+---
+ client/snbk/TheBigThing.cc | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/client/snbk/TheBigThing.cc b/client/snbk/TheBigThing.cc
+index 31a597ac..5cf6861d 100644
+--- a/client/snbk/TheBigThing.cc
++++ b/client/snbk/TheBigThing.cc
+@@ -24,7 +24,6 @@
+ 
+ #include <iostream>
+ #include <regex>
+-#include <boost/algorithm/string/predicate.hpp>
+ 
+ #include "snapper/SystemCmd.h"
+ #include "snapper/SnapperDefines.h"
+-- 
+2.43.0
+
