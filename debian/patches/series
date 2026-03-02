@@ -1,6 +1,3 @@
-0003-Add-debian-specific-option-DISABLE_APT_SNAPSHOT.patch
-0004-fix-manpage.patch
-0005-drop-testsuite-real-to-avoid-to-be-installed-into-pa.patch
-0004-Add-some-missing-systemd-unit-directives.patch
-0001-add-CAP_MKNOD-in-snapper-backup.service.patch
-0006-redesigned-target-snapshot-detection-in-snbk.patch
+9003-Add-debian-specific-option-DISABLE_APT_SNAPSHOT.patch
+9004-Add-some-missing-systemd-unit-directives.patch
+9005-drop-testsuite-real-to-avoid-to-be-installed-into-pa.patch
