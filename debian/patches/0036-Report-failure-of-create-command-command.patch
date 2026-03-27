@@ -1,7 +1,7 @@
 From 1f7972c8893ff190ea5786b35e68e8a0ec1fef55 Mon Sep 17 00:00:00 2001
 From: Eric Gillespie <epg@pretzelnet.org>
 Date: Thu, 11 Dec 2025 11:58:02 -0600
-Subject: [PATCH 36/74] Report failure of 'create --command' command
+Subject: [PATCH 36/98] Report failure of 'create --command' command
 
 When we can't even run a child process at all (system(3) returns -1),
 throw runtime_error_with_errno without taking the post snapshot.

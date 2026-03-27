@@ -1,7 +1,7 @@
 From 43e670e0c01596b2cda1c66a76138548a05f6f46 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Jo=C3=A3o=20Guerra?= <joca-bt@users.noreply.github.com>
 Date: Sun, 25 Jan 2026 12:33:05 +0100
-Subject: [PATCH 52/74] Remove extra leading and trailing vertical whitespace
+Subject: [PATCH 52/98] Remove extra leading and trailing vertical whitespace
  in some of the systemd timers
 
 ---

@@ -1,0 +1,3749 @@
+From 76483505d897458146d8d0a32805974b3be7d92e Mon Sep 17 00:00:00 2001
+From: Arvin Schnell <aschnell@suse.de>
+Date: Thu, 19 Mar 2026 15:11:22 +0100
+Subject: [PATCH 89/98] - updated pot and po files
+
+---
+ po/af.po       | 16 +++++++++++++++-
+ po/ar.po       | 16 +++++++++++++++-
+ po/be.po       | 16 +++++++++++++++-
+ po/bg.po       | 17 ++++++++++++++++-
+ po/bn.po       | 16 +++++++++++++++-
+ po/bs.po       | 17 ++++++++++++++++-
+ po/ca.po       | 20 +++++++++++++++++---
+ po/cs.po       | 18 +++++++++++++++++-
+ po/cy.po       | 16 +++++++++++++++-
+ po/da.po       | 16 +++++++++++++++-
+ po/de.po       | 17 ++++++++++++++++-
+ po/el.po       | 17 ++++++++++++++++-
+ po/en_GB.po    | 16 +++++++++++++++-
+ po/en_US.po    | 16 +++++++++++++++-
+ po/eo.po       | 15 ++++++++++++++-
+ po/es.po       | 22 +++++++++++++++++++++-
+ po/et.po       | 16 +++++++++++++++-
+ po/eu.po       | 15 ++++++++++++++-
+ po/fa.po       | 15 ++++++++++++++-
+ po/fi.po       | 17 ++++++++++++++++-
+ po/fr.po       | 19 ++++++++++++++++++-
+ po/gl.po       | 16 +++++++++++++++-
+ po/gu.po       | 16 +++++++++++++++-
+ po/he.po       | 16 +++++++++++++++-
+ po/hi.po       | 16 +++++++++++++++-
+ po/hr.po       | 16 +++++++++++++++-
+ po/hu.po       | 17 ++++++++++++++++-
+ po/id.po       | 17 ++++++++++++++++-
+ po/it.po       | 17 ++++++++++++++++-
+ po/ja.po       | 20 +++++++++++++++++---
+ po/ka.po       | 15 ++++++++++++++-
+ po/km.po       | 16 +++++++++++++++-
+ po/ko.po       | 18 +++++++++++++++++-
+ po/ku.po       | 16 +++++++++++++++-
+ po/lo.po       | 16 +++++++++++++++-
+ po/lt.po       | 16 +++++++++++++++-
+ po/mk.po       | 16 +++++++++++++++-
+ po/mr.po       | 16 +++++++++++++++-
+ po/nb.po       | 16 +++++++++++++++-
+ po/nds.po      | 15 ++++++++++++++-
+ po/nl.po       | 20 +++++++++++++++++---
+ po/nn.po       | 15 ++++++++++++++-
+ po/pa.po       | 16 +++++++++++++++-
+ po/pl.po       | 16 +++++++++++++++-
+ po/pt.po       | 16 +++++++++++++++-
+ po/pt_BR.po    | 17 ++++++++++++++++-
+ po/ro.po       | 16 +++++++++++++++-
+ po/ru.po       | 17 ++++++++++++++++-
+ po/si.po       | 16 +++++++++++++++-
+ po/sk.po       | 20 +++++++++++++++++---
+ po/sl.po       | 46 ++++++++++++++++++++++++----------------------
+ po/snapper.pot | 15 ++++++++++++++-
+ po/sr.po       | 16 +++++++++++++++-
+ po/sv.po       | 19 ++++++++++++++++++-
+ po/ta.po       | 16 +++++++++++++++-
+ po/tg.po       | 15 ++++++++++++++-
+ po/th.po       | 16 +++++++++++++++-
+ po/tr.po       | 16 +++++++++++++++-
+ po/uk.po       | 16 +++++++++++++++-
+ po/vi.po       | 16 +++++++++++++++-
+ po/wa.po       | 16 +++++++++++++++-
+ po/xh.po       | 16 +++++++++++++++-
+ po/zh_CN.po    | 17 ++++++++++++++++-
+ po/zh_TW.po    | 18 +++++++++++++++++-
+ po/zu.po       | 16 +++++++++++++++-
+ 65 files changed, 1013 insertions(+), 94 deletions(-)
+
+diff --git a/po/af.po b/po/af.po
+index f47890cf..af650988 100644
+--- a/po/af.po
++++ b/po/af.po
+@@ -5,7 +5,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: installation\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Afrikaans <https://l10n.opensuse.org/projects/snapper/master/af/>\n"
+@@ -726,6 +726,10 @@ msgstr "I/O-fout"
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Failed to parse: %s."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -806,6 +810,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr "Ongeldige soort %1."
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Ongeldige soort %1."
+@@ -833,6 +840,9 @@ msgstr "Ongeldige soort %1."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Ongeldige soort %1."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Ongeldige soort %1."
+@@ -1340,6 +1350,10 @@ msgstr "Onbekende opdrag"
+ msgid "Unknown type '%s'."
+ msgstr "Onbekende opdrag"
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Ontleding van konfigurasielêers ..."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/ar.po b/po/ar.po
+index cee4f251..99ef8b03 100644
+--- a/po/ar.po
++++ b/po/ar.po
+@@ -6,7 +6,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Arabic <https://l10n.opensuse.org/projects/snapper/master/ar/>\n"
+@@ -716,6 +716,10 @@ msgstr "خطأ (%s)."
+ msgid "Extra options passed to the diff command."
+ msgstr "\t--extensions، -x <options>\tخيارات إضافية تم تمريرها إلى أمر diff."
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "فشل في إنشاء %s"
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr "فشل في تهيئة نظام معالجة الملفات."
+ 
+@@ -793,6 +797,9 @@ msgstr "\t--verbose, -v\t\t\tزيادة محتوى."
+ msgid "Invalid ambit '%s'."
+ msgstr "لقطة غير صالحة '%s'."
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "لقطة غير صالحة '%s'."
+@@ -820,6 +827,9 @@ msgstr "نمط الجدول غير صالح %d."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "نمط الجدول غير صالح %d."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "لقطة غير صالحة '%s'."
+@@ -1362,6 +1372,10 @@ msgstr "أمر غير معروف '%s'."
+ msgid "Unknown type '%s'."
+ msgstr "أمر غير معروف '%s'."
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "إنشاء لقطة للقراءة والكتابة من اللقطة %d."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/be.po b/po/be.po
+index aa40bb73..ff6cb91b 100644
+--- a/po/be.po
++++ b/po/be.po
+@@ -6,7 +6,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: YaST (@memory@)\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Belarusian <https://l10n.opensuse.org/projects/snapper/master/be/>\n"
+@@ -695,6 +695,10 @@ msgstr "Памылка"
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Падрыхтоўка дыскаў..."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -773,6 +777,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr "Падрыхтоўка дыскаў..."
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Падрыхтоўка дыскаў..."
+@@ -800,6 +807,9 @@ msgstr "Падрыхтоўка дыскаў..."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Падрыхтоўка дыскаў..."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Падрыхтоўка дыскаў..."
+@@ -1301,6 +1311,10 @@ msgstr "Невядомая каманда: %1"
+ msgid "Unknown type '%s'."
+ msgstr "Невядомая каманда: %1"
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Падрыхтоўка дыскаў..."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/bg.po b/po/bg.po
+index c8030f93..2942ea73 100644
+--- a/po/bg.po
++++ b/po/bg.po
+@@ -2,7 +2,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Bulgarian <https://l10n.opensuse.org/projects/snapper/master/bg/>\n"
+@@ -719,6 +719,10 @@ msgstr "Входно/Изходна грешка"
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Неуспешно зареждане на модула \"%s\"."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -800,6 +804,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr "Невалиден вход."
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Невалиден вход."
+@@ -827,6 +834,9 @@ msgstr "Невалиден вход."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Невалиден вход."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Невалиден вход."
+@@ -1345,6 +1355,11 @@ msgstr "Неизвестна държава: "
+ msgid "Unknown type '%s'."
+ msgstr "Неизвестна държава: "
+ 
++# %s is either BOOTP or DHCP
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Настройването чрез %s бе неуспешно."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/bn.po b/po/bn.po
+index bff6f7bb..cd0806b2 100644
+--- a/po/bn.po
++++ b/po/bn.po
+@@ -2,7 +2,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Bengali <https://l10n.opensuse.org/projects/snapper/master/bn/>\n"
+@@ -722,6 +722,10 @@ msgstr "I/O ত্রুটি"
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Failed to parse: %s."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -799,6 +803,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr "অবৈধ প্রকার %1."
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "অবৈধ প্রকার %1."
+@@ -826,6 +833,9 @@ msgstr "অবৈধ প্রকার %1."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "অবৈধ প্রকার %1."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "অবৈধ প্রকার %1."
+@@ -1332,6 +1342,10 @@ msgstr "অজানা"
+ msgid "Unknown type '%s'."
+ msgstr "অজানা"
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "সংরূপণ ফাইলগুলি পার্স করছে"
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/bs.po b/po/bs.po
+index 4278df93..813cb1ce 100644
+--- a/po/bs.po
++++ b/po/bs.po
+@@ -2,7 +2,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Bosnian <https://l10n.opensuse.org/projects/snapper/master/bs/>\n"
+@@ -692,6 +692,10 @@ msgstr "Greška"
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Failed to parse: %s."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -769,6 +773,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr ""
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr ""
+@@ -795,6 +802,9 @@ msgstr "Greška"
+ msgid "Invalid machine readable format '%s'."
+ msgstr ""
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr ""
+@@ -1308,6 +1318,11 @@ msgstr "Ne mogu pokrenuti naredbu \"%s\""
+ msgid "Unknown type '%s'."
+ msgstr "Ne mogu pokrenuti naredbu \"%s\""
+ 
++# %s is either BOOTP or DHCP
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "%s podešavanje nije uspjelo."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/ca.po b/po/ca.po
+index 676f40b0..d75751a3 100644
+--- a/po/ca.po
++++ b/po/ca.po
+@@ -2,11 +2,10 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2026-03-11 12:04+0000\n"
+ "Last-Translator: David Medina <medipas@gmail.com>\n"
+-"Language-Team: Catalan <https://l10n.opensuse.org/projects/snapper/master/"
+-"ca/>\n"
++"Language-Team: Catalan <https://l10n.opensuse.org/projects/snapper/master/ca/>\n"
+ "Language: ca\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=UTF-8\n"
+@@ -676,6 +675,10 @@ msgstr "Error (%s)."
+ msgid "Extra options passed to the diff command."
+ msgstr "Opcions extres passades a l'ordre diff."
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Ha fallat analitzar el número."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr "Ha fallat l'inici del manejador de sistemes de fitxers."
+ 
+@@ -747,6 +750,10 @@ msgstr "Incrementa'n la mostra de detalls."
+ msgid "Invalid ambit '%s'."
+ msgstr "Àmbit no vàlid: %s."
+ 
++#, fuzzy
++msgid "Invalid checksum output format."
++msgstr "Estableix el format de sortida CSV."
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Columna no vàlida: %s."
+@@ -772,6 +779,9 @@ msgstr "Tipus de registre no vàlid: %s."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Format llegible per a la màquina no vàlid: %s."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Camí no vàlid: %s."
+@@ -1255,6 +1265,10 @@ msgstr "Directori de classificació desconegut: %s."
+ msgid "Unknown type '%s'."
+ msgstr "Tipus desconegut: %s."
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Creant una instantània de lectura-escriptura de la instantània %d."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/cs.po b/po/cs.po
+index 6f8072ba..49f4accb 100644
+--- a/po/cs.po
++++ b/po/cs.po
+@@ -3,7 +3,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 14:59+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Czech <https://l10n.opensuse.org/projects/snapper/master/cs/>\n"
+@@ -704,6 +704,10 @@ msgstr "Chyba (%s)."
+ msgid "Extra options passed to the diff command."
+ msgstr "Další možnosti předané příkazu diff."
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Chyba při analýze '%s'."
++
+ # SLE12
+ msgid "Failed to initialize filesystem handler."
+ msgstr "Obslužný program systému souborů se nepodařilo inicializovat."
+@@ -779,6 +783,10 @@ msgstr "Podrobnější výpis."
+ msgid "Invalid ambit '%s'."
+ msgstr "Neplatná oblast '%s'."
+ 
++#, fuzzy
++msgid "Invalid checksum output format."
++msgstr "Nastaví výstupní formát CSV."
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Neplatný sloupec '%s'."
+@@ -805,6 +813,9 @@ msgstr "Neplatný styl tabulky %s."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Neplatný strojově čitelný formát '%s'."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Neplatná cesta '%s'."
+@@ -1308,6 +1319,11 @@ msgstr "Neznámý příkaz '%s'."
+ msgid "Unknown type '%s'."
+ msgstr "Neznámý typ '%s'."
+ 
++# SLE12
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Vytváří se snímek snímku %d ke čtení i zápisu."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/cy.po b/po/cy.po
+index fa653226..839b6a8b 100644
+--- a/po/cy.po
++++ b/po/cy.po
+@@ -2,7 +2,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Welsh <https://l10n.opensuse.org/projects/snapper/master/cy/>\n"
+@@ -689,6 +689,10 @@ msgstr "Gwall"
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Failed to parse: %s."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -764,6 +768,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr ""
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr ""
+@@ -790,6 +797,9 @@ msgstr "Gwall"
+ msgid "Invalid machine readable format '%s'."
+ msgstr ""
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr ""
+@@ -1295,6 +1305,10 @@ msgstr "Anhysbys"
+ msgid "Unknown type '%s'."
+ msgstr "Anhysbys"
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "DBI Execution failed: %s."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/da.po b/po/da.po
+index 92dd4e95..9441eaf7 100644
+--- a/po/da.po
++++ b/po/da.po
+@@ -6,7 +6,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: snapper\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2026-02-24 18:04+0000\n"
+ "Last-Translator: Peter Andreasen <noesgaard@gmail.com>\n"
+ "Language-Team: Danish <https://l10n.opensuse.org/projects/snapper/master/da/>\n"
+@@ -711,6 +711,10 @@ msgstr "Fejl (%s)."
+ msgid "Extra options passed to the diff command."
+ msgstr "\t--extensions, -x <tilvalg>\tEkstra tilvalg som sendes til diff-kommandoen."
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "kunne ikke oprette %s"
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr "Kunne ikke initialisere filsystemhåndtering."
+ 
+@@ -791,6 +795,9 @@ msgstr "\t--verbose, -v\t\t\tForøg verbositet."
+ msgid "Invalid ambit '%s'."
+ msgstr "Ugyldigt øjebliksbillede \"%s\"."
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Ugyldigt øjebliksbillede \"%s\"."
+@@ -818,6 +825,9 @@ msgstr "Ugyldig logger-type '%s'."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Ugyldigt maskin-læsbart format '%s'."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Ugyldigt øjebliksbillede \"%s\"."
+@@ -1340,6 +1350,10 @@ msgstr "Ukendt kommando \"%s\"."
+ msgid "Unknown type '%s'."
+ msgstr "Ukendt kommando \"%s\"."
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Oprettelse af læse-skrive-øjebliksbillede %d."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/de.po b/po/de.po
+index cb327422..9c516d98 100644
+--- a/po/de.po
++++ b/po/de.po
+@@ -6,7 +6,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: snapper\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2026-02-25 05:04+0000\n"
+ "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+ "Language-Team: German <https://l10n.opensuse.org/projects/snapper/master/de/>\n"
+@@ -680,6 +680,10 @@ msgstr "Fehler (%s)."
+ msgid "Extra options passed to the diff command."
+ msgstr "Extra Optionen, die an den diff-Befehl übergeben wurden."
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Nummer konnte nicht geparst werden."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr "Initialisierung des Dateisystem-Handlers fehlgeschlagen."
+ 
+@@ -751,6 +755,10 @@ msgstr "Gesprächigkeit erhöhen."
+ msgid "Invalid ambit '%s'."
+ msgstr "Ungültiger Anwendungsbereich '%s'."
+ 
++#, fuzzy
++msgid "Invalid checksum output format."
++msgstr "CSV-Ausgabeformat festlegen."
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Ungültige Spalte '%s'."
+@@ -776,6 +784,9 @@ msgstr "Ungültiger logger-Typ ‚%s‘."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Ungültiges maschinenlesbares Format '%s'."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Ungültiger Pfad '%s'."
+@@ -1258,6 +1269,10 @@ msgstr ""
+ msgid "Unknown type '%s'."
+ msgstr "Unbekannter Typ '%s'."
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Lesen-Schreiben-Schnappschuss des Schnappschusses %d erstellen."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/el.po b/po/el.po
+index e95f4b29..6134350c 100644
+--- a/po/el.po
++++ b/po/el.po
+@@ -7,7 +7,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2026-02-24 00:04+0000\n"
+ "Last-Translator: Efstathios Iosifidis <eiosifidis@yandex.com>\n"
+ "Language-Team: Greek <https://l10n.opensuse.org/projects/snapper/master/el/>\n"
+@@ -683,6 +683,10 @@ msgstr "Σφάλμα (%s)."
+ msgid "Extra options passed to the diff command."
+ msgstr "Πρόσθετες επιλογές που μεταβιβάζονται στην εντολή diff."
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Αποτυχία ανάλυσης αριθμού."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr "Αποτυχία αρχικοποίησης χειριστή συστήματος αρχείων."
+ 
+@@ -757,6 +761,10 @@ msgstr "Αύξηση επιπέδου λεπτομέρειας (verbosity)."
+ msgid "Invalid ambit '%s'."
+ msgstr "Μη έγκυρο στιγμιότυπο '%s'."
+ 
++#, fuzzy
++msgid "Invalid checksum output format."
++msgstr "Ορισμός μορφής εξόδου σε CSV."
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Μη έγκυρη στήλη '%s'."
+@@ -782,6 +790,9 @@ msgstr "Μη έγκυρος τύπος καταγραφέα '%s'."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Μη έγκυρη μορφή αναγνώσιμης μηχανής '%s'."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Μη έγκυρη διαδρομή '%s'."
+@@ -1265,6 +1276,10 @@ msgstr "Άγνωστο rankdir '%s'."
+ msgid "Unknown type '%s'."
+ msgstr "Άγνωστος τύπος '%s'."
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Δημιουργία στιγμιοτύπου μόνο για ανάγνωση του στιγμιοτύπου %d."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/en_GB.po b/po/en_GB.po
+index b946065f..f377be7f 100644
+--- a/po/en_GB.po
++++ b/po/en_GB.po
+@@ -2,7 +2,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: English (United Kingdom) <https://l10n.opensuse.org/projects/snapper/master/en_GB/>\n"
+@@ -743,6 +743,10 @@ msgstr "I/O Error"
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Failed to parse: %s."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -822,6 +826,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr "Invalid type %1."
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Invalid type %1."
+@@ -849,6 +856,9 @@ msgstr "Invalid type %1."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Invalid type %1."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Invalid type %1."
+@@ -1361,6 +1371,10 @@ msgstr "Unknown command '%s'"
+ msgid "Unknown type '%s'."
+ msgstr "Unknown command '%s'"
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Parsing configuration files..."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/en_US.po b/po/en_US.po
+index 810e364c..e5999edb 100644
+--- a/po/en_US.po
++++ b/po/en_US.po
+@@ -2,7 +2,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: English (United States) <https://l10n.opensuse.org/projects/snapper/master/en_US/>\n"
+@@ -684,6 +684,10 @@ msgstr ""
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Failed to parse: %s."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -759,6 +763,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr ""
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr ""
+@@ -785,6 +792,9 @@ msgstr "Failed to parse: %s."
+ msgid "Invalid machine readable format '%s'."
+ msgstr ""
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr ""
+@@ -1276,6 +1286,10 @@ msgstr "Unknown error\n"
+ msgid "Unknown type '%s'."
+ msgstr "Unknown error\n"
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "DBI Execution failed: %s."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/eo.po b/po/eo.po
+index 9b754625..0d752aaf 100644
+--- a/po/eo.po
++++ b/po/eo.po
+@@ -5,7 +5,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: YaST (@memory@)\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2012-02-12 09:27+0100\n"
+ "Last-Translator: Karl Eichwalder <ke@suse.de>\n"
+ "Language-Team: Esperanto <i18n@suse.de>\n"
+@@ -677,6 +677,9 @@ msgstr ""
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++msgid "Failed to compute checksum."
++msgstr ""
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -748,6 +751,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr ""
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr ""
+@@ -773,6 +779,9 @@ msgstr ""
+ msgid "Invalid machine readable format '%s'."
+ msgstr ""
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr ""
+@@ -1255,6 +1264,10 @@ msgstr ""
+ msgid "Unknown type '%s'."
+ msgstr ""
+ 
++#, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr ""
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/es.po b/po/es.po
+index 1f0cf469..846f343b 100644
+--- a/po/es.po
++++ b/po/es.po
+@@ -3,7 +3,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: snapper\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-08-03 17:59+0000\n"
+ "Last-Translator: Antonio Simón <antonio@trans-mission.com>\n"
+ "Language-Team: Spanish <https://l10n.opensuse.org/projects/snapper/master/es/>\n"
+@@ -698,6 +698,14 @@ msgstr "Error (%s)."
+ msgid "Extra options passed to the diff command."
+ msgstr "Opciones adicionales que se pasan al comando diff."
+ 
++# clients/lan_nfs_write.ycp:78
++# clients/lan_nfs_write.ycp:78
++# include/nfs/nfs_write.ycp:54
++# modules/Nfs.ycp:163
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "No se pudo análizar el número."
++
+ # SLE12
+ msgid "Failed to initialize filesystem handler."
+ msgstr "Error al inicializar el gestor del sistema de archivos."
+@@ -783,6 +791,10 @@ msgstr "Aumenta la verbosidad."
+ msgid "Invalid ambit '%s'."
+ msgstr "Ámbito %s no válido."
+ 
++#, fuzzy
++msgid "Invalid checksum output format."
++msgstr "Establece el formato de salida CSV."
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Columna %s no válida."
+@@ -809,6 +821,9 @@ msgstr "logger-type %s no válido."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Formato que puede leer el equipo %s no válido."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Vía %s no válida."
+@@ -1299,6 +1314,11 @@ msgstr "Comando '%s' desconocido."
+ msgid "Unknown type '%s'."
+ msgstr "Tipo %s desconocido."
+ 
++# SLE12
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Creando instantánea de solo lectura de la instantánea %d."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/et.po b/po/et.po
+index e8d1aa86..c6c2da66 100644
+--- a/po/et.po
++++ b/po/et.po
+@@ -2,7 +2,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: autoinst.fi\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Estonian <https://l10n.opensuse.org/projects/snapper/master/et/>\n"
+@@ -707,6 +707,10 @@ msgstr "Viga (%s)."
+ msgid "Extra options passed to the diff command."
+ msgstr "\t--extensions, -x <options>\tLisavalikud edastatud diff-käsule.."
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "loomine nurjus: %s"
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr "Failisüsteemi seadistaja lähtestamine ebaõnnestus."
+ 
+@@ -787,6 +791,9 @@ msgstr "\t--verbose, -v\t\t\tRohkem selgitusi."
+ msgid "Invalid ambit '%s'."
+ msgstr "Vigane tõmmis '%s'."
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Vigane tõmmis '%s'."
+@@ -814,6 +821,9 @@ msgstr "Vigane tabeli stiil %d."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Vigane tabeli stiil %d."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Vigane tõmmis '%s'."
+@@ -1336,6 +1346,10 @@ msgstr "Tundmatu käsk '%s'."
+ msgid "Unknown type '%s'."
+ msgstr "Tundmatu käsk '%s'."
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Luukase muudetav hetktõmmis tõmmisest %d."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/eu.po b/po/eu.po
+index 99073ae8..6a3c5646 100644
+--- a/po/eu.po
++++ b/po/eu.po
+@@ -5,7 +5,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: YaST (@memory@)\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2003-02-12 10:23+0100\n"
+ "Last-Translator: i18n@suse.de\n"
+ "Language-Team: Basque <i18n@suse.de>\n"
+@@ -677,6 +677,9 @@ msgstr ""
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++msgid "Failed to compute checksum."
++msgstr ""
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -748,6 +751,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr ""
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr ""
+@@ -773,6 +779,9 @@ msgstr ""
+ msgid "Invalid machine readable format '%s'."
+ msgstr ""
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr ""
+@@ -1255,6 +1264,10 @@ msgstr ""
+ msgid "Unknown type '%s'."
+ msgstr ""
+ 
++#, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr ""
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/fa.po b/po/fa.po
+index 7d83128c..7fd42f45 100644
+--- a/po/fa.po
++++ b/po/fa.po
+@@ -4,7 +4,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: opensuse-i 18n\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Persian <https://l10n.opensuse.org/projects/snapper/master/fa/>\n"
+@@ -678,6 +678,9 @@ msgstr ""
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++msgid "Failed to compute checksum."
++msgstr ""
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -749,6 +752,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr ""
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr ""
+@@ -774,6 +780,9 @@ msgstr ""
+ msgid "Invalid machine readable format '%s'."
+ msgstr ""
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr ""
+@@ -1256,6 +1265,10 @@ msgstr ""
+ msgid "Unknown type '%s'."
+ msgstr ""
+ 
++#, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr ""
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/fi.po b/po/fi.po
+index 092de8d5..64ee69b9 100644
+--- a/po/fi.po
++++ b/po/fi.po
+@@ -5,7 +5,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 14:59+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Finnish <https://l10n.opensuse.org/projects/snapper/master/fi/>\n"
+@@ -686,6 +686,10 @@ msgstr "Virhe (%s)."
+ msgid "Extra options passed to the diff command."
+ msgstr "diff-komennolle välitettävät lisävalinnat."
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Lukua ei voitu jäsentää."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr "Tiedostojärjestelmäkäsittelyn alustus epäonnistui."
+ 
+@@ -760,6 +764,10 @@ msgstr "Lisää yksityiskohtaisuutta."
+ msgid "Invalid ambit '%s'."
+ msgstr "Virheellinen alue \"%s\"."
+ 
++#, fuzzy
++msgid "Invalid checksum output format."
++msgstr "Aseta tulosmuodoksi CSV."
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Virheellinen sarake \"%s\"."
+@@ -785,6 +793,9 @@ msgstr "Virheellinen taulukkotyyli \"%s\"."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Virheellinen tietokoneen formaatti \"%s\"."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Virheellinen polku \"%s\"."
+@@ -1271,6 +1282,10 @@ msgstr "Tuntematon komento \"%s\"."
+ msgid "Unknown type '%s'."
+ msgstr "Tuntematon tyyppi \"%s\"."
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Luodaan tilannekuvasta %d kirjoitettavissa olevaa tilannekuvaa."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/fr.po b/po/fr.po
+index af87fe6e..624b2f7e 100644
+--- a/po/fr.po
++++ b/po/fr.po
+@@ -3,7 +3,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-08-04 14:59+0000\n"
+ "Last-Translator: Sophie Leroy <sophie@stoquart.com>\n"
+ "Language-Team: French <https://l10n.opensuse.org/projects/snapper/master/fr/>\n"
+@@ -702,6 +702,11 @@ msgstr "Erreur (%s)."
+ msgid "Extra options passed to the diff command."
+ msgstr "Options supplémentaires transmises à la commande diff."
+ 
++# TLABEL nfs_2002_01_04_0147__3
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Échec de traitement du nombre."
++
+ # SLE12
+ msgid "Failed to initialize filesystem handler."
+ msgstr "Échec de l'initialisation du gestionnaire de système de fichiers."
+@@ -778,6 +783,10 @@ msgstr "Augmente la verbosité."
+ msgid "Invalid ambit '%s'."
+ msgstr "Contexte « %s » non valide."
+ 
++#, fuzzy
++msgid "Invalid checksum output format."
++msgstr "Définit le format de sortie CSV."
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Colonne « %s » non valide."
+@@ -804,6 +813,9 @@ msgstr "Type de journalisation '%s' non valide."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Format de sortie « %s » non valide."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Chemin « %s » non valide."
+@@ -1292,6 +1304,11 @@ msgstr "Commande '%s' inconnue."
+ msgid "Unknown type '%s'."
+ msgstr "Type « %s » inconnu."
+ 
++# SLE12
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Création d'un instantané en lecture-écriture de l'instantané %d."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/gl.po b/po/gl.po
+index af7561f8..8cbbc454 100644
+--- a/po/gl.po
++++ b/po/gl.po
+@@ -2,7 +2,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Galician <https://l10n.opensuse.org/projects/snapper/master/gl/>\n"
+@@ -714,6 +714,10 @@ msgstr "Erro de E/S"
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Failed to parse: %s."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -790,6 +794,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr "Estilo de táboa incorrecto %d."
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Estilo de táboa incorrecto %d."
+@@ -817,6 +824,9 @@ msgstr "Estilo de táboa incorrecto %d."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Estilo de táboa incorrecto %d."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Estilo de táboa incorrecto %d."
+@@ -1320,6 +1330,10 @@ msgstr "Comando descoñecido '%s'"
+ msgid "Unknown type '%s'."
+ msgstr "Comando descoñecido '%s'"
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Estilo de táboa incorrecto %d."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/gu.po b/po/gu.po
+index dfa92355..9e29a08f 100644
+--- a/po/gu.po
++++ b/po/gu.po
+@@ -5,7 +5,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: YaST (@memory@)\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Gujarati <https://l10n.opensuse.org/projects/snapper/master/gu/>\n"
+@@ -725,6 +725,10 @@ msgstr "I/O ભૂલ"
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Failed to parse: %s."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -802,6 +806,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr "અમાન્ય પ્રકાર %1."
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "અમાન્ય પ્રકાર %1."
+@@ -829,6 +836,9 @@ msgstr "અમાન્ય પ્રકાર %1."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "અમાન્ય પ્રકાર %1."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "અમાન્ય પ્રકાર %1."
+@@ -1335,6 +1345,10 @@ msgstr "અજાણ્યો કમાન્ડ"
+ msgid "Unknown type '%s'."
+ msgstr "અજાણ્યો કમાન્ડ"
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "કન્ફિગ્યુરેશન ફાઈલોમાં પાર્સ થઈ રહ્યું છે..."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/he.po b/po/he.po
+index 6a47086b..4e0ccdb2 100644
+--- a/po/he.po
++++ b/po/he.po
+@@ -2,7 +2,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Hebrew <https://l10n.opensuse.org/projects/snapper/master/he/>\n"
+@@ -686,6 +686,10 @@ msgstr "שגיאה"
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Failed to parse: %s."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -761,6 +765,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr ""
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr ""
+@@ -787,6 +794,9 @@ msgstr "שגיאה"
+ msgid "Invalid machine readable format '%s'."
+ msgstr ""
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr ""
+@@ -1278,6 +1288,10 @@ msgstr "לא ידוע"
+ msgid "Unknown type '%s'."
+ msgstr "לא ידוע"
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "DBI Execution failed: %s."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/hi.po b/po/hi.po
+index 367e1769..df6136c6 100644
+--- a/po/hi.po
++++ b/po/hi.po
+@@ -2,7 +2,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Hindi <https://l10n.opensuse.org/projects/snapper/master/hi/>\n"
+@@ -724,6 +724,10 @@ msgstr "I/O त्रुटि"
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "%s बनाने में विफल"
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -801,6 +805,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr "अमान्य प्रकार %1।"
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "अमान्य प्रकार %1।"
+@@ -828,6 +835,9 @@ msgstr "अमान्य प्रकार %1।"
+ msgid "Invalid machine readable format '%s'."
+ msgstr "अमान्य प्रकार %1।"
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "अमान्य प्रकार %1।"
+@@ -1336,6 +1346,10 @@ msgstr "अनंजान"
+ msgid "Unknown type '%s'."
+ msgstr "अनंजान"
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "पार्सिंग समरूपण फाइलें..."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/hr.po b/po/hr.po
+index 79540f74..2a9cbfa9 100644
+--- a/po/hr.po
++++ b/po/hr.po
+@@ -6,7 +6,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: \n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Croatian <https://l10n.opensuse.org/projects/snapper/master/hr/>\n"
+@@ -720,6 +720,10 @@ msgstr "Ulazno/izlazna pogreška"
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Ne mogu napraviti alias %s -> %s\n"
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -795,6 +799,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr "Nesipravan stil tablice %d."
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Nesipravan stil tablice %d."
+@@ -822,6 +829,9 @@ msgstr "Nesipravan stil tablice %d."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Nesipravan stil tablice %d."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Nesipravan stil tablice %d."
+@@ -1331,6 +1341,10 @@ msgstr "Nepoznata naredba '%s'."
+ msgid "Unknown type '%s'."
+ msgstr "Nepoznata naredba '%s'."
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Nesipravan stil tablice %d."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/hu.po b/po/hu.po
+index 6a13ebaf..dd9c5c2f 100644
+--- a/po/hu.po
++++ b/po/hu.po
+@@ -4,7 +4,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 14:59+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Hungarian <https://l10n.opensuse.org/projects/snapper/master/hu/>\n"
+@@ -741,6 +741,10 @@ msgstr "Hiba (%s)."
+ msgid "Extra options passed to the diff command."
+ msgstr "\t--extensions, -x <beállítások>\tA diff parancsnak átadott további beállítások."
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "a(z) %s létrehozása sikertelen"
++
+ # SLE12
+ msgid "Failed to initialize filesystem handler."
+ msgstr "Nem sikerült inicializálni a fájlrendszer kezelőjét."
+@@ -820,6 +824,9 @@ msgstr "\t--verbose, -v\t\t\tRészletesség fokozása."
+ msgid "Invalid ambit '%s'."
+ msgstr "Érvénytelen pillanatkép: '%s'."
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Érvénytelen pillanatkép: '%s'."
+@@ -850,6 +857,9 @@ msgstr "Érvénytelen táblázatstílus: %d."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Érvénytelen táblázatstílus: %d."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Érvénytelen pillanatkép: '%s'."
+@@ -1376,6 +1386,11 @@ msgstr "Ismeretlen parancs: '%s'."
+ msgid "Unknown type '%s'."
+ msgstr "Ismeretlen parancs: '%s'."
+ 
++# SLE12
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Csak olvasható pillanatkép létrehozása a(z) %d pillanatképről."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/id.po b/po/id.po
+index 37f74def..e1176052 100644
+--- a/po/id.po
++++ b/po/id.po
+@@ -2,7 +2,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2026-01-31 05:04+0000\n"
+ "Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
+ "Language-Team: Indonesian <https://l10n.opensuse.org/projects/snapper/master/id/>\n"
+@@ -675,6 +675,10 @@ msgstr "Galat (%s)."
+ msgid "Extra options passed to the diff command."
+ msgstr "Opsi tambahan diteruskan ke perintah diff."
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Gagal mengurai nomor."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr "Gagal menginisialisasi penangan sistem berkas."
+ 
+@@ -746,6 +750,10 @@ msgstr "Tingkatkan verbositas."
+ msgid "Invalid ambit '%s'."
+ msgstr "Ambit '%s' tidak valid."
+ 
++#, fuzzy
++msgid "Invalid checksum output format."
++msgstr "Atur format keluaran CSV."
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Kolom '%s' tidak valid."
+@@ -771,6 +779,9 @@ msgstr "logger-type '%s' tidak valid."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Format '%s' yang dapat dibaca mesin tidak valid."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Path tidak valid '%s'."
+@@ -1249,6 +1260,10 @@ msgstr "rankdir '%s' tidak dikenal."
+ msgid "Unknown type '%s'."
+ msgstr "Tipe '%s' tidak dikenal."
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Membuat snapshot baca-tulis dari snapshot %d."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/it.po b/po/it.po
+index d6854270..3db92f4c 100644
+--- a/po/it.po
++++ b/po/it.po
+@@ -3,7 +3,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-08-01 17:59+0000\n"
+ "Last-Translator: Davide Aiello <davide.aiello@novilingulists.com>\n"
+ "Language-Team: Italian <https://l10n.opensuse.org/projects/snapper/master/it/>\n"
+@@ -682,6 +682,10 @@ msgstr "Errore (%s)."
+ msgid "Extra options passed to the diff command."
+ msgstr "Opzioni supplementari trasmesse al comando diff."
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Analisi del numero non riuscita."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr "Errore nell'inizializzazione del gestore del file system."
+ 
+@@ -753,6 +757,10 @@ msgstr "Incrementa la verbosità."
+ msgid "Invalid ambit '%s'."
+ msgstr "Ambito '%s' non valido."
+ 
++#, fuzzy
++msgid "Invalid checksum output format."
++msgstr "Imposta il formato di output CSV."
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Colonna '%s' non valida."
+@@ -778,6 +786,9 @@ msgstr "logger-type '%s' non valido."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Formato leggibile dalla macchina '%s' non valido."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Percorso '%s' non valido."
+@@ -1263,6 +1274,10 @@ msgstr "Comando '%s' sconosciuto."
+ msgid "Unknown type '%s'."
+ msgstr "Tipo '%s' sconosciuto."
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Creazione di un'istantanea in lettura/scrittura dell'istantanea %d."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/ja.po b/po/ja.po
+index 4ad6caca..8dbebb7a 100644
+--- a/po/ja.po
++++ b/po/ja.po
+@@ -8,11 +8,10 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: snapper\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2026-03-11 05:04+0000\n"
+ "Last-Translator: Yasuhiko Kamata <belphegor@belbel.or.jp>\n"
+-"Language-Team: Japanese <https://l10n.opensuse.org/projects/snapper/master/"
+-"ja/>\n"
++"Language-Team: Japanese <https://l10n.opensuse.org/projects/snapper/master/ja/>\n"
+ "Language: ja\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=UTF-8\n"
+@@ -681,6 +680,10 @@ msgstr "エラー (%s) 。"
+ msgid "Extra options passed to the diff command."
+ msgstr "diffコマンドに渡す追加オプションを指定します。"
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "数値の解釈に失敗しました。"
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr "ファイルシステムハンドラの準備に失敗しました。"
+ 
+@@ -752,6 +755,10 @@ msgstr "より詳しい出力を行ないます。"
+ msgid "Invalid ambit '%s'."
+ msgstr "領域 '%s' が正しくありません。"
+ 
++#, fuzzy
++msgid "Invalid checksum output format."
++msgstr "CSV 形式で出力します。"
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr "列 '%s' が正しくありません。"
+@@ -777,6 +784,9 @@ msgstr "ログの出力先種類 '%s' が正しくありません。"
+ msgid "Invalid machine readable format '%s'."
+ msgstr "機械処理可能な形式の指定 '%s' が正しくありません。"
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr "パス '%s' が正しくありません。"
+@@ -1254,6 +1264,10 @@ msgstr "不明な rankdir '%s' です。"
+ msgid "Unknown type '%s'."
+ msgstr "不明なタイプ '%s' です。"
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "スナップショット %d に対して読み書き可能なスナップショットを作成しています。"
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/ka.po b/po/ka.po
+index d82d3b05..d9a232de 100644
+--- a/po/ka.po
++++ b/po/ka.po
+@@ -2,7 +2,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2026-02-01 04:04+0000\n"
+ "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+ "Language-Team: Georgian <https://l10n.opensuse.org/projects/snapper/master/ka/>\n"
+@@ -675,6 +675,9 @@ msgstr ""
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++msgid "Failed to compute checksum."
++msgstr ""
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -749,6 +752,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr ""
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr ""
+@@ -774,6 +780,9 @@ msgstr "უცნობი logger-type '%s'."
+ msgid "Invalid machine readable format '%s'."
+ msgstr ""
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr ""
+@@ -1252,6 +1261,10 @@ msgstr "უცნობი rankdir '%s'."
+ msgid "Unknown type '%s'."
+ msgstr ""
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "იშლება სწრაფი ასლი %d."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/km.po b/po/km.po
+index 6523c5b8..6c73bc06 100644
+--- a/po/km.po
++++ b/po/km.po
+@@ -4,7 +4,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: snapper.km\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Khmer (Central) <https://l10n.opensuse.org/projects/snapper/master/km/>\n"
+@@ -734,6 +734,10 @@ msgstr "កំហុស I/O"
+ msgid "Extra options passed to the diff command."
+ msgstr "    ជម្រើស​សម្រាប់​ពាក្យ​បញ្ជា​ 'modify' ៖"
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "បាន​បរាជ័យ​ក្នុង​ការ​បង្កើត %s"
++
+ #, fuzzy
+ msgid "Failed to initialize filesystem handler."
+ msgstr "បាន​បរាជ័យ​ក្នុងកា​រដំឡើង​កម្មវិធី​គ្រប់គ្រង​ឯកសារ"
+@@ -815,6 +819,9 @@ msgstr "\t--verbose, -v\t\t\tបង្កើន​ការ​បរិយាយ
+ msgid "Invalid ambit '%s'."
+ msgstr "រូបថត​មិន​ត្រឹមត្រូវ '%s' ។"
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "រូបថត​មិន​ត្រឹមត្រូវ '%s' ។"
+@@ -843,6 +850,9 @@ msgstr "រចនាប័ទ្ម​តារាង %d មិន​ត្រ
+ msgid "Invalid machine readable format '%s'."
+ msgstr "រចនាប័ទ្ម​តារាង %d មិន​ត្រឹមត្រូវ ។"
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "រូបថត​មិន​ត្រឹមត្រូវ '%s' ។"
+@@ -1359,6 +1369,10 @@ msgstr "មិន​ស្គាល់​ពាក្យ​បញ្ជា '%s'
+ msgid "Unknown type '%s'."
+ msgstr "មិន​ស្គាល់​ពាក្យ​បញ្ជា '%s' ។"
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "បាន​បរាជ័យ​ក្នុង​ការ​បង្កើត​ការ​កំណត់​រចនាសម្ព័ន្ធ (%s) ។"
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/ko.po b/po/ko.po
+index 1ece6bc6..84e8c811 100644
+--- a/po/ko.po
++++ b/po/ko.po
+@@ -2,7 +2,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: entries\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Korean <https://l10n.opensuse.org/projects/snapper/master/ko/>\n"
+@@ -820,6 +820,11 @@ msgstr "오류입니다(%s)."
+ msgid "Extra options passed to the diff command."
+ msgstr "\t--extensions, -x <options>\tdiff 명령에 전달되는 추가 옵션입니다."
+ 
++# SLE12
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "%s 생성에 실패"
++
+ # SLE12
+ msgid "Failed to initialize filesystem handler."
+ msgstr "파일 시스템 처리기를 초기화하지 못했습니다."
+@@ -909,6 +914,9 @@ msgstr "\t--verbose, -v\t\t\t자세한 표시 수준을 증가시킵니다."
+ msgid "Invalid ambit '%s'."
+ msgstr "'%s' 스냅샷이 잘못되었습니다."
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ # SLE12
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+@@ -941,6 +949,9 @@ msgstr "잘못된 테이블 모양 %d 입니다."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "잘못된 테이블 모양 %d 입니다."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ # SLE12
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+@@ -1525,6 +1536,11 @@ msgstr "알 수 없는 명령 '%s'."
+ msgid "Unknown type '%s'."
+ msgstr "알 수 없는 명령 '%s'."
+ 
++# SLE12
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "스냅샷 %d의 읽기 쓰기 스냅샷을 생성합니다."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/ku.po b/po/ku.po
+index ba0007a1..b0b3782a 100644
+--- a/po/ku.po
++++ b/po/ku.po
+@@ -5,7 +5,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: memory.ku.po\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Kurdish <https://l10n.opensuse.org/projects/snapper/master/ku/>\n"
+@@ -707,6 +707,10 @@ msgstr "Çewtî"
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Sepandina delta RPM têk çû"
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -785,6 +789,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr "Vebijêrka nederbasdar: %1"
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Vebijêrka nederbasdar: %1"
+@@ -811,6 +818,9 @@ msgstr "Vebijêrka nederbasdar: %1"
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Vebijêrka nederbasdar: %1"
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Vebijêrka nederbasdar: %1"
+@@ -1313,6 +1323,10 @@ msgstr "Fermana Nenas: %1"
+ msgid "Unknown type '%s'."
+ msgstr "Fermana Nenas: %1"
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Nivîsandina mîhengan têk çû"
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/lo.po b/po/lo.po
+index 50614e99..2da1b4a6 100644
+--- a/po/lo.po
++++ b/po/lo.po
+@@ -2,7 +2,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2006-01-04 08:58+0100\n"
+ "Last-Translator: i18n@suse.de\n"
+ "Language-Team: Lao <i18n@suse.de>\n"
+@@ -683,6 +683,10 @@ msgstr ""
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Failed to parse: %s."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -758,6 +762,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr ""
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr ""
+@@ -783,6 +790,9 @@ msgstr "Failed to parse: %s."
+ msgid "Invalid machine readable format '%s'."
+ msgstr ""
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr ""
+@@ -1272,6 +1282,10 @@ msgstr ""
+ msgid "Unknown type '%s'."
+ msgstr ""
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "DBI Execution failed: %s."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/lt.po b/po/lt.po
+index 83256fe8..c44893d4 100644
+--- a/po/lt.po
++++ b/po/lt.po
+@@ -9,7 +9,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: LCN (@memory@)\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Lithuanian <https://l10n.opensuse.org/projects/snapper/master/lt/>\n"
+@@ -715,6 +715,10 @@ msgstr "Skaitymo/rašymo klaida."
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "nepavyko sukurti %s"
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -791,6 +795,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr "Netinkama momentinė kopija „%s“."
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Netinkama momentinė kopija „%s“."
+@@ -819,6 +826,9 @@ msgstr "Netinkamas lentelės stilius %d."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Netinkamas lentelės stilius %d."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Netinkama momentinė kopija „%s“."
+@@ -1332,6 +1342,10 @@ msgstr "Nežinoma komanda „%s“."
+ msgid "Unknown type '%s'."
+ msgstr "Nežinoma komanda „%s“."
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Klaida kuriant momentinę kopiją."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/mk.po b/po/mk.po
+index 2b0aef8a..02cae985 100644
+--- a/po/mk.po
++++ b/po/mk.po
+@@ -6,7 +6,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: YaST (@memory@)\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Macedonian <https://l10n.opensuse.org/projects/snapper/master/mk/>\n"
+@@ -690,6 +690,10 @@ msgstr ""
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Failed to parse: %s."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -765,6 +769,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr ""
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr ""
+@@ -790,6 +797,9 @@ msgstr "Failed to parse: %s."
+ msgid "Invalid machine readable format '%s'."
+ msgstr ""
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr ""
+@@ -1286,6 +1296,10 @@ msgstr ""
+ msgid "Unknown type '%s'."
+ msgstr ""
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Создавање на читај-пиши снимка од снимката %d."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/mr.po b/po/mr.po
+index 53006e5a..2ca37fb3 100644
+--- a/po/mr.po
++++ b/po/mr.po
+@@ -6,7 +6,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: YaST (@memory@)\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Marathi <https://l10n.opensuse.org/projects/snapper/master/mr/>\n"
+@@ -726,6 +726,10 @@ msgstr "I/O चूक"
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Failed to parse: %s."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -803,6 +807,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr "अवैध प्रकार %1."
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "अवैध प्रकार %1."
+@@ -830,6 +837,9 @@ msgstr "अवैध प्रकार %1."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "अवैध प्रकार %1."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "अवैध प्रकार %1."
+@@ -1336,6 +1346,10 @@ msgstr "अज्ञात आज्ञा"
+ msgid "Unknown type '%s'."
+ msgstr "अज्ञात आज्ञा"
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "आकृतीबंध फाईल्स संग्रहित करत आहे..."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/nb.po b/po/nb.po
+index b9a4271a..796943e5 100644
+--- a/po/nb.po
++++ b/po/nb.po
+@@ -7,7 +7,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Norwegian Bokmål <https://l10n.opensuse.org/projects/snapper/master/nb_NO/>\n"
+@@ -724,6 +724,10 @@ msgstr "Inn/ut-feil."
+ msgid "Extra options passed to the diff command."
+ msgstr "    Valg for 'modify'-kommandoen:"
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "kunne ikke opprette %s"
++
+ #, fuzzy
+ msgid "Failed to initialize filesystem handler."
+ msgstr "Kunne ikke install filhåndterer"
+@@ -805,6 +809,9 @@ msgstr "\t--verbose, -v\t\t\tVis mer informasjon."
+ msgid "Invalid ambit '%s'."
+ msgstr "Ugyldig øyeblikksbilde '%s'."
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Ugyldig øyeblikksbilde '%s'."
+@@ -832,6 +839,9 @@ msgstr "Ugyldig tabellstil %d."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Ugyldig tabellstil %d."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Ugyldig øyeblikksbilde '%s'."
+@@ -1349,6 +1359,10 @@ msgstr "Ukjent kommando '%s'."
+ msgid "Unknown type '%s'."
+ msgstr "Ukjent kommando '%s'."
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Diskbilde kunne ikke opprettes."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/nds.po b/po/nds.po
+index e8ea1e63..7854f5a3 100644
+--- a/po/nds.po
++++ b/po/nds.po
+@@ -8,7 +8,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: opensuse-i 18n\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2012-11-26 14:24+0100\n"
+ "Last-Translator: Automatically generated\n"
+ "Language-Team: none\n"
+@@ -681,6 +681,9 @@ msgstr ""
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++msgid "Failed to compute checksum."
++msgstr ""
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -752,6 +755,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr ""
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr ""
+@@ -777,6 +783,9 @@ msgstr ""
+ msgid "Invalid machine readable format '%s'."
+ msgstr ""
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr ""
+@@ -1264,6 +1273,10 @@ msgstr ""
+ msgid "Unknown type '%s'."
+ msgstr ""
+ 
++#, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr ""
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/nl.po b/po/nl.po
+index d9abe251..88d42368 100644
+--- a/po/nl.po
++++ b/po/nl.po
+@@ -9,11 +9,10 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: \n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2026-03-11 12:04+0000\n"
+ "Last-Translator: Freek de Kruijf <freek@opensuse.org>\n"
+-"Language-Team: Dutch <https://l10n.opensuse.org/projects/snapper/master/nl/>"
+-"\n"
++"Language-Team: Dutch <https://l10n.opensuse.org/projects/snapper/master/nl/>\n"
+ "Language: nl\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=UTF-8\n"
+@@ -684,6 +683,10 @@ msgstr "Fout (%s)."
+ msgid "Extra options passed to the diff command."
+ msgstr "Extra opties doorgegeven aan de opdracht diff."
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Nummer ontleden is mislukt."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr "Behandelaar van bestandssysteem initialiseren is mislukt."
+ 
+@@ -755,6 +758,10 @@ msgstr "Hoeveelheid informatie verhogen."
+ msgid "Invalid ambit '%s'."
+ msgstr "Ongeldige ambit '%s'."
+ 
++#, fuzzy
++msgid "Invalid checksum output format."
++msgstr "CSV uitvoerformaat instellen."
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Ongeldige kolom '%s'."
+@@ -780,6 +787,9 @@ msgstr "Ongeldig logger-type '%s'."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Ongeldig machine-leesbaar formaat '%s'."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Ongeldige pad '%s'."
+@@ -1262,6 +1272,10 @@ msgstr "Onbekende rankdir '%s'."
+ msgid "Unknown type '%s'."
+ msgstr "Onbekend type '%s'."
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Bezig lezen-schrijven momentopname van momentopname %d te maken."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/nn.po b/po/nn.po
+index 41242a19..4b32eaeb 100644
+--- a/po/nn.po
++++ b/po/nn.po
+@@ -8,7 +8,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Norwegian Nynorsk <https://l10n.opensuse.org/projects/snapper/master/nn/>\n"
+@@ -682,6 +682,9 @@ msgstr ""
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++msgid "Failed to compute checksum."
++msgstr ""
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -753,6 +756,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr ""
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr ""
+@@ -778,6 +784,9 @@ msgstr ""
+ msgid "Invalid machine readable format '%s'."
+ msgstr ""
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr ""
+@@ -1262,6 +1271,10 @@ msgstr ""
+ msgid "Unknown type '%s'."
+ msgstr ""
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Skildring"
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/pa.po b/po/pa.po
+index 36338cf7..a4baf78b 100644
+--- a/po/pa.po
++++ b/po/pa.po
+@@ -8,7 +8,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Punjabi <https://l10n.opensuse.org/projects/snapper/master/pa/>\n"
+@@ -741,6 +741,10 @@ msgstr "I/O ਗਲਤੀ"
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "ਪਾਰਸ ਕਰਨ ਦੌਰਾਨ ਫੇਲ੍ਹ: %s।"
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -821,6 +825,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr "ਗਲਤ ਕਿਸਮ %1 ਹੈ।"
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "ਗਲਤ ਕਿਸਮ %1 ਹੈ।"
+@@ -848,6 +855,9 @@ msgstr "ਗਲਤ ਕਿਸਮ %1 ਹੈ।"
+ msgid "Invalid machine readable format '%s'."
+ msgstr "ਗਲਤ ਕਿਸਮ %1 ਹੈ।"
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "ਗਲਤ ਕਿਸਮ %1 ਹੈ।"
+@@ -1360,6 +1370,10 @@ msgstr "ਅਣਜਾਣ ਕਮਾਂਡ '%s'"
+ msgid "Unknown type '%s'."
+ msgstr "ਅਣਜਾਣ ਕਮਾਂਡ '%s'"
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "ਗਲਤ ਕਿਸਮ %1 ਹੈ।"
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/pl.po b/po/pl.po
+index 3ea4ed1f..17338473 100644
+--- a/po/pl.po
++++ b/po/pl.po
+@@ -9,7 +9,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-11-26 23:04+0000\n"
+ "Last-Translator: Szymon Scholz <raspherdev@pm.me>\n"
+ "Language-Team: Polish <https://l10n.opensuse.org/projects/snapper/master/pl/>\n"
+@@ -710,6 +710,10 @@ msgstr "Błąd (%s)."
+ msgid "Extra options passed to the diff command."
+ msgstr "\t--extensions, -x <opcje>\tDodatkowe opcje przekazywane do polecenia diff."
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "nie udało się utworzyć %s"
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr "Inicjowanie programu obsługi systemu plików nie powiodło się."
+ 
+@@ -787,6 +791,9 @@ msgstr "\t--verbose, -v\t\t\tZwiększenie szczegółowości."
+ msgid "Invalid ambit '%s'."
+ msgstr "Nieprawidłowy zrzut '%s'."
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Nieprawidłowy zrzut '%s'."
+@@ -814,6 +821,9 @@ msgstr "Nieprawidłowy styl tabeli %d."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Nieprawidłowy styl tabeli %d."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Nieprawidłowy zrzut '%s'."
+@@ -1340,6 +1350,10 @@ msgstr "Nieznane polecenie '%s'."
+ msgid "Unknown type '%s'."
+ msgstr "Nieznane polecenie '%s'."
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Tworzenie migawki z migawki %d służącej do odczytu i zapisu."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/pt.po b/po/pt.po
+index 8a98b607..19346ffa 100644
+--- a/po/pt.po
++++ b/po/pt.po
+@@ -8,7 +8,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Portuguese <https://l10n.opensuse.org/projects/snapper/master/pt/>\n"
+@@ -741,6 +741,10 @@ msgstr "Erro de I/O"
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Falha na criação de um processo"
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -821,6 +825,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr "Estilo de tabela inválido %d."
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Estilo de tabela inválido %d."
+@@ -848,6 +855,9 @@ msgstr "Estilo de tabela inválido %d."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Estilo de tabela inválido %d."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Estilo de tabela inválido %d."
+@@ -1362,6 +1372,10 @@ msgstr "Comando '%s' desconhecido"
+ msgid "Unknown type '%s'."
+ msgstr "Comando '%s' desconhecido"
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Estilo de tabela inválido %d."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/pt_BR.po b/po/pt_BR.po
+index 44f16a4b..66cd0b03 100644
+--- a/po/pt_BR.po
++++ b/po/pt_BR.po
+@@ -8,7 +8,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-12-30 15:04+0000\n"
+ "Last-Translator: Luiz Fernando Ranghetti <elchevive68@gmail.com>\n"
+ "Language-Team: Portuguese (Brazil) <https://l10n.opensuse.org/projects/snapper/master/pt_BR/>\n"
+@@ -686,6 +686,10 @@ msgstr "Erro (%s)."
+ msgid "Extra options passed to the diff command."
+ msgstr "Opções adicionais passadas para o comando diff."
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Falha ao analisar número."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr "Falha ao inicializar o manipulador do sistema de arquivos."
+ 
+@@ -757,6 +761,10 @@ msgstr "Aumentar detalhamento."
+ msgid "Invalid ambit '%s'."
+ msgstr "Âmbito inválido '%s'."
+ 
++#, fuzzy
++msgid "Invalid checksum output format."
++msgstr "Definir o formato de saída CSV."
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Coluna inválida '%s'."
+@@ -782,6 +790,9 @@ msgstr "Tipo de registrador inválido '%s'."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Formato legível para máquina inválido '%s'."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Caminho inválido '%s'."
+@@ -1266,6 +1277,10 @@ msgstr "Comando desconhecido '%s'."
+ msgid "Unknown type '%s'."
+ msgstr "Tipo desconhecido '%s'."
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Criando o instantâneo leitura e gravação do instantâneo %d."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/ro.po b/po/ro.po
+index 8c4ee68c..1a72954d 100644
+--- a/po/ro.po
++++ b/po/ro.po
+@@ -14,7 +14,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: OpenSUSE\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Romanian <https://l10n.opensuse.org/projects/snapper/master/ro/>\n"
+@@ -731,6 +731,10 @@ msgstr "Eroare I/O"
+ msgid "Extra options passed to the diff command."
+ msgstr "Opțiuni suplimentare transmise comenzii diff."
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Date de emitere invalide."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -810,6 +814,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr "Date de emitere invalide."
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Date de emitere invalide."
+@@ -837,6 +844,9 @@ msgstr "Date de emitere invalide."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Date de emitere invalide."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Date de emitere invalide."
+@@ -1348,6 +1358,10 @@ msgstr "Tip necunoscut."
+ msgid "Unknown type '%s'."
+ msgstr "Tip necunoscut."
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Crearea configurației a eșuat (%s)."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/ru.po b/po/ru.po
+index 5561a71d..dfda74bc 100644
+--- a/po/ru.po
++++ b/po/ru.po
+@@ -3,7 +3,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: \n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-12-11 17:04+0000\n"
+ "Last-Translator: Aleksey Fedorov <Aleksejfedorov963@gmail.com>\n"
+ "Language-Team: Russian <https://l10n.opensuse.org/projects/snapper/master/ru/>\n"
+@@ -683,6 +683,10 @@ msgstr "Ошибка (%s)."
+ msgid "Extra options passed to the diff command."
+ msgstr "Дополнительные опции, переданные в команду diff."
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Не удалось разобрать число."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr "Не удалось инициализировать обработчик файловой системы."
+ 
+@@ -754,6 +758,10 @@ msgstr "Увеличить детальность вывода."
+ msgid "Invalid ambit '%s'."
+ msgstr "Неверная область '%s'."
+ 
++#, fuzzy
++msgid "Invalid checksum output format."
++msgstr "Задать формат вывода CSV."
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Неверный столбец '%s'."
+@@ -779,6 +787,9 @@ msgstr "Недопустимый тип логгера: «%s»."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Неверный машиночитаемый формат '%s'."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Неверный путь '%s'."
+@@ -1268,6 +1279,10 @@ msgstr "Неизвестная команда '%s'."
+ msgid "Unknown type '%s'."
+ msgstr "Неизвестный тип '%s'."
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Создание снимка %d для чтения-записи."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/si.po b/po/si.po
+index 5716eb64..765b3c5d 100644
+--- a/po/si.po
++++ b/po/si.po
+@@ -5,7 +5,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: YaST (@memory@)\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2005-07-29 15:37+0530\n"
+ "Last-Translator: i18n@suse.de\n"
+ "Language-Team: Sinhala <i18n@suse.de>\n"
+@@ -686,6 +686,10 @@ msgstr ""
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Failed to parse: %s."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -761,6 +765,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr ""
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr ""
+@@ -786,6 +793,9 @@ msgstr "Failed to parse: %s."
+ msgid "Invalid machine readable format '%s'."
+ msgstr ""
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr ""
+@@ -1275,6 +1285,10 @@ msgstr ""
+ msgid "Unknown type '%s'."
+ msgstr ""
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "DBI Execution failed: %s."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/sk.po b/po/sk.po
+index dbbd9de5..322e0c57 100644
+--- a/po/sk.po
++++ b/po/sk.po
+@@ -6,11 +6,10 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2026-03-13 20:04+0000\n"
+ "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
+-"Language-Team: Slovak <https://l10n.opensuse.org/projects/snapper/master/sk/>"
+-"\n"
++"Language-Team: Slovak <https://l10n.opensuse.org/projects/snapper/master/sk/>\n"
+ "Language: sk\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=UTF-8\n"
+@@ -682,6 +681,10 @@ msgstr "Chyba (%s)."
+ msgid "Extra options passed to the diff command."
+ msgstr "Ďalšie voľby odovzdané príkazu diff."
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Nepodarilo sa analyzovať číslo."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr "Zlyhala inicializácia obslužného programu systému súborov."
+ 
+@@ -756,6 +759,10 @@ msgstr "Zvýši podrobnosť."
+ msgid "Invalid ambit '%s'."
+ msgstr "Neplatná oblasť '%s'."
+ 
++#, fuzzy
++msgid "Invalid checksum output format."
++msgstr "Nastaví výstupný formát CSV."
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Neplatný stĺpec '%s'."
+@@ -781,6 +788,9 @@ msgstr "Neplatný logger-type '%s'."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Neplatný formát čitateľný strojom '%s'."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Neplatná cesta '%s'."
+@@ -1271,6 +1281,10 @@ msgstr "Neznámy rankdir '%s'."
+ msgid "Unknown type '%s'."
+ msgstr "Neznámy typ '%s'."
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Vytvorenie snímky zo snímky %d na čítanie a zápis."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/sl.po b/po/sl.po
+index 33b7a034..3b7ae6f0 100644
+--- a/po/sl.po
++++ b/po/sl.po
+@@ -8,17 +8,15 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2026-03-10 19:04+0000\n"
+ "Last-Translator: Jure Repinc <jlp@holodeck1.com>\n"
+-"Language-Team: Slovenian <https://l10n.opensuse.org/projects/snapper/master/"
+-"sl/>\n"
++"Language-Team: Slovenian <https://l10n.opensuse.org/projects/snapper/master/sl/>\n"
+ "Language: sl\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=UTF-8\n"
+ "Content-Transfer-Encoding: 8bit\n"
+-"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+-"n%100==4 ? 2 : 3;\n"
++"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3;\n"
+ "X-Generator: Weblate 5.16.2\n"
+ 
+ msgid "\tsnapper cleanup <cleanup-algorithm>"
+@@ -249,9 +247,7 @@ msgid "- A backup-config must be specified to run this command."
+ msgstr "- Za zagon tega ukaza morate določiti »backup-config«."
+ 
+ msgid "- Restart the `snapperd` service to make the restored snapshots visible immediately."
+-msgstr ""
+-"- Da bodo obnovljeni posnetki vidni takoj, znova zaženite storitev »snapperd"
+-"«."
++msgstr "- Da bodo obnovljeni posnetki vidni takoj, znova zaženite storitev »snapperd«."
+ 
+ msgid "- source-tree: Produce a tree diagram of the snapshots on the source."
+ msgstr "- source-tree: izdela drevesni diagram posnetkov na viru."
+@@ -696,6 +692,10 @@ msgstr "Napaka (%s)."
+ msgid "Extra options passed to the diff command."
+ msgstr "Dodatne možnosti, ki se posredujejo ukazu diff."
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Razčlenjevanje številke ni uspelo."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr "Pripravljanje ročnika za datotečni sistem ni uspelo."
+ 
+@@ -771,6 +771,10 @@ msgstr "Poveča količino izpisa."
+ msgid "Invalid ambit '%s'."
+ msgstr "Neveljaven ambit »%s«."
+ 
++#, fuzzy
++msgid "Invalid checksum output format."
++msgstr "Nastavi izpis v obliki CSV."
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Neveljaven stolpec »%s«."
+@@ -796,6 +800,9 @@ msgstr "Neveljavna vrsta »%s« za logger-type."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Neveljavna računalniško berljiva oblika »%s«."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Neveljavna pot »%s«."
+@@ -1043,23 +1050,14 @@ msgstr[3] "Izvajanje izpisovanja je spodletelo za %d od %ld nastavitev varnostne
+ #, c-format
+ msgid "Running restore failed for %d of %ld backup config."
+ msgid_plural "Running restore failed for %d of %ld backup configs."
+-msgstr[0] ""
+-"Izvajanje obnavljanja je spodletelo za %d od %ld nastavitve varnostnega "
+-"kopiranja."
+-msgstr[1] ""
+-"Izvajanje obnavljanja je spodletelo za %d od %ld nastavitev varnostnega "
+-"kopiranja."
+-msgstr[2] ""
+-"Izvajanje obnavljanja je spodletelo za %d od %ld nastavitev varnostnega "
+-"kopiranja."
+-msgstr[3] ""
+-"Izvajanje obnavljanja je spodletelo za %d od %ld nastavitev varnostnega "
+-"kopiranja."
++msgstr[0] "Izvajanje obnavljanja je spodletelo za %d od %ld nastavitve varnostnega kopiranja."
++msgstr[1] "Izvajanje obnavljanja je spodletelo za %d od %ld nastavitev varnostnega kopiranja."
++msgstr[2] "Izvajanje obnavljanja je spodletelo za %d od %ld nastavitev varnostnega kopiranja."
++msgstr[3] "Izvajanje obnavljanja je spodletelo za %d od %ld nastavitev varnostnega kopiranja."
+ 
+ #, c-format
+ msgid "Running restore for backup config '%s' failed."
+-msgstr ""
+-"Izvajanje obnavljanja za nastavitev varnostnega kopiranja »%s« je spodletelo."
++msgstr "Izvajanje obnavljanja za nastavitev varnostnega kopiranja »%s« je spodletelo."
+ 
+ #, c-format
+ msgid "Running restore for backup config '%s'."
+@@ -1306,6 +1304,10 @@ msgstr "Neznana lastnost rankdir »%s«."
+ msgid "Unknown type '%s'."
+ msgstr "Neznana vrsta »%s«."
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Ustvarjanje posnetka za branje in pisanje iz posnetka %d."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/snapper.pot b/po/snapper.pot
+index a1eda7a3..bafd752c 100644
+--- a/po/snapper.pot
++++ b/po/snapper.pot
+@@ -8,7 +8,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: PACKAGE VERSION\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+ "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+ "Language-Team: LANGUAGE <LL@li.org>\n"
+@@ -680,6 +680,9 @@ msgstr ""
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++msgid "Failed to compute checksum."
++msgstr ""
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -751,6 +754,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr ""
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr ""
+@@ -776,6 +782,9 @@ msgstr ""
+ msgid "Invalid machine readable format '%s'."
+ msgstr ""
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr ""
+@@ -1258,6 +1267,10 @@ msgstr ""
+ msgid "Unknown type '%s'."
+ msgstr ""
+ 
++#, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr ""
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/sr.po b/po/sr.po
+index ed4df33b..421ef5bb 100644
+--- a/po/sr.po
++++ b/po/sr.po
+@@ -8,7 +8,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Serbian <https://l10n.opensuse.org/projects/snapper/master/sr/>\n"
+@@ -695,6 +695,10 @@ msgstr "У/И грешка"
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Failed to parse: %s."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -773,6 +777,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr ""
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr ""
+@@ -801,6 +808,9 @@ msgstr "У/И грешка"
+ msgid "Invalid machine readable format '%s'."
+ msgstr ""
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr ""
+@@ -1303,6 +1313,10 @@ msgstr "Статус мреже непознат"
+ msgid "Unknown type '%s'."
+ msgstr "Статус мреже непознат"
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "DBI Execution failed: %s."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/sv.po b/po/sv.po
+index d6b73d12..f31d36b7 100644
+--- a/po/sv.po
++++ b/po/sv.po
+@@ -8,7 +8,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Swedish <https://l10n.opensuse.org/projects/snapper/master/sv/>\n"
+@@ -825,6 +825,11 @@ msgstr "Fel (%s)."
+ msgid "Extra options passed to the diff command."
+ msgstr "\t--extensions, -x <options>\tExtra alternativ skickades till diffkommandot."
+ 
++# SLE12
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Misslyckades att tolka '%s'"
++
+ # SLE12
+ msgid "Failed to initialize filesystem handler."
+ msgstr "Det gick inte att initiera filsystemhanteraren."
+@@ -911,6 +916,10 @@ msgstr "\t--verbose, -v\t\t\tÖka utförligheten."
+ msgid "Invalid ambit '%s'."
+ msgstr "Ogiltig omfattning '%s'."
+ 
++#, fuzzy
++msgid "Invalid checksum output format."
++msgstr "\t--csvout\t\t\tStäll in CSV som utdata format."
++
+ # SLE12
+ #, c-format
+ msgid "Invalid column '%s'."
+@@ -944,6 +953,9 @@ msgstr "Ogiltig tabellstil '%s'"
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Ogiltigt maskinläsbart format '%s'."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ # SLE12
+ #, c-format
+ msgid "Invalid path '%s'."
+@@ -1534,6 +1546,11 @@ msgstr "Kommandot %s är okänt."
+ msgid "Unknown type '%s'."
+ msgstr "Okänd typ '%s'."
+ 
++# SLE12
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Skapar ögonblicksbild med läs- och skrivrättigheter av ögonblicksbilden %d."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/ta.po b/po/ta.po
+index bfb819cb..c35e0ac3 100644
+--- a/po/ta.po
++++ b/po/ta.po
+@@ -8,7 +8,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Tamil <https://l10n.opensuse.org/projects/snapper/master/ta/>\n"
+@@ -727,6 +727,10 @@ msgstr "ஐ/ஓ தவறு"
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Failed to parse: %s."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -804,6 +808,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr "செல்லாத வகை %1."
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "செல்லாத வகை %1."
+@@ -831,6 +838,9 @@ msgstr "செல்லாத வகை %1."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "செல்லாத வகை %1."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "செல்லாத வகை %1."
+@@ -1338,6 +1348,10 @@ msgstr "தெரியாத ஆணை "
+ msgid "Unknown type '%s'."
+ msgstr "தெரியாத ஆணை "
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "உள்ளமைவு கோப்புகள் விளக்கப்படுகின்றன..."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/tg.po b/po/tg.po
+index 7dfdbb18..8308459f 100644
+--- a/po/tg.po
++++ b/po/tg.po
+@@ -2,7 +2,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: Tajik openSUSE Localization\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: \n"
+ "Last-Translator: Victor Ibragimov <victor.ibragimov@gmail.com>\n"
+ "Language-Team: Tajik KDE & Software Localization - Victor Ibragimov <victor.ibragimov@gmail.com>\n"
+@@ -676,6 +676,9 @@ msgstr ""
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++msgid "Failed to compute checksum."
++msgstr ""
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -747,6 +750,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr ""
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr ""
+@@ -772,6 +778,9 @@ msgstr ""
+ msgid "Invalid machine readable format '%s'."
+ msgstr ""
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr ""
+@@ -1254,6 +1263,10 @@ msgstr ""
+ msgid "Unknown type '%s'."
+ msgstr ""
+ 
++#, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr ""
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/th.po b/po/th.po
+index 097b9264..46d963ae 100644
+--- a/po/th.po
++++ b/po/th.po
+@@ -5,7 +5,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: YaST (@memory@)\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Thai <https://l10n.opensuse.org/projects/snapper/master/th/>\n"
+@@ -722,6 +722,10 @@ msgstr "ผิดพลาด"
+ msgid "Extra options passed to the diff command."
+ msgstr "ตัวเลือกต่อท้ายบรรทัดคำสั่งเพื่อส่งไปให้เคอร์เนล"
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "ล้มเหลวในการคืนค่าส่วน MBR ของฮาร์ดดิสก์"
++
+ #, fuzzy
+ msgid "Failed to initialize filesystem handler."
+ msgstr "ล้มเหลวในการเริ่มเรียกใช้คลังแพกเกจของซอฟต์แวร์"
+@@ -799,6 +803,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr "ไดเรกทอรีปลายทาง (%1) ใช้งานไม่ได้"
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "ไดเรกทอรีปลายทาง (%1) ใช้งานไม่ได้"
+@@ -826,6 +833,9 @@ msgstr "ไดเรกทอรีปลายทาง (%1) ใช้งาน
+ msgid "Invalid machine readable format '%s'."
+ msgstr "ไดเรกทอรีปลายทาง (%1) ใช้งานไม่ได้"
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "ไดเรกทอรีปลายทาง (%1) ใช้งานไม่ได้"
+@@ -1333,6 +1343,10 @@ msgstr "ไม่รู้จักคำสั่ง: %1"
+ msgid "Unknown type '%s'."
+ msgstr "ไม่รู้จักคำสั่ง: %1"
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "การสร้างระบบแฟ้มล้มเหลว"
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/tr.po b/po/tr.po
+index 461b2d18..a67f3142 100644
+--- a/po/tr.po
++++ b/po/tr.po
+@@ -8,7 +8,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Turkish <https://l10n.opensuse.org/projects/snapper/master/tr/>\n"
+@@ -777,6 +777,10 @@ msgstr "Giriş/Çıkış hatası"
+ msgid "Extra options passed to the diff command."
+ msgstr "    'değiştir' komutu için seçenekler:"
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "%s oluşturma başarısız oldu"
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -858,6 +862,9 @@ msgstr "\t--verbose, -v\t\t\tAyrıntıyı arttır."
+ msgid "Invalid ambit '%s'."
+ msgstr "Geçersiz '%s' anlık görüntüsü."
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Geçersiz '%s' anlık görüntüsü."
+@@ -886,6 +893,9 @@ msgstr "%d geçersiz tablo stili."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "%d geçersiz tablo stili."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Geçersiz '%s' anlık görüntüsü."
+@@ -1413,6 +1423,10 @@ msgstr "'Bilinmeyen komut '%s'."
+ msgid "Unknown type '%s'."
+ msgstr "'Bilinmeyen komut '%s'."
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "\t--kullanıcıverisi, -u <userdata>\tAnlık görüntü için kullanıcı verisi."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/uk.po b/po/uk.po
+index 568079ab..ac58af9f 100644
+--- a/po/uk.po
++++ b/po/uk.po
+@@ -8,7 +8,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Ukrainian <https://l10n.opensuse.org/projects/snapper/master/uk/>\n"
+@@ -714,6 +714,10 @@ msgstr "Помилка вводу/виводу (%s)."
+ msgid "Extra options passed to the diff command."
+ msgstr "\t--extensions, -x <options>\tДодаткові параметри, передані у команду diff."
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "не вдалося створити %s"
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr "Не вдалося ініціалізувати обробник файлової системи."
+ 
+@@ -794,6 +798,9 @@ msgstr "\t--verbose-v\t\t\tЗбільшити детальність вивод
+ msgid "Invalid ambit '%s'."
+ msgstr "Неправильний знімок '%s'."
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Неправильний знімок '%s'."
+@@ -821,6 +828,9 @@ msgstr "Непридатний стиль таблиці %d."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Непридатний стиль таблиці %d."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Неправильний знімок '%s'."
+@@ -1345,6 +1355,10 @@ msgstr "Невідома команда '%s'."
+ msgid "Unknown type '%s'."
+ msgstr "Невідома команда '%s'."
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Створення знімка %d для читання-запису."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/vi.po b/po/vi.po
+index ddf0dcac..0880c21d 100644
+--- a/po/vi.po
++++ b/po/vi.po
+@@ -8,7 +8,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2006-07-12 07:32+0200\n"
+ "Last-Translator: Phan Vĩnh Thịnh <teppi82@gmail.com>\n"
+ "Language-Team: Vietnamese <i18n@suse.de>\n"
+@@ -688,6 +688,10 @@ msgstr ""
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Failed to parse: %s."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -763,6 +767,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr ""
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr ""
+@@ -788,6 +795,9 @@ msgstr "Failed to parse: %s."
+ msgid "Invalid machine readable format '%s'."
+ msgstr ""
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr ""
+@@ -1272,6 +1282,10 @@ msgstr ""
+ msgid "Unknown type '%s'."
+ msgstr ""
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "DBI Execution failed: %s."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/wa.po b/po/wa.po
+index a88a4ee7..0fc4647f 100644
+--- a/po/wa.po
++++ b/po/wa.po
+@@ -7,7 +7,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: yast memory\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Walloon <https://l10n.opensuse.org/projects/snapper/master/wa/>\n"
+@@ -702,6 +702,10 @@ msgstr "Aroke I/O"
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Failed to parse: %s."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -778,6 +782,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr "Li sôre di sistinme di fitchî n' clope nén"
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Li sôre di sistinme di fitchî n' clope nén"
+@@ -805,6 +812,9 @@ msgstr "Li sôre di sistinme di fitchî n' clope nén"
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Li sôre di sistinme di fitchî n' clope nén"
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Li sôre di sistinme di fitchî n' clope nén"
+@@ -1312,6 +1322,10 @@ msgstr "Dji n' sai enonder l' comande «%s»"
+ msgid "Unknown type '%s'."
+ msgstr "Dji n' sai enonder l' comande «%s»"
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Dj' analijhe les fitchîs d' apontiaedje..."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/xh.po b/po/xh.po
+index 869f6a5e..abcba01c 100644
+--- a/po/xh.po
++++ b/po/xh.po
+@@ -5,7 +5,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: base\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Xhosa <https://l10n.opensuse.org/projects/snapper/master/xh/>\n"
+@@ -726,6 +726,10 @@ msgstr "Imposiso ye-I/O "
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Failed to parse: %s."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -806,6 +810,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr "Uhlobo %1.alusebenziseki."
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Uhlobo %1.alusebenziseki."
+@@ -833,6 +840,9 @@ msgstr "Uhlobo %1.alusebenziseki."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Uhlobo %1.alusebenziseki."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Uhlobo %1.alusebenziseki."
+@@ -1340,6 +1350,10 @@ msgstr "Umyalelo ongaziwa"
+ msgid "Unknown type '%s'."
+ msgstr "Umyalelo ongaziwa"
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Kwahlulwa iifayili zobumbeko..."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/zh_CN.po b/po/zh_CN.po
+index a66ef9e9..30867ff2 100644
+--- a/po/zh_CN.po
++++ b/po/zh_CN.po
+@@ -9,7 +9,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-08-05 05:59+0000\n"
+ "Last-Translator: Grace Yu <grace.yu@excel-gits.com>\n"
+ "Language-Team: Chinese (China) <https://l10n.opensuse.org/projects/snapper/master/zh_CN/>\n"
+@@ -687,6 +687,10 @@ msgstr "错误 (%s)。"
+ msgid "Extra options passed to the diff command."
+ msgstr "传递到 diff 命令的额外选项。"
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "分析编号失败。"
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr "初始化文件系统处理器失败。"
+ 
+@@ -758,6 +762,10 @@ msgstr "增加消息的详细程度。"
+ msgid "Invalid ambit '%s'."
+ msgstr "范围 \"%s\" 无效。"
+ 
++#, fuzzy
++msgid "Invalid checksum output format."
++msgstr "设置 CSV 输出格式。"
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr "列 \"%s\" 无效。"
+@@ -783,6 +791,9 @@ msgstr "logger-type '%s' 无效。"
+ msgid "Invalid machine readable format '%s'."
+ msgstr "计算机可读格式 \"%s\" 无效。"
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr "路径 \"%s\" 无效。"
+@@ -1263,6 +1274,10 @@ msgstr "未知命令 '%s'。"
+ msgid "Unknown type '%s'."
+ msgstr "未知类型 \"%s\"。"
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "正在创建快照 %d 的读写快照。"
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/zh_TW.po b/po/zh_TW.po
+index 719e3dad..3b2548fb 100644
+--- a/po/zh_TW.po
++++ b/po/zh_TW.po
+@@ -8,7 +8,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: @PACKAGE@\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-08-05 05:59+0000\n"
+ "Last-Translator: Grace Yu <grace.yu@excel-gits.com>\n"
+ "Language-Team: Chinese (Taiwan) <https://l10n.opensuse.org/projects/snapper/master/zh_TW/>\n"
+@@ -728,6 +728,10 @@ msgstr "錯誤 (%s)。"
+ msgid "Extra options passed to the diff command."
+ msgstr "傳送到 diff 指令的額外選項。"
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "剖析編號失敗。"
++
+ # SLE12
+ msgid "Failed to initialize filesystem handler."
+ msgstr "無法啟始化檔案系統處理器。"
+@@ -803,6 +807,10 @@ msgstr "顯示更詳細的訊息。"
+ msgid "Invalid ambit '%s'."
+ msgstr "範圍 \"%s\" 無效。"
+ 
++#, fuzzy
++msgid "Invalid checksum output format."
++msgstr "設定 CSV 輸出格式。"
++
+ #, c-format
+ msgid "Invalid column '%s'."
+ msgstr "欄 \"%s\" 無效。"
+@@ -832,6 +840,9 @@ msgstr "logger-type '%s' 無效。"
+ msgid "Invalid machine readable format '%s'."
+ msgstr "機器可讀格式 \"%s\" 無效。"
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, c-format
+ msgid "Invalid path '%s'."
+ msgstr "路徑 \"%s\" 無效。"
+@@ -1330,6 +1341,11 @@ msgstr "未知的命令 '%s'。"
+ msgid "Unknown type '%s'."
+ msgstr "未知類型 \"%s\"。"
+ 
++# SLE12
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "正在建立快照 %d 的讀寫快照。"
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+diff --git a/po/zu.po b/po/zu.po
+index 21299aa6..10c7fe38 100644
+--- a/po/zu.po
++++ b/po/zu.po
+@@ -5,7 +5,7 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: installation\n"
+ "Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2026-02-07 04:10+0100\n"
++"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2025-07-22 15:00+0000\n"
+ "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+ "Language-Team: Zulu <https://l10n.opensuse.org/projects/snapper/master/zu/>\n"
+@@ -726,6 +726,10 @@ msgstr "Iphutha le-I/O"
+ msgid "Extra options passed to the diff command."
+ msgstr ""
+ 
++#, fuzzy
++msgid "Failed to compute checksum."
++msgstr "Failed to parse: %s."
++
+ msgid "Failed to initialize filesystem handler."
+ msgstr ""
+ 
+@@ -806,6 +810,9 @@ msgstr ""
+ msgid "Invalid ambit '%s'."
+ msgstr "Akunanjongo %1."
+ 
++msgid "Invalid checksum output format."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid column '%s'."
+ msgstr "Akunanjongo %1."
+@@ -833,6 +840,9 @@ msgstr "Akunanjongo %1."
+ msgid "Invalid machine readable format '%s'."
+ msgstr "Akunanjongo %1."
+ 
++msgid "Invalid number of lines in checksum output."
++msgstr ""
++
+ #, fuzzy, c-format
+ msgid "Invalid path '%s'."
+ msgstr "Akunanjongo %1."
+@@ -1341,6 +1351,10 @@ msgstr "Ikhomandi engaziwa"
+ msgid "Unknown type '%s'."
+ msgstr "Ikhomandi engaziwa"
+ 
++#, fuzzy, c-format
++msgid "Updating metadata of snapshot %d."
++msgstr "Inqunta amafayela okuhlela..."
++
+ #. TRANSLATORS: a list of possible values
+ #. %1$s is replaced by list of possible values
+ #, c-format
+-- 
+2.43.0
+

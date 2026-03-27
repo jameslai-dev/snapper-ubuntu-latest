@@ -1,4 +1,11 @@
-snapper (0.13.0-4) noble; urgency=medium
+snapper (0.13.0-5) noble; urgency=medium
+
+  * Synchronized with upstream
+    (commit 0d5e019526b5efaf51dce52cd1d08a9adfd3cf32)
+
+ -- Cheng-Ling Lai <jamesljlster@gmail.com>  Fri, 27 Mar 2026 15:42:05 +0800
+
+snapper (0.13.0-4) experimental; urgency=medium
 
   * Synchronized with upstream
     (commit 68a120d0a646cd34690192eea79d9dd466f3f894)

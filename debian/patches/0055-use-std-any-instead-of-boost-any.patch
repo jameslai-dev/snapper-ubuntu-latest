@@ -1,7 +1,7 @@
 From 9a793fff711280a2028459326657ad005a6464ba Mon Sep 17 00:00:00 2001
 From: Arvin Schnell <aschnell@suse.de>
 Date: Tue, 27 Jan 2026 15:40:17 +0100
-Subject: [PATCH 55/74] - use std::any instead of boost::any
+Subject: [PATCH 55/98] - use std::any instead of boost::any
 
 ---
  client/snapper/cmd-list.cc      | 32 ++++++++++++++++----------------

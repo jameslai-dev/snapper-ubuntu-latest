@@ -1,7 +1,7 @@
 From 8d528a9fe1ab8fde54fdbac6ef8f93ed5bf752a1 Mon Sep 17 00:00:00 2001
 From: Arvin Schnell <aschnell@suse.de>
 Date: Fri, 12 Dec 2025 11:30:28 +0100
-Subject: [PATCH 27/74] - test with gcc and clang
+Subject: [PATCH 27/98] - test with gcc and clang
 
 ---
  .github/workflows/ci-tumbleweed.yml | 23 +++++++++++++++++++++--

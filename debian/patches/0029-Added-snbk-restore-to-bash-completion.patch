@@ -1,7 +1,7 @@
 From aee4d5065e4ae224ca8085cabb0d8765a89fae1a Mon Sep 17 00:00:00 2001
 From: Cheng-Ling Lai <jamesljlster@gmail.com>
 Date: Fri, 12 Dec 2025 21:23:55 +0800
-Subject: [PATCH 29/74] Added snbk restore to bash completion
+Subject: [PATCH 29/98] Added snbk restore to bash completion
 
 ---
  scripts/completion/snbk-completion.bash | 1 +

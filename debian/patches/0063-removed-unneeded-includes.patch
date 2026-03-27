@@ -1,7 +1,7 @@
 From 54bfb7f62cf901bdaa7c719ca663395330405167 Mon Sep 17 00:00:00 2001
 From: Arvin Schnell <aschnell@suse.de>
 Date: Thu, 29 Jan 2026 14:28:38 +0100
-Subject: [PATCH 63/74] - removed unneeded includes
+Subject: [PATCH 63/98] - removed unneeded includes
 
 ---
  server/MetaSnapper.h | 2 --

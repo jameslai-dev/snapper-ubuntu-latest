@@ -1,7 +1,7 @@
 From 8deccde42854ac353e38ac6bd42cecc74ecf708a Mon Sep 17 00:00:00 2001
 From: Arvin Schnell <aschnell@suse.de>
 Date: Tue, 27 Jan 2026 15:27:09 +0100
-Subject: [PATCH 53/74] - switch to c++17
+Subject: [PATCH 53/98] - switch to c++17
 
 ---
  configure.ac | 2 +-

@@ -1,7 +1,7 @@
 From 84507975ab73229b8f9d798aa93515685831deab Mon Sep 17 00:00:00 2001
 From: Arvin Schnell <aschnell@suse.de>
 Date: Fri, 14 Nov 2025 12:13:38 +0100
-Subject: [PATCH 08/74] require dbus-service
+Subject: [PATCH 08/98] require dbus-service
 
 ---
  snapper.spec.in | 1 +

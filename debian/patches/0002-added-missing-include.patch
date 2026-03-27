@@ -1,7 +1,7 @@
 From 24462024c0f019edc4fda4668f20d7c5ec0d5739 Mon Sep 17 00:00:00 2001
 From: Arvin Schnell <aschnell@suse.de>
 Date: Fri, 12 Sep 2025 18:57:52 +0200
-Subject: [PATCH 02/74] - added missing include
+Subject: [PATCH 02/98] - added missing include
 
 ---
  server/Client.cc | 2 ++

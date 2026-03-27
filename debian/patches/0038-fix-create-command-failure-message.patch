@@ -1,7 +1,7 @@
 From 6ae86b1375b8d87d8b9f6ba01c006a83295a8f51 Mon Sep 17 00:00:00 2001
 From: Eric Gillespie <epg@pretzelnet.org>
 Date: Mon, 22 Dec 2025 09:04:15 -0600
-Subject: [PATCH 38/74] fix 'create --command' failure message
+Subject: [PATCH 38/98] fix 'create --command' failure message
 
 Correct "open failed" to "fork failed".
 ---

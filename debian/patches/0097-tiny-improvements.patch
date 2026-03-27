@@ -1,0 +1,57 @@
+From 929f2dcb719e9d4c0a00fcb3f460c0eab5bf65f0 Mon Sep 17 00:00:00 2001
+From: Arvin Schnell <aschnell@suse.de>
+Date: Wed, 25 Mar 2026 09:34:02 +0100
+Subject: [PATCH 97/98] - tiny improvements
+
+---
+ snapper/Filesystem.h |  7 +++++++
+ snapper/Snapper.cc   | 11 ++++++++---
+ 2 files changed, 15 insertions(+), 3 deletions(-)
+
+diff --git a/snapper/Filesystem.h b/snapper/Filesystem.h
+index 3b14df06..c37da03f 100644
+--- a/snapper/Filesystem.h
++++ b/snapper/Filesystem.h
+@@ -66,9 +66,16 @@ namespace snapper
+ 
+ 	virtual string snapshotDir(unsigned int num) const = 0;
+ 
++	// e.g. /test
+ 	virtual SDir openSubvolumeDir() const;
++
++	// e.g. /test/.snapshots
+ 	virtual SDir openInfosDir() const = 0;
++
++	// e.g. /test/.snapshots/42
+ 	virtual SDir openInfoDir(unsigned int num) const;
++
++	// e.g. /test/.snapshots/42/snapshot
+ 	virtual SDir openSnapshotDir(unsigned int num) const = 0;
+ 
+ 	virtual void createSnapshot(unsigned int num, unsigned int num_parent, bool read_only,
+diff --git a/snapper/Snapper.cc b/snapper/Snapper.cc
+index d1789e35..66ae6dce 100644
+--- a/snapper/Snapper.cc
++++ b/snapper/Snapper.cc
+@@ -470,10 +470,15 @@ namespace snapper
+ 	// Since we want all-time unique snapshot numbers there might be empty
+ 	// directories.
+ 
+-	SDir infos_dir = snapper->openInfosDir();
++	{
++	    SDir infos_dir = snapper->openInfosDir();
++
++	    for (const string& tmp : infos_dir.entries(SDir::number_entries))
++		infos_dir.rmdir(tmp);
+ 
+-	for (const string& tmp : infos_dir.entries(SDir::number_entries))
+-	    infos_dir.rmdir(tmp);
++	    // call ~SDir - although rmdir below (deleteConfig in LVM case) works on a
++	    // busy directory - better save than sorry
++	}
+ 
+ 	try
+ 	{
+-- 
+2.43.0
+

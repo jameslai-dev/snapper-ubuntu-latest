@@ -1,7 +1,7 @@
 From 92ce3bbab89b7034892e1df3097c9e977715bebe Mon Sep 17 00:00:00 2001
 From: Cheng-Ling Lai <jamesljlster@gmail.com>
 Date: Tue, 9 Dec 2025 14:08:31 +0800
-Subject: [PATCH 19/74] Added shell1 argument to shellify_pipe
+Subject: [PATCH 19/98] Added shell1 argument to shellify_pipe
 
 ---
  client/snbk/Shell.cc       | 27 +++++++++++++--------------

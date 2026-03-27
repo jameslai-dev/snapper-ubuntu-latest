@@ -1,7 +1,7 @@
 From b45e75d7c7477e232b53eed0b4d18709d410857b Mon Sep 17 00:00:00 2001
 From: Arvin Schnell <aschnell@suse.de>
 Date: Thu, 18 Dec 2025 09:43:27 +0100
-Subject: [PATCH 32/74] - reuse code
+Subject: [PATCH 32/98] - reuse code
 
 ---
  client/snbk/TheBigThing.cc | 23 +++++++++++++----------

@@ -1,7 +1,7 @@
 From 6be3a1b9006558c3076d5526ec691733042b48f3 Mon Sep 17 00:00:00 2001
 From: Arvin Schnell <aschnell@suse.de>
 Date: Wed, 24 Sep 2025 16:18:59 +0200
-Subject: [PATCH 03/74] - detect correct path of btrfs binary on Debian and
+Subject: [PATCH 03/98] - detect correct path of btrfs binary on Debian and
  derivatives
 
 ---

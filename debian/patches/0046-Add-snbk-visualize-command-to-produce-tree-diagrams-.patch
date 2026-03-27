@@ -1,7 +1,7 @@
 From 4b56ae55a055a5084a9ecaf240681393fe2f19fe Mon Sep 17 00:00:00 2001
 From: James Lai <jamesljlster@gmail.com>
 Date: Fri, 16 Jan 2026 22:21:31 +0800
-Subject: [PATCH 46/74] Add snbk visualize command to produce tree diagrams of
+Subject: [PATCH 46/98] Add snbk visualize command to produce tree diagrams of
  snapshots (#1085)
 
 * Add snbk visualize command

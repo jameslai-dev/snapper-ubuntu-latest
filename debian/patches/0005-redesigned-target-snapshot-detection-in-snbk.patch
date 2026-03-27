@@ -1,7 +1,7 @@
 From e41cfdc9ed849674f2812341954ccdc25ba012d6 Mon Sep 17 00:00:00 2001
 From: Arvin Schnell <aschnell@suse.de>
 Date: Mon, 13 Oct 2025 14:35:17 +0200
-Subject: [PATCH 05/74] - redesigned target snapshot detection in snbk
+Subject: [PATCH 05/98] - redesigned target snapshot detection in snbk
 
 ---
  client/snbk/BackupConfig.cc              |   3 +-

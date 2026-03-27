@@ -1,7 +1,7 @@
 From d045595236611a6b196dab09f2ac89e899522e65 Mon Sep 17 00:00:00 2001
 From: Arvin Schnell <aschnell@suse.de>
 Date: Fri, 2 Jan 2026 10:30:13 +0100
-Subject: [PATCH 43/74] - improved documentation
+Subject: [PATCH 43/98] - improved documentation
 
 ---
  doc/snapper.xml.in | 13 +++++++------

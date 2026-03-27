@@ -1,7 +1,7 @@
 From a8c4fc7c6804ef7f21809e6a15e6c0995196c75a Mon Sep 17 00:00:00 2001
 From: Arvin Schnell <aschnell@suse.de>
 Date: Fri, 23 Jan 2026 19:11:14 +0100
-Subject: [PATCH 51/74] - added const
+Subject: [PATCH 51/98] - added const
 
 ---
  client/snbk/GlobalOptions.h            |  2 +-

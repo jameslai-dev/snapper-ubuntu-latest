@@ -1,7 +1,7 @@
 From a4d1951194123b64b184be551fbe943cd2799c6e Mon Sep 17 00:00:00 2001
 From: Arvin Schnell <aschnell@suse.de>
 Date: Thu, 18 Dec 2025 09:38:58 +0100
-Subject: [PATCH 31/74] - updated documentation
+Subject: [PATCH 31/98] - updated documentation
 
 ---
  doc/snbk.xml.in | 16 ++++++++--------

@@ -1,7 +1,7 @@
 From 482aef7456496cb5da5376b53fdb69f9c0e5e3f5 Mon Sep 17 00:00:00 2001
 From: Arvin Schnell <aschnell@suse.de>
 Date: Wed, 10 Sep 2025 09:46:18 +0200
-Subject: [PATCH 01/74] - added missing include statements
+Subject: [PATCH 01/98] - added missing include statements
 
 ---
  client/proxy/proxy-dbus.cc | 2 ++
