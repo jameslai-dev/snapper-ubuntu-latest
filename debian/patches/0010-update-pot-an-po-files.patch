@@ -1,7 +1,7 @@
 From 648f17cf97d02d17778ccd409ff30e38eb041080 Mon Sep 17 00:00:00 2001
 From: Arvin Schnell <aschnell@suse.de>
 Date: Tue, 18 Nov 2025 12:52:26 +0100
-Subject: [PATCH 10/74] - update pot an po files
+Subject: [PATCH 10/98] - update pot an po files
 
 ---
  po/af.po       |  7 ++-----

@@ -1,7 +1,7 @@
 From c9dce708c6088ded6039b448ed2b28dfa13d5383 Mon Sep 17 00:00:00 2001
 From: Arvin Schnell <aschnell@suse.de>
 Date: Thu, 18 Dec 2025 10:43:47 +0100
-Subject: [PATCH 34/74] - coding style
+Subject: [PATCH 34/98] - coding style
 
 ---
  client/snbk/Shell.cc | 7 +++++--

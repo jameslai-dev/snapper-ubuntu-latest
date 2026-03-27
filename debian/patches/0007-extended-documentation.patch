@@ -1,7 +1,7 @@
 From a54f839e29bae459937828f54e8a022cc16c997f Mon Sep 17 00:00:00 2001
 From: Arvin Schnell <aschnell@suse.de>
 Date: Mon, 10 Nov 2025 10:32:32 +0100
-Subject: [PATCH 07/74] - extended documentation
+Subject: [PATCH 07/98] - extended documentation
 
 ---
  data/systemd-sandboxing.txt | 3 ++-

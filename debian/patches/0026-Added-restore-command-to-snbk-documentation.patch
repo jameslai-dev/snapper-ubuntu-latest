@@ -1,7 +1,7 @@
 From 00dbb9c6883c09ee9284408153406151e178f8d6 Mon Sep 17 00:00:00 2001
 From: Cheng-Ling Lai <jamesljlster@gmail.com>
 Date: Fri, 12 Dec 2025 11:16:56 +0800
-Subject: [PATCH 26/74] Added restore command to snbk documentation
+Subject: [PATCH 26/98] Added restore command to snbk documentation
 
 ---
  doc/snbk.xml.in | 9 +++++++++

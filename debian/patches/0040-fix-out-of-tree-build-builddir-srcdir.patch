@@ -1,7 +1,7 @@
 From d821eb8333f95ef5bc689e8e67e415780d488198 Mon Sep 17 00:00:00 2001
 From: Eric Gillespie <epg@pretzelnet.org>
 Date: Thu, 11 Dec 2025 11:57:33 -0600
-Subject: [PATCH 40/74] fix out-of-tree build (builddir != srcdir)
+Subject: [PATCH 40/98] fix out-of-tree build (builddir != srcdir)
 
 autoconf and automake mostly give us this for free, but we do have to
 take some care.

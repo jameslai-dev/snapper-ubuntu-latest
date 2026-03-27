@@ -1,7 +1,7 @@
 From 53e93a4cae9b1cb65dd38c30b8fce5734d61532e Mon Sep 17 00:00:00 2001
 From: Cheng-Ling Lai <jamesljlster@gmail.com>
 Date: Thu, 22 Jan 2026 17:19:36 +0800
-Subject: [PATCH 49/74] Remove inappropriate const qualifiers
+Subject: [PATCH 49/98] Remove inappropriate const qualifiers
 
 ---
  client/snbk/TheBigThing.cc | 8 +++-----

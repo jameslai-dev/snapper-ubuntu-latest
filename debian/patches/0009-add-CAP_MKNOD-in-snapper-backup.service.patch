@@ -1,7 +1,7 @@
 From 76bd44c823bbbfb2007c6c5a0ea9c640b6dbcf3c Mon Sep 17 00:00:00 2001
 From: Arvin Schnell <aschnell@suse.de>
 Date: Tue, 18 Nov 2025 10:25:06 +0100
-Subject: [PATCH 09/74] - add CAP_MKNOD in snapper-backup.service
+Subject: [PATCH 09/98] - add CAP_MKNOD in snapper-backup.service
 
 ---
  data/backup.service     | 2 +-

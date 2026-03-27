@@ -1,7 +1,7 @@
 From e32fc3935938b001ff8b3da6c66efe961241b951 Mon Sep 17 00:00:00 2001
 From: Cheng-Ling Lai <jamesljlster@gmail.com>
 Date: Sat, 7 Feb 2026 10:35:46 +0800
-Subject: [PATCH 71/74] Remove source_path from BackupConfig
+Subject: [PATCH 71/98] Remove source_path from BackupConfig
 
 ---
  client/snbk/BackupConfig.cc     |  3 ---

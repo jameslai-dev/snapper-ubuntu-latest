@@ -1,7 +1,7 @@
 From c4a58569b6869327db2cd1f9a2244df73c0c263b Mon Sep 17 00:00:00 2001
 From: Cheng-Ling Lai <jamesljlster@gmail.com>
 Date: Tue, 9 Dec 2025 16:45:34 +0800
-Subject: [PATCH 22/74] Implemented snbk restore command
+Subject: [PATCH 22/98] Implemented snbk restore command
 
 ---
  client/snbk/Makefile.am    |   1 +

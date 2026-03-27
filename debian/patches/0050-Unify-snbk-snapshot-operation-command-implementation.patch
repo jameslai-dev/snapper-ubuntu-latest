@@ -1,7 +1,7 @@
 From a43a67f3abd5219eefa36c3715ec94dad7e73545 Mon Sep 17 00:00:00 2001
 From: Cheng-Ling Lai <jamesljlster@gmail.com>
 Date: Sun, 18 Jan 2026 00:46:34 +0800
-Subject: [PATCH 50/74] Unify snbk snapshot operation command implementation
+Subject: [PATCH 50/98] Unify snbk snapshot operation command implementation
 
 ---
  client/snbk/cmd-delete.cc              | 123 +++++++++------------

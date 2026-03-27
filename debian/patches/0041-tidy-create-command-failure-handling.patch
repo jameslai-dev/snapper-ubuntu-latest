@@ -1,7 +1,7 @@
 From d0929c20309377f1fb52ef129ccc7d562395caa7 Mon Sep 17 00:00:00 2001
 From: Eric Gillespie <epg@pretzelnet.org>
 Date: Mon, 22 Dec 2025 09:21:40 -0600
-Subject: [PATCH 41/74] tidy 'create --command' failure handling
+Subject: [PATCH 41/98] tidy 'create --command' failure handling
 
 Throw Exception in the case the child was STOPped or CONTinued.
 Document that system(3) should handle those cases.

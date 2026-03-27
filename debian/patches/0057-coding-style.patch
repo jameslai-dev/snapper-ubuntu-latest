@@ -1,7 +1,7 @@
 From f6bfe1614df93a271ac7675d18a27d0132433b70 Mon Sep 17 00:00:00 2001
 From: Arvin Schnell <aschnell@suse.de>
 Date: Wed, 28 Jan 2026 14:27:06 +0100
-Subject: [PATCH 57/74] - coding style
+Subject: [PATCH 57/98] - coding style
 
 ---
  client/snbk/cmd-restore.cc   |  3 +--

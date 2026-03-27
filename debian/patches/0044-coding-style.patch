@@ -1,7 +1,7 @@
 From 401043e9dc9bc012f8c6ca27ceb5a78de751a677 Mon Sep 17 00:00:00 2001
 From: Arvin Schnell <aschnell@suse.de>
 Date: Mon, 5 Jan 2026 09:29:47 +0100
-Subject: [PATCH 44/74] - coding style
+Subject: [PATCH 44/98] - coding style
 
 ---
  client/snapper/cmd-create.cc | 44 ++++++++++++++++++++++--------------

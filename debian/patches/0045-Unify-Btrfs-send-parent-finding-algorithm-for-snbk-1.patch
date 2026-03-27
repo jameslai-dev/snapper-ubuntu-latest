@@ -1,7 +1,7 @@
 From 74a47053e3cdc9d6164c2f27a74f1f697cc3954d Mon Sep 17 00:00:00 2001
 From: James Lai <jamesljlster@gmail.com>
 Date: Wed, 14 Jan 2026 16:55:39 +0800
-Subject: [PATCH 45/74] Unify Btrfs send parent finding algorithm for snbk
+Subject: [PATCH 45/98] Unify Btrfs send parent finding algorithm for snbk
  (#1080)
 
 * Added a TreeView module for finding Btrfs send parent

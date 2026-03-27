@@ -1,7 +1,7 @@
 From 922894b6bd3405f6d6fddb09b0c4fe64e557fc44 Mon Sep 17 00:00:00 2001
 From: Arvin Schnell <aschnell@suse.de>
 Date: Fri, 19 Dec 2025 09:41:24 +0100
-Subject: [PATCH 35/74] - reuse code
+Subject: [PATCH 35/98] - reuse code
 
 ---
  client/snbk/Makefile.am     |  3 ++-

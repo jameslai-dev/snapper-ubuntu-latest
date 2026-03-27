@@ -1,7 +1,7 @@
 From e5fd6527d8c475c22aee595369ba1a5c86d009ea Mon Sep 17 00:00:00 2001
 From: Arvin Schnell <aschnell@suse.de>
 Date: Tue, 7 Oct 2025 14:58:15 +0200
-Subject: [PATCH 04/74] - support sending compressed data in snbk
+Subject: [PATCH 04/98] - support sending compressed data in snbk
 
 ---
  client/snbk/BackupConfig.cc       |  6 ++-

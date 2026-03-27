@@ -1,7 +1,7 @@
 From a7e520041003807ebc9f38685b3e9bf7657ec48d Mon Sep 17 00:00:00 2001
 From: Arvin Schnell <aschnell@suse.de>
 Date: Wed, 28 Jan 2026 14:41:41 +0100
-Subject: [PATCH 58/74] - updated pot and po files
+Subject: [PATCH 58/98] - updated pot and po files
 
 ---
  po/af.po       | 104 ++++++++++++++++++++++++++++++++++++++++++-

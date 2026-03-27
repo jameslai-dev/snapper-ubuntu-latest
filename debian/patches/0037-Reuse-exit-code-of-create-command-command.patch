@@ -1,7 +1,7 @@
 From ea5f9f15329d8a2ffdf98db6d2b8c2210a1d0260 Mon Sep 17 00:00:00 2001
 From: Eric Gillespie <epg@pretzelnet.org>
 Date: Thu, 11 Dec 2025 17:46:16 -0600
-Subject: [PATCH 37/74] Reuse exit code of  'create --command' command
+Subject: [PATCH 37/98] Reuse exit code of  'create --command' command
 
 When the child exits with non-zero status, use it as snapper's own exit
 code, as it may be meaningful.

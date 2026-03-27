@@ -1,7 +1,7 @@
 From b39a1912df24cf6c7b80f66497d6e01defddc74e Mon Sep 17 00:00:00 2001
 From: Eric Gillespie <epg@pretzelnet.org>
 Date: Thu, 11 Dec 2025 11:55:56 -0600
-Subject: [PATCH 39/74] note libboost_thread-devel libjson-c-devel dependencies
+Subject: [PATCH 39/98] note libboost_thread-devel libjson-c-devel dependencies
 
 ---
  README.md | 2 +-

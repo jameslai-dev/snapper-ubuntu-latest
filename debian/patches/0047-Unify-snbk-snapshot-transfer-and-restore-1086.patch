@@ -1,7 +1,7 @@
 From 574d72fe09b8fddb50e3428eb97d7a06628a672b Mon Sep 17 00:00:00 2001
 From: James Lai <jamesljlster@gmail.com>
 Date: Thu, 22 Jan 2026 16:09:57 +0800
-Subject: [PATCH 47/74] Unify snbk snapshot transfer and restore (#1086)
+Subject: [PATCH 47/98] Unify snbk snapshot transfer and restore (#1086)
 
 * Unify TheBigThing::transfer and TheBigThing::restore
 

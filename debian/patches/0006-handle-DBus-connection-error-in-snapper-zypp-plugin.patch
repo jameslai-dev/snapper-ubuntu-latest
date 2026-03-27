@@ -1,7 +1,7 @@
 From 5c77fc0f3d876c522c8eab4c2198b4e3f6c0f189 Mon Sep 17 00:00:00 2001
 From: Arvin Schnell <aschnell@suse.de>
 Date: Tue, 21 Oct 2025 12:58:56 +0200
-Subject: [PATCH 06/74] - handle DBus connection error in snapper-zypp-plugin
+Subject: [PATCH 06/98] - handle DBus connection error in snapper-zypp-plugin
 
 ---
  package/snapper.changes            |  5 +++++

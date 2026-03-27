@@ -1,0 +1,544 @@
+From 70e7b1508d53a06032299ace8413a58e52cb886c Mon Sep 17 00:00:00 2001
+From: Cheng-Ling Lai <jameslai.tech@gmail.com>
+Date: Thu, 12 Feb 2026 17:25:59 +0800
+Subject: [PATCH 84/98] Implement snbk snapshot metadata update
+
+---
+ client/snbk/BackupConfig.cc |   1 +
+ client/snbk/BackupConfig.h  |   1 +
+ client/snbk/CmdFileHash.cc  |  90 +++++++++++++++++++
+ client/snbk/CmdFileHash.h   |  61 +++++++++++++
+ client/snbk/Makefile.am     |   1 +
+ client/snbk/TheBigThing.cc  | 167 +++++++++++++++++++++++-------------
+ client/snbk/TheBigThing.h   |  18 +++-
+ configure.ac                |   2 +
+ doc/snbk.xml.in             |   8 ++
+ 9 files changed, 289 insertions(+), 60 deletions(-)
+ create mode 100644 client/snbk/CmdFileHash.cc
+ create mode 100644 client/snbk/CmdFileHash.h
+
+diff --git a/client/snbk/BackupConfig.cc b/client/snbk/BackupConfig.cc
+index 3cb8e1ee..5195da1b 100644
+--- a/client/snbk/BackupConfig.cc
++++ b/client/snbk/BackupConfig.cc
+@@ -76,6 +76,7 @@ namespace snapper
+ 	get_child_value(json_file.get_root(), "target-mkdir-bin", target_mkdir_bin);
+ 	get_child_value(json_file.get_root(), "target-rm-bin", target_rm_bin);
+ 	get_child_value(json_file.get_root(), "target-rmdir-bin", target_rmdir_bin);
++	get_child_value(json_file.get_root(), "target-sha256sum-bin", target_sha256sum_bin);
+     }
+ 
+ 
+diff --git a/client/snbk/BackupConfig.h b/client/snbk/BackupConfig.h
+index 9c573aab..f8c39015 100644
+--- a/client/snbk/BackupConfig.h
++++ b/client/snbk/BackupConfig.h
+@@ -79,6 +79,7 @@ namespace snapper
+ 	string target_mkdir_bin = MKDIR_BIN;
+ 	string target_rm_bin = RM_BIN;
+ 	string target_rmdir_bin = RMDIR_BIN;
++	string target_sha256sum_bin = SHA256SUM_BIN;
+ 
+     private:
+ 
+diff --git a/client/snbk/CmdFileHash.cc b/client/snbk/CmdFileHash.cc
+new file mode 100644
+index 00000000..a857c1b2
+--- /dev/null
++++ b/client/snbk/CmdFileHash.cc
+@@ -0,0 +1,90 @@
++/*
++ * Copyright (c) 2026 SUSE LLC
++ *
++ * All Rights Reserved.
++ *
++ * This program is free software; you can redistribute it and/or modify it
++ * under the terms of version 2 of the GNU General Public License as published
++ * by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful, but WITHOUT
++ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
++ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
++ * more details.
++ *
++ * You should have received a copy of the GNU General Public License along
++ * with this program; if not, contact Novell, Inc.
++ *
++ * To contact Novell about this file by physical or electronic mail, you may
++ * find current contact information at www.novell.com.
++ */
++
++
++#include <boost/algorithm/string.hpp>
++
++#include <snapper/Exception.h>
++#include <snapper/LoggerImpl.h>
++#include <snapper/SystemCmd.h>
++
++#include "../utils/text.h"
++
++#include "CmdFileHash.h"
++
++
++namespace snapper
++{
++
++
++    CmdFileHash::CmdFileHash(const Shell& shell, const string& chksum_bin,
++                             const string& path)
++        : path(path)
++    {
++	SystemCmd::Args cmd_args = { chksum_bin, "--", path };
++	SystemCmd cmd(shellify(shell, cmd_args));
++
++	if (cmd.retcode() != 0)
++	{
++	    y2err("command '" << cmd.cmd() << "' failed: " << cmd.retcode());
++	    for (const string& tmp : cmd.get_stdout())
++		y2err(tmp);
++	    for (const string& tmp : cmd.get_stderr())
++		y2err(tmp);
++	}
++	else
++	{
++	    parse(cmd.get_stdout());
++	}
++
++	y2mil(*this);
++    }
++
++
++    const string& CmdFileHash::get_hash() const { return hash; }
++
++    void CmdFileHash::parse(const vector<string>& lines)
++    {
++	for (const string& line : lines)
++	{
++	    vector<string> parts;
++	    boost::split(parts, line, boost::is_any_of(" "), boost::token_compress_on);
++	    if (parts.size() != 2)
++	    {
++		y2err("Invalid hash string: " << line);
++		SN_THROW(Exception(_("Invalid hash output format.")));
++	    }
++
++	    hash = parts[0];
++	    break;
++	}
++    }
++
++
++    std::ostream& operator<<(std::ostream& s, const CmdFileHash& cmd_filehash)
++    {
++	s << "path: " << cmd_filehash.path << " hash: " << cmd_filehash.hash << '\n';
++
++	return s;
++    }
++
++
++} // namespace snapper
+diff --git a/client/snbk/CmdFileHash.h b/client/snbk/CmdFileHash.h
+new file mode 100644
+index 00000000..8325dbc0
+--- /dev/null
++++ b/client/snbk/CmdFileHash.h
+@@ -0,0 +1,61 @@
++/*
++ * Copyright (c) 2026 SUSE LLC
++ *
++ * All Rights Reserved.
++ *
++ * This program is free software; you can redistribute it and/or modify it
++ * under the terms of version 2 of the GNU General Public License as published
++ * by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful, but WITHOUT
++ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
++ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
++ * more details.
++ *
++ * You should have received a copy of the GNU General Public License along
++ * with this program; if not, contact Novell, Inc.
++ *
++ * To contact Novell about this file by physical or electronic mail, you may
++ * find current contact information at www.novell.com.
++ */
++
++
++#ifndef SNAPPER_CMD_FILE_HASH_H
++#define SNAPPER_CMD_FILE_HASH_H
++
++
++#include "Shell.h"
++
++
++namespace snapper
++{
++    using std::string;
++
++
++    /**
++     * Find the hash of the file at the given path.
++     * If an error occurs, the hash is set to an empty string.
++     */
++    class CmdFileHash
++    {
++    public:
++
++	CmdFileHash(const Shell& shell, const string& chksum_bin, const string& path);
++
++	const string& get_hash() const;
++
++	friend std::ostream& operator<<(std::ostream& s, const CmdFileHash& cmd_filehash);
++
++    private:
++
++	const string path;
++	string hash;
++
++	void parse(const std::vector<string>& lines);
++    };
++
++
++} // namespace snapper
++
++
++#endif
+diff --git a/client/snbk/Makefile.am b/client/snbk/Makefile.am
+index 42e34c60..91f6dfd8 100644
+--- a/client/snbk/Makefile.am
++++ b/client/snbk/Makefile.am
+@@ -22,6 +22,7 @@ snbk_SOURCES = 						\
+ 	Shell.cc		Shell.h			\
+ 	CmdBtrfs.cc		CmdBtrfs.h		\
+ 	CmdLs.cc		CmdLs.h			\
++	CmdFileHash.cc		CmdFileHash.h		\
+ 	JsonFile.cc		JsonFile.h		\
+ 	utils.cc		utils.h			\
+ 	TreeView.cc		TreeView.h
+diff --git a/client/snbk/TheBigThing.cc b/client/snbk/TheBigThing.cc
+index dcec671a..812cf807 100644
+--- a/client/snbk/TheBigThing.cc
++++ b/client/snbk/TheBigThing.cc
+@@ -34,6 +34,7 @@
+ 
+ #include "CmdBtrfs.h"
+ #include "CmdLs.h"
++#include "CmdFileHash.h"
+ #include "BackupConfig.h"
+ #include "TheBigThing.h"
+ 
+@@ -57,7 +58,8 @@ namespace snapper
+ 	    bool is_valid() const override
+ 	    {
+ 		return it->source_state == TheBigThing::SourceState::READ_ONLY &&
+-		       it->target_state == TheBigThing::TargetState::VALID;
++		       (it->target_state == TheBigThing::TargetState::VALID ||
++		        it->target_state == TheBigThing::TargetState::LEGACY);
+ 	    }
+ 
+ 	protected:
+@@ -129,7 +131,7 @@ namespace snapper
+ 
+ 
+     const vector<string> EnumInfo<TheBigThing::TargetState>::names({
+-	"missing", "valid", "invalid"
++	"missing", "valid", "invalid", "legacy"
+     });
+ 
+ 
+@@ -156,53 +158,8 @@ namespace snapper
+ 	    SN_THROW(Exception(_("'mkdir' failed.")));
+ 	}
+ 
+-	// Copy info.xml to the destination.
+-	switch (backup_config.target_mode)
+-	{
+-	    case BackupConfig::TargetMode::LOCAL:
+-	    {
+-		SystemCmd::Args cmd2_args = { CP_BIN, "--",
+-		                              src_spec.snapshot_dir + "/info.xml",
+-		                              dst_spec.snapshot_dir + "/" };
+-		SystemCmd cmd2(shellify(src_spec.shell, cmd2_args));
+-		if (cmd2.retcode() != 0)
+-		{
+-		    y2err("command '" << cmd2.cmd() << "' failed: " << cmd2.retcode());
+-		    for (const string& tmp : cmd2.get_stdout())
+-			y2err(tmp);
+-		    for (const string& tmp : cmd2.get_stderr())
+-			y2err(tmp);
+-
+-		    SN_THROW(Exception(_("'cp info.xml' failed.")));
+-		}
+-	    }
+-	    break;
+-
+-	    case BackupConfig::TargetMode::SSH_PUSH:
+-	    {
+-		SystemCmd::Args cmd2_args = { SCP_BIN };
+-		if (backup_config.ssh_port != 0)
+-		    cmd2_args << "-P" << to_string(backup_config.ssh_port);
+-		if (!backup_config.ssh_identity.empty())
+-		    cmd2_args << "-i" << backup_config.ssh_identity;
+-		cmd2_args << "--"
+-		          << src_spec.remote_host + src_spec.snapshot_dir + "/info.xml"
+-		          << dst_spec.remote_host + dst_spec.snapshot_dir + "/";
+-
+-		SystemCmd cmd2(cmd2_args);
+-		if (cmd2.retcode() != 0)
+-		{
+-		    y2err("command '" << cmd2.cmd() << "' failed: " << cmd2.retcode());
+-		    for (const string& tmp : cmd2.get_stdout())
+-			y2err(tmp);
+-		    for (const string& tmp : cmd2.get_stderr())
+-			y2err(tmp);
+-
+-		    SN_THROW(Exception(_("'scp info.xml' failed.")));
+-		}
+-	    }
+-	    break;
+-	};
++	// Copy snapshot metadata to the destination
++	copy_metadata(backup_config, the_big_things, copy_specs);
+ 
+ 	// Copy snapshot to the destination.
+ 	const int proto = the_big_things.proto();
+@@ -242,24 +199,97 @@ namespace snapper
+     }
+ 
+ 
++    void
++    TheBigThing::copy_metadata(const BackupConfig& backup_config,
++                               TheBigThings& the_big_things,
++                               const pair<CopySpec, CopySpec>& copy_specs)
++    {
++	// Unpack copy specification
++	const CopySpec& src_spec = copy_specs.first;
++	const CopySpec& dst_spec = copy_specs.second;
++
++	// Copy info.xml to the destination.
++	switch (backup_config.target_mode)
++	{
++	    case BackupConfig::TargetMode::LOCAL:
++	    {
++		SystemCmd::Args cmd_args = { CP_BIN, "--",
++		                             src_spec.snapshot_dir + "/info.xml",
++		                             dst_spec.snapshot_dir + "/" };
++		SystemCmd cmd(shellify(src_spec.shell, cmd_args));
++		if (cmd.retcode() != 0)
++		{
++		    y2err("command '" << cmd.cmd() << "' failed: " << cmd.retcode());
++		    for (const string& tmp : cmd.get_stdout())
++			y2err(tmp);
++		    for (const string& tmp : cmd.get_stderr())
++			y2err(tmp);
++
++		    SN_THROW(Exception(_("'cp info.xml' failed.")));
++		}
++	    }
++	    break;
++
++	    case BackupConfig::TargetMode::SSH_PUSH:
++	    {
++		SystemCmd::Args cmd_args = { SCP_BIN };
++		if (backup_config.ssh_port != 0)
++		    cmd_args << "-P" << to_string(backup_config.ssh_port);
++		if (!backup_config.ssh_identity.empty())
++		    cmd_args << "-i" << backup_config.ssh_identity;
++		cmd_args << "--"
++		         << src_spec.remote_host + src_spec.snapshot_dir + "/info.xml"
++		         << dst_spec.remote_host + dst_spec.snapshot_dir + "/";
++
++		SystemCmd cmd(cmd_args);
++		if (cmd.retcode() != 0)
++		{
++		    y2err("command '" << cmd.cmd() << "' failed: " << cmd.retcode());
++		    for (const string& tmp : cmd.get_stdout())
++			y2err(tmp);
++		    for (const string& tmp : cmd.get_stderr())
++			y2err(tmp);
++
++		    SN_THROW(Exception(_("'scp info.xml' failed.")));
++		}
++	    }
++	    break;
++	};
++    }
++
++
+     void
+     TheBigThing::transfer(const BackupConfig& backup_config, TheBigThings& the_big_things,
+ 			  bool quiet)
+     {
+-	if (!quiet)
+-	    cout << sformat(_("Transferring snapshot %d."), num) << '\n';
+-
+ 	if (source_state == SourceState::MISSING)
+ 	    SN_THROW(Exception(_("Snapshot not on source.")));
+ 	else if (source_state == SourceState::READ_WRITE)
+ 	    SN_THROW(Exception(_("Cannot transfer a read-write snapshot.")));
+ 
+-	if (target_state != TargetState::MISSING)
+-	    SN_THROW(Exception(_("Snapshot already on target.")));
+-
+-	// Copy the snapshot from the source to the target
+-	copy(backup_config, the_big_things,
+-	     make_copy_specs(backup_config, the_big_things, CopyMode::SOURCE_TO_TARGET));
++	auto copy_specs =
++	    make_copy_specs(backup_config, the_big_things, CopyMode::SOURCE_TO_TARGET);
++	switch (target_state)
++	{
++	    case TargetState::INVALID:
++	    case TargetState::VALID:
++		SN_THROW(Exception(_("Snapshot already on target.")));
++		__builtin_unreachable();
++
++	    case TargetState::MISSING:
++		// Copy the snapshot from the source to the target
++		if (!quiet)
++		    cout << sformat(_("Transferring snapshot %d."), num) << '\n';
++		copy(backup_config, the_big_things, copy_specs);
++		break;
++
++	    case TargetState::LEGACY:
++		// Overwrite the snapshot metadata on the target
++		if (!quiet)
++		    cout << sformat(_("Updating metadata of snapshot %d."), num) << '\n';
++		copy_metadata(backup_config, the_big_things, copy_specs);
++		break;
++	}
+ 
+ 	target_state = TargetState::VALID;
+     }
+@@ -486,6 +516,11 @@ namespace snapper
+ 	    the_big_thing.source_received_uuid = extra.get_received_uuid();
+ 	    the_big_thing.source_creation_time = extra.get_creation_time();
+ 
++	    // Find the hash of info.xml
++	    CmdFileHash cmd_filehash(shell_source, SHA256SUM_BIN,
++	                             source_snapshot_dir(snapper, num) + "/info.xml");
++	    the_big_thing.source_meta_hash = cmd_filehash.get_hash();
++
+ 	    the_big_things.push_back(the_big_thing);
+ 	}
+     }
+@@ -581,6 +616,19 @@ namespace snapper
+ 		it->target_parent_uuid = extra.get_parent_uuid();
+ 		it->target_received_uuid = extra.get_received_uuid();
+ 		it->target_creation_time = extra.get_creation_time();
++
++		// Find the hash of info.xml
++		CmdFileHash cmd_filehash(shell_target, backup_config.target_sha256sum_bin,
++		                         target_snapshot_dir(backup_config, num) +
++		                             "/info.xml");
++		it->target_meta_hash = cmd_filehash.get_hash();
++
++		if (it->source_state == TheBigThing::SourceState::READ_ONLY &&
++		    it->target_state == TheBigThing::TargetState::VALID &&
++		    it->source_meta_hash != it->target_meta_hash)
++		{
++		    it->target_state = TheBigThing::TargetState::LEGACY;
++		}
+ 	    }
+ 	    catch (const Exception& e)
+ 	    {
+@@ -605,7 +653,8 @@ namespace snapper
+ 		    the_big_thing.remove(backup_config, quiet);
+ 		}
+ 
+-		if (the_big_thing.target_state == TheBigThing::TargetState::MISSING)
++		if (the_big_thing.target_state == TheBigThing::TargetState::MISSING ||
++		    the_big_thing.target_state == TheBigThing::TargetState::LEGACY)
+ 		{
+ 		    the_big_thing.transfer(backup_config, *this, quiet);
+ 		}
+diff --git a/client/snbk/TheBigThing.h b/client/snbk/TheBigThing.h
+index 7901467e..b42eb809 100644
+--- a/client/snbk/TheBigThing.h
++++ b/client/snbk/TheBigThing.h
+@@ -53,7 +53,18 @@ namespace snapper
+ 	// snapshots on target are always read-only if valid
+ 
+ 	enum class SourceState { MISSING, READ_ONLY, READ_WRITE };
+-	enum class TargetState { MISSING, VALID, INVALID };
++	enum class TargetState
++	{
++	    MISSING,
++	    VALID,
++	    INVALID,
++
++	    /**
++	     * Indicates that the snapshot has been transferred to the target, but the
++	     * source snapshot's metadata has changed since the transfer.
++	     */
++	    LEGACY
++	};
+ 
+ 	TheBigThing(unsigned int num) : num(num) {}
+ 
+@@ -72,11 +83,13 @@ namespace snapper
+ 	string source_parent_uuid;
+ 	string source_received_uuid;
+ 	string source_creation_time;
++	string source_meta_hash;
+ 
+ 	string target_uuid;
+ 	string target_parent_uuid;
+ 	string target_received_uuid;
+ 	string target_creation_time;
++	string target_meta_hash;
+ 
+     private:
+ 
+@@ -116,6 +129,9 @@ namespace snapper
+ 
+ 	void copy(const BackupConfig& backup_config, TheBigThings& the_big_things,
+ 	          const pair<CopySpec, CopySpec>& copy_specs);
++	void copy_metadata(const BackupConfig& backup_config,
++	                   TheBigThings& the_big_things,
++	                   const pair<CopySpec, CopySpec>& copy_specs);
+ 
+     };
+ 
+diff --git a/configure.ac b/configure.ac
+index d999faa0..f15bf28e 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -41,6 +41,7 @@ AC_PATH_PROG([LVS_BIN], [lvs], [/sbin/lvs])
+ AC_PATH_PROG([MKDIR_BIN], [mkdir], [/bin/mkdir])
+ AC_PATH_PROG([RM_BIN], [rm], [/bin/rm])
+ AC_PATH_PROG([RMDIR_BIN], [rmdir], [/bin/rmdir])
++AC_PATH_PROG([SHA256SUM_BIN], [sha256sum], [/usr/bin/sha256sum])
+ AC_PATH_PROG([TOUCH_BIN], [touch], [/usr/bin/touch])
+ 
+ AC_DEFINE_UNQUOTED([BTRFS_BIN], ["$BTRFS_BIN"], [Path of btrfs program.])
+@@ -58,6 +59,7 @@ AC_DEFINE_UNQUOTED([LVS_BIN], ["$LVS_BIN"], [Path of lvs program.])
+ AC_DEFINE_UNQUOTED([MKDIR_BIN], ["$MKDIR_BIN"], [Path of mkdir program.])
+ AC_DEFINE_UNQUOTED([RM_BIN], ["$RM_BIN"], [Path of rm program.])
+ AC_DEFINE_UNQUOTED([RMDIR_BIN], ["$RMDIR_BIN"], [Path of rmdir program.])
++AC_DEFINE_UNQUOTED([SHA256SUM_BIN], ["$SHA256SUM_BIN"], [Path of sha256sum program.])
+ AC_DEFINE_UNQUOTED([TOUCH_BIN], ["$TOUCH_BIN"], [Path of touch program.])
+ 
+ CFLAGS="${CFLAGS} -std=c99 -Wall -Wextra -Wformat -Wmissing-prototypes -Wno-unused-parameter"
+diff --git a/doc/snbk.xml.in b/doc/snbk.xml.in
+index 1b950613..93c63288 100644
+--- a/doc/snbk.xml.in
++++ b/doc/snbk.xml.in
+@@ -103,6 +103,14 @@
+ 	    transfer the snapshot again.</para>
+           </glossdef>
+         </glossentry>
++	<glossentry>
++	  <glossterm>legacy</glossterm>
++	  <glossdef>
++	    <para>The snapshot is valid, but the source snapshot's metadata has changed
++	    since the transfer. The next transfer command will update the snapshot's
++	    metadata on the target.</para>
++	  </glossdef>
++	</glossentry>
+       </glosslist>
+     </refsect2>
+ 
+-- 
+2.43.0
+

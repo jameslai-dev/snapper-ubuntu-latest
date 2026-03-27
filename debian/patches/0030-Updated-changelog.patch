@@ -1,7 +1,7 @@
 From be3c80527575d52d459801ca06a8b1581b4a3779 Mon Sep 17 00:00:00 2001
 From: Cheng-Ling Lai <jamesljlster@gmail.com>
 Date: Wed, 17 Dec 2025 20:59:48 +0800
-Subject: [PATCH 30/74] Updated changelog
+Subject: [PATCH 30/98] Updated changelog
 
 ---
  package/snapper.changes | 6 ++++++

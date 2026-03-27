@@ -1,7 +1,7 @@
 From 173c90a64b2f7bb3a0c4ad76ad646dd9bc3a1c0e Mon Sep 17 00:00:00 2001
 From: Cheng-Ling Lai <jamesljlster@gmail.com>
 Date: Fri, 12 Dec 2025 11:08:25 +0800
-Subject: [PATCH 25/74] Added a notice to snbk restore help
+Subject: [PATCH 25/98] Added a notice to snbk restore help
 
 ---
  client/snbk/cmd-restore.cc | 3 +++
