@@ -2,12 +2,12 @@ AC_INIT
 
 AC_CONFIG_SRCDIR([snapper/Snapper.h])
 
-VERSION=`cat ./VERSION`
+VERSION=`cat "$srcdir/VERSION"` || exit
 
-LIBVERSION=`cat ./LIBVERSION`
-LIBVERSION_MAJOR=`cut -d . -f 1 ./LIBVERSION`
-LIBVERSION_MINOR=`cut -d . -f 2 ./LIBVERSION`
-LIBVERSION_PATCHLEVEL=`cut -d . -f 3 ./LIBVERSION`
+LIBVERSION=`cat "$srcdir/LIBVERSION"`
+LIBVERSION_MAJOR=`cut -d . -f 1 "$srcdir/LIBVERSION"`
+LIBVERSION_MINOR=`cut -d . -f 2 "$srcdir/LIBVERSION"`
+LIBVERSION_PATCHLEVEL=`cut -d . -f 3 "$srcdir/LIBVERSION"`
 
 LIBVERSION_CURRENT=`expr $LIBVERSION_MAJOR + $LIBVERSION_MINOR`
 LIBVERSION_REVISON=`expr $LIBVERSION_PATCHLEVEL`
@@ -31,17 +31,17 @@ AC_PATH_PROG([CHATTR_BIN], [chattr], [/usr/bin/chattr])
 AC_PATH_PROG([CHSNAP_BIN], [chsnap], [/sbin/chsnap])
 AC_PATH_PROG([CP_BIN], [cp], [/bin/cp])
 AC_PATH_PROG([DIFF_BIN], [diff], [/usr/bin/diff])
-AC_PATH_PROG([FINDMNT_BIN], [findmnt], [/usr/bin/findmnt])
 AC_PATH_PROG([LVCHANGE_BIN], [lvchange], [/sbin/lvchange])
 AC_PATH_PROG([LVCREATE_BIN], [lvcreate], [/sbin/lvcreate])
+AC_PATH_PROG([LS_BIN], [ls], [/usr/bin/ls])
 AC_PATH_PROG([LVM_BIN], [lvm], [/sbin/lvm])
 AC_PATH_PROG([LVREMOVE_BIN], [lvremove], [/sbin/lvremove])
 AC_PATH_PROG([LVRENAME_BIN], [lvrename], [/sbin/lvrename])
 AC_PATH_PROG([LVS_BIN], [lvs], [/sbin/lvs])
 AC_PATH_PROG([MKDIR_BIN], [mkdir], [/bin/mkdir])
-AC_PATH_PROG([REALPATH_BIN], [realpath], [/usr/bin/realpath])
 AC_PATH_PROG([RM_BIN], [rm], [/bin/rm])
 AC_PATH_PROG([RMDIR_BIN], [rmdir], [/bin/rmdir])
+AC_PATH_PROG([SHA256SUM_BIN], [sha256sum], [/usr/bin/sha256sum])
 AC_PATH_PROG([TOUCH_BIN], [touch], [/usr/bin/touch])
 
 AC_DEFINE_UNQUOTED([BTRFS_BIN], ["$BTRFS_BIN"], [Path of btrfs program.])
@@ -49,21 +49,21 @@ AC_DEFINE_UNQUOTED([CHATTR_BIN], ["$CHATTR_BIN"], [Path of chattr program.])
 AC_DEFINE_UNQUOTED([CHSNAP_BIN], ["$CHSNAP_BIN"], [Path of chsnap program.])
 AC_DEFINE_UNQUOTED([CP_BIN], ["$CP_BIN"], [Path of cp program.])
 AC_DEFINE_UNQUOTED([DIFF_BIN], ["$DIFF_BIN"], [Path of diff program.])
-AC_DEFINE_UNQUOTED([FINDMNT_BIN], ["$FINDMNT_BIN"], [Path of findmnt program.])
 AC_DEFINE_UNQUOTED([LVCHANGE_BIN], ["$LVCHANGE_BIN"], [Path of lvchange program.])
 AC_DEFINE_UNQUOTED([LVCREATE_BIN], ["$LVCREATE_BIN"], [Path of lvcreate program.])
+AC_DEFINE_UNQUOTED([LS_BIN], ["$LS_BIN"], [Path of ls program.])
 AC_DEFINE_UNQUOTED([LVM_BIN], ["$LVM_BIN"], [Path of lvm program.])
 AC_DEFINE_UNQUOTED([LVREMOVE_BIN], ["$LVREMOVE_BIN"], [Path of lvremove program.])
 AC_DEFINE_UNQUOTED([LVRENAME_BIN], ["$LVRENAME_BIN"], [Path of lvrename program.])
 AC_DEFINE_UNQUOTED([LVS_BIN], ["$LVS_BIN"], [Path of lvs program.])
 AC_DEFINE_UNQUOTED([MKDIR_BIN], ["$MKDIR_BIN"], [Path of mkdir program.])
-AC_DEFINE_UNQUOTED([REALPATH_BIN], ["$REALPATH_BIN"], [Path of realpath program.])
 AC_DEFINE_UNQUOTED([RM_BIN], ["$RM_BIN"], [Path of rm program.])
 AC_DEFINE_UNQUOTED([RMDIR_BIN], ["$RMDIR_BIN"], [Path of rmdir program.])
+AC_DEFINE_UNQUOTED([SHA256SUM_BIN], ["$SHA256SUM_BIN"], [Path of sha256sum program.])
 AC_DEFINE_UNQUOTED([TOUCH_BIN], ["$TOUCH_BIN"], [Path of touch program.])
 
 CFLAGS="${CFLAGS} -std=c99 -Wall -Wextra -Wformat -Wmissing-prototypes -Wno-unused-parameter"
-CXXFLAGS="${CXXFLAGS} -std=c++14 -Wall -Wextra -Wformat -Wnon-virtual-dtor -Wno-unused-parameter -Wsuggest-override"
+CXXFLAGS="${CXXFLAGS} -std=c++17 -Wall -Wextra -Wformat -Wnon-virtual-dtor -Wno-unused-parameter -Wsuggest-override"
 
 SYSCONFIG=/etc/sysconfig
 

@@ -12,16 +12,20 @@ snbk_SOURCES = 						\
 	cmd-list-configs.cc				\
 	cmd-list.cc					\
 	cmd-transfer.cc					\
+	cmd-restore.cc					\
 	cmd-delete.cc					\
 	cmd-transfer-and-delete.cc			\
+	cmd-visualize.cc				\
 	BackupConfig.cc		BackupConfig.h		\
 	TheBigThing.cc		TheBigThing.h		\
 	GlobalOptions.cc	GlobalOptions.h		\
 	Shell.cc		Shell.h			\
 	CmdBtrfs.cc		CmdBtrfs.h		\
-	CmdFindmnt.cc		CmdFindmnt.h		\
-	CmdRealpath.cc		CmdRealpath.h		\
-	JsonFile.cc		JsonFile.h
+	CmdLs.cc		CmdLs.h			\
+	CmdChecksum.cc		CmdChecksum.h		\
+	JsonFile.cc		JsonFile.h		\
+	utils.cc		utils.h			\
+	TreeView.cc		TreeView.h
 
 snbk_LDADD =				\
 	../../snapper/libsnapper.la	\

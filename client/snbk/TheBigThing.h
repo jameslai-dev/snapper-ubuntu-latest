@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 SUSE LLC
+ * Copyright (c) [2024-2026] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -24,16 +24,21 @@
 
 
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "../proxy/proxy.h"
 #include "../proxy/locker.h"
+
+#include "CmdBtrfs.h"
+#include "TreeView.h"
 
 
 namespace snapper
 {
 
     using std::string;
+    using std::pair;
     using std::vector;
 
 
@@ -48,11 +53,23 @@ namespace snapper
 	// snapshots on target are always read-only if valid
 
 	enum class SourceState { MISSING, READ_ONLY, READ_WRITE };
-	enum class TargetState { MISSING, VALID, INVALID };
+	enum class TargetState
+	{
+	    MISSING,
+	    VALID,
+	    INVALID,
+
+	    /**
+	     * Indicates that the snapshot has been transferred to the target, but the
+	     * source snapshot's metadata has changed since the transfer.
+	     */
+	    LEGACY
+	};
 
 	TheBigThing(unsigned int num) : num(num) {}
 
-	void transfer(const BackupConfig& backup_config, const TheBigThings& the_big_things, bool quiet);
+	void transfer(const BackupConfig& backup_config, TheBigThings& the_big_things, bool quiet);
+	void restore(const BackupConfig& backup_config, TheBigThings& the_big_things, bool quiet);
 
 	void remove(const BackupConfig& backup_config, bool quiet);
 
@@ -66,11 +83,55 @@ namespace snapper
 	string source_parent_uuid;
 	string source_received_uuid;
 	string source_creation_time;
+	string source_meta_checksum;
 
 	string target_uuid;
 	string target_parent_uuid;
 	string target_received_uuid;
 	string target_creation_time;
+	string target_meta_checksum;
+
+    private:
+
+	/** Snapshot copy mode. */
+	enum class CopyMode
+	{
+	    /** Copy the snapshot from the source to the target (i.e., transfer). */
+	    SOURCE_TO_TARGET,
+
+	    /** Copy the snapshots from the target to the source (i.e., restore). */
+	    TARGET_TO_SOURCE
+	};
+
+	/**
+	 * Specification for the copy source or the copy destination.
+	 * The `source` here is different from the backup `source`. A copy source can be
+	 * either a snapshot on the backup source or the backup target.
+	 */
+	struct CopySpec
+	{
+	    Shell shell;
+	    string mkdir_bin;
+	    string btrfs_bin;
+	    string remote_host;
+	    string snapshot_dir;
+	    string parent_subvol_path;
+	};
+
+	/**
+	 * Create specifications for the copy source and the copy destination according to
+	 * the specified `copy_mode`. The function returns a pair containing the source
+	 * and destination copy specifications.
+	 */
+	pair<CopySpec, CopySpec> make_copy_specs(const BackupConfig& backup_config,
+	                                         const TheBigThings& the_big_things,
+	                                         CopyMode copy_mode) const;
+
+	void copy(const BackupConfig& backup_config, TheBigThings& the_big_things,
+	          const pair<CopySpec, CopySpec>& copy_specs);
+	void copy_metadata(const BackupConfig& backup_config,
+	                   TheBigThings& the_big_things,
+	                   const pair<CopySpec, CopySpec>& copy_specs);
 
     };
 
@@ -91,6 +152,7 @@ namespace snapper
 	TheBigThings(const BackupConfig& backup_config, ProxySnappers* snappers, bool verbose);
 
 	void transfer(const BackupConfig& backup_config, bool quiet, bool verbose);
+	void restore(const BackupConfig& backup_config, bool quiet, bool verbose);
 
 	void remove(const BackupConfig& backup_config, bool quiet, bool verbose);
 
@@ -105,14 +167,22 @@ namespace snapper
 
 	iterator find(unsigned int num);
 
+	CmdBtrfsVersion source_btrfs_version;
+	CmdBtrfsVersion target_btrfs_version;
+
+	int proto();
+
 	/**
-	 * Detect a suitable parent for btrfs send. Return end() iff none is found.
+	 * Helper objects for finding a suitable Btrfs send parent when transferring and
+	 * restoring snapshots.
 	 */
-	const_iterator find_send_parent(const TheBigThing& the_big_thing) const;
+	TreeView source_tree;
+	TreeView target_tree;
+
+	const ProxySnapper* snapper;
 
     private:
 
-	const ProxySnapper* snapper;
 	const Locker locker;
 
 	vector<TheBigThing> the_big_things;

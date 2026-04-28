@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 SUSE LLC
+ * Copyright (c) 2026 SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -20,8 +20,8 @@
  */
 
 
-#ifndef SNAPPER_CMD_FINDMNT_H
-#define SNAPPER_CMD_FINDMNT_H
+#ifndef SNAPPER_CMD_CHECKSUM_H
+#define SNAPPER_CMD_CHECKSUM_H
 
 
 #include "Shell.h"
@@ -29,36 +29,33 @@
 
 namespace snapper
 {
-
     using std::string;
-    using std::vector;
 
 
     /**
-     * Class to probe for mount points: Call "findmnt --target <path>".
+     * Get the checksum (e.g. sha256sum) of the file at the given path.
      */
-    class CmdFindmnt
+    class CmdChecksum
     {
     public:
 
-	CmdFindmnt(const string& findmnt_bin, const Shell& shell, const string& path);
+	CmdChecksum(const Shell& shell, const string& checksum_bin, const string& path);
 
-	const string& get_source() const { return source; }
-	const string& get_target() const { return target; }
+	const string& get_checksum() const { return checksum; }
 
-	friend std::ostream& operator<<(std::ostream& s, const CmdFindmnt& cmd_findmnt);
+	friend std::ostream& operator<<(std::ostream& s, const CmdChecksum& cmd_checksum);
 
     private:
 
-	void parse_json(const vector<string>& lines);
+	void parse(const vector<string>& lines);
 
 	const string path;
-
-	string source;
-	string target;
+	string checksum;
 
     };
 
-}
+
+} // namespace snapper
+
 
 #endif

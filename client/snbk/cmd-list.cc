@@ -120,7 +120,7 @@ namespace snapper
 	}
 
 
-	boost::any
+	std::any
 	value_for_as_any(const OutputOptions& output_options, Column column, const BackupConfig& backup_config,
 			 const TheBigThing& the_big_thing)
 	{
@@ -232,8 +232,7 @@ namespace snapper
 		if (backup_configs.size() > 1)
 		{
 		    cout << "Backup-config:" << backup_config.name << ", config:" << backup_config.config
-			 << ", source-path:" << backup_config.source_path << ", target-mode:"
-			 << toString(backup_config.target_mode) << endl;
+			 << ", target-mode:" << toString(backup_config.target_mode) << endl;
 		}
 
 		try
@@ -354,7 +353,7 @@ namespace snapper
 
 
     void
-    command_list(const GlobalOptions& global_options, GetOpts& get_opts, BackupConfigs& backup_configs,
+    command_list(const GlobalOptions& global_options, GetOpts& get_opts, const BackupConfigs& backup_configs,
 		 ProxySnappers* snappers)
     {
 	ParsedOpts opts = get_opts.parse("list", GetOpts::no_options);

@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2024 SUSE LLC
+ * Copyright (c) [2004-2015] Novell, Inc.
+ * Copyright (c) [2016-2025] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -20,8 +21,8 @@
  */
 
 
-#ifndef SNAPPER_CMD_REALPATH_H
-#define SNAPPER_CMD_REALPATH_H
+#ifndef SNAPPER_CMD_LS_H
+#define SNAPPER_CMD_LS_H
 
 
 #include "Shell.h"
@@ -29,23 +30,25 @@
 
 namespace snapper
 {
-
     using std::string;
     using std::vector;
 
 
     /**
-     * Class to probe realpath: Call "realpath <path>".
+     * A sequence of file names found in a pathname.
      */
-    class CmdRealpath
+    class CmdLs
     {
     public:
 
-	CmdRealpath(const string& realpath_bin, const Shell& shell, const string& path);
+	CmdLs(const string& ls_bin, const Shell& shell, const string& path);
 
-	const string& get_realpath() const { return realpath; }
+	typedef vector<string>::const_iterator const_iterator;
 
-	friend std::ostream& operator<<(std::ostream& s, const CmdRealpath& cmd_realpath);
+	const_iterator begin() const { return entries.begin(); }
+	const_iterator end() const { return entries.end(); }
+
+	friend std::ostream& operator<<(std::ostream& s, const CmdLs& cmd_ls);
 
     private:
 
@@ -53,7 +56,7 @@ namespace snapper
 
 	const string path;
 
-	string realpath;
+	vector<string> entries;
 
     };
 

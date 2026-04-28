@@ -24,10 +24,11 @@
 #include "config.h"
 
 #include <iostream>
-#include <boost/any.hpp>
+#include <any>
 
 #include <snapper/SnapperTmpl.h>
 #include <snapper/BtrfsUtils.h>
+#include <snapper/AppUtil.h>
 
 #include "../utils/text.h"
 #include "../utils/help.h"
@@ -87,7 +88,8 @@ namespace snapper
 	{
 	public:
 
-	    OutputHelper(const ProxySnapper* snapper, const vector<Column>& columns);
+	    OutputHelper(const ProxySnapper* snapper, const vector<Column>& columns,
+			 const string& root_prefix);
 
 	    bool is_default(const ProxySnapshot& snapshot) const
 	    {
@@ -133,6 +135,8 @@ namespace snapper
 
 	private:
 
+	    const string root_prefix;
+
 	    ProxySnapshots::const_iterator default_snapshot;
 	    ProxySnapshots::const_iterator active_snapshot;
 
@@ -158,9 +162,11 @@ namespace snapper
 #endif
 
 
-	OutputHelper::OutputHelper(const ProxySnapper* snapper, const vector<Column>& columns)
+	OutputHelper::OutputHelper(const ProxySnapper* snapper, const vector<Column>& columns,
+				   const string& root_prefix)
 	    : snapper(snapper), locker(snapper), snapshots(snapper->getSnapshots()),
-	      default_snapshot(snapshots.end()), active_snapshot(snapshots.end())
+	      root_prefix(root_prefix), default_snapshot(snapshots.end()),
+	      active_snapshot(snapshots.end())
 	{
 	    try
 	    {
@@ -184,7 +190,7 @@ namespace snapper
 
 	    if (find(columns.begin(), columns.end(), Column::USED_SPACE) != columns.end())
 	    {
-		string subvolume = snapper->getConfig().getSubvolume();
+		string subvolume = prepend_root_prefix(root_prefix, snapper->getConfig().getSubvolume());
 
 #ifdef ENABLE_BTRFS
 
@@ -381,7 +387,7 @@ namespace snapper
 	}
 
 
-	boost::any
+	std::any
 	value_for_as_any(const OutputOptions& output_options, const OutputHelper& output_helper, Column column,
 			 const ProxySnapshot& snapshot)
 	{
@@ -480,7 +486,7 @@ namespace snapper
 	value_for_as_string(const OutputOptions& output_options, const OutputHelper& output_helper,
 			    Column column, const ProxySnapshot& snapshot)
 	{
-	    boost::any value = value_for_as_any(output_options, output_helper, column, snapshot);
+	    std::any value = value_for_as_any(output_options, output_helper, column, snapshot);
 
 	    if (value.type() == typeid(nullptr_t))
 	    {
@@ -488,26 +494,26 @@ namespace snapper
 	    }
 	    else if (value.type() == typeid(unsigned int))
 	    {
-		return decString(boost::any_cast<unsigned int>(value));
+		return decString(std::any_cast<unsigned int>(value));
 	    }
 	    else if (value.type() == typeid(bool))
 	    {
 		if (output_options.human)
-		    return boost::any_cast<bool>(value) ? _("yes") : _("no");
+		    return std::any_cast<bool>(value) ? _("yes") : _("no");
 		else
-		    return boost::any_cast<bool>(value) ? "yes" : "no";
+		    return std::any_cast<bool>(value) ? "yes" : "no";
 	    }
 	    else if (value.type() == typeid(string))
 	    {
-		return boost::any_cast<string>(value).c_str();
+		return std::any_cast<string>(value).c_str();
 	    }
 	    else if (value.type() == typeid(uint64_t))
 	    {
-		return decString(boost::any_cast<uint64_t>(value));
+		return decString(std::any_cast<uint64_t>(value));
 	    }
 	    else if (value.type() == typeid(map<string, string>))
 	    {
-		return show_userdata(boost::any_cast<map<string, string>>(value));
+		return show_userdata(std::any_cast<map<string, string>>(value));
 	    }
 
 	    SN_THROW(Exception("invalid column type in value_for_as_string"));
@@ -519,7 +525,7 @@ namespace snapper
 	value_for_as_json(const OutputOptions& output_options, const OutputHelper& output_helper,
 			  Column column, const ProxySnapshot& snapshot)
 	{
-	    boost::any value = value_for_as_any(output_options, output_helper, column, snapshot);
+	    std::any value = value_for_as_any(output_options, output_helper, column, snapshot);
 
 	    if (value.type() == typeid(nullptr_t))
 	    {
@@ -527,27 +533,27 @@ namespace snapper
 	    }
 	    else if (value.type() == typeid(unsigned int))
 	    {
-		return json_object_new_int(boost::any_cast<unsigned int>(value));
+		return json_object_new_int(std::any_cast<unsigned int>(value));
 	    }
 	    else if (value.type() == typeid(bool))
 	    {
-		return json_object_new_boolean(boost::any_cast<bool>(value));
+		return json_object_new_boolean(std::any_cast<bool>(value));
 	    }
 	    else if (value.type() == typeid(string))
 	    {
-		return json_object_new_string(boost::any_cast<string>(value).c_str());
+		return json_object_new_string(std::any_cast<string>(value).c_str());
 	    }
 	    else if (value.type() == typeid(uint64_t))
 	    {
 #if JSON_C_VERSION_NUM >= ((0 << 16) | (14 << 8) | 0)
-		return json_object_new_uint64(boost::any_cast<uint64_t>(value));
+		return json_object_new_uint64(std::any_cast<uint64_t>(value));
 #else
-		return json_object_new_int64(boost::any_cast<uint64_t>(value));
+		return json_object_new_int64(std::any_cast<uint64_t>(value));
 #endif
 	    }
 	    else if (value.type() == typeid(map<string, string>))
 	    {
-		map<string, string> tmp = boost::any_cast<map<string, string>>(value);
+		map<string, string> tmp = std::any_cast<map<string, string>>(value);
 		if (tmp.empty())
 		    return nullptr;
 
@@ -587,7 +593,7 @@ namespace snapper
 				 << snapper->getConfig().getSubvolume() << endl;
 			}
 
-			OutputHelper output_helper(snapper, columns);
+			OutputHelper output_helper(snapper, columns, global_options.root());
 
 			TableFormatter formatter(global_options.table_style());
 
@@ -643,7 +649,7 @@ namespace snapper
 
 		    for (const ProxySnapper* snapper : snappers)
 		    {
-			OutputHelper output_helper(snapper, columns);
+			OutputHelper output_helper(snapper, columns, global_options.root());
 
 			for (const ProxySnapshot& snapshot : output_helper.snapshots)
 			{
@@ -675,7 +681,7 @@ namespace snapper
 			json_object* json_config = json_object_new_array();
 			json_object_object_add(formatter.root(), snapper->configName().c_str(), json_config);
 
-			OutputHelper output_helper(snapper, columns);
+			OutputHelper output_helper(snapper, columns, global_options.root());
 
 			for (const ProxySnapshot& snapshot : output_helper.snapshots)
 			{

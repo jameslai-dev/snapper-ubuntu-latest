@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2011-2015] Novell, Inc.
- * Copyright (c) [2016-2020] SUSE LLC
+ * Copyright (c) [2016-2026] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -21,8 +21,11 @@
  */
 
 
+#include <sys/wait.h>
+
 #include <iostream>
 
+#include <client/snapper/cmd.h>
 #include <snapper/AppUtil.h>
 
 #include "../utils/text.h"
@@ -173,31 +176,58 @@ namespace snapper
 
 	switch (type)
 	{
-	    case CreateType::SINGLE: {
+	    case CreateType::SINGLE:
+	    {
 		snapshot1 = snapper->createSingleSnapshot(parent, scd, report);
 		if (print_number)
 		    cout << snapshot1->getNum() << endl;
-	    } break;
+	    }
+	    break;
 
-	    case CreateType::PRE: {
+	    case CreateType::PRE:
+	    {
 		snapshot1 = snapper->createPreSnapshot(scd, report);
 		if (print_number)
 		    cout << snapshot1->getNum() << endl;
-	    } break;
+	    }
+	    break;
 
-	    case CreateType::POST: {
+	    case CreateType::POST:
+	    {
 		snapshot2 = snapper->createPostSnapshot(snapshot1, scd, report);
 		if (print_number)
 		    cout << snapshot2->getNum() << endl;
-	    } break;
+	    }
+	    break;
 
-	    case CreateType::PRE_POST: {
+	    case CreateType::PRE_POST:
+	    {
 		snapshot1 = snapper->createPreSnapshot(scd, report);
-		system(command.c_str());
+
+		int const status = system(command.c_str());
+		if (status == -1)
+		    throw runtime_error_with_errno("fork failed", errno);
+
 		snapshot2 = snapper->createPostSnapshot(snapshot1, scd, report);
 		if (print_number)
 		    cout << snapshot1->getNum() << ".." << snapshot2->getNum() << endl;
-	    } break;
+
+		if (WIFEXITED(status)) {
+		    int const exit_status = WEXITSTATUS(status);
+		    if (exit_status != 0) {
+			SN_THROW(CommandException(exit_status));
+		    }
+		} else if (WIFSIGNALED(status)) {
+		    SN_THROW(Exception(sformat(_("%s killed by signal %d"), command.c_str(), WTERMSIG(status))));
+		} else if (WIFSTOPPED(status)) {
+		    // For system(3), only WIFEXITED or WIFSIGNALED should be possible.
+		    SN_THROW(Exception(sformat(_("%s stopped"), command.c_str())));
+		} else if (WIFCONTINUED(status)) {
+		    // For system(3), only WIFEXITED or WIFSIGNALED should be possible.
+		    SN_THROW(Exception(sformat(_("%s continued"), command.c_str())));
+		}
+	    }
+	    break;
 	}
     }
 

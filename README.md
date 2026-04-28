@@ -27,10 +27,22 @@ sudo zypper install -t pattern SDK-C-C++
 # install the basic development environment (openSUSE)
 sudo zypper install -t pattern devel_C_C++
 # install the extra packages for snapper development (both SLE and openSUSE)
-sudo zypper install git libmount-devel dbus-1-devel libacl-devel \
+sudo zypper install git libmount-devel dbus-1-devel libacl-devel libboost_thread-devel libjson-c-devel \
   docbook-xsl-stylesheets libxml2-devel libbtrfs-devel
 ```
 
+In the RHEL-based distributions, you can install the needed
+packages by using these commands:
+
+```sh
+# Install development tools
+sudo dnf groupinstall "Development Tools"
+# Dependencies for snapper development
+sudo dnf install git libmount-devel dbus-devel libacl-devel \
+    docbook-xsl libxml2-devel btrfs-progs-devel \
+    cmake make automake gcc-c++ systemd-devel boost-devel \
+    ncurses-devel json-c-devel pam-devel
+```
 ### Building Snapper
 
 You can download the sources and build Snapper by using these commands:
@@ -53,6 +65,15 @@ sudo make install
 sudo killall snapperd
 # try your changes (the DBus service is started automatically)
 (sudo) snapper ...
+```
+
+#### Post install steps
+
+```sh
+sudo mkdir -p /etc/sysconfig
+sudo touch /etc/sysconfig/snapper
+sudo chmod 644 /etc/sysconfig/snapper
+sudo restorecon -v /etc/sysconfig/snapper # if SELinux
 ```
 
 ### Running Tests

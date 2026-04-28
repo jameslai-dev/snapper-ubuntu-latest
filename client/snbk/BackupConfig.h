@@ -1,5 +1,5 @@
 /*
- * Copyright (c) [2024-2025] SUSE LLC
+ * Copyright (c) [2024-2026] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -57,7 +57,6 @@ namespace snapper
 
 	TargetMode target_mode = TargetMode::LOCAL;
 
-	string source_path;
 	string target_path;
 
 	bool automatic = false;
@@ -66,16 +65,21 @@ namespace snapper
 	unsigned int ssh_port = 0;
 	string ssh_user;
 	string ssh_identity;
+	bool ssh_master_control = true;
 
 	Shell get_source_shell() const;
 	Shell get_target_shell() const;
 
+	bool send_compressed_data = true;
+	vector<string> send_options;
+	vector<string> receive_options;
+
 	string target_btrfs_bin = BTRFS_BIN;
-	string target_findmnt_bin = FINDMNT_BIN;
+	string target_ls_bin = LS_BIN;
 	string target_mkdir_bin = MKDIR_BIN;
-	string target_realpath_bin = REALPATH_BIN;
 	string target_rm_bin = RM_BIN;
 	string target_rmdir_bin = RMDIR_BIN;
+	string target_sha256sum_bin = SHA256SUM_BIN;
 
     private:
 

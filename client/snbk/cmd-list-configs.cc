@@ -53,9 +53,9 @@ namespace snapper
 
 	enum class Column
 	{
-	    NAME, CONFIG, TARGET_MODE, AUTOMATIC, SOURCE_PATH, TARGET_PATH, SSH_HOST,
-	    SSH_USER, SSH_PORT, SSH_IDENTITY, TARGET_BTRFS_BIN, TARGET_FINDMNT_BIN,
-	    TARGET_MKDIR_BIN, TARGET_REALPATH_BIN, TARGET_RM_BIN, TARGET_RMDIR_BIN
+	    NAME, CONFIG, TARGET_MODE, AUTOMATIC, TARGET_PATH, SSH_HOST,
+	    SSH_USER, SSH_PORT, SSH_IDENTITY, TARGET_BTRFS_BIN, TARGET_LS_BIN,
+	    TARGET_MKDIR_BIN, TARGET_RM_BIN, TARGET_RMDIR_BIN
 	};
 
 
@@ -76,9 +76,6 @@ namespace snapper
 		case Column::AUTOMATIC:
 		    return Cell(_("Automatic"));
 
-		case Column::SOURCE_PATH:
-		    return Cell(_("Source Path"));
-
 		case Column::TARGET_PATH:
 		    return Cell(_("Target Path"));
 
@@ -97,14 +94,11 @@ namespace snapper
 		case Column::TARGET_BTRFS_BIN:
 		    return Cell(_("Target btrfs bin"));
 
-		case Column::TARGET_FINDMNT_BIN:
-		    return Cell(_("Target findmnt Bin"));
+		case Column::TARGET_LS_BIN:
+		    return Cell(_("Target ls Bin"));
 
 		case Column::TARGET_MKDIR_BIN:
 		    return Cell(_("Target mkdir bin"));
-
-		case Column::TARGET_REALPATH_BIN:
-		    return Cell(_("Target realpath bin"));
 
 		case Column::TARGET_RM_BIN:
 		    return Cell(_("Target rm bin"));
@@ -118,7 +112,7 @@ namespace snapper
 	}
 
 
-	boost::any
+	std::any
 	value_for_as_any(Column column, const BackupConfig& backup_config)
 	{
 	    switch (column)
@@ -134,9 +128,6 @@ namespace snapper
 
 		case Column::AUTOMATIC:
 		    return backup_config.automatic;
-
-		case Column::SOURCE_PATH:
-		    return backup_config.source_path;
 
 		case Column::TARGET_PATH:
 		    return backup_config.target_path;
@@ -164,14 +155,11 @@ namespace snapper
 		case Column::TARGET_BTRFS_BIN:
 		    return backup_config.target_btrfs_bin;
 
-		case Column::TARGET_FINDMNT_BIN:
-		    return backup_config.target_findmnt_bin;
+		case Column::TARGET_LS_BIN:
+		    return backup_config.target_ls_bin;
 
 		case Column::TARGET_MKDIR_BIN:
 		    return backup_config.target_mkdir_bin;
-
-		case Column::TARGET_REALPATH_BIN:
-		    return backup_config.target_realpath_bin;
 
 		case Column::TARGET_RM_BIN:
 		    return backup_config.target_rm_bin;
@@ -285,7 +273,7 @@ namespace snapper
 
 
     void
-    command_list_configs(const GlobalOptions& global_options, GetOpts& get_opts, BackupConfigs& backup_configs,
+    command_list_configs(const GlobalOptions& global_options, GetOpts& get_opts, const BackupConfigs& backup_configs,
 			 ProxySnappers* snappers)
     {
 	ParsedOpts opts = get_opts.parse("list-configs", GetOpts::no_options);
@@ -296,14 +284,14 @@ namespace snapper
 	}
 
 	const vector<Column> some_columns = { Column::NAME, Column::CONFIG, Column::TARGET_MODE,
-	    Column::AUTOMATIC, Column::SOURCE_PATH, Column::TARGET_PATH, Column::SSH_HOST,
+	    Column::AUTOMATIC, Column::TARGET_PATH, Column::SSH_HOST,
 	    Column::SSH_USER, Column::SSH_PORT, Column::SSH_IDENTITY };
 
 	const vector<Column> all_columns = { Column::NAME, Column::CONFIG, Column::TARGET_MODE,
-	    Column::AUTOMATIC, Column::SOURCE_PATH, Column::TARGET_PATH, Column::SSH_HOST,
+	    Column::AUTOMATIC, Column::TARGET_PATH, Column::SSH_HOST,
 	    Column::SSH_USER, Column::SSH_PORT, Column::SSH_IDENTITY, Column::TARGET_BTRFS_BIN,
-	    Column::TARGET_FINDMNT_BIN, Column::TARGET_MKDIR_BIN, Column::TARGET_REALPATH_BIN,
-	    Column::TARGET_RM_BIN, Column::TARGET_RMDIR_BIN
+	    Column::TARGET_LS_BIN, Column::TARGET_MKDIR_BIN, Column::TARGET_RM_BIN,
+	    Column::TARGET_RMDIR_BIN
 	};
 
 	switch (global_options.output_format())
@@ -326,9 +314,9 @@ namespace snapper
     template <> struct EnumInfo<Column> { static const vector<string> names; };
 
     const vector<string> EnumInfo<Column>::names({
-	"name", "config", "target-mode", "automatic", "source-path", "target-path", "ssh-host",
-	"ssh-user", "ssh-port", "ssh-identity", "target-btrfs-bin", "target-findmnt-bin",
-	"target-mkdir-bin", "target-realpath-bin", "target-rm-bin", "target-rmdir-bin"
+	"name", "config", "target-mode", "automatic", "target-path", "ssh-host",
+	"ssh-user", "ssh-port", "ssh-identity", "target-btrfs-bin", "target-ls-bin",
+	"target-mkdir-bin", "target-rm-bin", "target-rmdir-bin"
     });
 
 }
