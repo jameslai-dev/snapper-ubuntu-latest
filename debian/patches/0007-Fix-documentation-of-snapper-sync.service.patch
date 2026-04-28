@@ -1,0 +1,24 @@
+From 632769af4614a6cca309736e55d912816239f611 Mon Sep 17 00:00:00 2001
+From: Cheng-Ling Lai <jameslai.tech@gmail.com>
+Date: Fri, 24 Apr 2026 13:21:14 +0800
+Subject: [PATCH 07/11] Fix documentation of snapper-sync.service
+
+---
+ data/snapper-sync.service | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/data/snapper-sync.service b/data/snapper-sync.service
+index 4f16fd7b..eab35a47 100644
+--- a/data/snapper-sync.service
++++ b/data/snapper-sync.service
+@@ -1,6 +1,6 @@
+ [Unit]
+ Description=Snapper Highest Snapshot Number Synchronization
+-Documentation=man:snapper(8)
++Documentation=man:snbk(8)
+ After=snapperd.service
+ Requires=snapperd.service
+ 
+-- 
+2.43.0
+

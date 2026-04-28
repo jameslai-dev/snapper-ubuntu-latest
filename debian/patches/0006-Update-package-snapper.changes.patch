@@ -1,0 +1,26 @@
+From f836cdcd548670c13a39ad93789a0b8e9ea14996 Mon Sep 17 00:00:00 2001
+From: Cheng-Ling Lai <jameslai.tech@gmail.com>
+Date: Thu, 23 Apr 2026 11:10:57 +0800
+Subject: [PATCH 06/11] Update package/snapper.changes
+
+---
+ package/snapper.changes | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/package/snapper.changes b/package/snapper.changes
+index 2fb7149e..291a0245 100644
+--- a/package/snapper.changes
++++ b/package/snapper.changes
+@@ -1,3 +1,9 @@
++-------------------------------------------------------------------
++Fri 24 Apr 05:05:24 UTC 2026 - Cheng-Ling Lai <jameslai.tech@gmail.com>
++
++- Add snapper-sync to synchronize the highest snapshot number
++  (gh#openSUSE/snapper#1128)
++
+ -------------------------------------------------------------------
+ Wed Mar 25 15:18:15 CET 2026 - Arvin Schnell <aschnell@suse.com>
+ 
+-- 
+2.43.0
+

@@ -1,0 +1,74 @@
+From da6db78490da86de00abfc2c9ca298251bd2abc3 Mon Sep 17 00:00:00 2001
+From: Cheng-Ling Lai <jameslai.tech@gmail.com>
+Date: Wed, 22 Apr 2026 09:28:20 +0800
+Subject: [PATCH 03/11] Add snapper-sync.service
+
+---
+ data/10-snapper-sync-override.conf |  2 ++
+ data/Makefile.am                   |  5 ++++-
+ data/snapper-sync.service          | 21 +++++++++++++++++++++
+ 3 files changed, 27 insertions(+), 1 deletion(-)
+ create mode 100644 data/10-snapper-sync-override.conf
+ create mode 100644 data/snapper-sync.service
+
+diff --git a/data/10-snapper-sync-override.conf b/data/10-snapper-sync-override.conf
+new file mode 100644
+index 00000000..de4d5ff9
+--- /dev/null
++++ b/data/10-snapper-sync-override.conf
+@@ -0,0 +1,2 @@
++[Unit]
++After=snapper-sync.service
+diff --git a/data/Makefile.am b/data/Makefile.am
+index b0442009..349c7c4e 100644
+--- a/data/Makefile.am
++++ b/data/Makefile.am
+@@ -6,7 +6,7 @@ EXTRA_DIST = sysconfig.snapper base.txt lvm.txt x11.txt snapper.logrotate	\
+ 	default-config org.opensuse.Snapper.conf org.opensuse.Snapper.service	\
+ 	zypp-plugin.conf timeline.service timeline.timer cleanup.service	\
+ 	cleanup.timer boot.service boot.timer backup.service backup.timer	\
+-	snapperd.service
++	snapperd.service snapper-sync.service 10-snapper-sync-override.conf
+ 
+ install-data-local:
+ 	install -D -m 644 snapper.logrotate $(DESTDIR)/etc/logrotate.d/snapper
+@@ -38,6 +38,9 @@ if ENABLE_SYSTEMD
+ 	install -D -m 644 backup.service $(DESTDIR)/usr/lib/systemd/system/snapper-backup.service
+ 	install -D -m 644 backup.timer $(DESTDIR)/usr/lib/systemd/system/snapper-backup.timer
+ 	install -D -m 644 snapperd.service $(DESTDIR)/usr/lib/systemd/system/snapperd.service
++	install -D -m 644 snapper-sync.service $(DESTDIR)/usr/lib/systemd/system/snapper-sync.service
++	install -D -m 644 10-snapper-sync-override.conf $(DESTDIR)/usr/lib/systemd/system/snapper-boot.timer.d/10-snapper-sync-override.conf
++	install -D -m 644 10-snapper-sync-override.conf $(DESTDIR)/usr/lib/systemd/system/snapper-timeline.timer.d/10-snapper-sync-override.conf
+ endif
+ 
+ if HAVE_ZYPP
+diff --git a/data/snapper-sync.service b/data/snapper-sync.service
+new file mode 100644
+index 00000000..4f16fd7b
+--- /dev/null
++++ b/data/snapper-sync.service
+@@ -0,0 +1,21 @@
++[Unit]
++Description=Snapper Highest Snapshot Number Synchronization
++Documentation=man:snapper(8)
++After=snapperd.service
++Requires=snapperd.service
++
++[Service]
++Type=oneshot
++ExecStart=/usr/sbin/snapper-sync
++RemainAfterExit=yes
++
++CapabilityBoundingSet=CAP_DAC_OVERRIDE CAP_FOWNER CAP_CHOWN CAP_FSETID CAP_SETFCAP CAP_SYS_ADMIN CAP_SYS_MODULE CAP_IPC_LOCK CAP_SYS_NICE CAP_MKNOD
++LockPersonality=true
++NoNewPrivileges=false
++PrivateNetwork=true
++ProtectHostname=true
++RestrictAddressFamilies=AF_UNIX
++RestrictRealtime=true
++
++[Install]
++WantedBy=timers.target
+-- 
+2.43.0
+
