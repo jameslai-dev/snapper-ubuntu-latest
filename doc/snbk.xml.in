@@ -2,13 +2,13 @@
 <refentry id='snbk8' xmlns:xlink="http://www.w3.org/1999/xlink">
 
   <refentryinfo>
-    <date>2024-11-05</date>
+    <date>2026-01-16</date>
   </refentryinfo>
 
   <refmeta>
     <refentrytitle>snbk</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class='date'>2024-11-05</refmiscinfo>
+    <refmiscinfo class='date'>2026-01-16</refmiscinfo>
     <refmiscinfo class='version'>@VERSION@</refmiscinfo>
     <refmiscinfo class='manual'>Filesystem Snapshot Management</refmiscinfo>
   </refmeta>
@@ -103,7 +103,41 @@
 	    transfer the snapshot again.</para>
           </glossdef>
         </glossentry>
+	<glossentry>
+	  <glossterm>legacy</glossterm>
+	  <glossdef>
+	    <para>The snapshot is valid, but the source snapshot's metadata has changed
+	    since the transfer. The next transfer command will update the snapshot's
+	    metadata on the target.</para>
+	  </glossdef>
+	</glossentry>
       </glosslist>
+    </refsect2>
+
+    <refsect2 id='visualization'>
+      <title>Visualization</title>
+      <para>
+	Snbk provides a <emphasis>visualize</emphasis> command for producing graphs in
+	Graphviz DOT format for visualization purposes. Currently, producing tree diagrams
+	for snapshots on both the source and the target is supported. The command output
+	can be piped to the Graphviz tools to generate an image.
+      </para>
+      <para>
+	Here is an example of producing a tree diagram for snapshots on the source side
+	with the 'root' backup config:
+	<programlisting>
+# snbk -b root visualize source-tree | dot -T png -o root-source-tree.png
+	</programlisting>
+      </para>
+      <para>
+	In the tree diagram for snapshots, a node has the properties
+	<emphasis>virtual</emphasis> and <emphasis>valid</emphasis>. A virtual node means
+	the corresponding Btrfs subvolume is not managed by a Snapper snapshot. A valid
+	node means the node exists on both the source and target sides, and can be used as
+	a valid Btrfs send parent to reduce disk usage during snapshot transfer or
+	restoration. The root node of the diagram is a specialized virtual node, which is
+	not a Btrfs subvolume, representing the Btrfs filesystem on the source or target.
+      </para>
     </refsect2>
 
   </refsect1>
@@ -260,6 +294,16 @@
       </varlistentry>
 
       <varlistentry>
+	<term><option>restore [<replaceable>number</replaceable>]</option></term>
+	<listitem>
+	  <para>Restore all missing snapshots or the specified snapshot back to the
+	  source. A backup config must be specified to run this command. A restart of the
+	  `snapperd` service is required to make the restored snapshots visible
+	  immediately.</para>
+	</listitem>
+      </varlistentry>
+
+      <varlistentry>
 	<term><option>delete (remove|rm) [<replaceable>number</replaceable>]</option></term>
 	<listitem>
 	  <para>Delete all obsolete snapshots or the specified
@@ -274,17 +318,51 @@
 	</listitem>
       </varlistentry>
 
+      <varlistentry>
+	<term><option>visualize [options] <replaceable>mode</replaceable></option></term>
+	<listitem>
+	  <para>
+	    Produce a Graphviz graph with the specified <replaceable>mode</replaceable>.
+	    See <link linkend='visualization'>Visualization</link> for more detail.
+	  </para>
+	  <variablelist>
+	    <varlistentry>
+	      <term>
+		<option>-r, --rankdir</option> <replaceable>rankdir</replaceable>
+	      </term>
+	      <listitem>
+		<para>
+		  The 'rankdir' diagram attribute of Graphviz. Defaults to 'LR'.
+		</para>
+	      </listitem>
+	    </varlistentry>
+	    <varlistentry>
+	      <term><option>source-tree</option></term>
+	      <listitem>
+		<para>Produce a tree diagram of the snapshots on the source.</para>
+	      </listitem>
+	    </varlistentry>
+	    <varlistentry>
+	      <term><option>target-tree</option></term>
+	      <listitem>
+		<para>Produce a tree diagram of the snapshots on the target.</para>
+	      </listitem>
+	    </varlistentry>
+	  </variablelist>
+	</listitem>
+      </varlistentry>
+
     </variablelist>
   </refsect1>
 
   <refsect1 id='restore'>
     <title>RESTORE</title>
-    <para>So far a restore has to be done manually. There are several
-    methods to do a restore, e.g. the backup can be mounted and then
-    copied or rsync can be used. Here we provide an example on how to use
-    btrfs send and receive to restore a snapshot on the source
-    system. In general using btrfs send and receive is a bit
-    tricky.</para>
+    <para>Snapshots can be restored using the restore command. There
+    are more methods to do a restore, e.g. the backup can be mounted and
+    then copied or rsync can be used.</para>
+    <para>Here we provide an example on how to manually use btrfs send
+    and receive to restore a snapshot on the source system. In general
+    using btrfs send and receive is a bit tricky.</para>
     <para>When using target-mode local:
       <programlisting>
 # mkdir /.snapshots/42

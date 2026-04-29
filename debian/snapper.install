@@ -10,9 +10,9 @@ usr/sbin/snapperd
 /usr/share/snapper
 usr/lib/snapper/installation-helper 
 usr/lib/snapper/systemd-helper 
-usr/lib/systemd/system/snapper-boot.*
+usr/lib/systemd/system/snapper-boot.{service,timer}
 usr/lib/systemd/system/snapper-cleanup.*
-usr/lib/systemd/system/snapper-timeline.*
+usr/lib/systemd/system/snapper-timeline.{service,timer}
 usr/lib/systemd/system/snapperd.service
 debian/80snapper		etc/apt/apt.conf.d/
 usr/share/bash-completion/completions/snapper

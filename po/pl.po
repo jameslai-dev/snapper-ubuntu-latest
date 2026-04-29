@@ -9,16 +9,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-23 11:53+0200\n"
-"PO-Revision-Date: 2025-07-22 15:00+0000\n"
-"Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
+"POT-Creation-Date: 2026-03-19 12:28+0100\n"
+"PO-Revision-Date: 2025-11-26 23:04+0000\n"
+"Last-Translator: Szymon Scholz <raspherdev@pm.me>\n"
 "Language-Team: Polish <https://l10n.opensuse.org/projects/snapper/master/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.14.3\n"
 
 msgid "\tsnapper cleanup <cleanup-algorithm>"
 msgstr "\tsnapper cleanup <algorytm czyszczenia>"
@@ -77,9 +77,8 @@ msgstr "\tsnapper xadiff <numer1>..<numer2> [pliki]"
 msgid "    Global options:"
 msgstr "    Opcje globalne:"
 
-#, fuzzy
 msgid "    Options for 'cleanup' command:"
-msgstr "    Opcje dla polecenia 'create':"
+msgstr "    Opcje dla polecenia 'cleanup':"
 
 msgid "    Options for 'create' command:"
 msgstr "    Opcje dla polecenia 'create':"
@@ -93,16 +92,14 @@ msgstr "    Opcje polecenia \"delete\":"
 msgid "    Options for 'diff' command:"
 msgstr "    Opcje polecenia \"diff\":"
 
-#, fuzzy
 msgid "    Options for 'get-config' command:"
-msgstr "    Opcje dla polecenia 'create-config':"
+msgstr "    Opcje dla polecenia 'get-config':"
 
 msgid "    Options for 'list' command:"
 msgstr "    Opcje dla polecenia 'list':"
 
-#, fuzzy
 msgid "    Options for 'list-configs' command:"
-msgstr "    Opcje dla polecenia 'create-config':"
+msgstr "    Opcje dla polecenia 'list-configs':"
 
 msgid "    Options for 'modify' command:"
 msgstr "    Opcje dla polecenia 'modify':"
@@ -175,27 +172,40 @@ msgstr "#"
 #. %2$s is replaced by second value
 #, c-format
 msgid "%1$s or %2$s"
-msgstr ""
+msgstr "%1$s lub %2$s"
 
 #. TRANSLATORS: used to construct list of values
 #. %1$s is replaced by first value
 #. %2$s is replaced by second value
 #, c-format
 msgid "%1$s, %2$s"
+msgstr "%1$s, %2$s"
+
+#. For system(3), only WIFEXITED or WIFSIGNALED should be possible.
+#, c-format
+msgid "%s continued"
+msgstr ""
+
+#, c-format
+msgid "%s killed by signal %d"
+msgstr ""
+
+#. For system(3), only WIFEXITED or WIFSIGNALED should be possible.
+#, c-format
+msgid "%s stopped"
 msgstr ""
 
 msgid "'btrfs send | btrfs receive' failed."
-msgstr ""
+msgstr "'btrfs send | btrfs receive' nie powiodło się."
 
 msgid "'btrfs subvolume delete' failed."
-msgstr ""
+msgstr "'btrfs subvolume delete' nie powiodło się."
 
-#, fuzzy
 msgid "'cp info.xml' failed."
-msgstr "Otwieranie pliku '%s' nie powiodło się."
+msgstr "'cp info.xml' nie powiodło się."
 
 msgid "'mkdir' failed."
-msgstr ""
+msgstr "'mkdir' nie powiodło się."
 
 msgid "'rm info.xml' failed."
 msgstr ""
@@ -232,6 +242,18 @@ msgid "(Target) Received UUID"
 msgstr ""
 
 msgid "(Target) UUID"
+msgstr ""
+
+msgid "- A backup-config must be specified to run this command."
+msgstr ""
+
+msgid "- Restart the `snapperd` service to make the restored snapshots visible immediately."
+msgstr ""
+
+msgid "- source-tree: Produce a tree diagram of the snapshots on the source."
+msgstr ""
+
+msgid "- target-tree: Produce a tree diagram of the snapshots on the target."
 msgstr ""
 
 msgid "--abbreviate"
@@ -335,6 +357,9 @@ msgstr ""
 msgid "--quiet, -q"
 msgstr ""
 
+msgid "--rankdir, -r"
+msgstr ""
+
 msgid "--read-only"
 msgstr ""
 
@@ -377,6 +402,9 @@ msgstr ""
 msgid "--version"
 msgstr ""
 
+msgid "A backup-config must be specified to run this command."
+msgstr ""
+
 msgid "ACL error."
 msgstr "Błąd ACL."
 
@@ -417,6 +445,14 @@ msgstr ""
 
 msgid "Cannot do rollback since default subvolume is unknown."
 msgstr ""
+
+#, c-format
+msgid "Cannot find the node of UUID %s"
+msgstr ""
+
+#, fuzzy
+msgid "Cannot transfer a read-write snapshot."
+msgstr "Tworzenie migawki z migawki %d służącej do odczytu i zapisu."
 
 msgid "Character separator for CSV output format."
 msgstr ""
@@ -501,6 +537,10 @@ msgid "Command 'status' needs one argument."
 msgstr "Polecenie 'status' wymaga jednego argumentu."
 
 #, fuzzy
+msgid "Command 'transfer-and-delete' does not support operating on a single snapshot."
+msgstr "Polecenie 'create' nie przyjmuje argumentów."
+
+#, fuzzy
 msgid "Command 'transfer-and-delete' does not take arguments."
 msgstr "Polecenie 'create' nie przyjmuje argumentów."
 
@@ -509,6 +549,10 @@ msgstr "Polecenie unmount wymaga co najmniej jednego argumentu."
 
 msgid "Command 'undochange' needs at least one argument."
 msgstr "Polecenie 'undochange' wymaga co najmniej jednego argumentu."
+
+#, fuzzy
+msgid "Command 'visualize' needs one argument."
+msgstr "Polecenie 'status' wymaga jednego argumentu."
 
 msgid "Command 'xadiff' needs at least one argument."
 msgstr "Polecenie 'xadiff' wymaga podania co najmniej jednego argumentu."
@@ -666,6 +710,10 @@ msgstr "Błąd (%s)."
 msgid "Extra options passed to the diff command."
 msgstr "\t--extensions, -x <opcje>\tDodatkowe opcje przekazywane do polecenia diff."
 
+#, fuzzy
+msgid "Failed to compute checksum."
+msgstr "nie udało się utworzyć %s"
+
 msgid "Failed to initialize filesystem handler."
 msgstr "Inicjowanie programu obsługi systemu plików nie powiodło się."
 
@@ -743,6 +791,9 @@ msgstr "\t--verbose, -v\t\t\tZwiększenie szczegółowości."
 msgid "Invalid ambit '%s'."
 msgstr "Nieprawidłowy zrzut '%s'."
 
+msgid "Invalid checksum output format."
+msgstr ""
+
 #, fuzzy, c-format
 msgid "Invalid column '%s'."
 msgstr "Nieprawidłowy zrzut '%s'."
@@ -769,6 +820,9 @@ msgstr "Nieprawidłowy styl tabeli %d."
 #, fuzzy, c-format
 msgid "Invalid machine readable format '%s'."
 msgstr "Nieprawidłowy styl tabeli %d."
+
+msgid "Invalid number of lines in checksum output."
+msgstr ""
 
 #, fuzzy, c-format
 msgid "Invalid path '%s'."
@@ -882,6 +936,9 @@ msgstr ""
 msgid "No permissions."
 msgstr "Brak uprawnień."
 
+msgid "Notice:"
+msgstr ""
+
 #, fuzzy
 msgid "Number of corresponding pre snapshot."
 msgstr "\t--pre-number <numer>\t\tLiczba odpowiednich zrzutów typu pre."
@@ -914,6 +971,10 @@ msgstr ""
 msgid "Option --read-write only supported for snapshots of type single."
 msgstr ""
 
+#, fuzzy
+msgid "Options for the 'visualize' command:"
+msgstr "    Opcje dla polecenia 'list':"
+
 #. TRANSLATORS: symbol for "peta" (best keep untranslated)
 msgid "P"
 msgstr ""
@@ -923,9 +984,9 @@ msgstr ""
 msgid "PB"
 msgstr "PiB"
 
-#, c-format
-msgid "Path mismatch between source-path of backup-config and subvolume of snapper config ('%s' vs. '%s')."
-msgstr ""
+#, fuzzy, c-format
+msgid "Parent node %s not found."
+msgstr "Nie znaleziono pliku '%s'."
 
 #. TRANSLATORS: symbol for "pebi bytes" (best keep untranslated)
 msgid "PiB"
@@ -971,6 +1032,9 @@ msgstr "porównanie zrzutów..."
 msgid "Probing target snapshots."
 msgstr "porównanie zrzutów..."
 
+msgid "Produce a specific graph in Graphviz DOT format:"
+msgstr ""
+
 #, c-format
 msgid "Quota error (%s)."
 msgstr "Błąd przydziału (%s)."
@@ -985,6 +1049,13 @@ msgstr "\t--input, -i <plik>\t\tWczytuje pliki do polecenia diff z pliku."
 
 msgid "Read-Only"
 msgstr ""
+
+msgid "Restore:"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Restoring snapshot %d."
+msgstr "Usuwanie zrzutu nie powiodło się (%s)."
 
 #, fuzzy
 msgid "Run command and create pre and post snapshots."
@@ -1011,6 +1082,21 @@ msgid_plural "Running list failed for %d of %ld backup configs."
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+
+#, c-format
+msgid "Running restore failed for %d of %ld backup config."
+msgid_plural "Running restore failed for %d of %ld backup configs."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#, c-format
+msgid "Running restore for backup config '%s' failed."
+msgstr ""
+
+#, c-format
+msgid "Running restore for backup config '%s'."
+msgstr ""
 
 #, c-format
 msgid "Running transfer and delete failed for %d of %ld backup config."
@@ -1107,6 +1193,10 @@ msgid "Snapshot '%u' not found."
 msgstr "Nie znaleziono zrzutu '%u'."
 
 #, fuzzy
+msgid "Snapshot already on source."
+msgstr "Tworzenie zrzutu nie powiodło się (%s)."
+
+#, fuzzy
 msgid "Snapshot already on target."
 msgstr "Tworzenie zrzutu nie powiodło się (%s)."
 
@@ -1125,14 +1215,14 @@ msgstr "Nie znaleziono zrzutu '%u'."
 msgid "Snapshot number %d not found."
 msgstr "Nie znaleziono zrzutu '%u'."
 
-msgid "Source Path"
-msgstr ""
-
 msgid "Source State"
 msgstr ""
 
 msgid "Subvolume"
 msgstr "Podwolumen"
+
+msgid "Supported modes:"
+msgstr ""
 
 #, fuzzy
 msgid "Suppress normal output."
@@ -1167,19 +1257,19 @@ msgstr ""
 msgid "Target btrfs bin"
 msgstr ""
 
-msgid "Target findmnt Bin"
+msgid "Target ls Bin"
 msgstr ""
 
 msgid "Target mkdir bin"
-msgstr ""
-
-msgid "Target realpath bin"
 msgstr ""
 
 msgid "Target rm bin"
 msgstr ""
 
 msgid "Target rmdir bin"
+msgstr ""
+
+msgid "The 'rankdir' diagram attribute of Graphviz. Defaults to 'LR'."
 msgstr ""
 
 msgid "The ambit can be specified manually using the --ambit option."
@@ -1244,13 +1334,25 @@ msgstr "Nieznana konfiguracja."
 msgid "Unknown global option '%s'."
 msgstr "Nieznana opcja globalna '%s'."
 
+#, fuzzy, c-format
+msgid "Unknown mode '%s'."
+msgstr "Nieznane polecenie '%s'."
+
 #, c-format
 msgid "Unknown option '%s' for command '%s'."
 msgstr "Nieznana opcja '%s' dla polecenia  '%s'."
 
 #, fuzzy, c-format
+msgid "Unknown rankdir '%s'."
+msgstr "Nieznane polecenie '%s'."
+
+#, fuzzy, c-format
 msgid "Unknown type '%s'."
 msgstr "Nieznane polecenie '%s'."
+
+#, fuzzy, c-format
+msgid "Updating metadata of snapshot %d."
+msgstr "Tworzenie migawki z migawki %d służącej do odczytu i zapisu."
 
 #. TRANSLATORS: a list of possible values
 #. %1$s is replaced by list of possible values
@@ -1349,10 +1451,17 @@ msgstr "\tsnapper list"
 msgid "snbk list-configs"
 msgstr "\tsnapper list-configs"
 
+#, fuzzy
+msgid "snbk restore [numbers]"
+msgstr "\tsnapper delete <numer>"
+
 msgid "snbk transfer [numbers]"
 msgstr ""
 
 msgid "snbk transfer-and-delete"
+msgstr ""
+
+msgid "snbk visualize <mode>"
 msgstr ""
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"

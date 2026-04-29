@@ -56,6 +56,26 @@ namespace snapper
 	    return quote(args.get_values());
 	}
 
+
+	string
+	wrap_shell_args(const Shell& shell, const SystemCmd::Args& args)
+	{
+	    const string tmp = quote(args);
+
+	    switch (shell.mode)
+	    {
+		case Shell::Mode::DIRECT:
+		    return tmp;
+
+		case Shell::Mode::SSH:
+		    return SSH_BIN " " + quote(shell.ssh_options) + " " +
+			SystemCmd::quote(tmp);
+	    }
+
+	    SN_THROW(Exception("invalid shell mode"));
+	    __builtin_unreachable();
+	}
+
     }
 
 
@@ -83,27 +103,11 @@ namespace snapper
 
 
     SystemCmd::Args
-    shellify_pipe(const SystemCmd::Args& args1, const Shell& shell2, const SystemCmd::Args& args2)
+    shellify_pipe(const Shell& shell1, const SystemCmd::Args& args1,
+		  const Shell& shell2, const SystemCmd::Args& args2)
     {
-	string tmp1 = quote(args1);
-	string tmp2 = quote(args2);
-
-	switch (shell2.mode)
-	{
-	    case Shell::Mode::DIRECT:
-	    {
-		return SystemCmd::Args { SH_BIN, "-c", tmp1 + " | " + tmp2 };
-	    }
-
-	    case Shell::Mode::SSH:
-	    {
-		return SystemCmd::Args { SH_BIN, "-c", tmp1 + " | " + SSH_BIN " " +
-		    quote(shell2.ssh_options) + " " + quote(tmp2) };
-	    }
-	}
-
-	SN_THROW(Exception("invalid shell mode"));
-	__builtin_unreachable();
+	return { SH_BIN, "-c", wrap_shell_args(shell1, args1) + " | " +
+	    wrap_shell_args(shell2, args2) };
     }
 
 }

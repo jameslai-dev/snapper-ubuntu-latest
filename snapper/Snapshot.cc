@@ -1,6 +1,6 @@
 /*
  * Copyright (c) [2011-2015] Novell, Inc.
- * Copyright (c) [2016-2025] SUSE LLC
+ * Copyright (c) [2016-2026] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -28,8 +28,6 @@
 #include <fcntl.h>
 #include <cerrno>
 #include <cstring>
-#include <regex>
-#include <boost/algorithm/string.hpp>
 
 #include "snapper/Snapshot.h"
 #include "snapper/Snapper.h"
@@ -50,7 +48,6 @@
 namespace snapper
 {
     using std::list;
-    using std::regex;
 
 
     std::ostream& operator<<(std::ostream& s, const Snapshot& snapshot)
@@ -240,22 +237,21 @@ namespace snapper
     void
     Snapshots::read()
     {
-	static const regex rx("[0-9]+", regex::extended);
-
 	SDir infos_dir = snapper->openInfosDir();
 
-	vector<string> infos = infos_dir.entries();
-	for (vector<string>::const_iterator it1 = infos.begin(); it1 != infos.end(); ++it1)
+	for (const string& info : infos_dir.entries(SDir::number_entries))
 	{
-	    if (!regex_match(*it1, rx))
-		continue;
-
 	    try
 	    {
-		SDir info_dir(infos_dir, *it1);
+		SDir info_dir(infos_dir, info);
 		int fd = info_dir.open("info.xml", O_NOFOLLOW | O_CLOEXEC);
 		if (fd < 0)
-		    SN_THROW(IOErrorException("open info.xml failed"));
+		{
+		    // Since we want all-time unique snapshots number we might have empty
+		    // directories. So do not raise an exception here.
+
+		    continue;
+		}
 
 		XmlFile file(fd, "");
 
@@ -266,30 +262,30 @@ namespace snapper
 		SnapshotType type;
 		if (!getChildValue(node, "type", tmp) || !toValue(tmp, type, true))
 		{
-		    y2err("type missing or invalid. not adding snapshot " << *it1);
+		    y2err("type missing or invalid. not adding snapshot " << info);
 		    continue;
 		}
 
 		unsigned int num;
 		if (!getChildValue(node, "num", num) || num == 0)
 		{
-		    y2err("num missing or invalid. not adding snapshot " << *it1);
+		    y2err("num missing or invalid. not adding snapshot " << info);
 		    continue;
 		}
 
 		time_t date;
 		if (!getChildValue(node, "date", tmp) || (date = scan_datetime(tmp, true)) == (time_t)(-1))
 		{
-		    y2err("date missing or invalid. not adding snapshot " << *it1);
+		    y2err("date missing or invalid. not adding snapshot " << info);
 		    continue;
 		}
 
 		Snapshot snapshot(snapper, type, num, date);
 
-		*it1 >> num;
+		info >> num;
 		if (num != snapshot.num)
 		{
-		    y2err("num mismatch. not adding snapshot " << *it1);
+		    y2err("num mismatch. not adding snapshot " << info);
 		    continue;
 		}
 
@@ -315,7 +311,7 @@ namespace snapper
 
 		if (!filesystem->checkSnapshot(snapshot.num))
 		{
-		    y2err("snapshot check failed. not adding snapshot " << *it1);
+		    y2err("snapshot check failed. not adding snapshot " << info);
 		    continue;
 		}
 
@@ -327,7 +323,7 @@ namespace snapper
 	    {
 		SN_CAUGHT(e);
 
-		y2err("loading " << *it1 << " failed");
+		y2err("loading " << info << " failed");
 	    }
 	}
 
@@ -488,9 +484,25 @@ namespace snapper
     unsigned int
     Snapshots::nextNumber() const
     {
-	unsigned int num = entries.empty() ? 0 : entries.rbegin()->num;
+	// We want all-time unique snapshot numbers.
 
 	SDir infos_dir = snapper->openInfosDir();
+
+	// Numbers of directories (and files) found in infos-dir.
+
+	vector<unsigned int> nums;
+	for (const string& tmp : infos_dir.entries(SDir::number_entries))
+	    nums.push_back(stoi(tmp));
+
+	// Set num to next available free number. All entries should also be included in
+	// nums but better be save.
+
+	unsigned int num = entries.empty() ? 0 : entries.rbegin()->num;
+	for (unsigned int tmp : nums)
+	    num = std::max(num, tmp);
+
+	// Now try to create the next directory. EEXIST should not happen since we just
+	// looked at all directories but better be save.
 
 	while (true)
 	{
@@ -510,6 +522,15 @@ namespace snapper
 	}
 
 	infos_dir.chmod(decString(num), 0755, 0);
+
+	// Now try to remove directories not belonging to any snapshot. The new num is not
+	// included in nums.
+
+	for (unsigned int tmp : nums)
+	{
+	    if (find(tmp) == end())
+		infos_dir.rmdir(decString(tmp));
+	}
 
 	return num;
     }
@@ -838,9 +859,16 @@ namespace snapper
 	if (info_dir.unlink("info.xml") < 0)
 	    y2err("unlink 'info.xml' failed errno: " << errno << " (" << stringerror(errno) << ")");
 
-	SDir infos_dir = snapper->openInfosDir();
-	if (infos_dir.rmdir(decString(snapshot->getNum())) < 0)
-	    y2err("rmdir '" << snapshot->getNum() << "' failed errno: " << errno << " (" << stringerror(errno) << ")");
+	// We want all-time unique snapshot numbers. So keep directory of snapshot with
+	// highest number.
+
+	if (snapshot->num != entries.rbegin()->num)
+	{
+	    SDir infos_dir = snapper->openInfosDir();
+	    if (infos_dir.rmdir(decString(snapshot->getNum())) < 0)
+		y2err("rmdir '" << snapshot->getNum() << "' failed errno: " << errno << " (" <<
+		      stringerror(errno) << ")");
+	}
 
 	Plugins::delete_snapshot(Plugins::Stage::POST_ACTION, snapper->subvolumeDir(), snapper->getFilesystem(),
 				 *snapshot, report);

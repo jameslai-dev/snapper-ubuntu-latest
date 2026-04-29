@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 SUSE LLC
+ * Copyright (c) [2024-2026] SUSE LLC
  *
  * All Rights Reserved.
  *
@@ -52,9 +52,6 @@ namespace snapper
 	if (!toValue(tmp1, target_mode, false))
 	    SN_THROW(Exception(sformat("unknown target-mode '%s' in '%s'", tmp1.c_str(), name.c_str())));
 
-	if (!get_child_value(json_file.get_root(), "source-path", source_path))
-	    SN_THROW(Exception(sformat("source-path entry not found in '%s'", name.c_str())));
-
 	if (!get_child_value(json_file.get_root(), "target-path", target_path))
 	    SN_THROW(Exception(sformat("target-path entry not found in '%s'", name.c_str())));
 
@@ -70,12 +67,16 @@ namespace snapper
 	    get_child_value(json_file.get_root(), "ssh-identity", ssh_identity);
 	}
 
+	get_child_value(json_file.get_root(), "send-compressed-data", send_compressed_data);
+	get_child_nodes(json_file.get_root(), "send-options", send_options);
+	get_child_nodes(json_file.get_root(), "receive-options", receive_options);
+
 	get_child_value(json_file.get_root(), "target-btrfs-bin", target_btrfs_bin);
-	get_child_value(json_file.get_root(), "target-findmnt-bin", target_findmnt_bin);
+	get_child_value(json_file.get_root(), "target-ls-bin", target_ls_bin);
 	get_child_value(json_file.get_root(), "target-mkdir-bin", target_mkdir_bin);
-	get_child_value(json_file.get_root(), "target-realpath-bin", target_realpath_bin);
 	get_child_value(json_file.get_root(), "target-rm-bin", target_rm_bin);
 	get_child_value(json_file.get_root(), "target-rmdir-bin", target_rmdir_bin);
+	get_child_value(json_file.get_root(), "target-sha256sum-bin", target_sha256sum_bin);
     }
 
 
@@ -116,6 +117,10 @@ namespace snapper
 
 	if (!ssh_identity.empty())
 	    options.insert(options.end(), { "-i", ssh_identity });
+
+	if (ssh_master_control)
+	    options.insert(options.end(), { "-o", "ControlMaster=auto", "-o", "ControlPath=\"~/.ssh/snbk-%C\"",
+		"-o", "ControlPersist=30s" });
 
 	return options;
     }

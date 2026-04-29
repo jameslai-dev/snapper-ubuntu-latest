@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-23 11:53+0200\n"
+"POT-Creation-Date: 2026-03-19 12:28+0100\n"
 "PO-Revision-Date: 2025-07-22 14:59+0000\n"
 "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
 "Language-Team: Finnish <https://l10n.opensuse.org/projects/snapper/master/fi/>\n"
@@ -177,6 +177,20 @@ msgstr "%1$s tai %2$s"
 msgid "%1$s, %2$s"
 msgstr "%1$s, %2$s"
 
+#. For system(3), only WIFEXITED or WIFSIGNALED should be possible.
+#, c-format
+msgid "%s continued"
+msgstr ""
+
+#, c-format
+msgid "%s killed by signal %d"
+msgstr ""
+
+#. For system(3), only WIFEXITED or WIFSIGNALED should be possible.
+#, c-format
+msgid "%s stopped"
+msgstr ""
+
 msgid "'btrfs send | btrfs receive' failed."
 msgstr "'btrfs lähetä | btrfs vastaanota' epäonnistui."
 
@@ -225,6 +239,19 @@ msgstr "(Kohde) Vastaanotettu UUID"
 
 msgid "(Target) UUID"
 msgstr "(Kohde) UUID"
+
+#, fuzzy
+msgid "- A backup-config must be specified to run this command."
+msgstr "Käytä backup-configia vain määritetyn kohdetavan kanssa."
+
+msgid "- Restart the `snapperd` service to make the restored snapshots visible immediately."
+msgstr ""
+
+msgid "- source-tree: Produce a tree diagram of the snapshots on the source."
+msgstr ""
+
+msgid "- target-tree: Produce a tree diagram of the snapshots on the target."
+msgstr ""
 
 msgid "--abbreviate"
 msgstr "--abbreviate"
@@ -323,6 +350,9 @@ msgstr "--print-number, -p"
 msgid "--quiet, -q"
 msgstr "--quiet, -q"
 
+msgid "--rankdir, -r"
+msgstr ""
+
 msgid "--read-only"
 msgstr "--read-only"
 
@@ -361,6 +391,10 @@ msgstr "--verbose, -v"
 
 msgid "--version"
 msgstr "--version"
+
+#, fuzzy
+msgid "A backup-config must be specified to run this command."
+msgstr "Käytä backup-configia vain määritetyn kohdetavan kanssa."
 
 # error box title
 msgid "ACL error."
@@ -403,6 +437,14 @@ msgstr "Aluetta ei voi tunnistaa, koska oletusalitaltio on tuntematon."
 
 msgid "Cannot do rollback since default subvolume is unknown."
 msgstr "Palautusta (rollback) ei voi tehdä, koska oletusalitaltio on tuntematon."
+
+#, c-format
+msgid "Cannot find the node of UUID %s"
+msgstr ""
+
+#, fuzzy
+msgid "Cannot transfer a read-write snapshot."
+msgstr "Luo luettava ja kirjoitettava tilannekuva."
 
 msgid "Character separator for CSV output format."
 msgstr "CSV-tulosmuodon merkkierotin."
@@ -484,6 +526,10 @@ msgstr "”setup-quota”-komento ei hyväksy parametreja."
 msgid "Command 'status' needs one argument."
 msgstr "”status”-komento vaatii yhden parametrin."
 
+#, fuzzy
+msgid "Command 'transfer-and-delete' does not support operating on a single snapshot."
+msgstr "Komento ”transfer-and-delete” ei ota parametreja."
+
 msgid "Command 'transfer-and-delete' does not take arguments."
 msgstr "Komento ”transfer-and-delete” ei ota parametreja."
 
@@ -492,6 +538,10 @@ msgstr "”umount”-komento vaatii vähintään yhden parametrin."
 
 msgid "Command 'undochange' needs at least one argument."
 msgstr "”undochange”-komento vaatii vähintään yhden parametrin."
+
+#, fuzzy
+msgid "Command 'visualize' needs one argument."
+msgstr "”status”-komento vaatii yhden parametrin."
 
 msgid "Command 'xadiff' needs at least one argument."
 msgstr "”xadiff”-komento vaatii vähintään yhden parametrin."
@@ -636,6 +686,10 @@ msgstr "Virhe (%s)."
 msgid "Extra options passed to the diff command."
 msgstr "diff-komennolle välitettävät lisävalinnat."
 
+#, fuzzy
+msgid "Failed to compute checksum."
+msgstr "Lukua ei voitu jäsentää."
+
 msgid "Failed to initialize filesystem handler."
 msgstr "Tiedostojärjestelmäkäsittelyn alustus epäonnistui."
 
@@ -710,6 +764,10 @@ msgstr "Lisää yksityiskohtaisuutta."
 msgid "Invalid ambit '%s'."
 msgstr "Virheellinen alue \"%s\"."
 
+#, fuzzy
+msgid "Invalid checksum output format."
+msgstr "Aseta tulosmuodoksi CSV."
+
 #, c-format
 msgid "Invalid column '%s'."
 msgstr "Virheellinen sarake \"%s\"."
@@ -734,6 +792,9 @@ msgstr "Virheellinen taulukkotyyli \"%s\"."
 #, c-format
 msgid "Invalid machine readable format '%s'."
 msgstr "Virheellinen tietokoneen formaatti \"%s\"."
+
+msgid "Invalid number of lines in checksum output."
+msgstr ""
 
 #, c-format
 msgid "Invalid path '%s'."
@@ -841,6 +902,9 @@ msgstr "Otsakkeeton CSV-tulosmuoto."
 msgid "No permissions."
 msgstr "Ei käyttöoikeuksia."
 
+msgid "Notice:"
+msgstr ""
+
 msgid "Number of corresponding pre snapshot."
 msgstr "Vastaavan ennen-tilannekuvan numero."
 
@@ -870,6 +934,10 @@ msgstr "Vaihtoehto --tuettu vain yksittäisille tilannekuville."
 msgid "Option --read-write only supported for snapshots of type single."
 msgstr "Vaihtoehto --luku ja kirjoitus tuettu vain yksittäisille tilannekuville."
 
+#, fuzzy
+msgid "Options for the 'visualize' command:"
+msgstr "    ”list”-komennon valitsimet:"
+
 #. TRANSLATORS: symbol for "peta" (best keep untranslated)
 msgid "P"
 msgstr "P"
@@ -879,8 +947,8 @@ msgid "PB"
 msgstr "Pt"
 
 #, fuzzy, c-format
-msgid "Path mismatch between source-path of backup-config and subvolume of snapper config ('%s' vs. '%s')."
-msgstr "Sijaintiristiriita backup-configin ja configin välillä."
+msgid "Parent node %s not found."
+msgstr "Tiedostoa \"%s\" ei löytynyt."
 
 #. TRANSLATORS: symbol for "pebi bytes" (best keep untranslated)
 msgid "PiB"
@@ -919,6 +987,9 @@ msgstr "Etsitään lähdetilannekuvia."
 msgid "Probing target snapshots."
 msgstr "Etsitään kohdetilannekuvia."
 
+msgid "Produce a specific graph in Graphviz DOT format:"
+msgstr ""
+
 # error box title
 #, c-format
 msgid "Quota error (%s)."
@@ -932,6 +1003,13 @@ msgstr "Lue tiedostosta verrattavat tiedostot."
 
 msgid "Read-Only"
 msgstr "Vain luku"
+
+msgid "Restore:"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Restoring snapshot %d."
+msgstr "Tilannekuvan %d poistaminen epäonnistui."
 
 msgid "Run command and create pre and post snapshots."
 msgstr "Suorita komento ja luo ennen- ja jälkeen-tilannekuvat."
@@ -955,6 +1033,20 @@ msgid "Running list failed for %d of %ld backup config."
 msgid_plural "Running list failed for %d of %ld backup configs."
 msgstr[0] "Luettelointi epäonnistui %d/%ld varmuuskopiomääritykselle."
 msgstr[1] "Luettelointi epäonnistui %d/%ld varmuuskopiomääritykselle."
+
+#, fuzzy, c-format
+msgid "Running restore failed for %d of %ld backup config."
+msgid_plural "Running restore failed for %d of %ld backup configs."
+msgstr[0] "Poistaminen epäonnistui %d/%ld varmuuskopiomääritykselle."
+msgstr[1] "Poistaminen epäonnistui %d/%ld varmuuskopiomääritykselle."
+
+#, fuzzy, c-format
+msgid "Running restore for backup config '%s' failed."
+msgstr "Poistaminen epäonnistui varmuuskopiomääritykselle ”%s”."
+
+#, fuzzy, c-format
+msgid "Running restore for backup config '%s'."
+msgstr "Suoritetaan poistoa varmuuskopiomääritykselle ”%s”."
 
 #, c-format
 msgid "Running transfer and delete failed for %d of %ld backup config."
@@ -1041,6 +1133,10 @@ msgstr "Asetetaan oletusalitaltio tilannekuvalle %d."
 msgid "Snapshot '%u' not found."
 msgstr "Tilannekuvaa \"%u\" ei löytynyt."
 
+#, fuzzy
+msgid "Snapshot already on source."
+msgstr "Tilannekuva on jo kohteessa."
+
 msgid "Snapshot already on target."
 msgstr "Tilannekuva on jo kohteessa."
 
@@ -1057,14 +1153,14 @@ msgstr "Tilannekuvaa ei ole kohteessa."
 msgid "Snapshot number %d not found."
 msgstr "Tilannekuvaa %d ei löytynyt."
 
-msgid "Source Path"
-msgstr "Lähdepolku"
-
 msgid "Source State"
 msgstr "Lähteen tila"
 
 msgid "Subvolume"
 msgstr "Alitaltio"
+
+msgid "Supported modes:"
+msgstr ""
 
 msgid "Suppress normal output."
 msgstr "Jätä pois tavallinen tuloste."
@@ -1095,20 +1191,20 @@ msgstr "Kohteen tila"
 msgid "Target btrfs bin"
 msgstr ""
 
-msgid "Target findmnt Bin"
-msgstr ""
+#, fuzzy
+msgid "Target ls Bin"
+msgstr "Kohteen polku"
 
 msgid "Target mkdir bin"
 msgstr ""
-
-#, fuzzy
-msgid "Target realpath bin"
-msgstr "Kohteen polku"
 
 msgid "Target rm bin"
 msgstr ""
 
 msgid "Target rmdir bin"
+msgstr ""
+
+msgid "The 'rankdir' diagram attribute of Graphviz. Defaults to 'LR'."
 msgstr ""
 
 msgid "The ambit can be specified manually using the --ambit option."
@@ -1170,13 +1266,25 @@ msgstr "Tuntematon määritys."
 msgid "Unknown global option '%s'."
 msgstr "Tuntematon yleisvalitsin \"%s\"."
 
+#, fuzzy, c-format
+msgid "Unknown mode '%s'."
+msgstr "Tuntematon tyyppi \"%s\"."
+
 #, c-format
 msgid "Unknown option '%s' for command '%s'."
 msgstr "Tuntematon valitsin \"%s\" komennolle \"%s\"."
 
+#, fuzzy, c-format
+msgid "Unknown rankdir '%s'."
+msgstr "Tuntematon komento \"%s\"."
+
 #, c-format
 msgid "Unknown type '%s'."
 msgstr "Tuntematon tyyppi \"%s\"."
+
+#, fuzzy, c-format
+msgid "Updating metadata of snapshot %d."
+msgstr "Luodaan tilannekuvasta %d kirjoitettavissa olevaa tilannekuvaa."
 
 #. TRANSLATORS: a list of possible values
 #. %1$s is replaced by list of possible values
@@ -1268,11 +1376,18 @@ msgstr "snbk list"
 msgid "snbk list-configs"
 msgstr "snbk list-configs"
 
+#, fuzzy
+msgid "snbk restore [numbers]"
+msgstr "snbk delete [numerot]"
+
 msgid "snbk transfer [numbers]"
 msgstr "snbk transfer [numerot]"
 
 msgid "snbk transfer-and-delete"
 msgstr "snbk transfer-and-delete"
+
+msgid "snbk visualize <mode>"
+msgstr ""
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr "käyttö: snapper [--yleisvalitsimet] <komento> [--komennon-valitsimet] [komennon-parametrit]"
@@ -1282,6 +1397,13 @@ msgstr "käyttö: snbk [--global-options] <komento> [komennon-parametrit]"
 
 msgid "yes"
 msgstr "kyllä"
+
+#, fuzzy, c-format
+#~ msgid "Path mismatch between source-path of backup-config and subvolume of snapper config ('%s' vs. '%s')."
+#~ msgstr "Sijaintiristiriita backup-configin ja configin välillä."
+
+#~ msgid "Source Path"
+#~ msgstr "Lähdepolku"
 
 #~ msgid ""
 #~ "\t--columns <columns>\t\tColumns to show separated by comma.\n"

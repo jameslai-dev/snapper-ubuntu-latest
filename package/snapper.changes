@@ -1,4 +1,57 @@
 -------------------------------------------------------------------
+Wed Mar 25 15:18:15 CET 2026 - Arvin Schnell <aschnell@suse.com>
+
+- fix deleting LVM configs in case of empty directories
+  (bsc#1260410)
+- version 0.13.1
+
+-------------------------------------------------------------------
+Thu Mar 12 13:48:06 CET 2026 - Arvin Schnell <aschnell@suse.com>
+
+- enable sharing of ssh sessions (gh#openSUSE/snapper#1087)
+
+-------------------------------------------------------------------
+Tue Mar 10 10:55:15 CET 2026 - aschnell@suse.com
+
+- implement all-time unique snapshot numbers
+  (gh#openSUSE/snapper#131)
+
+-------------------------------------------------------------------
+Wed Dec 17 12:57:19 UTC 2025 - Cheng-Ling Lai <jamesljlster@gmail.com>
+
+- Add snapshots restoring support to snbk
+  (gh#openSUSE/snapper#1072)
+
+-------------------------------------------------------------------
+Tue Nov 18 10:23:16 CET 2025 - aschnell@suse.com
+
+- add CAP_MKNOD in snapper-backup.service
+  (gh#openSUSE/snapper#1067)
+
+-------------------------------------------------------------------
+Tue Oct 21 12:57:50 CEST 2025 - aschnell@suse.com
+
+- handle DBus connection error in snapper-zypp-plugin
+
+-------------------------------------------------------------------
+Mon Oct 13 08:43:43 CEST 2025 - aschnell@suse.com
+
+- redesigned target snapshot detection in snbk
+  (gh#openSUSE/snapper#1061)
+
+-------------------------------------------------------------------
+Tue Oct 07 14:42:16 CEST 2025 - aschnell@suse.com
+
+- support sending compressed data in snbk
+  (gh#openSUSE/snapper#1059)
+
+-------------------------------------------------------------------
+Wed Sep 24 16:12:34 CEST 2025 - aschnell@suse.com
+
+- detect correct path of btrfs binary on Debian and derivatives
+  (gh#openSUSE/snapper#1057)
+
+-------------------------------------------------------------------
 Fri Sep 05 12:52:07 CEST 2025 - aschnell@suse.com
 
 - do not link with stub libboost_system

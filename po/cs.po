@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-23 11:53+0200\n"
+"POT-Creation-Date: 2026-03-19 12:28+0100\n"
 "PO-Revision-Date: 2025-07-22 14:59+0000\n"
 "Last-Translator: Julia Faltenbacher <julia.faltenbacher@suse.com>\n"
 "Language-Team: Czech <https://l10n.opensuse.org/projects/snapper/master/cs/>\n"
@@ -178,6 +178,20 @@ msgstr "%1$s nebo %2$s"
 msgid "%1$s, %2$s"
 msgstr "%1$s, %2$s"
 
+#. For system(3), only WIFEXITED or WIFSIGNALED should be possible.
+#, c-format
+msgid "%s continued"
+msgstr ""
+
+#, c-format
+msgid "%s killed by signal %d"
+msgstr ""
+
+#. For system(3), only WIFEXITED or WIFSIGNALED should be possible.
+#, c-format
+msgid "%s stopped"
+msgstr ""
+
 msgid "'btrfs send | btrfs receive' failed."
 msgstr ""
 
@@ -227,6 +241,18 @@ msgid "(Target) Received UUID"
 msgstr ""
 
 msgid "(Target) UUID"
+msgstr ""
+
+msgid "- A backup-config must be specified to run this command."
+msgstr ""
+
+msgid "- Restart the `snapperd` service to make the restored snapshots visible immediately."
+msgstr ""
+
+msgid "- source-tree: Produce a tree diagram of the snapshots on the source."
+msgstr ""
+
+msgid "- target-tree: Produce a tree diagram of the snapshots on the target."
 msgstr ""
 
 msgid "--abbreviate"
@@ -327,6 +353,9 @@ msgstr "--print-number, -p"
 msgid "--quiet, -q"
 msgstr "--quiet, -q"
 
+msgid "--rankdir, -r"
+msgstr ""
+
 msgid "--read-only"
 msgstr "--read-only"
 
@@ -365,6 +394,9 @@ msgstr "--verbose, -v"
 
 msgid "--version"
 msgstr "--version"
+
+msgid "A backup-config must be specified to run this command."
+msgstr ""
 
 # SLE12
 msgid "ACL error."
@@ -407,6 +439,14 @@ msgstr "Nelze zjistit ambit, protože výchozí podsvazek není znám."
 
 msgid "Cannot do rollback since default subvolume is unknown."
 msgstr "Nelze provést rollback, protože výchozí podsvazek není znám."
+
+#, c-format
+msgid "Cannot find the node of UUID %s"
+msgstr ""
+
+#, fuzzy
+msgid "Cannot transfer a read-write snapshot."
+msgstr "Vytvoří snímek pro čtení i zápis."
 
 msgid "Character separator for CSV output format."
 msgstr "Oddělovací znak pro výstupní formát CSV."
@@ -492,6 +532,10 @@ msgid "Command 'status' needs one argument."
 msgstr "Příkaz 'status' vyžaduje jeden argument."
 
 #, fuzzy
+msgid "Command 'transfer-and-delete' does not support operating on a single snapshot."
+msgstr "Příkaz 'create' nepřijímá žádné parametry."
+
+#, fuzzy
 msgid "Command 'transfer-and-delete' does not take arguments."
 msgstr "Příkaz 'create' nepřijímá žádné parametry."
 
@@ -500,6 +544,10 @@ msgstr "Příkaz 'umount' vyžaduje alespoň jeden parametr."
 
 msgid "Command 'undochange' needs at least one argument."
 msgstr "Příkaz 'undochange' vyžaduje alespoň jeden parametr."
+
+#, fuzzy
+msgid "Command 'visualize' needs one argument."
+msgstr "Příkaz 'status' vyžaduje jeden argument."
 
 msgid "Command 'xadiff' needs at least one argument."
 msgstr "Příkaz 'xadiff' vyžaduje alespoň jeden parametr."
@@ -656,6 +704,10 @@ msgstr "Chyba (%s)."
 msgid "Extra options passed to the diff command."
 msgstr "Další možnosti předané příkazu diff."
 
+#, fuzzy
+msgid "Failed to compute checksum."
+msgstr "Chyba při analýze '%s'."
+
 # SLE12
 msgid "Failed to initialize filesystem handler."
 msgstr "Obslužný program systému souborů se nepodařilo inicializovat."
@@ -731,6 +783,10 @@ msgstr "Podrobnější výpis."
 msgid "Invalid ambit '%s'."
 msgstr "Neplatná oblast '%s'."
 
+#, fuzzy
+msgid "Invalid checksum output format."
+msgstr "Nastaví výstupní formát CSV."
+
 #, c-format
 msgid "Invalid column '%s'."
 msgstr "Neplatný sloupec '%s'."
@@ -756,6 +812,9 @@ msgstr "Neplatný styl tabulky %s."
 #, c-format
 msgid "Invalid machine readable format '%s'."
 msgstr "Neplatný strojově čitelný formát '%s'."
+
+msgid "Invalid number of lines in checksum output."
+msgstr ""
 
 #, c-format
 msgid "Invalid path '%s'."
@@ -865,6 +924,9 @@ msgstr "Výstupní formát CSV bez hlavičkového řádku."
 msgid "No permissions."
 msgstr "Chybí oprávnění."
 
+msgid "Notice:"
+msgstr ""
+
 msgid "Number of corresponding pre snapshot."
 msgstr "Číslo odpovídajícího předsnímku."
 
@@ -894,6 +956,10 @@ msgstr "Volba --from je podporována jen u snímků typu single."
 msgid "Option --read-write only supported for snapshots of type single."
 msgstr "Volba --read-write je podporována jen pro snímky typu single."
 
+#, fuzzy
+msgid "Options for the 'visualize' command:"
+msgstr "    Volby pro příkaz 'list':"
+
 #. TRANSLATORS: symbol for "peta" (best keep untranslated)
 msgid "P"
 msgstr "P"
@@ -902,9 +968,9 @@ msgstr "P"
 msgid "PB"
 msgstr "PB"
 
-#, c-format
-msgid "Path mismatch between source-path of backup-config and subvolume of snapper config ('%s' vs. '%s')."
-msgstr ""
+#, fuzzy, c-format
+msgid "Parent node %s not found."
+msgstr "Soubor '%s' nenalezen."
 
 #. TRANSLATORS: symbol for "pebi bytes" (best keep untranslated)
 msgid "PiB"
@@ -948,6 +1014,9 @@ msgstr "Popis snímků."
 msgid "Probing target snapshots."
 msgstr "Popis snímků."
 
+msgid "Produce a specific graph in Graphviz DOT format:"
+msgstr ""
+
 #, c-format
 msgid "Quota error (%s)."
 msgstr "Chyba kvóty (%s)."
@@ -960,6 +1029,13 @@ msgstr "Přečte soubory pro příkaz diff ze souboru."
 
 msgid "Read-Only"
 msgstr "Pouze pro čtení"
+
+msgid "Restore:"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Restoring snapshot %d."
+msgstr "Mazání snímku selhalo."
 
 msgid "Run command and create pre and post snapshots."
 msgstr "Spustit příkaz a vytvořit snímky před a po."
@@ -985,6 +1061,21 @@ msgid_plural "Running list failed for %d of %ld backup configs."
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+
+#, c-format
+msgid "Running restore failed for %d of %ld backup config."
+msgid_plural "Running restore failed for %d of %ld backup configs."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#, c-format
+msgid "Running restore for backup config '%s' failed."
+msgstr ""
+
+#, c-format
+msgid "Running restore for backup config '%s'."
+msgstr ""
 
 #, c-format
 msgid "Running transfer and delete failed for %d of %ld backup config."
@@ -1077,6 +1168,10 @@ msgid "Snapshot '%u' not found."
 msgstr "Snímek '%u' nebyl nalezen."
 
 #, fuzzy
+msgid "Snapshot already on source."
+msgstr "Nastaví snímek jen pro čtení."
+
+#, fuzzy
 msgid "Snapshot already on target."
 msgstr "Nastaví snímek jen pro čtení."
 
@@ -1095,14 +1190,14 @@ msgstr "Snímek '%u' nebyl nalezen."
 msgid "Snapshot number %d not found."
 msgstr "Snímek '%u' nebyl nalezen."
 
-msgid "Source Path"
-msgstr ""
-
 msgid "Source State"
 msgstr ""
 
 msgid "Subvolume"
 msgstr "Podřízená jednotka"
+
+msgid "Supported modes:"
+msgstr ""
 
 msgid "Suppress normal output."
 msgstr "Potlačí normální výstup."
@@ -1133,19 +1228,19 @@ msgstr ""
 msgid "Target btrfs bin"
 msgstr ""
 
-msgid "Target findmnt Bin"
+msgid "Target ls Bin"
 msgstr ""
 
 msgid "Target mkdir bin"
-msgstr ""
-
-msgid "Target realpath bin"
 msgstr ""
 
 msgid "Target rm bin"
 msgstr ""
 
 msgid "Target rmdir bin"
+msgstr ""
+
+msgid "The 'rankdir' diagram attribute of Graphviz. Defaults to 'LR'."
 msgstr ""
 
 msgid "The ambit can be specified manually using the --ambit option."
@@ -1208,13 +1303,26 @@ msgstr "Neznámá konfigurace."
 msgid "Unknown global option '%s'."
 msgstr "Neznámá globální volba '%s'."
 
+#, fuzzy, c-format
+msgid "Unknown mode '%s'."
+msgstr "Neznámý typ '%s'."
+
 #, c-format
 msgid "Unknown option '%s' for command '%s'."
 msgstr "Neznámá volba '%s' pro příkaz '%s'."
 
+#, fuzzy, c-format
+msgid "Unknown rankdir '%s'."
+msgstr "Neznámý příkaz '%s'."
+
 #, c-format
 msgid "Unknown type '%s'."
 msgstr "Neznámý typ '%s'."
+
+# SLE12
+#, fuzzy, c-format
+msgid "Updating metadata of snapshot %d."
+msgstr "Vytváří se snímek snímku %d ke čtení i zápisu."
 
 #. TRANSLATORS: a list of possible values
 #. %1$s is replaced by list of possible values
@@ -1312,10 +1420,17 @@ msgstr "\tsnapper list"
 msgid "snbk list-configs"
 msgstr "\tsnapper list-configs"
 
+#, fuzzy
+msgid "snbk restore [numbers]"
+msgstr "\tsnapper delete <číslo>"
+
 msgid "snbk transfer [numbers]"
 msgstr ""
 
 msgid "snbk transfer-and-delete"
+msgstr ""
+
+msgid "snbk visualize <mode>"
 msgstr ""
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"

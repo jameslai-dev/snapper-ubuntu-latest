@@ -50,7 +50,7 @@ Description: Linux filesystem snapshot management tool
 
 Package: snapper-backup
 Architecture: linux-any
-Depends: ${misc:Depends}, ${shlibs:Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}, jq
 Enhances: btrfs-progs
 Description: snapper-backup
  This package contains snbk, a tool for backups of snapper snapshots.
