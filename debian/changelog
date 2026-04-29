@@ -1,3 +1,11 @@
+snapper (0.13.1-1) experimental; urgency=medium
+
+  * New upstream release v0.13.1
+  * Synchronized with upstream
+    (commit 74f943111c901827b8ecb77b3a89a6a123d2d6c7)
+
+ -- Cheng-Ling Lai <jamesljlster@gmail.com>  Wed, 29 Apr 2026 09:24:15 +0800
+
 snapper (0.13.0-5) experimental; urgency=medium
 
   * Synchronized with upstream
