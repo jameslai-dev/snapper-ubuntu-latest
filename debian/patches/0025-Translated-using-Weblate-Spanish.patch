@@ -1,0 +1,52 @@
+From 4540cdb74f66bdfd43665877e52fa51ea5f2be01 Mon Sep 17 00:00:00 2001
+From: Javier Llorente <javier@opensuse.org>
+Date: Sat, 16 May 2026 11:21:04 +0000
+Subject: [PATCH 25/65] Translated using Weblate (Spanish)
+
+Currently translated at 100.0% (412 of 412 strings)
+---
+ po/es.po | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/po/es.po b/po/es.po
+index ca05db3b..d1179d9c 100644
+--- a/po/es.po
++++ b/po/es.po
+@@ -5,7 +5,7 @@ msgstr ""
+ "Report-Msgid-Bugs-To: \n"
+ "POT-Creation-Date: 2026-03-19 12:28+0100\n"
+ "PO-Revision-Date: 2026-05-16 13:12+0000\n"
+-"Last-Translator: Antonio Simón <antonio@trans-mission.com>\n"
++"Last-Translator: Javier Llorente <javier@opensuse.org>\n"
+ "Language-Team: Spanish <https://l10n.opensuse.org/projects/snapper/master/"
+ "es/>\n"
+ "Language: es\n"
+@@ -1219,7 +1219,7 @@ msgid "Snapshot number %d not found."
+ msgstr "Instantánea número %d no encontrada."
+ 
+ msgid "Source State"
+-msgstr "Estado de Origen"
++msgstr "Estado de origen"
+ 
+ msgid "Subvolume"
+ msgstr "Subvolumen"
+@@ -1245,13 +1245,13 @@ msgid "Table style (integer)."
+ msgstr "Estilo de tabla (número entero)."
+ 
+ msgid "Target Mode"
+-msgstr "Modo de Destino"
++msgstr "Modo de destino"
+ 
+ msgid "Target Path"
+-msgstr "Ruta de Destino"
++msgstr "Ruta de destino"
+ 
+ msgid "Target State"
+-msgstr "Estado de Destino"
++msgstr "Estado de destino"
+ 
+ msgid "Target btrfs bin"
+ msgstr "Destino de bin de btrfs"
+-- 
+2.43.0
+

@@ -1,7 +1,7 @@
 From 9c136e78b5c265c36b7bb192332bd5a1acfcb1c2 Mon Sep 17 00:00:00 2001
 From: Cheng-Ling Lai <jameslai.tech@gmail.com>
 Date: Fri, 24 Apr 2026 16:15:56 +0800
-Subject: [PATCH 10/11] Fix snapper-sync installation
+Subject: [PATCH 10/65] Fix snapper-sync installation
 
 ---
  scripts/Makefile.am | 3 ++-

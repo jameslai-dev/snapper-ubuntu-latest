@@ -1,0 +1,39 @@
+From f0724862032ea774d792848c3e80552f70a9f099 Mon Sep 17 00:00:00 2001
+From: Arvin Schnell <aschnell@suse.de>
+Date: Mon, 22 Jun 2026 16:14:32 +0200
+Subject: [PATCH 49/65] - added documentation
+
+---
+ client/proxy/commands.cc | 1 -
+ dbus/DBusPipe.h          | 3 +++
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/client/proxy/commands.cc b/client/proxy/commands.cc
+index 3279d337..f561faaa 100644
+--- a/client/proxy/commands.cc
++++ b/client/proxy/commands.cc
+@@ -594,7 +594,6 @@ command_get_xfiles_by_pipe(DBus::Connection& conn, const string& config_name, un
+     if (fclose(fin) != 0)
+ 	SN_THROW(IOErrorException("reading pipe failed, fclose failed: " + stringerror(errno)));
+ 
+-
+     return files;
+ }
+ 
+diff --git a/dbus/DBusPipe.h b/dbus/DBusPipe.h
+index 63bacf6a..6dd4fe37 100644
+--- a/dbus/DBusPipe.h
++++ b/dbus/DBusPipe.h
+@@ -44,6 +44,9 @@ namespace DBus
+ 	int get_fd() const { return _fd; }
+ 	void set_fd(int fd) { _fd = fd; }
+ 
++	/*
++	 * Also transfers ownership of fd to FILE iff the call is successful.
++	 */
+ 	FILE* fdopen(const char* mode);
+ 
+     private:
+-- 
+2.43.0
+

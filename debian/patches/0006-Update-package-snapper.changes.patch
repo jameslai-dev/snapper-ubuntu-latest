@@ -1,7 +1,7 @@
 From f836cdcd548670c13a39ad93789a0b8e9ea14996 Mon Sep 17 00:00:00 2001
 From: Cheng-Ling Lai <jameslai.tech@gmail.com>
 Date: Thu, 23 Apr 2026 11:10:57 +0800
-Subject: [PATCH 06/11] Update package/snapper.changes
+Subject: [PATCH 06/65] Update package/snapper.changes
 
 ---
  package/snapper.changes | 6 ++++++

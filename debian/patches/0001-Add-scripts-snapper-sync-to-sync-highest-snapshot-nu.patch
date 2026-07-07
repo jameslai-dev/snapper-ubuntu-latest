@@ -1,7 +1,7 @@
 From e7f3f8455bf4ccac1fc882a690e119e60b0dcc58 Mon Sep 17 00:00:00 2001
 From: Cheng-Ling Lai <jameslai.tech@gmail.com>
 Date: Tue, 21 Apr 2026 17:18:37 +0800
-Subject: [PATCH 01/11] Add scripts/snapper-sync to sync highest snapshot
+Subject: [PATCH 01/65] Add scripts/snapper-sync to sync highest snapshot
  number
 
 ---

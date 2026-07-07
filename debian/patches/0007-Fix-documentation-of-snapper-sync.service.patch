@@ -1,7 +1,7 @@
 From 632769af4614a6cca309736e55d912816239f611 Mon Sep 17 00:00:00 2001
 From: Cheng-Ling Lai <jameslai.tech@gmail.com>
 Date: Fri, 24 Apr 2026 13:21:14 +0800
-Subject: [PATCH 07/11] Fix documentation of snapper-sync.service
+Subject: [PATCH 07/65] Fix documentation of snapper-sync.service
 
 ---
  data/snapper-sync.service | 2 +-

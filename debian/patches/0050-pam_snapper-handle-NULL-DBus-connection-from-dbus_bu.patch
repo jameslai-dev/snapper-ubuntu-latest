@@ -1,0 +1,28 @@
+From 116560e6ebcbad1d5a3b845975b351b15d4a2896 Mon Sep 17 00:00:00 2001
+From: Devansh-567 <devansh.jay.singh@gmail.com>
+Date: Mon, 22 Jun 2026 20:07:51 +0530
+Subject: [PATCH 50/65] pam_snapper: handle NULL DBus connection from
+ dbus_bus_get_private
+
+---
+ pam/pam_snapper.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/pam/pam_snapper.c b/pam/pam_snapper.c
+index 21e6b04e..44cadff8 100644
+--- a/pam/pam_snapper.c
++++ b/pam/pam_snapper.c
+@@ -371,6 +371,10 @@ static int cdbus_create_snapshot( const char *snapper_conf, createmode_t createm
+ 		dbus_error_free( &err );
+ 	}
+ 
++        if ( conn == NULL ) {
++        return -EINVAL;
++	}
++
+ 	DBusMessage *req_msg;
+ 	int ret = cdbus_create_snap_pack( snapper_conf, createmode, cleanup, num_user_data,
+ 					  user_data, snapshot_num_in, &req_msg );
+-- 
+2.43.0
+

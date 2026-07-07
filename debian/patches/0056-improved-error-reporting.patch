@@ -1,0 +1,102 @@
+From f10c1b3f4042d3edcc5a8653905160bdd1c6feda Mon Sep 17 00:00:00 2001
+From: Arvin Schnell <aschnell@suse.de>
+Date: Wed, 24 Jun 2026 10:43:13 +0200
+Subject: [PATCH 56/65] - improved error reporting
+
+---
+ stomp/Stomp.cc           |  5 ++++-
+ stomp/testsuite/read1.cc | 32 ++++++++++++++++++++++++++++----
+ 2 files changed, 32 insertions(+), 5 deletions(-)
+
+diff --git a/stomp/Stomp.cc b/stomp/Stomp.cc
+index a10576e1..1a3e3ee5 100644
+--- a/stomp/Stomp.cc
++++ b/stomp/Stomp.cc
+@@ -111,13 +111,16 @@ namespace Stomp
+ 			{
+ 			    vector<char> buf(content_length);
+ 			    is.read(buf.data(), content_length);
++			    if (!is)
++				throw runtime_error("stomp error: premature end of body");
++
+ 			    msg.body.assign(buf.data(), content_length);
+ 			}
+ 
+ 			// still read the \0 that terminates the frame
+ 			char buf2 = '-';
+ 			is.read(&buf2, 1);
+-			if (buf2 != '\0')
++			if (!is || buf2 != '\0')
+ 			    throw runtime_error("stomp error: missing \\0 at frame end");
+ 		    }
+ 		    else
+diff --git a/stomp/testsuite/read1.cc b/stomp/testsuite/read1.cc
+index a6720a57..45cfc84a 100644
+--- a/stomp/testsuite/read1.cc
++++ b/stomp/testsuite/read1.cc
+@@ -105,6 +105,32 @@ BOOST_AUTO_TEST_CASE(error1)
+ 
+ 
+ BOOST_AUTO_TEST_CASE(error2)
++{
++    // missing \0 at frame end
++
++    istringstream s1("HELLO\nkey:value\ncontent-length:5\n\nWORLD");
++    istream s2(s1.rdbuf());
++
++    BOOST_CHECK_EXCEPTION(read_message(s2), exception, [](const exception& e) {
++        return strcmp(e.what(), "stomp error: missing \\0 at frame end") == 0;
++    });
++}
++
++
++BOOST_AUTO_TEST_CASE(error3)
++{
++    // truncated body
++
++    istringstream s1("HELLO\nkey:value\ncontent-length:50000\n\nWORLD" + null);
++    istream s2(s1.rdbuf());
++
++    BOOST_CHECK_EXCEPTION(read_message(s2), exception, [](const exception& e) {
++        return strcmp(e.what(), "stomp error: premature end of body") == 0;
++    });
++}
++
++
++BOOST_AUTO_TEST_CASE(error4)
+ {
+     // empty content-lenght value
+ 
+@@ -112,13 +138,12 @@ BOOST_AUTO_TEST_CASE(error2)
+     istream s2(s1.rdbuf());
+ 
+     BOOST_CHECK_EXCEPTION(read_message(s2), exception, [](const exception& e) {
+-	cout << e.what() << '\n';
+ 	return strcmp(e.what(), "stomp error: invalid content-length syntax ''") == 0;
+     });
+ }
+ 
+ 
+-BOOST_AUTO_TEST_CASE(error3)
++BOOST_AUTO_TEST_CASE(error5)
+ {
+     // invalid content-lenght value
+ 
+@@ -126,13 +151,12 @@ BOOST_AUTO_TEST_CASE(error3)
+     istream s2(s1.rdbuf());
+ 
+     BOOST_CHECK_EXCEPTION(read_message(s2), exception, [](const exception& e) {
+-	cout << e.what() << '\n';
+ 	return strcmp(e.what(), "stomp error: invalid content-length value '5a'") == 0;
+     });
+ }
+ 
+ 
+-BOOST_AUTO_TEST_CASE(error4)
++BOOST_AUTO_TEST_CASE(error6)
+ {
+     // invalid negative content-lenght value
+ 
+-- 
+2.43.0
+

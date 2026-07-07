@@ -1,0 +1,25 @@
+From 7576463c4321fd3e2fdcd55e91d7c3c813357210 Mon Sep 17 00:00:00 2001
+From: Arvin Schnell <aschnell@suse.de>
+Date: Fri, 12 Jun 2026 10:53:07 +0200
+Subject: [PATCH 43/65] - satisfy tools
+
+---
+ package/snapper.changes | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/package/snapper.changes b/package/snapper.changes
+index 32f16615..de378f0e 100644
+--- a/package/snapper.changes
++++ b/package/snapper.changes
+@@ -16,7 +16,7 @@ Wed Jun 10 09:13:13 CEST 2026 - Arvin Schnell <aschnell@suse.com>
+   (see bsc#1265853)
+ 
+ -------------------------------------------------------------------
+-Fri 24 Apr 05:05:24 UTC 2026 - Cheng-Ling Lai <jameslai.tech@gmail.com>
++Fri Apr 24 05:05:24 UTC 2026 - Cheng-Ling Lai <jameslai.tech@gmail.com>
+ 
+ - Add snapper-sync to synchronize the highest snapshot number
+   (gh#openSUSE/snapper#1128)
+-- 
+2.43.0
+

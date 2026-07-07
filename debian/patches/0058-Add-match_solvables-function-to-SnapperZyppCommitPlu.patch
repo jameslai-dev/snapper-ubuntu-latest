@@ -1,0 +1,24 @@
+From 7dcb101d25bd76c0def4438f4347613a557ad269 Mon Sep 17 00:00:00 2001
+From: Arvin Schnell <aschnell@suse.com>
+Date: Fri, 26 Jun 2026 08:33:00 +0000
+Subject: [PATCH 58/65] Add match_solvables function to SnapperZyppCommitPlugin
+
+---
+ zypp-plugin/snapper-zypp-plugin.cc | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/zypp-plugin/snapper-zypp-plugin.cc b/zypp-plugin/snapper-zypp-plugin.cc
+index bd8701d1..be869072 100644
+--- a/zypp-plugin/snapper-zypp-plugin.cc
++++ b/zypp-plugin/snapper-zypp-plugin.cc
+@@ -403,6 +403,7 @@ SnapperZyppCommitPlugin::get_solvables(const Message& msg, Phase phase) const
+     return result;
+ }
+ 
++
+ void
+ SnapperZyppCommitPlugin::match_solvables(const set<string>& solvables, bool& found, bool& important) const
+ {
+-- 
+2.43.0
+

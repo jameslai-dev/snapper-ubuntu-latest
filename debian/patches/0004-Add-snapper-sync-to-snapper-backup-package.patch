@@ -1,7 +1,7 @@
 From 68e75715c80fa32c672c5df7b902ef3b95f70087 Mon Sep 17 00:00:00 2001
 From: Cheng-Ling Lai <jameslai.tech@gmail.com>
 Date: Thu, 23 Apr 2026 16:05:13 +0800
-Subject: [PATCH 04/11] Add snapper-sync to snapper-backup package
+Subject: [PATCH 04/65] Add snapper-sync to snapper-backup package
 
 ---
  dists/debian/control                | 2 +-

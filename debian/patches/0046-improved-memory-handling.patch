@@ -1,0 +1,33 @@
+From 39ba05ba4bbe5118f66198b892f45ade0014024b Mon Sep 17 00:00:00 2001
+From: Arvin Schnell <aschnell@suse.de>
+Date: Fri, 19 Jun 2026 10:16:51 +0200
+Subject: [PATCH 46/65] - improved memory handling
+
+---
+ snapper/AppUtil.cc | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/snapper/AppUtil.cc b/snapper/AppUtil.cc
+index 454ad571..6e528fcd 100644
+--- a/snapper/AppUtil.cc
++++ b/snapper/AppUtil.cc
+@@ -64,10 +64,13 @@ namespace snapper
+ 	glob_t globbuf;
+ 	if (glob(path.c_str(), flags, 0, &globbuf) == 0)
+ 	{
+-	    for (char** p = globbuf.gl_pathv; *p != 0; p++)
+-		ret.push_back(*p);
++	    ret.reserve(globbuf.gl_pathc);
++
++	    for (char** p = globbuf.gl_pathv; *p != 0; ++p)
++		ret.emplace_back(*p);
++
++	    globfree(&globbuf);
+ 	}
+-	globfree (&globbuf);
+ 
+ 	return ret;
+     }
+-- 
+2.43.0
+
