@@ -1,3 +1,10 @@
+snapper (0.13.1-2) noble; urgency=medium
+
+  * Synchronized with upstream
+    (commit 640aa0e7486ce8397c028d5e3cbf6d3f29475b70)
+
+ -- Cheng-Ling Lai <jamesljlster@gmail.com>  Tue, 07 Jul 2026 16:53:16 +0800
+
 snapper (0.13.1-1) noble; urgency=medium
 
   * New upstream release v0.13.1

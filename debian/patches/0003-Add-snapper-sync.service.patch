@@ -1,7 +1,7 @@
 From da6db78490da86de00abfc2c9ca298251bd2abc3 Mon Sep 17 00:00:00 2001
 From: Cheng-Ling Lai <jameslai.tech@gmail.com>
 Date: Wed, 22 Apr 2026 09:28:20 +0800
-Subject: [PATCH 03/11] Add snapper-sync.service
+Subject: [PATCH 03/65] Add snapper-sync.service
 
 ---
  data/10-snapper-sync-override.conf |  2 ++

@@ -1,0 +1,90 @@
+From 1dfadd7fb5ffddfb63eb5c08a2893a37fdb7087e Mon Sep 17 00:00:00 2001
+From: Arvin Schnell <aschnell@suse.de>
+Date: Wed, 27 May 2026 09:07:23 +0200
+Subject: [PATCH 32/65] - added exchange function
+
+---
+ snapper/FileUtils.cc | 19 +++++--------------
+ snapper/FileUtils.h  |  9 ++++++---
+ 2 files changed, 11 insertions(+), 17 deletions(-)
+
+diff --git a/snapper/FileUtils.cc b/snapper/FileUtils.cc
+index d7951ee1..329a53c0 100644
+--- a/snapper/FileUtils.cc
++++ b/snapper/FileUtils.cc
+@@ -23,6 +23,7 @@
+ 
+ #include "config.h"
+ 
++#include <cstdio>
+ #include <cstring>
+ #include <sys/types.h>
+ #include <sys/stat.h>
+@@ -348,22 +349,12 @@ namespace snapper
+ 
+ 
+     int
+-    SDir::rmdir(const string& name) const
++    SDir::unlink(const string& name, int flags) const
+     {
+ 	assert(name.find('/') == string::npos);
+ 	assert(name != "..");
+ 
+-	return ::unlinkat(dirfd, name.c_str(), AT_REMOVEDIR);
+-    }
+-
+-
+-    int
+-    SDir::unlink(const string& name) const
+-    {
+-	assert(name.find('/') == string::npos);
+-	assert(name != "..");
+-
+-	return ::unlinkat(dirfd, name.c_str(), 0);
++	return ::unlinkat(dirfd, name.c_str(), flags);
+     }
+ 
+ 
+@@ -388,7 +379,7 @@ namespace snapper
+ 
+ 
+     int
+-    SDir::rename(const string& oldname, const string& newname) const
++    SDir::rename(const string& oldname, const string& newname, int flags) const
+     {
+ 	assert(oldname.find('/') == string::npos);
+ 	assert(oldname != "..");
+@@ -396,7 +387,7 @@ namespace snapper
+ 	assert(newname.find('/') == string::npos);
+ 	assert(newname != "..");
+ 
+-	return ::renameat(dirfd, oldname.c_str(), dirfd, newname.c_str());
++	return ::renameat2(dirfd, oldname.c_str(), dirfd, newname.c_str(), flags);
+     }
+ 
+ 
+diff --git a/snapper/FileUtils.h b/snapper/FileUtils.h
+index bdbd5c0f..e2a394ad 100644
+--- a/snapper/FileUtils.h
++++ b/snapper/FileUtils.h
+@@ -91,11 +91,14 @@ namespace snapper
+ 	int open(const string& name, int flags, mode_t mode) const;
+ 	ssize_t readlink(const string& name, string& buf) const;
+ 	int mkdir(const string& name, mode_t mode) const;
+-	int rmdir(const string& name) const;
+-	int unlink(const string& name) const;
++	int unlink(const string& name, int flags = 0) const;
++	int rmdir(const string& name) const
++	    { return unlink(name, AT_REMOVEDIR); }
+ 	int chmod(const string& name, mode_t mode, int flags) const;
+ 	int chown(const string& name, uid_t owner, gid_t group, int flags) const;
+-	int rename(const string& oldname, const string& newname) const;
++	int rename(const string& oldname, const string& newname, int flags = 0) const;
++	int exchange(const string& oldname, const string& newname) const
++	    { return rename(oldname, newname, RENAME_EXCHANGE); }
+ 	int fsync() const;
+ 
+ 	// Query size and free.
+-- 
+2.43.0
+

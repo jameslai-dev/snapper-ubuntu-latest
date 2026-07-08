@@ -1,0 +1,114 @@
+From f6185d9cdde57ea4e7177be30d30441d1d30cde9 Mon Sep 17 00:00:00 2001
+From: Arvin Schnell <aschnell@suse.de>
+Date: Tue, 16 Jun 2026 11:30:37 +0200
+Subject: [PATCH 44/65] - allow to disable all-time unique snapshot numbers
+
+---
+ data/default-config        |  5 +++++
+ doc/snapper-configs.xml.in | 14 ++++++++++++--
+ doc/unique-numbers.txt     |  3 +++
+ package/snapper.changes    |  6 ++++++
+ snapper/Snapshot.cc        |  7 +++++--
+ 5 files changed, 31 insertions(+), 4 deletions(-)
+
+diff --git a/data/default-config b/data/default-config
+index 5c9585b7..11f331e2 100644
+--- a/data/default-config
++++ b/data/default-config
+@@ -17,6 +17,11 @@ SPACE_LIMIT="0.5"
+ FREE_LIMIT="0.2"
+ 
+ 
++# Whether snapshot numbers should be all-time unique. If set to yes, snapshot
++# numbers are not reused even after snapshots are deleted.
++UNIQUE_NUMBERS="yes"
++
++
+ # users and groups allowed to work with config
+ ALLOW_USERS=""
+ ALLOW_GROUPS=""
+diff --git a/doc/snapper-configs.xml.in b/doc/snapper-configs.xml.in
+index ac03241b..60c6a3ed 100644
+--- a/doc/snapper-configs.xml.in
++++ b/doc/snapper-configs.xml.in
+@@ -2,13 +2,13 @@
+ <refentry id='snapper-configs5'>
+ 
+   <refentryinfo>
+-    <date>2022-07-12</date>
++    <date>2026-06-16</date>
+   </refentryinfo>
+ 
+   <refmeta>
+     <refentrytitle>snapper-configs</refentrytitle>
+     <manvolnum>5</manvolnum>
+-    <refmiscinfo class='date'>2022-07-12</refmiscinfo>
++    <refmiscinfo class='date'>2026-06-16</refmiscinfo>
+     <refmiscinfo class='version'>@VERSION@</refmiscinfo>
+     <refmiscinfo class='manual'>Filesystem Snapshot Management</refmiscinfo>
+   </refmeta>
+@@ -81,6 +81,16 @@
+ 	</listitem>
+       </varlistentry>
+ 
++      <varlistentry>
++	<term><option>UNIQUE_NUMBERS=<replaceable>boolean</replaceable></option></term>
++	<listitem>
++	  <para>Whether snapshot numbers should be all-time unique. If set to
++	  yes, snapshot numbers are not reused even after snapshots are deleted.</para>
++	  <para>Default value is &quot;yes&quot;.</para>
++	  <para>New in version 0.13.2.</para>
++	</listitem>
++      </varlistentry>
++
+       <varlistentry>
+ 	<term><option>ALLOW_USERS=<replaceable>users</replaceable></option></term>
+ 	<listitem>
+diff --git a/doc/unique-numbers.txt b/doc/unique-numbers.txt
+index 0cd12ea9..640bef11 100644
+--- a/doc/unique-numbers.txt
++++ b/doc/unique-numbers.txt
+@@ -8,3 +8,6 @@ directories when finding the number for the next snapshot.
+ 
+ As a consequence there can temporarily be empty directories in the
+ infos directories.
++
++This behavior can be disabled by setting UNIQUE_NUMBERS="no" in the
++configuration.
+diff --git a/package/snapper.changes b/package/snapper.changes
+index de378f0e..5a6fdfb6 100644
+--- a/package/snapper.changes
++++ b/package/snapper.changes
+@@ -1,3 +1,9 @@
++-------------------------------------------------------------------
++Tue Jun 16 10:40:03 CEST 2026 - Arvin Schnell <aschnell@suse.com>
++
++- allow to disable all-time unique snapshot numbers (see
++  bsc#1268225)
++
+ -------------------------------------------------------------------
+ Fri Jun 12 09:47:19 CEST 2026 - Arvin Schnell <aschnell@suse.com>
+ 
+diff --git a/snapper/Snapshot.cc b/snapper/Snapshot.cc
+index 71b8ea67..17fd27f6 100644
+--- a/snapper/Snapshot.cc
++++ b/snapper/Snapshot.cc
+@@ -859,10 +859,13 @@ namespace snapper
+ 	if (info_dir.unlink("info.xml") < 0)
+ 	    y2err("unlink 'info.xml' failed errno: " << errno << " (" << stringerror(errno) << ")");
+ 
+-	// We want all-time unique snapshot numbers. So keep directory of snapshot with
++	// If want all-time unique snapshot numbers keep directory of snapshot with
+ 	// highest number.
+ 
+-	if (snapshot->num != entries.rbegin()->num)
++	bool unique_numbers = true;
++	snapper->getConfigInfo().get_value("UNIQUE_NUMBERS", unique_numbers);
++
++	if (!unique_numbers || snapshot->num != entries.rbegin()->num)
+ 	{
+ 	    SDir infos_dir = snapper->openInfosDir();
+ 	    if (infos_dir.rmdir(decString(snapshot->getNum())) < 0)
+-- 
+2.43.0
+

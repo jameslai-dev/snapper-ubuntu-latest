@@ -1,0 +1,26 @@
+From 68758230536a1804760da1623d8f40b8f54d1785 Mon Sep 17 00:00:00 2001
+From: Javier Llorente <javier@opensuse.org>
+Date: Sat, 16 May 2026 11:16:27 +0000
+Subject: [PATCH 19/65] Translated using Weblate (Spanish)
+
+Currently translated at 100.0% (412 of 412 strings)
+---
+ po/es.po | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/po/es.po b/po/es.po
+index 47c32b5f..718da363 100644
+--- a/po/es.po
++++ b/po/es.po
+@@ -1070,7 +1070,7 @@ msgstr ""
+ 
+ #, c-format
+ msgid "Running delete for backup config '%s'."
+-msgstr "Eliminando la configuración de respaldo '%s'."
++msgstr "Eliminando la configuración de copia de seguridad '%s'."
+ 
+ #, c-format
+ msgid "Running list failed for %d of %ld backup config."
+-- 
+2.43.0
+

@@ -1,0 +1,268 @@
+From 1578528d894d10d03dc4f2c62505f2769907f5a4 Mon Sep 17 00:00:00 2001
+From: Arvin Schnell <aschnell@suse.de>
+Date: Tue, 23 Jun 2026 08:11:28 +0200
+Subject: [PATCH 53/65] - added RAII for FILE*
+
+---
+ client/proxy/commands.cc    | 10 +++----
+ dbus/DBusPipe.cc            | 59 ++++++++++++++++++++++++++++---------
+ dbus/DBusPipe.h             | 41 +++++++++++++++++++-------
+ server/FilesTransferTask.cc | 10 +++----
+ 4 files changed, 86 insertions(+), 34 deletions(-)
+
+diff --git a/client/proxy/commands.cc b/client/proxy/commands.cc
+index f561faaa..699ba529 100644
+--- a/client/proxy/commands.cc
++++ b/client/proxy/commands.cc
+@@ -1,6 +1,6 @@
+ /*
+  * Copyright (c) [2012-2015] Novell, Inc.
+- * Copyright (c) [2016-2024] SUSE LLC
++ * Copyright (c) [2016-2026] SUSE LLC
+  *
+  * All Rights Reserved.
+  *
+@@ -554,7 +554,7 @@ command_get_xfiles_by_pipe(DBus::Connection& conn, const string& config_name, un
+ 
+     vector<XFile> files;
+ 
+-    FILE* fin = fd.fdopen("r");
++    DBus::File fin(fd, "r");
+     if (!fin)
+ 	SN_THROW(IOErrorException("reading pipe failed, fdopen failed: " + stringerror(errno)));
+ 
+@@ -563,10 +563,10 @@ command_get_xfiles_by_pipe(DBus::Connection& conn, const string& config_name, un
+ 
+     while (true)
+     {
+-	ssize_t n = getline(&buffer, &len, fin);
++	ssize_t n = fin.getline(&buffer, &len);
+ 	if (n == -1)
+ 	{
+-	    if (feof(fin) != 0)
++	    if (fin.eof() != 0)
+ 		break;
+ 
+ 	    SN_THROW(IOErrorException("reading pipe failed, getline failed: " + stringerror(errno)));
+@@ -591,7 +591,7 @@ command_get_xfiles_by_pipe(DBus::Connection& conn, const string& config_name, un
+ 
+     free(buffer);
+ 
+-    if (fclose(fin) != 0)
++    if (fin.close() != 0)
+ 	SN_THROW(IOErrorException("reading pipe failed, fclose failed: " + stringerror(errno)));
+ 
+     return files;
+diff --git a/dbus/DBusPipe.cc b/dbus/DBusPipe.cc
+index 74eb680f..ddbb7d71 100644
+--- a/dbus/DBusPipe.cc
++++ b/dbus/DBusPipe.cc
+@@ -1,6 +1,6 @@
+ /*
+  * Copyright (c) 2015 Red Hat, Inc.
+- * Copyright (c) 2022 SUSE LLC
++ * Copyright (c) [2022-2026] SUSE LLC
+  *
+  * All Rights Reserved.
+  *
+@@ -46,10 +46,8 @@ namespace DBus
+ 	if (unmarshaller.get_type() != DBUS_TYPE_UNIX_FD)
+ 	    SN_THROW(MarshallingException());
+ 
+-	int fd;
+-	dbus_message_iter_get_basic(unmarshaller.top(), &fd);
++	dbus_message_iter_get_basic(unmarshaller.top(), &data._fd);
+ 	dbus_message_iter_next(unmarshaller.top());
+-	data.set_fd(fd);
+ 
+ 	return unmarshaller;
+     }
+@@ -58,22 +56,55 @@ namespace DBus
+     Marshaller&
+     operator<<(Marshaller& marshaller, const FileDescriptor& data)
+     {
+-	const int fd = data.get_fd();
+-	if (!dbus_message_iter_append_basic(marshaller.top(), DBUS_TYPE_UNIX_FD, &fd))
++	if (!dbus_message_iter_append_basic(marshaller.top(), DBUS_TYPE_UNIX_FD, &data._fd))
+ 	    SN_THROW(FatalException());
+ 
+ 	return marshaller;
+     }
+ 
+-    FILE*
+-    FileDescriptor::fdopen(const char* mode)
++
++    File::File(FileDescriptor& fd, const char* mode)
++	: _file(fdopen(fd._fd, mode))
++    {
++	if (_file)
++	    fd._fd = -1;
++    }
++
++
++    ssize_t
++    File::getline(char** lineptr, size_t* n)
++    {
++	return ::getline(lineptr, n, _file);
++    }
++
++
++    int
++    File::printf(const char* format, ...)
+     {
+-        FILE* ret = ::fdopen(_fd, mode);
+-        if (ret)
+-            _fd = -1;
+-        return ret;
++	va_list args;
++	va_start(args, format);
++	int ret = vfprintf(_file, format, args);
++	va_end(args);
++	return ret;
+     }
+ 
++
++    int
++    File::close()
++    {
++	int ret = 0;
++
++	if (_file != nullptr)
++	{
++	    ret = fclose(_file);
++	    if (ret != -1)
++		_file = nullptr;
++	}
++
++	return ret;
++    }
++
++
+     Pipe::Pipe()
+     {
+ 	int pipefd[2];
+@@ -81,8 +112,8 @@ namespace DBus
+ 	if (pipe2(pipefd, O_CLOEXEC) != 0)
+ 	    SN_THROW(PipeException());
+ 
+-	_read_end.set_fd(pipefd[0]);
+-	_write_end.set_fd(pipefd[1]);
++	_read_end._fd = pipefd[0];
++	_write_end._fd = pipefd[1];
+     }
+ 
+ 
+diff --git a/dbus/DBusPipe.h b/dbus/DBusPipe.h
+index 6dd4fe37..a4e18ebc 100644
+--- a/dbus/DBusPipe.h
++++ b/dbus/DBusPipe.h
+@@ -1,6 +1,6 @@
+ /*
+  * Copyright (c) 2015 Red Hat, Inc.
+- * Copyright (c) 2022 SUSE LLC
++ * Copyright (c) [2022-2026] SUSE LLC
+  *
+  * All Rights Reserved.
+  *
+@@ -31,23 +31,23 @@
+ namespace DBus
+ {
+ 
++    /*
++     * Minimalistic RAII for a file descriptor.
++     */
+     class FileDescriptor : boost::noncopyable
+     {
+     public:
+ 
+ 	FileDescriptor() = default;
+-	FileDescriptor(int fd) : _fd(fd) {}
+ 	~FileDescriptor() { close(); }
+ 
+ 	void close();
+ 
+-	int get_fd() const { return _fd; }
+-	void set_fd(int fd) { _fd = fd; }
++	friend class File;
++	friend class Pipe;
+ 
+-	/*
+-	 * Also transfers ownership of fd to FILE iff the call is successful.
+-	 */
+-	FILE* fdopen(const char* mode);
++	friend Unmarshaller& operator>>(Unmarshaller& marshaller, FileDescriptor& data);
++	friend Marshaller& operator<<(Marshaller& marshaller, const FileDescriptor& data);
+ 
+     private:
+ 
+@@ -56,8 +56,29 @@ namespace DBus
+     };
+ 
+ 
+-    Unmarshaller& operator>>(Unmarshaller& marshaller, FileDescriptor& data);
+-    Marshaller& operator<<(Marshaller& marshaller, const FileDescriptor& data);
++    /*
++     * Minimalistic RAII for a FILE*.
++     */
++    class File
++    {
++    public:
++
++	File(FileDescriptor& fd, const char* mode);
++	~File() { close(); }
++
++	ssize_t getline(char** lineptr, size_t* n);
++	int printf(const char* format, ...);
++	int eof() { return feof(_file); }
++	int flush() { return fflush(_file); }
++	int close();
++
++	explicit operator bool() const { return _file; }
++
++    private:
++
++	FILE* _file = nullptr;
++
++    };
+ 
+ 
+     struct PipeException : public Exception
+diff --git a/server/FilesTransferTask.cc b/server/FilesTransferTask.cc
+index a0f3d66b..e9708cef 100644
+--- a/server/FilesTransferTask.cc
++++ b/server/FilesTransferTask.cc
+@@ -1,6 +1,6 @@
+ /*
+  * Copyright (c) 2015 Red Hat, Inc.
+- * Copyright (c) 2022 SUSE LLC
++ * Copyright (c) [2022-2026] SUSE LLC
+  *
+  * All Rights Reserved.
+  *
+@@ -33,19 +33,19 @@ FilesTransferTask::FilesTransferTask(const Files& files)
+ void
+ FilesTransferTask::run()
+ {
+-    FILE* fout = get_write_end().fdopen("w");
++    DBus::File fout(get_write_end(), "w");
+     if (!fout)
+ 	SN_THROW(StreamException());
+ 
+     for (const File& file : files)
+     {
+-	if (fprintf(fout, "%s %d\n", DBus::Pipe::escape(file.getName()).c_str(), file.getPreToPostStatus()) < 4)
++	if (fout.printf("%s %d\n", DBus::Pipe::escape(file.getName()).c_str(), file.getPreToPostStatus()) < 4)
+ 	    SN_THROW(StreamException());
+     }
+ 
+-    if (fflush(fout) != 0)
++    if (fout.flush() != 0)
+ 	SN_THROW(StreamException());
+ 
+-    if (fclose(fout) != 0)
++    if (fout.close() != 0)
+ 	SN_THROW(StreamException());
+ }
+-- 
+2.43.0
+

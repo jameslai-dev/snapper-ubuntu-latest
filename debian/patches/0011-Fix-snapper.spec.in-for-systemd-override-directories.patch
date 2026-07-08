@@ -1,7 +1,7 @@
 From 3fd3932a81ee9dad191220d0b2f4de553a2ede97 Mon Sep 17 00:00:00 2001
 From: Cheng-Ling Lai <jameslai.tech@gmail.com>
 Date: Mon, 27 Apr 2026 09:33:11 +0800
-Subject: [PATCH 11/11] Fix snapper.spec.in for systemd override directories
+Subject: [PATCH 11/65] Fix snapper.spec.in for systemd override directories
 
 ---
  snapper.spec.in | 2 ++

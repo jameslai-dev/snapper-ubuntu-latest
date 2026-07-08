@@ -1,0 +1,25 @@
+From 2476b1bc19c9ffbf7a88b9bb8ef22fc4e7888af7 Mon Sep 17 00:00:00 2001
+From: Arvin Schnell <aschnell@suse.de>
+Date: Mon, 8 Jun 2026 11:08:32 +0200
+Subject: [PATCH 34/65] - coding style
+
+---
+ dbus/DBusConnection.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/dbus/DBusConnection.cc b/dbus/DBusConnection.cc
+index 5c6e873e..70f49628 100644
+--- a/dbus/DBusConnection.cc
++++ b/dbus/DBusConnection.cc
+@@ -155,7 +155,7 @@ namespace DBus
+     {
+ 	boost::lock_guard<boost::mutex> lock(mutex);
+ 
+-	string sender = m.get_sender();
++	const string sender = msg.get_sender();
+ 	if (sender.empty())
+ 	{
+ 	    SN_THROW(FatalException());
+-- 
+2.43.0
+

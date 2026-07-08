@@ -1,0 +1,42 @@
+From 8ffbc385a64d3b494e0045c05fb4c2c1387e749b Mon Sep 17 00:00:00 2001
+From: Arvin Schnell <aschnell@suse.de>
+Date: Wed, 1 Jul 2026 17:45:40 +0200
+Subject: [PATCH 65/65] - use string_view to reduce number of functions
+
+---
+ snapper/SystemCmd.h | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/snapper/SystemCmd.h b/snapper/SystemCmd.h
+index bf934644..f8dcb0ff 100644
+--- a/snapper/SystemCmd.h
++++ b/snapper/SystemCmd.h
+@@ -28,6 +28,7 @@
+ #include <sys/types.h>
+ #include <cstdio>
+ #include <string>
++#include <string_view>
+ #include <vector>
+ #include <initializer_list>
+ #include <boost/noncopyable.hpp>
+@@ -36,6 +37,7 @@
+ namespace snapper
+ {
+     using std::string;
++    using std::string_view;
+     using std::vector;
+ 
+ 
+@@ -56,8 +58,7 @@ namespace snapper
+ 
+ 	    const vector<string>& get_values() const { return values; }
+ 
+-	    Args& operator<<(const char* arg) { values.push_back(arg); return *this; }
+-	    Args& operator<<(const string& arg) { values.push_back(arg); return *this; }
++	    Args& operator<<(string_view arg) { values.emplace_back(arg); return *this; }
+ 
+ 	    Args& operator<<(const vector<string>& args)
+ 		{ values.insert(values.end(), args.begin(), args.end()); return *this; }
+-- 
+2.43.0
+

@@ -1,0 +1,26 @@
+From 02e5c04b2c5be4c95fc42e117b660c51115f7ce7 Mon Sep 17 00:00:00 2001
+From: Javier Llorente <javier@opensuse.org>
+Date: Sat, 16 May 2026 11:17:55 +0000
+Subject: [PATCH 21/65] Translated using Weblate (Spanish)
+
+Currently translated at 100.0% (412 of 412 strings)
+---
+ po/es.po | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/po/es.po b/po/es.po
+index 2bbbd27c..8dd32983 100644
+--- a/po/es.po
++++ b/po/es.po
+@@ -1119,7 +1119,7 @@ msgstr ""
+ 
+ #, c-format
+ msgid "Running transfer and delete for backup config '%s'."
+-msgstr "Transfiriendo y eliminando la configuración de respaldo '%s'."
++msgstr "Transfiriendo y eliminando la configuración de copia de seguridad '%s'."
+ 
+ #, c-format
+ msgid "Running transfer failed for %d of %ld backup config."
+-- 
+2.43.0
+

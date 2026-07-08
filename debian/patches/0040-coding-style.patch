@@ -1,0 +1,135 @@
+From ed12772b70669b79db3ee83e14901be49e23714f Mon Sep 17 00:00:00 2001
+From: Arvin Schnell <aschnell@suse.de>
+Date: Wed, 10 Jun 2026 14:32:32 +0200
+Subject: [PATCH 40/65] - coding style
+
+---
+ dbus/DBusConnection.cc |  1 +
+ dbus/DBusConnection.h  |  4 ++--
+ dbus/DBusMainLoop.cc   |  4 ++--
+ dbus/DBusMainLoop.h    | 14 +++++++-------
+ dbus/DBusMessage.h     |  4 ++--
+ dbus/DBusPipe.h        |  4 ++--
+ 6 files changed, 16 insertions(+), 15 deletions(-)
+
+diff --git a/dbus/DBusConnection.cc b/dbus/DBusConnection.cc
+index a2916522..145d1d3d 100644
+--- a/dbus/DBusConnection.cc
++++ b/dbus/DBusConnection.cc
+@@ -146,6 +146,7 @@ namespace DBus
+     Connection::pop_message()
+     {
+ 	boost::lock_guard<boost::mutex> lock(mutex);
++
+ 	return dbus_connection_pop_message(conn);
+     }
+ 
+diff --git a/dbus/DBusConnection.h b/dbus/DBusConnection.h
+index bdd6b624..e54c0769 100644
+--- a/dbus/DBusConnection.h
++++ b/dbus/DBusConnection.h
+@@ -20,8 +20,8 @@
+  */
+ 
+ 
+-#ifndef SNAPPER_DBUSCONNECTION_H
+-#define SNAPPER_DBUSCONNECTION_H
++#ifndef SNAPPER_DBUS_CONNECTION_H
++#define SNAPPER_DBUS_CONNECTION_H
+ 
+ 
+ #include <dbus/dbus.h>
+diff --git a/dbus/DBusMainLoop.cc b/dbus/DBusMainLoop.cc
+index 909dd449..a354f59a 100644
+--- a/dbus/DBusMainLoop.cc
++++ b/dbus/DBusMainLoop.cc
+@@ -30,7 +30,7 @@ namespace DBus
+ {
+ 
+     MainLoop::Watch::Watch(DBusWatch* dbus_watch)
+-	: dbus_watch(dbus_watch), enabled(false), fd(-1), events(0)
++	: dbus_watch(dbus_watch)
+     {
+ 	enabled = dbus_watch_get_enabled(dbus_watch);
+ 	fd = dbus_watch_get_unix_fd(dbus_watch);
+@@ -44,7 +44,7 @@ namespace DBus
+ 
+ 
+     MainLoop::Timeout::Timeout(DBusTimeout* dbus_timeout)
+-	: dbus_timeout(dbus_timeout), enabled(false), interval(0)
++	: dbus_timeout(dbus_timeout)
+     {
+ 	enabled = dbus_timeout_get_enabled(dbus_timeout);
+ 	interval = dbus_timeout_get_interval(dbus_timeout);
+diff --git a/dbus/DBusMainLoop.h b/dbus/DBusMainLoop.h
+index 15786578..444d4ebf 100644
+--- a/dbus/DBusMainLoop.h
++++ b/dbus/DBusMainLoop.h
+@@ -20,8 +20,8 @@
+  */
+ 
+ 
+-#ifndef SNAPPER_DBUSMAINLOOP_H
+-#define SNAPPER_DBUSMAINLOOP_H
++#ifndef SNAPPER_DBUS_MAIN_LOOP_H
++#define SNAPPER_DBUS_MAIN_LOOP_H
+ 
+ 
+ #include <dbus/dbus.h>
+@@ -64,9 +64,9 @@ namespace DBus
+ 	    Watch(DBusWatch* dbus_watch);
+ 
+ 	    DBusWatch* dbus_watch;
+-	    bool enabled;
+-	    int fd;
+-	    short events;
++	    bool enabled = false;
++	    int fd = -1;
++	    short events = 0;
+ 	};
+ 
+ 	struct Timeout
+@@ -74,8 +74,8 @@ namespace DBus
+ 	    Timeout(DBusTimeout* dbus_timeout);
+ 
+ 	    DBusTimeout* dbus_timeout;
+-	    bool enabled;
+-	    int interval;
++	    bool enabled = false;
++	    int interval = 0;
+ 	};
+ 
+ 	vector<Watch> watches;
+diff --git a/dbus/DBusMessage.h b/dbus/DBusMessage.h
+index 33cf0fb1..d3d89912 100644
+--- a/dbus/DBusMessage.h
++++ b/dbus/DBusMessage.h
+@@ -21,8 +21,8 @@
+  */
+ 
+ 
+-#ifndef SNAPPER_DBUSMESSAGE_H
+-#define SNAPPER_DBUSMESSAGE_H
++#ifndef SNAPPER_DBUS_MESSAGE_H
++#define SNAPPER_DBUS_MESSAGE_H
+ 
+ 
+ #include <dbus/dbus.h>
+diff --git a/dbus/DBusPipe.h b/dbus/DBusPipe.h
+index b5b181c6..13a15a61 100644
+--- a/dbus/DBusPipe.h
++++ b/dbus/DBusPipe.h
+@@ -19,8 +19,8 @@
+  */
+ 
+ 
+-#ifndef SNAPPER_DBUSPIPE_H
+-#define SNAPPER_DBUSPIPE_H
++#ifndef SNAPPER_DBUS_PIPE_H
++#define SNAPPER_DBUS_PIPE_H
+ 
+ 
+ #include <boost/noncopyable.hpp>
+-- 
+2.43.0
+
