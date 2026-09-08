@@ -17,6 +17,11 @@ SPACE_LIMIT="0.5"
 FREE_LIMIT="0.2"
 
 
+# Whether snapshot numbers should be all-time unique. If set to yes, snapshot
+# numbers are not reused even after snapshots are deleted.
+UNIQUE_NUMBERS="yes"
+
+
 # users and groups allowed to work with config
 ALLOW_USERS=""
 ALLOW_GROUPS=""
@@ -31,7 +36,7 @@ SYNC_ACL="no"
 BACKGROUND_COMPARISON="yes"
 
 
-# run daily number cleanup
+# run hourly number cleanup
 NUMBER_CLEANUP="yes"
 
 # limit for number cleanup

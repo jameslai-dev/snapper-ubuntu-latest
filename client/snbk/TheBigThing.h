@@ -31,6 +31,7 @@
 #include "../proxy/locker.h"
 
 #include "CmdBtrfs.h"
+#include "CmdMetaParse.h"
 #include "TreeView.h"
 
 
@@ -74,7 +75,6 @@ namespace snapper
 	void remove(const BackupConfig& backup_config, bool quiet);
 
 	unsigned int num;
-	time_t date = 0;	// as reported by snapper
 
 	SourceState source_state = SourceState::MISSING;
 	TargetState target_state = TargetState::MISSING;
@@ -90,6 +90,8 @@ namespace snapper
 	string target_received_uuid;
 	string target_creation_time;
 	string target_meta_checksum;
+
+	SnapshotMeta meta;
 
     private:
 

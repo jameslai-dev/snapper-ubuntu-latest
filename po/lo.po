@@ -3,1401 +3,1383 @@ msgstr ""
 "Project-Id-Version: @PACKAGE@\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-19 12:28+0100\n"
-"PO-Revision-Date: 2006-01-04 08:58+0100\n"
-"Last-Translator: i18n@suse.de\n"
-"Language-Team: Lao <i18n@suse.de>\n"
-"Language: \n"
+"PO-Revision-Date: 2026-08-19 23:13+0000\n"
+"Last-Translator: Bone NI <bounkirdni@gmail.com>\n"
+"Language-Team: Lao <https://l10n.opensuse.org/projects/snapper/master/lo/>\n"
+"Language: lo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 msgid "\tsnapper cleanup <cleanup-algorithm>"
-msgstr ""
+msgstr "\tsnapper cleanup <ຂັ້ນຕອນວິທີ-ການ-ອະນາໄມ>"
 
 msgid "\tsnapper create"
-msgstr ""
+msgstr "\tsnapper create"
 
 msgid "\tsnapper create-config <subvolume>"
-msgstr ""
+msgstr "\tsnapper create-config <ຊັບວໍລຸມ>"
 
 msgid "\tsnapper delete <number>"
-msgstr ""
+msgstr "\tsnapper delete <ຕົວເລກ>"
 
 msgid "\tsnapper delete-config"
-msgstr ""
+msgstr "\tsnapper delete-config"
 
 msgid "\tsnapper diff <number1>..<number2> [files]"
-msgstr ""
+msgstr "\tsnapper diff <ຕົວເລກ1>..<ຕົວເລກ2> [ໄຟລ໌]"
 
 msgid "\tsnapper get-config"
-msgstr ""
+msgstr "\tsnapper get-config"
 
 msgid "\tsnapper list"
-msgstr ""
+msgstr "\tsnapper list"
 
 msgid "\tsnapper list-configs"
-msgstr ""
+msgstr "\tsnapper list-configs"
 
 msgid "\tsnapper modify <number>"
-msgstr ""
+msgstr "\tsnapper modify <ຕົວເລກ>"
 
 msgid "\tsnapper mount <number>"
-msgstr ""
+msgstr "\tsnapper mount <ຕົວເລກ>"
 
 msgid "\tsnapper rollback [number]"
-msgstr ""
+msgstr "\tsnapper rollback [ຕົວເລກ]"
 
 msgid "\tsnapper set-config <configdata>"
-msgstr ""
+msgstr "\tsnapper set-config <ຂໍ້ມູນ-ການ-ຕັ້ງຄ່າ>"
 
 msgid "\tsnapper setup-quota"
-msgstr ""
+msgstr "\tsnapper setup-quota"
 
 msgid "\tsnapper status <number1>..<number2>"
-msgstr ""
+msgstr "\tsnapper status <ຕົວເລກ1>..<ຕົວເລກ2>"
 
 msgid "\tsnapper umount <number>"
-msgstr ""
+msgstr "\tsnapper umount <ຕົວເລກ>"
 
 msgid "\tsnapper undochange <number1>..<number2> [files]"
-msgstr ""
+msgstr "\tsnapper undochange <ຕົວເລກ1>..<ຕົວເລກ2> [ໄຟລ໌]"
 
 msgid "\tsnapper xadiff <number1>..<number2> [files]"
-msgstr ""
+msgstr "\tsnapper xadiff <ຕົວເລກ1>..<ຕົວເລກ2> [ໄຟລ໌]"
 
 msgid "    Global options:"
-msgstr ""
+msgstr "    ຕົວເລືອກທົ່ວໄປ:"
 
 msgid "    Options for 'cleanup' command:"
-msgstr ""
+msgstr "    ຕົວເລືອກສຳລັບຄຳສັ່ງ 'cleanup':"
 
 msgid "    Options for 'create' command:"
-msgstr ""
+msgstr "    ຕົວເລືອກສຳລັບຄຳສັ່ງ 'create':"
 
 msgid "    Options for 'create-config' command:"
-msgstr ""
+msgstr "    ຕົວເລືອກສຳລັບຄຳສັ່ງ 'create-config':"
 
 msgid "    Options for 'delete' command:"
-msgstr ""
+msgstr "    ຕົວເລືອກສຳລັບຄຳສັ່ງ 'delete':"
 
 msgid "    Options for 'diff' command:"
-msgstr ""
+msgstr "    ຕົວເລືອກສຳລັບຄຳສັ່ງ 'diff':"
 
 msgid "    Options for 'get-config' command:"
-msgstr ""
+msgstr "    ຕົວເລືອກສຳລັບຄຳສັ່ງ 'get-config':"
 
 msgid "    Options for 'list' command:"
-msgstr ""
+msgstr "    ຕົວເລືອກສຳລັບຄຳສັ່ງ 'list':"
 
 msgid "    Options for 'list-configs' command:"
-msgstr ""
+msgstr "    ຕົວເລືອກສຳລັບຄຳສັ່ງ 'list-configs':"
 
 msgid "    Options for 'modify' command:"
-msgstr ""
+msgstr "    ຕົວເລືອກສຳລັບຄຳສັ່ງ 'modify':"
 
 msgid "    Options for 'rollback' command:"
-msgstr ""
+msgstr "    ຕົວເລືອກສຳລັບຄຳສັ່ງ 'rollback':"
 
 msgid "    Options for 'status' command:"
-msgstr ""
+msgstr "    ຕົວເລືອກສຳລັບຄຳສັ່ງ 'status':"
 
 msgid "    Options for 'undochange' command:"
-msgstr ""
+msgstr "    ຕົວເລືອກສຳລັບຄຳສັ່ງ 'undochange':"
 
 msgid "  Cleanup snapshots:"
-msgstr ""
+msgstr "  ອະນາໄມສະນັບຊັອດ:"
 
 msgid "  Comparing snapshots extended attributes:"
-msgstr ""
+msgstr "  ປຽບທຽບຄຸນລັກສະນະເສີມຂອງສະນັບຊັອດ:"
 
 msgid "  Comparing snapshots:"
-msgstr ""
+msgstr "  ປຽບທຽບສະນັບຊັອດ:"
 
 msgid "  Create config:"
-msgstr ""
+msgstr "  ສ້າງການຕັ້ງຄ່າ:"
 
 msgid "  Create snapshot:"
-msgstr ""
+msgstr "  ສ້າງສະນັບຊັອດ:"
 
 msgid "  Delete config:"
-msgstr ""
+msgstr "  ລຶບການຕັ້ງຄ່າ:"
 
 msgid "  Delete snapshot:"
-msgstr ""
+msgstr "  ລຶບສະນັບຊັອດ:"
 
 msgid "  Get config:"
-msgstr ""
+msgstr "  ເອົາການຕັ້ງຄ່າ:"
 
 msgid "  List configs:"
-msgstr ""
+msgstr "  ລາຍການການຕັ້ງຄ່າ:"
 
 msgid "  List snapshots:"
-msgstr ""
+msgstr "  ລາຍການສະນັບຊັອດ:"
 
 msgid "  Modify snapshot:"
-msgstr ""
+msgstr "  ແກ້ໄຂສະນັບຊັອດ:"
 
 msgid "  Mount snapshot:"
-msgstr ""
+msgstr "  ເມົາທ໌ (Mount) ສະນັບຊັອດ:"
 
 msgid "  Rollback:"
-msgstr ""
+msgstr "  ຍ້ອນກັບ (Rollback):"
 
 msgid "  Set config:"
-msgstr ""
+msgstr "  ກຳນົດການຕັ້ງຄ່າ:"
 
 msgid "  Setup quota:"
-msgstr ""
+msgstr "  ຕັ້ງຄ່າໂຄຕາ:"
 
 msgid "  Umount snapshot:"
-msgstr ""
+msgstr "  ຢູເມົາທ໌ (Umount) ສະນັບຊັອດ:"
 
 msgid "  Undo changes:"
-msgstr ""
+msgstr "  ຍົກເລີກການປ່ຽນແປງ:"
 
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #. TRANSLATORS: used to construct list of values
 #. %1$s is replaced by first value
 #. %2$s is replaced by second value
 #, c-format
 msgid "%1$s or %2$s"
-msgstr ""
+msgstr "%1$s ຫຼື %2$s"
 
 #. TRANSLATORS: used to construct list of values
 #. %1$s is replaced by first value
 #. %2$s is replaced by second value
 #, c-format
 msgid "%1$s, %2$s"
-msgstr ""
+msgstr "%1$s, %2$s"
 
 #. For system(3), only WIFEXITED or WIFSIGNALED should be possible.
 #, c-format
 msgid "%s continued"
-msgstr ""
+msgstr "%s ດຳເນີນການຕໍ່"
 
 #, c-format
 msgid "%s killed by signal %d"
-msgstr ""
+msgstr "%s ຖືກຢຸດໂດຍສັນຍານ %d"
 
 #. For system(3), only WIFEXITED or WIFSIGNALED should be possible.
 #, c-format
 msgid "%s stopped"
-msgstr ""
+msgstr "%s ຖືກຢຸດ"
 
 msgid "'btrfs send | btrfs receive' failed."
-msgstr ""
+msgstr "'btrfs send | btrfs receive' ຫຼົ້ມເຫຼວ."
 
 msgid "'btrfs subvolume delete' failed."
-msgstr ""
+msgstr "'btrfs subvolume delete' ຫຼົ້ມເຫຼວ."
 
 msgid "'cp info.xml' failed."
-msgstr ""
+msgstr "'cp info.xml' ຫຼົ້ມເຫຼວ."
 
 msgid "'mkdir' failed."
-msgstr ""
+msgstr "'mkdir' ຫຼົ້ມເຫຼວ."
 
 msgid "'rm info.xml' failed."
-msgstr ""
+msgstr "'rm info.xml' ຫຼົ້ມເຫຼວ."
 
 msgid "'rmdir' failed."
-msgstr ""
+msgstr "'rmdir' ຫຼົ້ມເຫຼວ."
 
 msgid "'scp info.xml' failed."
-msgstr ""
+msgstr "'scp info.xml' ຫຼົ້ມເຫຼວ."
 
 #, c-format
 msgid "(Snapshot %d.)"
-msgstr ""
+msgstr "(ສະນັບຊັອດ %d.)"
 
 msgid "(Source) Creation Time"
-msgstr ""
+msgstr "(ຕົ້ນທາງ) ເວລາສ້າງ"
 
 msgid "(Source) Parent UUID"
-msgstr ""
+msgstr "(ຕົ້ນທາງ) UUID ຂອງຕົວຫຼັກ"
 
 msgid "(Source) Received UUID"
-msgstr ""
+msgstr "(ຕົ້ນທາງ) UUID ທີ່ໄດ້ຮັບ"
 
 msgid "(Source) UUID"
-msgstr ""
+msgstr "(ຕົ້ນທາງ) UUID"
 
 msgid "(Target) Creation Time"
-msgstr ""
+msgstr "(ປາຍທາງ) ເວລາສ້າງ"
 
 msgid "(Target) Parent UUID"
-msgstr ""
+msgstr "(ປາຍທາງ) UUID ຂອງຕົວຫຼັກ"
 
 msgid "(Target) Received UUID"
-msgstr ""
+msgstr "(ປາຍທາງ) UUID ທີ່ໄດ້ຮັບ"
 
 msgid "(Target) UUID"
-msgstr ""
+msgstr "(ປາຍທາງ) UUID"
 
 msgid "- A backup-config must be specified to run this command."
-msgstr ""
+msgstr "- ຕ້ອງກຳນົດ backup-config ເພື່ອລັນຄຳສັ່ງນີ້."
 
 msgid "- Restart the `snapperd` service to make the restored snapshots visible immediately."
 msgstr ""
+"- ເລີ່ມການບໍລິການ `snapperd` ໃໝ່ເພື່ອໃຫ້ເຫັນສະນັບຊັອດທີ່ກູ້ຄືນມາໄດ້ທັນທີ."
 
 msgid "- source-tree: Produce a tree diagram of the snapshots on the source."
-msgstr ""
+msgstr "- source-tree: ສ້າງແຜນຜັງແບບຕົ້ນໄມ້ຂອງສະນັບຊັອດຢູ່ຕົ້ນທາງ."
 
 msgid "- target-tree: Produce a tree diagram of the snapshots on the target."
-msgstr ""
+msgstr "- target-tree: ສ້າງແຜນຜັງແບບຕົ້ນໄມ້ຂອງສະນັບຊັອດຢູ່ປາຍທາງ."
 
 msgid "--abbreviate"
-msgstr ""
+msgstr "--abbreviate"
 
 msgid "--all-configs, -a"
-msgstr ""
+msgstr "--all-configs, -a"
 
 msgid "--ambit, -a <ambit>"
-msgstr ""
+msgstr "--ambit, -a <ຂອບເຂດ>"
 
 msgid "--automatic"
-msgstr ""
+msgstr "--automatic"
 
 msgid "--backup-config, -b <name>"
-msgstr ""
+msgstr "--backup-config, -b <ຊື່>"
 
 msgid "--cleanup-algorithm, -c <algo>"
-msgstr ""
+msgstr "--cleanup-algorithm, -c <ຂັ້ນຕອນວິທີ>"
 
 msgid "--columns <columns>"
-msgstr ""
+msgstr "--columns <ຖັນ>"
 
 msgid "--command <command>"
-msgstr ""
+msgstr "--command <ຄຳສັ່ງ>"
 
 msgid "--config, -c <name>"
-msgstr ""
+msgstr "--config, -c <ຊື່>"
 
 msgid "--csvout"
-msgstr ""
+msgstr "--csvout"
 
 msgid "--debug"
-msgstr ""
+msgstr "--debug"
 
 msgid "--default"
-msgstr ""
+msgstr "--default"
 
 msgid "--description, -d <description>"
-msgstr ""
+msgstr "--description, -d <ຄຳອະທິບາຍ>"
 
 msgid "--diff-cmd <command>"
-msgstr ""
+msgstr "--diff-cmd <ຄຳສັ່ງ>"
 
 msgid "--disable-used-space"
-msgstr ""
+msgstr "--disable-used-space"
 
 msgid "--empty"
-msgstr ""
+msgstr "--empty"
 
 msgid "--extensions, -x <options>"
-msgstr ""
+msgstr "--extensions, -x <ຕົວເລືອກ>"
 
 msgid "--free-space <space>"
-msgstr ""
+msgstr "--free-space <ພື້ນທີ່>"
 
 msgid "--from <number>"
-msgstr ""
+msgstr "--from <ຕົວເລກ>"
 
 msgid "--fstype, -f <fstype>"
-msgstr ""
+msgstr "--fstype, -f <ປະເພດ-ລະບົບ-ໄຟລ໌>"
 
 msgid "--input, -i <file>"
-msgstr ""
+msgstr "--input, -i <ໄຟລ໌>"
 
 msgid "--iso"
-msgstr ""
+msgstr "--iso"
 
 msgid "--jsonout"
-msgstr ""
+msgstr "--jsonout"
 
 msgid "--logger-type <type>"
-msgstr ""
+msgstr "--logger-type <ປະເພດ>"
 
 msgid "--machine-readable <format>"
-msgstr ""
+msgstr "--machine-readable <ຮູບແບບ>"
 
 msgid "--no-dbus"
-msgstr ""
+msgstr "--no-dbus"
 
 msgid "--no-headers"
-msgstr ""
+msgstr "--no-headers"
 
 msgid "--output, -o <file>"
-msgstr ""
+msgstr "--output, -o <ໄຟລ໌>"
 
 msgid "--path <path>"
-msgstr ""
+msgstr "--path <ເສັ້ນທາງ>"
 
 msgid "--pre-number <number>"
-msgstr ""
+msgstr "--pre-number <ຕົວເລກ-ກ່ອນໜ້າ>"
 
 msgid "--print-number, -p"
-msgstr ""
+msgstr "--print-number, -p"
 
 msgid "--quiet, -q"
-msgstr ""
+msgstr "--quiet, -q"
 
 msgid "--rankdir, -r"
-msgstr ""
+msgstr "--rankdir, -r"
 
 msgid "--read-only"
-msgstr ""
+msgstr "--read-only"
 
 msgid "--read-write"
-msgstr ""
+msgstr "--read-write"
 
 msgid "--root, -r <path>"
-msgstr ""
+msgstr "--root, -r <ເສັ້ນທາງ>"
 
 msgid "--separator <separator>"
-msgstr ""
+msgstr "--separator <ຕົວຂັ້ນ>"
 
 msgid "--sync, -s"
-msgstr ""
+msgstr "--sync, -s"
 
 msgid "--table-style, -t <style>"
-msgstr ""
+msgstr "--table-style, -t <ຮູບແບບ>"
 
 msgid "--target-mode <target-mode>"
-msgstr ""
+msgstr "--target-mode <ໂໝດ-ປາຍທາງ>"
 
 msgid "--template, -t <name>"
-msgstr ""
+msgstr "--template, -t <ຊື່>"
 
 msgid "--type, -t <type>"
-msgstr ""
+msgstr "--type, -t <ປະເພດ>"
 
 msgid "--userdata, -u <userdata>"
-msgstr ""
+msgstr "--userdata, -u <ຂໍ້ມູນ-ຜູ້ໃຊ້>"
 
 msgid "--utc"
-msgstr ""
+msgstr "--utc"
 
 msgid "--verbose, -v"
-msgstr ""
+msgstr "--verbose, -v"
 
 msgid "--version"
-msgstr ""
+msgstr "--version"
 
 msgid "A backup-config must be specified to run this command."
-msgstr ""
+msgstr "ຕ້ອງກຳນົດ backup-config ເພື່ອລັນຄຳສັ່ງນີ້."
 
 msgid "ACL error."
-msgstr ""
+msgstr "ຂໍ້ຜິດພາດ ACL."
 
 msgid "Active"
-msgstr ""
+msgstr "ເປີດໃຊ້ງານ"
 
 msgid "Active snapshot is already default snapshot."
-msgstr ""
+msgstr "ສະນັບຊັອດທີ່ໃຊ້ງານຢູ່ແມ່ນຄ່າເລີ່ມຕົ້ນຢູ່ແລ້ວ."
 
 msgid "Allow to abbreviate table columns."
-msgstr ""
+msgstr "ອະນຸຍາດໃຫ້ຫຍໍ້ຊື່ຖັນໃນຕາຕະລາງ."
 
 #, c-format
 msgid "Ambit is %s."
-msgstr ""
+msgstr "ຂອບເຂດແມ່ນ %s."
 
 msgid "Automatic"
-msgstr ""
+msgstr "ອັດຕະໂນມັດ"
 
 #. TRANSLATORS: symbol for "bytes" (best keep untranslated)
 msgid "B"
-msgstr ""
+msgstr "B"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot delete snapshot %d since it is the current system."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
 #, c-format
 msgid "Cannot delete snapshot %d since it is the currently mounted snapshot."
-msgstr ""
+msgstr "ບໍ່ສາມາດລຶບສະນັບຊັອດ %d ໄດ້ ເພາະມັນກຳລັງຖືກເມົາທ໌ (mount) ຢູ່."
 
 #, c-format
 msgid "Cannot delete snapshot %d since it is the next to be mounted snapshot."
 msgstr ""
+"ບໍ່ສາມາດລຶບສະນັບຊັອດ %d ໄດ້ ເພາະມັນແມ່ນສະນັບຊັອດທີ່ຈະຖືກເມົາທ໌ໃນຄັ້ງຕໍ່ໄປ."
 
 msgid "Cannot detect ambit since default subvolume is unknown."
-msgstr ""
+msgstr "ບໍ່ສາມາດກວດຫາຂອບເຂດໄດ້ ເພາະບໍ່ຮູ້ຈັກຊັບວໍລຸມເລີ່ມຕົ້ນ."
 
 msgid "Cannot do rollback since default subvolume is unknown."
-msgstr ""
+msgstr "ບໍ່ສາມາດຍ້ອນກັບ (rollback) ໄດ້ ເພາະບໍ່ຮູ້ຈັກຊັບວໍລຸມເລີ່ມຕົ້ນ."
 
 #, c-format
 msgid "Cannot find the node of UUID %s"
-msgstr ""
+msgstr "ບໍ່ພົບໂນດ (node) ຂອງ UUID %s"
 
-#, fuzzy
 msgid "Cannot transfer a read-write snapshot."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
 msgid "Character separator for CSV output format."
-msgstr ""
+msgstr "ຕົວອັກສອນຂັ້ນສຳລັບຮູບແບບ CSV."
 
 msgid "Cleanup"
-msgstr ""
+msgstr "ອະນາໄມ"
 
 msgid "Cleanup algorithm for snapshot."
-msgstr ""
+msgstr "ຂັ້ນຕອນວິທີການອະນາໄມສຳລັບສະນັບຊັອດ."
 
 msgid "Cleanup algorithm for snapshots."
-msgstr ""
+msgstr "ຂັ້ນຕອນວິທີການອະນາໄມສຳລັບບັນດາສະນັບຊັອດ."
 
 msgid "Cleanup all configs affecting path."
-msgstr ""
+msgstr "ອະນາໄມທຸກການຕັ້ງຄ່າທີ່ມີຜົນຕໍ່ເສັ້ນທາງ."
 
 #, c-format
 msgid "Client-side plugin '%s' failed."
-msgstr ""
+msgstr "ປລັກອິນຝັ່ງໄຄເອັນ (Client) '%s' ຫຼົ້ມເຫຼວ."
 
 msgid "Columns to show separated by comma."
-msgstr ""
+msgstr "ຖັນທີ່ຈະສະແດງ ໂດຍຂັ້ນດ້ວຍຈຸດ."
 
 msgid "Command 'cleanup' needs one arguments."
-msgstr ""
+msgstr "ຄຳສັ່ງ 'cleanup' ຕ້ອງການໜຶ່ງອາຄິວເມນ (argument)."
 
 msgid "Command 'create' does not take arguments."
-msgstr ""
+msgstr "ຄຳສັ່ງ 'create' ບໍ່ຮັບອາຄິວເມນ."
 
 msgid "Command 'create-config' needs one argument."
-msgstr ""
+msgstr "ຄຳສັ່ງ 'create-config' ຕ້ອງການໜຶ່ງອາຄິວເມນ."
 
 msgid "Command 'debug' does not take arguments."
-msgstr ""
+msgstr "ຄຳສັ່ງ 'debug' ບໍ່ຮັບອາຄິວເມນ."
 
 msgid "Command 'delete' needs at least one argument."
-msgstr ""
+msgstr "ຄຳສັ່ງ 'delete' ຕ້ອງການຢ່າງໜ້ອຍໜຶ່ງອາຄິວເມນ."
 
 msgid "Command 'delete-config' does not take arguments."
-msgstr ""
+msgstr "ຄຳສັ່ງ 'delete-config' ບໍ່ຮັບອາຄິວເມນ."
 
 msgid "Command 'diff' needs at least one argument."
-msgstr ""
+msgstr "ຄຳສັ່ງ 'diff' ຕ້ອງການຢ່າງໜ້ອຍໜຶ່ງອາຄິວເມນ."
 
 msgid "Command 'get-config' does not take arguments."
-msgstr ""
+msgstr "ຄຳສັ່ງ 'get-config' ບໍ່ຮັບອາຄິວເມນ."
 
 msgid "Command 'help' does not take arguments."
-msgstr ""
+msgstr "ຄຳສັ່ງ 'help' ບໍ່ຮັບອາຄິວເມນ."
 
 msgid "Command 'list' does not take arguments."
-msgstr ""
+msgstr "ຄຳສັ່ງ 'list' ບໍ່ຮັບອາຄິວເມນ."
 
 msgid "Command 'list-configs' does not take arguments."
-msgstr ""
+msgstr "ຄຳສັ່ງ 'list-configs' ບໍ່ຮັບອາຄິວເມນ."
 
 msgid "Command 'modify' needs at least one argument."
-msgstr ""
+msgstr "ຄຳສັ່ງ 'modify' ຕ້ອງການຢ່າງໜ້ອຍໜຶ່ງອາຄິວເມນ."
 
 msgid "Command 'mount' needs at least one argument."
-msgstr ""
+msgstr "ຄຳສັ່ງ 'mount' ຕ້ອງການຢ່າງໜ້ອຍໜຶ່ງອາຄິວເມນ."
 
 #, c-format
 msgid "Command 'rollback' cannot be used on a non-root subvolume %s."
-msgstr ""
+msgstr "ຄຳສັ່ງ 'rollback' ບໍ່ສາມາດໃຊ້ກັບຊັບວໍລຸມທີ່ບໍ່ແມ່ນ root %s ໄດ້."
 
 msgid "Command 'rollback' only available for btrfs."
-msgstr ""
+msgstr "ຄຳສັ່ງ 'rollback' ໃຊ້ໄດ້ສະເພາະກັບ btrfs ເທົ່ານັ້ນ."
 
 msgid "Command 'rollback' takes either one or no argument."
-msgstr ""
+msgstr "ຄຳສັ່ງ 'rollback' ຮັບອາຄິວເມນໜຶ່ງຕົວ ຫຼື ບໍ່ມີເລີຍ."
 
 msgid "Command 'set-config' needs at least one argument."
-msgstr ""
+msgstr "ຄຳສັ່ງ 'set-config' ຕ້ອງການຢ່າງໜ້ອຍໜຶ່ງອາຄິວເມນ."
 
 msgid "Command 'setup-quota' does not take arguments."
-msgstr ""
+msgstr "ຄຳສັ່ງ 'setup-quota' ບໍ່ຮັບອາຄິວເມນ."
 
 msgid "Command 'status' needs one argument."
-msgstr ""
+msgstr "ຄຳສັ່ງ 'status' ຕ້ອງການໜຶ່ງອາຄິວເມນ."
 
 msgid "Command 'transfer-and-delete' does not support operating on a single snapshot."
-msgstr ""
+msgstr "ຄຳສັ່ງ 'transfer-and-delete' ບໍ່ຮອງຮັບການເຮັດວຽກກັບສະນັບຊັອດດຽວ."
 
 msgid "Command 'transfer-and-delete' does not take arguments."
-msgstr ""
+msgstr "ຄຳສັ່ງ 'transfer-and-delete' ບໍ່ຮັບອາຄິວເມນ."
 
 msgid "Command 'umount' needs at least one argument."
-msgstr ""
+msgstr "ຄຳສັ່ງ 'umount' ຕ້ອງການຢ່າງໜ້ອຍໜຶ່ງອາຄິວເມນ."
 
 msgid "Command 'undochange' needs at least one argument."
-msgstr ""
+msgstr "ຄຳສັ່ງ 'undochange' ຕ້ອງການຢ່າງໜ້ອຍໜຶ່ງອາຄິວເມນ."
 
 msgid "Command 'visualize' needs one argument."
-msgstr ""
+msgstr "ຄຳັສັ່ງ 'visualize' ຕ້ອງການໜຶ່ງອາຄິວເມນ."
 
 msgid "Command 'xadiff' needs at least one argument."
-msgstr ""
+msgstr "ຄຳສັ່ງ 'xadiff' ຕ້ອງການຢ່າງໜ້ອຍໜຶ່ງອາຄິວເມນ."
 
 msgid "Command used for comparing files."
-msgstr ""
+msgstr "ຄຳສັ່ງທີ່ໃຊ້ສຳລັບປຽບທຽບໄຟລ໌."
 
 msgid "Config"
-msgstr ""
+msgstr "ການຕັ້ງຄ່າ"
 
 #, c-format
 msgid "Config '%s' is invalid."
-msgstr ""
+msgstr "ການຕັ້ງຄ່າ '%s' ບໍ່ຖືກຕ້ອງ."
 
 #, c-format
 msgid "Config '%s' not found."
-msgstr ""
+msgstr "ບໍ່ພົບການຕັ້ງຄ່າ '%s'."
 
 msgid "Config is in use."
-msgstr ""
+msgstr "ການຕັ້ງຄ່າກຳລັງຖືກໃຊ້ງານ."
 
 msgid "Config is locked."
-msgstr ""
+msgstr "ການຕັ້ງຄ່າຖືກລັອກໄວ້."
 
 #, c-format
 msgid "Configdata '%s' does not include '=' sign."
-msgstr ""
+msgstr "ຂໍ້ມູນການຕັ້ງຄ່າ '%s' ບໍ່ມີເຄື່ອງໝາຍ '='."
 
 #, c-format
 msgid "Configdata '%s' has empty key."
-msgstr ""
+msgstr "ຂໍ້ມູນການຕັ້ງຄ່າ '%s' ມີຄີ (key) ຫວ່າງເປົ່າ."
 
 #, c-format
 msgid "Could not make enough free space available for path '%s'."
-msgstr ""
+msgstr "ບໍ່ສາມາດສ້າງພື້ນທີ່ຫວ່າງໃຫ້ພຽງພໍສຳລັບເສັ້ນທາງ '%s'."
 
 msgid "Could not make enough free space available."
+msgstr "ບໍ່ສາມາດສ້າງພື້ນທີ່ຫວ່າງໃຫ້ພຽງພໍ."
+
+msgid "Create a snapshot from the specified snapshot."
 msgstr ""
 
-#, fuzzy
-msgid "Create a snapshot from the specified snapshot."
-msgstr "DBI Execution failed: %s."
-
-#, fuzzy
 msgid "Create an empty snapshot."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
-#, fuzzy
 msgid "Create read-only snapshot."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
-#, fuzzy
 msgid "Create read-write snapshot."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Creating config failed (%s)."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
 msgid "Creating read-only snapshot of current system."
-msgstr ""
+msgstr "ກຳລັງສ້າງສະນັບຊັອດແບບອ່ານຢ່າງດຽວຂອງລະບົບປັດຈຸບັນ."
 
-#, fuzzy
 msgid "Creating read-only snapshot of default subvolume."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
 msgid "Creating read-write snapshot of current subvolume."
+msgstr "ກຳລັງສ້າງສະນັບຊັອດແບບອ່ານ-ຂຽນຂອງຊັບວໍລຸມປັດຈຸບັນ."
+
+#, c-format
+msgid "Creating read-write snapshot of snapshot %d."
 msgstr ""
 
-#, fuzzy, c-format
-msgid "Creating read-write snapshot of snapshot %d."
-msgstr "DBI Execution failed: %s."
-
-#, fuzzy
 msgid "Creating snapshot failed."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
 msgid "Date"
-msgstr ""
+msgstr "ວັນທີ"
 
 msgid "Default"
-msgstr ""
+msgstr "ເລີ່ມຕົ້ນ"
 
 msgid "Delete:"
+msgstr "ລຶບ:"
+
+#, c-format
+msgid "Deleting config failed (%s)."
 msgstr ""
 
-#, fuzzy, c-format
-msgid "Deleting config failed (%s)."
-msgstr "DBI Execution failed: %s."
-
-#, fuzzy, c-format
+#, c-format
 msgid "Deleting snapshot %d."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
-#, fuzzy
 msgid "Deleting snapshot failed."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Deleting snapshot from %s:"
 msgid_plural "Deleting snapshots from %s:"
-msgstr[0] "DBI Execution failed: %s."
+msgstr[0] ""
 msgstr[1] "DBI Execution failed: %s."
 
 msgid "Description"
-msgstr ""
+msgstr "ຄຳອະທິບາຍ"
 
-#, fuzzy
 msgid "Description for snapshot."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
 msgid "Description for snapshots."
-msgstr ""
+msgstr "ຄຳອະທິບາຍສຳລັບບັນດາສະນັບຊັອດ."
 
 msgid "Detecting filesystem type failed."
-msgstr ""
+msgstr "ການກວດສອບປະເພດລະບົບໄຟລ໌ຫຼົ້ມເຫຼວ."
 
 msgid "Disable showing used space."
-msgstr ""
+msgstr "ປິດການສະແດງພື້ນທີ່ທີ່ໃຊ້ໄປ."
 
 msgid "Display dates and times in ISO format."
-msgstr ""
+msgstr "ສະແດງວັນທີ ແລະ ເວລາໃນຮູບແບບ ISO."
 
 msgid "Display dates and times in UTC."
-msgstr ""
+msgstr "ສະແດງວັນທີ ແລະ ເວລາໃນຮູບແບບ UTC."
 
 #. TRANSLATORS: symbol for "exa" (best keep untranslated)
 msgid "E"
-msgstr ""
+msgstr "E"
 
 #. TRANSLATORS: symbol for "exa bytes" (best keep untranslated)
 msgid "EB"
-msgstr ""
+msgstr "EB"
 
 #. TRANSLATORS: symbol for "exbi bytes" (best keep untranslated)
 msgid "EiB"
-msgstr ""
+msgstr "EiB"
 
 msgid "Empty configdata."
-msgstr ""
+msgstr "ຂໍ້ມູນການຕັ້ງຄ່າຫວ່າງເປົ່າ."
 
 msgid "Empty userdata."
-msgstr ""
+msgstr "ຂໍ້ມູນຜູ້ໃຊ້ຫວ່າງເປົ່າ."
 
 #, c-format
 msgid "Error (%s)."
-msgstr ""
+msgstr "ຂໍ້ຜິດພາດ (%s)."
 
 msgid "Extra options passed to the diff command."
-msgstr ""
+msgstr "ຕົວເລືອກເສີມທີ່ສົ່ງໄປໃຫ້ຄຳສັ່ງ diff."
 
-#, fuzzy
 msgid "Failed to compute checksum."
-msgstr "Failed to parse: %s."
+msgstr ""
 
 msgid "Failed to initialize filesystem handler."
+msgstr "ການເລີ່ມຕົ້ນຕົວຈັດການລະບົບໄຟລ໌ຫຼົ້ມເຫຼວ."
+
+#, c-format
+msgid "Failed to parse '%s'."
 msgstr ""
 
-#, fuzzy, c-format
-msgid "Failed to parse '%s'."
-msgstr "Failed to parse: %s."
-
-#, fuzzy
 msgid "Failed to parse number."
-msgstr "Failed to parse: %s."
+msgstr ""
 
 #, c-format
 msgid "Failed to query free space for path '%s'."
+msgstr "ການກວດສອບພື້ນທີ່ຫວ່າງສຳລັບເສັ້ນທາງ '%s' ຫຼົ້ມເຫຼວ."
+
+msgid "Failed to query free space."
 msgstr ""
 
-#, fuzzy
-msgid "Failed to query free space."
-msgstr "Failed to parse: %s."
-
-#, fuzzy
 msgid "Failed to set locale."
-msgstr "Failed to parse: %s."
+msgstr ""
 
 msgid "Failure"
-msgstr ""
+msgstr "ຫຼົ້ມເຫຼວ"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Failure (%s)."
-msgstr "Failed to parse: %s."
+msgstr ""
 
 #, c-format
 msgid "File '%s' not found."
-msgstr ""
+msgstr "ບໍ່ພົບໄຟລ໌ '%s'."
 
 #, c-format
 msgid "Free space error (%s)."
-msgstr ""
+msgstr "ຂໍ້ຜິດພາດກ່ຽວກັບພື້ນທີ່ຫວ່າງ (%s)."
 
 #. TRANSLATORS: symbol for "giga" (best keep untranslated)
 msgid "G"
-msgstr ""
+msgstr "G"
 
 #. TRANSLATORS: symbol for "giga bytes" (best keep untranslated)
 msgid "GB"
-msgstr ""
+msgstr "GB"
 
 #. TRANSLATORS: symbol for "gibi bytes" (best keep untranslated)
 msgid "GiB"
-msgstr ""
+msgstr "GiB"
 
 msgid "Global options:"
-msgstr ""
+msgstr "ຕົວເລືອກທົ່ວໄປ:"
 
 #, c-format
 msgid "IO Error (%s)."
-msgstr ""
+msgstr "ຂໍ້ຜິດພາດ IO (%s)."
 
 #, c-format
 msgid "IO error (%s)."
-msgstr ""
+msgstr "ຂໍ້ຜິດພາດ IO (%s)."
 
 msgid "Identical snapshots."
-msgstr ""
+msgstr "ສະນັບຊັອດຄືກັນ."
 
-#, fuzzy
 msgid "Illegal snapshot."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
 msgid "Increase verbosity."
-msgstr ""
+msgstr "ສະແດງລາຍລະອຽດເພີ່ມຂຶ້ນ."
 
 #, c-format
 msgid "Invalid ambit '%s'."
-msgstr ""
+msgstr "ຂອບເຂດ '%s' ບໍ່ຖືກຕ້ອງ."
 
 msgid "Invalid checksum output format."
-msgstr ""
+msgstr "ຮູບແບບຜົນໄດ້ຮັບ checksum ບໍ່ຖືກຕ້ອງ."
 
 #, c-format
 msgid "Invalid column '%s'."
-msgstr ""
+msgstr "ຖັນ '%s' ບໍ່ຖືກຕ້ອງ."
 
 msgid "Invalid config."
-msgstr ""
+msgstr "ການຕັ້ງຄ່າບໍ່ຖືກຕ້ອງ."
 
 msgid "Invalid configdata."
-msgstr ""
+msgstr "ຂໍ້ມູນການຕັ້ງຄ່າບໍ່ຖືກຕ້ອງ."
 
 msgid "Invalid free-space value."
-msgstr ""
+msgstr "ຄ່າພື້ນທີ່ຫວ່າງບໍ່ຖືກຕ້ອງ."
 
 #, c-format
 msgid "Invalid group (%s)."
-msgstr ""
+msgstr "ກຸ່ມບໍ່ຖືກຕ້ອງ (%s)."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid logger-type '%s'."
-msgstr "Failed to parse: %s."
+msgstr ""
 
 #, c-format
 msgid "Invalid machine readable format '%s'."
-msgstr ""
+msgstr "ຮູບແບບທີ່ເຄື່ອງອ່ານໄດ້ '%s' ບໍ່ຖືກຕ້ອງ."
 
 msgid "Invalid number of lines in checksum output."
-msgstr ""
+msgstr "ຈຳນວນແຖວໃນຜົນໄດ້ຮັບ checksum ບໍ່ຖືກຕ້ອງ."
 
 #, c-format
 msgid "Invalid path '%s'."
-msgstr ""
+msgstr "ເສັ້ນທາງ '%s' ບໍ່ຖືກຕ້ອງ."
 
 #, c-format
 msgid "Invalid snapshot '%s'."
-msgstr ""
+msgstr "ສະນັບຊັອດ '%s' ບໍ່ຖືກຕ້ອງ."
 
 msgid "Invalid snapshots."
-msgstr ""
+msgstr "ສະນັບຊັອດບໍ່ຖືກຕ້ອງ."
 
 #, c-format
 msgid "Invalid subvolume path '%s' on target."
-msgstr ""
+msgstr "ເສັ້ນທາງຊັບວໍລຸມ '%s' ຢູ່ປາຍທາງບໍ່ຖືກຕ້ອງ."
 
 msgid "Invalid subvolume."
-msgstr ""
+msgstr "ຊັບວໍລຸມບໍ່ຖືກຕ້ອງ."
 
 #, c-format
 msgid "Invalid table style '%s'."
+msgstr "ຮູບແບບຕາຕະລາງ '%s' ບໍ່ຖືກຕ້ອງ."
+
+#, c-format
+msgid "Invalid target mode '%s'."
 msgstr ""
 
-#, fuzzy, c-format
-msgid "Invalid target mode '%s'."
-msgstr "Failed to parse: %s."
-
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid user (%s)."
-msgstr "Failed to parse: %s."
+msgstr ""
 
 msgid "Invalid userdata."
-msgstr ""
+msgstr "ຂໍ້ມູນຜູ້ໃຊ້ບໍ່ຖືກຕ້ອງ."
 
 msgid "Key"
-msgstr ""
+msgstr "ຄີ (Key)"
 
 #. TRANSLATORS: symbol for "kibi bytes" (best keep untranslated)
 msgid "KiB"
-msgstr ""
+msgstr "KiB"
 
 msgid "List configs:"
-msgstr ""
+msgstr "ລາຍການການຕັ້ງຄ່າ:"
 
 msgid "List snapshots from all accessible configs."
-msgstr ""
+msgstr "ລາຍການສະນັບຊັອດຈາກທຸກການຕັ້ງຄ່າທີ່ເຂົ້າເຖິງໄດ້."
 
 msgid "List:"
-msgstr ""
+msgstr "ລາຍການ:"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Listing configs failed (%s)."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
 #. TRANSLATORS: symbol for "mega" (best keep untranslated)
 msgid "M"
-msgstr ""
+msgstr "M"
 
 #. TRANSLATORS: symbol for "mega bytes" (best keep untranslated)
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 msgid "Manually set filesystem type."
-msgstr ""
+msgstr "ກຳນົດປະເພດລະບົບໄຟລ໌ດ້ວຍຕົນເອງ."
 
 msgid "Maybe you forgot the delimiter '..' between the snapshot numbers."
-msgstr ""
+msgstr "ບາງທີເຈົ້າອາດຈະລືມຕົວຂັ້ນ '..' ລະຫວ່າງຕົວເລກສະນັບຊັອດ."
 
 #. TRANSLATORS: symbol for "mebi bytes" (best keep untranslated)
 msgid "MiB"
-msgstr ""
+msgstr "MiB"
 
 #, c-format
 msgid "Missing argument for command option '%s'."
-msgstr ""
+msgstr "ຂາດອາຄິວເມນສຳລັບຕົວເລືອກຄຳສັ່ງ '%s'."
 
 #, c-format
 msgid "Missing argument for global option '%s'."
-msgstr ""
+msgstr "ຂາດອາຄິວເມນສຳລັບຕົວເລືອກທົ່ວໄປ '%s'."
 
 msgid "Missing command option."
-msgstr ""
+msgstr "ຂາດຕົວເລືອກຄຳສັ່ງ."
 
 msgid "Missing delimiter '..' between snapshot numbers."
-msgstr ""
+msgstr "ຂາດຕົວຂັ້ນ '..' ລະຫວ່າງຕົວເລກສະນັບຊັອດ."
 
 msgid "Missing or invalid pre-number."
-msgstr ""
+msgstr "ຂາດ ຫຼື ຕົວເລກກ່ອນໜ້າ (pre-number) ບໍ່ຖືກຕ້ອງ."
 
 msgid "Name"
-msgstr ""
+msgstr "ຊື່"
 
 msgid "Name of config template to use."
-msgstr ""
+msgstr "ຊື່ຂອງແທມເພລດ (template) ການຕັ້ງຄ່າທີ່ຈະໃຊ້."
 
 msgid "No backup configs found."
-msgstr ""
+msgstr "ບໍ່ພົບການຕັ້ງຄ່າສຳຮອງ."
 
 msgid "No command provided."
-msgstr ""
+msgstr "ບໍ່ມີການລະບຸຄຳສັ່ງ."
 
 msgid "No headers for CSV output format."
-msgstr ""
+msgstr "ບໍ່ມີສ່ວນຫົວສຳລັບຮູບແບບ CSV."
 
 msgid "No permissions."
-msgstr ""
+msgstr "ບໍ່ມີສິດອະນຸຍາດ."
 
 msgid "Notice:"
-msgstr ""
+msgstr "ແຈ້ງເຕືອນ:"
 
 msgid "Number of corresponding pre snapshot."
-msgstr ""
+msgstr "ຕົວເລກຂອງສະນັບຊັອດກ່ອນໜ້າທີ່ກ່ຽວຂ້ອງ."
 
 msgid "Only use backup-config with automatic set."
-msgstr ""
+msgstr "ໃຊ້ backup-config ກັບການຕັ້ງຄ່າອັດຕະໂນມັດເທົ່ານັ້ນ."
 
 msgid "Only use backup-config with specified target-mode."
-msgstr ""
+msgstr "ໃຊ້ backup-config ກັບໂໝດປາຍທາງທີ່ລະບຸເທົ່ານັ້ນ."
 
 #, c-format
 msgid "Opening file '%s' failed."
-msgstr ""
+msgstr "ການເປີດໄຟລ໌ '%s' ຫຼົ້ມເຫຼວ."
 
 msgid "Operate in the specified ambit."
-msgstr ""
+msgstr "ເຮັດວຽກໃນຂອບເຂດທີ່ລະບຸ."
 
 msgid "Operate on target root (works only without DBus)."
-msgstr ""
+msgstr "ເຮັດວຽກຢູ່ root ປາຍທາງ (ໃຊ້ໄດ້ສະເພາະຕອນບໍ່ມີ DBus)."
 
 msgid "Operate without DBus."
-msgstr ""
+msgstr "ເຮັດວຽກໂດຍບໍ່ໃຊ້ DBus."
 
 msgid "Option --from only supported for snapshots of type single."
-msgstr ""
+msgstr "ຕົວເລືອກ --from ຮອງຮັບສະເພາະສະນັບຊັອດປະເພດ single ເທົ່ານັ້ນ."
 
 #. DBus versions of CreatePreSnapshot and CreatePostSnapshot do not pass read-only flag
 msgid "Option --read-write only supported for snapshots of type single."
-msgstr ""
+msgstr "ຕົວເລືອກ --read-write ຮອງຮັບສະເພາະສະນັບຊັອດປະເພດ single ເທົ່ານັ້ນ."
 
 msgid "Options for the 'visualize' command:"
-msgstr ""
+msgstr "ຕົວເລືອກສຳລັບຄຳສັ່ງ 'visualize':"
 
 #. TRANSLATORS: symbol for "peta" (best keep untranslated)
 msgid "P"
-msgstr ""
+msgstr "P"
 
 #. TRANSLATORS: symbol for "peta bytes" (best keep untranslated)
 msgid "PB"
-msgstr ""
+msgstr "PB"
 
 #, c-format
 msgid "Parent node %s not found."
-msgstr ""
+msgstr "ບໍ່ພົບໂນດຫຼັກ (Parent node) %s."
 
 #. TRANSLATORS: symbol for "pebi bytes" (best keep untranslated)
 msgid "PiB"
-msgstr ""
+msgstr "PiB"
 
 msgid "Post #"
-msgstr ""
+msgstr "ຫຼັງ #"
 
 msgid "Post Date"
-msgstr ""
+msgstr "ວັນທີຫຼັງ"
 
 msgid "Pre #"
-msgstr ""
+msgstr "ກ່ອນ #"
 
 msgid "Pre Date"
-msgstr ""
+msgstr "ວັນທີກ່ອນ"
 
 msgid "Print number of created snapshot."
-msgstr ""
+msgstr "ພິມຕົວເລກຂອງສະນັບຊັອດທີ່ສ້າງຂຶ້ນ."
 
 msgid "Print number of second created snapshot."
-msgstr ""
+msgstr "ພິມຕົວເລກຂອງສະນັບຊັອດທີສອງທີ່ສ້າງຂຶ້ນ."
 
 msgid "Print version and exit."
-msgstr ""
+msgstr "ສະແດງເວີຊັນແລ້ວອອກ."
 
 msgid "Probing extra information for source snapshots."
-msgstr ""
+msgstr "ກຳລັງກວດສອບຂໍ້ມູນເພີ່ມເຕີມສຳລັບສະນັບຊັອດຕົ້ນທາງ."
 
 msgid "Probing extra information for target snapshots."
+msgstr "ກຳລັງກວດສອບຂໍ້ມູນເພີ່ມເຕີມສຳລັບສະນັບຊັອດປາຍທາງ."
+
+msgid "Probing source snapshots."
 msgstr ""
 
-#, fuzzy
-msgid "Probing source snapshots."
-msgstr "DBI Execution failed: %s."
-
-#, fuzzy
 msgid "Probing target snapshots."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
 msgid "Produce a specific graph in Graphviz DOT format:"
-msgstr ""
+msgstr "ສ້າງກຣາຟໃນຮູບແບບ Graphviz DOT:"
 
 #, c-format
 msgid "Quota error (%s)."
-msgstr ""
+msgstr "ຂໍ້ຜິດພາດໂຄຕາ (%s)."
 
 msgid "Read files for which to undo changes from file."
-msgstr ""
+msgstr "ອ່ານໄຟລ໌ທີ່ຈະຍົກເລີກການປ່ຽນແປງຈາກໄຟລ໌."
 
 msgid "Read files to diff from file."
-msgstr ""
+msgstr "ອ່ານໄຟລ໌ທີ່ຈະເຮັດ diff ຈາກໄຟລ໌."
 
 msgid "Read-Only"
-msgstr ""
+msgstr "ອ່ານຢ່າງດຽວ"
 
 msgid "Restore:"
-msgstr ""
+msgstr "ກູ້ຄືນ:"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Restoring snapshot %d."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
 msgid "Run command and create pre and post snapshots."
-msgstr ""
+msgstr "ລັນຄຳສັ່ງ ແລະ ສ້າງສະນັບຊັອດກ່ອນ ແລະ ຫຼັງ."
 
 #, c-format
 msgid "Running delete failed for %d of %ld backup config."
 msgid_plural "Running delete failed for %d of %ld backup configs."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ການລຶບລົ້ມເຫຼວສຳລັບ %d ຈາກ %ld ການຕັ້ງຄ່າການສຳຮອງຂໍ້ມູນ."
+msgstr[1] "ການລຶບ %d ຈາກ %ld ການຕັ້ງຄ່າການສຳຮອງຂໍ້ມູນ ຫຼົ້ມເຫຼວ."
 
 #, c-format
 msgid "Running delete for backup config '%s' failed."
-msgstr ""
+msgstr "ການລຶບສຳລັບການຕັ້ງຄ່າສຳຮອງ '%s' ຫຼົ້ມເຫຼວ."
 
 #, c-format
 msgid "Running delete for backup config '%s'."
-msgstr ""
+msgstr "ກຳລັງລຶບການຕັ້ງຄ່າສຳຮອງ '%s'."
 
 #, c-format
 msgid "Running list failed for %d of %ld backup config."
 msgid_plural "Running list failed for %d of %ld backup configs."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ການສະແດງລາຍຊື່ %d ຈາກ %ld ການຕັ້ງຄ່າການສຳຮອງຂໍ້ມູນ ຫຼົ້ມເຫຼວ."
+msgstr[1] "ການສະແດງລາຍຊື່ %d ຈາກ %ld ການຕັ້ງຄ່າການສຳຮອງຂໍ້ມູນ ຫຼົ້ມເຫຼວ."
 
 #, c-format
 msgid "Running restore failed for %d of %ld backup config."
 msgid_plural "Running restore failed for %d of %ld backup configs."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ການກູ້ຄືນຫຼົ້ມເຫຼວສຳລັບ %d ຈາກ %ld ການຕັ້ງຄ່າສຳຮອງ."
+msgstr[1] "ການກູ້ຄືນຫຼົ້ມເຫຼວສຳລັບ %d ຈາກ %ld ການຕັ້ງຄ່າສຳຮອງ."
 
 #, c-format
 msgid "Running restore for backup config '%s' failed."
-msgstr ""
+msgstr "ການກູ້ຄືນສຳລັບການຕັ້ງຄ່າສຳຮອງ '%s' ຫຼົ້ມເຫຼວ."
 
 #, c-format
 msgid "Running restore for backup config '%s'."
-msgstr ""
+msgstr "ກຳລັງກູ້ຄືນການຕັ້ງຄ່າສຳຮອງ '%s'."
 
 #, c-format
 msgid "Running transfer and delete failed for %d of %ld backup config."
 msgid_plural "Running transfer and delete failed for %d of %ld backup configs."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ການໂອນຍ້າຍ ແລະ ລຶບຫຼົ້ມເຫຼວສຳລັບ %d ຈາກ %ld ການຕັ້ງຄ່າສຳຮອງ."
+msgstr[1] "ການໂອນຍ້າຍ ແລະ ລຶບຫຼົ້ມເຫຼວສຳລັບ %d ຈາກ %ld ການຕັ້ງຄ່າສຳຮອງ."
 
 #, c-format
 msgid "Running transfer and delete for backup config '%s' failed."
-msgstr ""
+msgstr "ການໂອນຍ້າຍ ແລະ ລຶບສຳລັບການຕັ້ງຄ່າສຳຮອງ '%s' ຫຼົ້ມເຫຼວ."
 
 #, c-format
 msgid "Running transfer and delete for backup config '%s'."
-msgstr ""
+msgstr "ກຳລັງໂອນຍ້າຍ ແລະ ລຶບການຕັ້ງຄ່າສຳຮອງ '%s'."
 
 #, c-format
 msgid "Running transfer failed for %d of %ld backup config."
 msgid_plural "Running transfer failed for %d of %ld backup configs."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ການໂອນຍ້າຍຫຼົ້ມເຫຼວສຳລັບ %d ຈາກ %ld ການຕັ້ງຄ່າສຳຮອງ."
+msgstr[1] "ການໂອນຍ້າຍຫຼົ້ມເຫຼວສຳລັບ %d ຈາກ %ld ການຕັ້ງຄ່າສຳຮອງ."
 
 #, c-format
 msgid "Running transfer for backup config '%s' failed."
-msgstr ""
+msgstr "ການໂອນຍ້າຍສຳລັບການຕັ້ງຄ່າສຳຮອງ '%s' ຫຼົ້ມເຫຼວ."
 
 #, c-format
 msgid "Running transfer for backup config '%s'."
-msgstr ""
+msgstr "ກຳລັງໂອນຍ້າຍການຕັ້ງຄ່າສຳຮອງ '%s'."
 
 msgid "SSH Host"
-msgstr ""
+msgstr "SSH Host"
 
 msgid "SSH Identity"
-msgstr ""
+msgstr "SSH Identity"
 
 msgid "SSH Port"
-msgstr ""
+msgstr "SSH Port"
 
 msgid "SSH User"
-msgstr ""
+msgstr "SSH User"
 
 msgid "Save status to file."
-msgstr ""
+msgstr "ບັນທຶກສະຖານະໃສ່ໄຟລ໌."
 
 msgid "See 'man snapper' for further instructions."
-msgstr ""
+msgstr "ເບິ່ງ 'man snapper' ສຳລັບຄຳແນະນຳເພີ່ມເຕີມ."
 
 #, c-format
 msgid "Server-side plugin '%s' failed."
-msgstr ""
+msgstr "ປລັກອິນຝັ່ງເຊີບເວີ (Server) '%s' ຫຼົ້ມເຫຼວ."
 
 msgid "Set CSV output format."
-msgstr ""
+msgstr "ຕັ້ງຮູບແບບຜົນໄດ້ຮັບເປັນ CSV."
 
 msgid "Set JSON output format."
-msgstr ""
+msgstr "ຕັ້ງຮູບແບບຜົນໄດ້ຮັບເປັນ JSON."
 
 msgid "Set a machine-readable output format (csv, json)."
-msgstr ""
+msgstr "ຕັ້ງຮູບແບບຜົນໄດ້ຮັບທີ່ເຄື່ອງອ່ານໄດ້ (csv, json)."
 
 msgid "Set logger type."
-msgstr ""
+msgstr "ກຳນົດປະເພດຕົວບັນທຶກເຫດການ (logger)."
 
 msgid "Set name of backup-config to use."
-msgstr ""
+msgstr "ກຳນົດຊື່ backup-config ທີ່ຈະໃຊ້."
 
 msgid "Set name of config to use."
-msgstr ""
+msgstr "ກຳນົດຊື່ການຕັ້ງຄ່າທີ່ຈະໃຊ້."
 
 msgid "Set snapshot as default snapshot."
+msgstr "ກຳນົດໃຫ້ສະນັບຊັອດເປັນຄ່າເລີ່ມຕົ້ນ."
+
+msgid "Set snapshot read-only."
 msgstr ""
 
-#, fuzzy
-msgid "Set snapshot read-only."
-msgstr "DBI Execution failed: %s."
-
-#, fuzzy
 msgid "Set snapshot read-write."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
 #, c-format
 msgid "Setting default subvolume to snapshot %d."
-msgstr ""
+msgstr "ກຳລັງຕັ້ງຊັບວໍລຸມເລີ່ມຕົ້ນໄປທີ່ສະນັບຊັອດ %d."
 
 #, c-format
 msgid "Snapshot '%u' not found."
+msgstr "ບໍ່ພົບສະນັບຊັອດ '%u'."
+
+msgid "Snapshot already on source."
 msgstr ""
 
-#, fuzzy
-msgid "Snapshot already on source."
-msgstr "DBI Execution failed: %s."
-
-#, fuzzy
 msgid "Snapshot already on target."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
 msgid "Snapshot is in use."
-msgstr ""
+msgstr "ສະນັບຊັອດກຳລັງຖືກໃຊ້ງານ."
 
 msgid "Snapshot not on source."
-msgstr ""
+msgstr "ບໍ່ມີສະນັບຊັອດໃນຕົ້ນທາງ."
 
 msgid "Snapshot not on target."
-msgstr ""
+msgstr "ບໍ່ມີສະນັບຊັອດໃນປາຍທາງ."
 
 #, c-format
 msgid "Snapshot number %d not found."
-msgstr ""
+msgstr "ບໍ່ພົບສະນັບຊັອດໝາຍເລກ %d."
 
 msgid "Source State"
-msgstr ""
+msgstr "ສະຖານະຕົ້ນທາງ"
 
 msgid "Subvolume"
-msgstr ""
+msgstr "ຊັບວໍລຸມ (Subvolume)"
 
 msgid "Supported modes:"
-msgstr ""
+msgstr "ໂໝດທີ່ຮອງຮັບ:"
 
 msgid "Suppress normal output."
-msgstr ""
+msgstr "ປິດການສະແດງຜົນປົກກະຕິ."
 
 msgid "Sync after deletion."
-msgstr ""
+msgstr "ຊິງຄ໌ (Sync) ຫຼັງຈາກການລຶບ."
 
 #. TRANSLATORS: symbol for "tera" (best keep untranslated)
 msgid "T"
-msgstr ""
+msgstr "T"
 
 #. TRANSLATORS: symbol for "tera bytes" (best keep untranslated)
 msgid "TB"
-msgstr ""
+msgstr "TB"
 
 msgid "Table style (integer)."
-msgstr ""
+msgstr "ຮູບແບບຕາຕະລາງ (ຕົວເລກຖ້ວນ)."
 
 msgid "Target Mode"
-msgstr ""
+msgstr "ໂໝດປາຍທາງ"
 
 msgid "Target Path"
-msgstr ""
+msgstr "ເສັ້ນທາງປາຍທາງ"
 
 msgid "Target State"
-msgstr ""
+msgstr "ສະຖານະປາຍທາງ"
 
 msgid "Target btrfs bin"
-msgstr ""
+msgstr "Target btrfs bin"
 
 msgid "Target ls Bin"
-msgstr ""
+msgstr "Target ls Bin"
 
 msgid "Target mkdir bin"
-msgstr ""
+msgstr "Target mkdir bin"
 
 msgid "Target rm bin"
-msgstr ""
+msgstr "Target rm bin"
 
 msgid "Target rmdir bin"
-msgstr ""
+msgstr "Target rmdir bin"
 
 msgid "The 'rankdir' diagram attribute of Graphviz. Defaults to 'LR'."
-msgstr ""
+msgstr "ຄຸນລັກສະນະ 'rankdir' ຂອງ Graphviz. ຄ່າເລີ່ມຕົ້ນແມ່ນ 'LR'."
 
 msgid "The ambit can be specified manually using the --ambit option."
-msgstr ""
+msgstr "ສາມາດລະບຸຂອບເຂດ (ambit) ດ້ວຍຕົນເອງໂດຍໃຊ້ຕົວເລືອກ --ambit."
 
 msgid "The config 'root' does not exist. Likely snapper is not configured."
-msgstr ""
+msgstr "ການຕັ້ງຄ່າ 'root' ບໍ່ມີຢູ່. ອາດເປັນຍ້ອນຍັງບໍ່ໄດ້ຕັ້ງຄ່າ snapper."
 
 msgid "This can happen if the system was not set up for rollback."
 msgstr ""
+"ອັນນີ້ອາດຈະເກີດຂຶ້ນຖ້າລະບົບບໍ່ໄດ້ຖືກຕັ້ງຄ່າໄວ້ສຳລັບການຍ້ອນກັບ (rollback)."
 
 #. TRANSLATORS: symbol for "tebi bytes" (best keep untranslated)
 msgid "TiB"
-msgstr ""
+msgstr "TiB"
 
 msgid "Transfer and delete:"
-msgstr ""
+msgstr "ໂອນຍ້າຍ ແລະ ລຶບ:"
 
 msgid "Transfer:"
-msgstr ""
+msgstr "ໂອນຍ້າຍ:"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Transferring snapshot %d."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
 msgid "Try 'snapper --help' for more information."
-msgstr ""
+msgstr "ລອງໃຊ້ 'snapper --help' ສຳລັບຂໍ້ມູນເພີ່ມເຕີມ."
 
 msgid "Try 'snbk --help' for more information."
-msgstr ""
+msgstr "ລອງໃຊ້ 'snbk --help' ສຳລັບຂໍ້ມູນເພີ່ມເຕີມ."
 
 msgid "Try to make space available."
-msgstr ""
+msgstr "ພະຍາຍາມສ້າງພື້ນທີ່ໃຫ້ຫວ່າງ."
 
 msgid "Turn on debugging."
-msgstr ""
+msgstr "ເປີດໃຊ້ການດີບັກ (debugging)."
 
 msgid "Type"
-msgstr ""
+msgstr "ປະເພດ"
 
-#, fuzzy
 msgid "Type for snapshot."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
 msgid "Type of snapshots to list."
-msgstr ""
+msgstr "ປະເພດຂອງສະນັບຊັອດທີ່ຈະສະແດງລາຍການ."
 
 #, c-format
 msgid "Unknown cleanup algorithm '%s'."
-msgstr ""
+msgstr "ບໍ່ຮູ້ຈັກຂັ້ນຕອນວິທີການອະນາໄມ '%s'."
 
 #, c-format
 msgid "Unknown command '%s'."
-msgstr ""
+msgstr "ບໍ່ຮູ້ຈັກຄຳສັ່ງ '%s'."
 
 msgid "Unknown config."
-msgstr ""
+msgstr "ບໍ່ຮູ້ຈັກການຕັ້ງຄ່າ."
 
 #, c-format
 msgid "Unknown global option '%s'."
-msgstr ""
+msgstr "ບໍ່ຮູ້ຈັກຕົວເລືອກທົ່ວໄປ '%s'."
 
 #, c-format
 msgid "Unknown mode '%s'."
-msgstr ""
+msgstr "ບໍ່ຮູ້ຈັກໂໝດ '%s'."
 
 #, c-format
 msgid "Unknown option '%s' for command '%s'."
-msgstr ""
+msgstr "ບໍ່ຮູ້ຈັກຕົວເລືອກ '%s' ສຳລັບຄຳສັ່ງ '%s'."
 
 #, c-format
 msgid "Unknown rankdir '%s'."
-msgstr ""
+msgstr "ບໍ່ຮູ້ຈັກ rankdir '%s'."
 
 #, c-format
 msgid "Unknown type '%s'."
-msgstr ""
+msgstr "ບໍ່ຮູ້ຈັກປະເພດ '%s'."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Updating metadata of snapshot %d."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
 #. TRANSLATORS: a list of possible values
 #. %1$s is replaced by list of possible values
 #, c-format
 msgid "Use %1$s."
-msgstr ""
+msgstr "ໃຊ້ %1$s."
 
 #, c-format
 msgid "Use an integer number from %d to %d."
-msgstr ""
+msgstr "ໃຊ້ຕົວເລກຖ້ວນແຕ່ %d ຫາ %d."
 
 msgid "Used Space"
-msgstr ""
+msgstr "ພື້ນທີ່ທີ່ໃຊ້ໄປ"
 
 msgid "User"
-msgstr ""
+msgstr "ຜູ້ໃຊ້"
 
 msgid "Userdata"
-msgstr ""
+msgstr "ຂໍ້ມູນຜູ້ໃຊ້ (Userdata)"
 
 #, c-format
 msgid "Userdata '%s' does not include '=' sign."
-msgstr ""
+msgstr "ຂໍ້ມູນຜູ້ໃຊ້ '%s' ບໍ່ມີເຄື່ອງໝາຍ '='."
 
 #, c-format
 msgid "Userdata '%s' has empty key."
+msgstr "ຂໍ້ມູນຜູ້ໃຊ້ '%s' ມີຄີ (key) ຫວ່າງເປົ່າ."
+
+msgid "Userdata for snapshot."
 msgstr ""
 
-#, fuzzy
-msgid "Userdata for snapshot."
-msgstr "DBI Execution failed: %s."
-
-#, fuzzy
 msgid "Userdata for snapshots."
-msgstr "DBI Execution failed: %s."
+msgstr ""
 
 msgid "Value"
-msgstr ""
+msgstr "ຄ່າ"
 
 #, c-format
 msgid "create:%d modify:%d delete:%d"
-msgstr ""
+msgstr "ສ້າງ:%d ແກ້ໄຂ:%d ລຶບ:%d"
 
 #, c-format
 msgid "creating %s"
-msgstr ""
+msgstr "ກຳລັງສ້າງ %s"
 
 #, c-format
 msgid "deleting %s"
-msgstr ""
+msgstr "ກຳລັງລຶບ %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "failed to create %s"
-msgstr "Failed to parse: %s."
-
-#, fuzzy, c-format
-msgid "failed to delete %s"
-msgstr "Failed to parse: %s."
-
-#, fuzzy, c-format
-msgid "failed to modify %s"
-msgstr "Failed to parse: %s."
-
-#. TRANSLATORS: symbol for "kilo" (best keep untranslated)
-msgid "k"
-msgstr ""
-
-#. TRANSLATORS: symbol for "kilo bytes" (best keep untranslated)
-msgid "kB"
 msgstr ""
 
 #, c-format
-msgid "modifying %s"
+msgid "failed to delete %s"
 msgstr ""
+
+#, c-format
+msgid "failed to modify %s"
+msgstr ""
+
+#. TRANSLATORS: symbol for "kilo" (best keep untranslated)
+msgid "k"
+msgstr "k"
+
+#. TRANSLATORS: symbol for "kilo bytes" (best keep untranslated)
+msgid "kB"
+msgstr "kB"
+
+#, c-format
+msgid "modifying %s"
+msgstr "ກຳລັງແກ້ໄຂ %s"
 
 msgid "no"
-msgstr ""
+msgstr "ບໍ່"
 
 msgid "nothing to do"
-msgstr ""
+msgstr "ບໍ່ມີຫຍັງຕ້ອງເຮັດ"
 
 msgid "root argument can be used only together with no-dbus.\n"
-msgstr ""
+msgstr "ອາຄິວເມນ root ສາມາດໃຊ້ຮ່ວມກັບ no-dbus ເທົ່ານັ້ນ.\n"
 
 msgid "snbk delete [numbers]"
-msgstr ""
+msgstr "snbk delete [ຕົວເລກ]"
 
 msgid "snbk list"
-msgstr ""
+msgstr "snbk list"
 
 msgid "snbk list-configs"
-msgstr ""
+msgstr "snbk list-configs"
 
 msgid "snbk restore [numbers]"
-msgstr ""
+msgstr "snbk restore [ຕົວເລກ]"
 
 msgid "snbk transfer [numbers]"
-msgstr ""
+msgstr "snbk transfer [ຕົວເລກ]"
 
 msgid "snbk transfer-and-delete"
-msgstr ""
+msgstr "snbk transfer-and-delete"
 
 msgid "snbk visualize <mode>"
-msgstr ""
+msgstr "snbk visualize <ໂໝດ>"
 
 msgid "usage: snapper [--global-options] <command> [--command-options] [command-arguments]"
 msgstr ""
+"ວິທີໃຊ້: snapper [--ຕົວເລືອກທົ່ວໄປ] <ຄຳສັ່ງ> [--ຕົວເລືອກຄຳສັ່ງ] [ອາຄິວເມນຂອງຄຳສັ່ງ]"
 
 msgid "usage: snbk [--global-options] <command> [command-arguments]"
-msgstr ""
+msgstr "ວິທີໃຊ້: snbk [--ຕົວເລືອກທົ່ວໄປ] <ຄຳສັ່ງ> [ອາຄິວເມນຂອງຄຳສັ່ງ]"
 
 msgid "yes"
-msgstr ""
+msgstr "ແມ່ນ"
 
 #, fuzzy
 #~ msgid "Quota failure (%s)."

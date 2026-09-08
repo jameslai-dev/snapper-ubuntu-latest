@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<refentry id='snapper-sync8' xmlns:xlink="http://www.w3.org/1999/xlink">
+
+  <refentryinfo>
+    <date>2026-07-16</date>
+  </refentryinfo>
+
+  <refmeta>
+    <refentrytitle>snapper-sync</refentrytitle>
+    <manvolnum>8</manvolnum>
+    <refmiscinfo class='date'>2026-07-16</refmiscinfo>
+    <refmiscinfo class='version'>@VERSION@</refmiscinfo>
+    <refmiscinfo class='manual'>Filesystem Snapshot Management</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname>snapper-sync</refname>
+    <refpurpose>Script to synchronize the highest snapshot number</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv id='synopsis'>
+    <cmdsynopsis>
+      <command>snapper-sync</command>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1 id='description'>
+    <title>DESCRIPTION</title>
+    <para><command>snapper-sync</command> is a script to synchronize the highest snapshot
+    number across the source and backup target devices, avoiding a potential snapshot
+    number collision after restoration. For details, please refer to the
+    <citerefentry>
+      <refentrytitle>snbk</refentrytitle><manvolnum>8</manvolnum>
+    </citerefentry>
+    documentation</para>
+  </refsect1>
+
+  <refsect1 id='exit_status'>
+    <title>EXIT STATUS</title>
+    <para>Normally the exit status is 0. If an error occurred the exit status is 1.</para>
+  </refsect1>
+
+  <refsect1 id='homepage'>
+    <title>HOMEPAGE</title>
+    <para><ulink url='http://snapper.io/'>http://snapper.io/</ulink></para>
+  </refsect1>
+
+  <refsect1 id='authors'>
+    <title>AUTHORS</title>
+    <para>Arvin Schnell <email>aschnell@suse.com</email></para>
+  </refsect1>
+
+  <refsect1 id='see_also'>
+    <title>SEE ALSO</title>
+    <para>
+      <citerefentry><refentrytitle>snbk</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+    </para>
+  </refsect1>
+
+</refentry>

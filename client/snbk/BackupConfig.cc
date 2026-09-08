@@ -72,11 +72,11 @@ namespace snapper
 	get_child_nodes(json_file.get_root(), "receive-options", receive_options);
 
 	get_child_value(json_file.get_root(), "target-btrfs-bin", target_btrfs_bin);
+	get_child_value(json_file.get_root(), "target-cat-bin", target_cat_bin);
 	get_child_value(json_file.get_root(), "target-ls-bin", target_ls_bin);
 	get_child_value(json_file.get_root(), "target-mkdir-bin", target_mkdir_bin);
 	get_child_value(json_file.get_root(), "target-rm-bin", target_rm_bin);
 	get_child_value(json_file.get_root(), "target-rmdir-bin", target_rmdir_bin);
-	get_child_value(json_file.get_root(), "target-sha256sum-bin", target_sha256sum_bin);
     }
 
 
@@ -107,7 +107,7 @@ namespace snapper
     vector<string>
     BackupConfig::ssh_options() const
     {
-	vector<string> options = { ssh_host };
+	vector<string> options;
 
 	if (ssh_port != 0)
 	    options.insert(options.end(), { "-p", to_string(ssh_port) });
@@ -121,6 +121,9 @@ namespace snapper
 	if (ssh_master_control)
 	    options.insert(options.end(), { "-o", "ControlMaster=auto", "-o", "ControlPath=\"~/.ssh/snbk-%C\"",
 		"-o", "ControlPersist=30s" });
+
+	// The target host must be the final argument before the command string execution block
+	options.push_back(ssh_host);
 
 	return options;
     }

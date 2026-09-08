@@ -37,15 +37,60 @@ namespace snapper
 	pair<string, string>
 	split_device_name(const string& name)
 	{
-	    static const std::regex rx(DEV_MAPPER_DIR "/(.*[^-])-([^-].*)", std::regex::extended);
-	    std::smatch match;
+	    // Device mapper uses /dev/mapper/<vg_name>-<lv_name> format where
+	    // hyphens in names are escaped as "--" and a single "-" separates VG/LV.
+	    // Parse the name left-to-right, treating "--" as an escaped hyphen and the
+	    // first standalone "-" as the VG/LV separator.
 
-	    if (!regex_match(name, match, rx))
+	    const string prefix = DEV_MAPPER_DIR "/";
+
+	    if (!boost::starts_with(name, prefix))
 		throw std::runtime_error("failed to split device name into volume group and "
 					 "logical volume name");
 
-	    string vg_name = boost::replace_all_copy(match[1].str(), "--", "-");
-	    string lv_name = boost::replace_all_copy(match[2].str(), "--", "-");
+	    const string basename = name.substr(prefix.length());
+	    string vg_name, lv_name;
+	    size_t i = 0;
+
+	    while (i < basename.length())
+	    {
+		if (basename[i] == '-')
+		{
+		    if (i + 1 < basename.length() && basename[i + 1] == '-')
+		    {
+			vg_name += '-';
+			i += 2;
+		    }
+		    else
+		    {
+			i++;
+			break;
+		    }
+		}
+		else
+		{
+		    vg_name += basename[i];
+		    i++;
+		}
+	    }
+
+	    while (i < basename.length())
+	    {
+		if (basename[i] == '-' && i + 1 < basename.length() && basename[i + 1] == '-')
+		{
+		    lv_name += '-';
+		    i += 2;
+		}
+		else
+		{
+		    lv_name += basename[i];
+		    i++;
+		}
+	    }
+
+	    if (vg_name.empty() || lv_name.empty())
+		throw std::runtime_error("failed to split device name into volume group and "
+					 "logical volume name");
 
 	    return make_pair(vg_name, lv_name);
 	}
