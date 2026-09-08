@@ -77,6 +77,15 @@ namespace snapper
     }
 
 
+    XmlFile::XmlFile(FromStringTag, const string& content)
+        : doc(xmlReadMemory(content.c_str(), content.length(), NULL, NULL,
+                            XML_PARSE_NOBLANKS | XML_PARSE_NONET))
+    {
+	if (!doc)
+	    SN_THROW(IOErrorException("xmlReadMemory failed"));
+    }
+
+
     XmlFile::~XmlFile()
     {
 	xmlFreeDoc(doc);

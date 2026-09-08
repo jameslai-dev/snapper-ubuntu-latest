@@ -45,9 +45,14 @@ namespace snapper
 
     public:
 
+	/** Types and values for tag dispatching. */
+	struct FromStringTag {};
+	static constexpr FromStringTag FromString{};
+
 	XmlFile();
 	XmlFile(int fd, const string& url);
 	XmlFile(const string& filename);
+	XmlFile(FromStringTag, const string& content);
 
 	~XmlFile();
 

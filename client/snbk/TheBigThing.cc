@@ -34,7 +34,6 @@
 
 #include "CmdBtrfs.h"
 #include "CmdLs.h"
-#include "CmdChecksum.h"
 #include "BackupConfig.h"
 #include "TheBigThing.h"
 
@@ -508,7 +507,7 @@ namespace snapper
 	                                    "/" SNAPSHOT_NAME);
 
 	    TheBigThing the_big_thing(num);
-	    the_big_thing.date = source_snapshot.getDate();
+	    the_big_thing.meta.date = source_snapshot.getDate();
 	    the_big_thing.source_state = extra.is_read_only() ? TheBigThing::SourceState::READ_ONLY :
 		TheBigThing::SourceState::READ_WRITE;
 	    the_big_thing.source_uuid = extra.get_uuid();
@@ -517,9 +516,9 @@ namespace snapper
 	    the_big_thing.source_creation_time = extra.get_creation_time();
 
 	    // Get the checksum of info.xml.
-	    CmdChecksum cmd_checksum(shell_source, SHA256SUM_BIN,
-				     source_snapshot_dir(snapper, num) + "/info.xml");
-	    the_big_thing.source_meta_checksum = cmd_checksum.get_checksum();
+	    CmdMetaParse cmd_metaparse(shell_source, source_snapshot_dir(snapper, num),
+	                               CAT_BIN);
+	    the_big_thing.source_meta_checksum = cmd_metaparse.get_checksum();
 
 	    the_big_things.push_back(the_big_thing);
 	}
@@ -619,10 +618,13 @@ namespace snapper
 
 		try
 		{
-		    // Get the checksum of info.xml.
-		    CmdChecksum cmd_checksum(shell_target, backup_config.target_sha256sum_bin,
-					     target_snapshot_dir(backup_config, num) + "/info.xml");
-		    it->target_meta_checksum = cmd_checksum.get_checksum();
+		    // Get the checksum of info.xml, and get metadata required for the
+		    // cleanup algorithms.
+		    CmdMetaParse cmd_metaparse(shell_target,
+		                               target_snapshot_dir(backup_config, num),
+		                               backup_config.target_cat_bin);
+		    it->target_meta_checksum = cmd_metaparse.get_checksum();
+		    it->meta = cmd_metaparse.get_meta();
 		}
 		catch (const Exception& e)
 		{

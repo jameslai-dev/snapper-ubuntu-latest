@@ -75,11 +75,11 @@ namespace snapper
 	vector<string> receive_options;
 
 	string target_btrfs_bin = BTRFS_BIN;
+	string target_cat_bin = CAT_BIN;
 	string target_ls_bin = LS_BIN;
 	string target_mkdir_bin = MKDIR_BIN;
 	string target_rm_bin = RM_BIN;
 	string target_rmdir_bin = RMDIR_BIN;
-	string target_sha256sum_bin = SHA256SUM_BIN;
 
     private:
 

@@ -135,9 +135,10 @@ namespace snapper
 		    return the_big_thing.num;
 
 		case Column::DATE:
-		    if (the_big_thing.date == 0)
+		    if (the_big_thing.meta.date == 0)
 			return nullptr;
-		    return datetime(the_big_thing.date, output_options.utc, output_options.iso);
+		    return datetime(the_big_thing.meta.date, output_options.utc,
+		                    output_options.iso);
 
 		case Column::SOURCE_STATE:
 		    if (the_big_thing.source_state == TheBigThing::SourceState::MISSING)

@@ -172,6 +172,9 @@ namespace snapper
 	if (n > 0 && buffer[n - 1] == '\n')
 	    n--;
 
+	if (n > 0 && buffer[n - 1] == '\r')
+	    n--;
+
 	line = string(buffer, 0, n);
 
 	return true;
@@ -348,6 +351,8 @@ namespace snapper
 	    if (p2)
 	    {
 		line += string(p1, p2 - p1);
+		if (!line.empty() && line.back() == '\r')
+		    line.pop_back();
 		buffer_read = p2 - buffer.data() + 1;
 		return true;
 	    }

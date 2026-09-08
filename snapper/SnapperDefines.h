@@ -59,7 +59,6 @@
 #define SYSTEMCTL_BIN "/usr/bin/systemctl"
 
 #define SCP_BIN "/usr/bin/scp"
-#define MKDIR_BIN "/usr/bin/mkdir"
 
 
 // keys from the config files
