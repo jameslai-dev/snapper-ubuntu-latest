@@ -1,3 +1,9 @@
+snapper (0.13.2-2) noble; urgency=medium
+
+  * Fix missing build dependency: libssl-dev
+
+ -- Cheng-Ling Lai <jamesljlster@gmail.com>  Tue, 08 Sep 2026 10:36:15 +0800
+
 snapper (0.13.2-1) noble; urgency=medium
 
   * New upstream release v0.13.2
